@@ -1,0 +1,17 @@
+- hosts: all
+  user: vagrant
+  become: yes
+  vars:
+    config_path: '/vagrant'
+  roles:
+    - php72
+    - composer
+    - zip&unzip
+    - httpd
+    - git
+    - mongodb
+    - php-twitter-git-config
+    - python36&pip
+
+
+    

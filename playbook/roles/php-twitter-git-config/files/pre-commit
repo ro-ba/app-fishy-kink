@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+    against=HEAD
+else
+    against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+fi
+
+exec 1>&2
+
+branch=$(git rev-parse --abbrev-ref "$against")
+
+if test -z `git config user.name` 
+then
+    cat <<\EOF
+Error: ユーザー名が設定されてないからコミットできません！
+<command>
+git config user.name "あなたの名前"
+##他のメンバーに伝わるような名前にしてね##
+EOF
+    exit 1
+fi
+
+if test "$branch" = "master" && test `git config user.name` != "ro-ba" 
+then
+    cat <<\EOF
+masterへのコミット禁止ぃ～！(ﾟДﾟ#)
+ブランチを変更してaddし直し！！
+<command>
+1.git stash
+2.git checkout develop
+3.git pull
+4.git stash apply
+##ここでコンフリクトが起きたら解消してからaddし直してね##
+4.addとcommitとpush
+EOF
+    exit 1
+fi

@@ -1,0 +1,5 @@
+- name: copy pre-commit
+  copy:
+    src: ../files/pre-commit
+    dest: /vagrant/.git/hooks
+
