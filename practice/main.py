@@ -6,4 +6,5 @@ import example1 as ex1
 ex1.member()
 print("world")
 print("hello")
+print("pig")
 
