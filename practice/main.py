@@ -7,4 +7,5 @@ ex1.member()
 print("world")
 print("hello")
 print("pig")
+print("human")
 
