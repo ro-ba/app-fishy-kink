@@ -1,3 +1,0 @@
-def member():
-	print("ino")
-
