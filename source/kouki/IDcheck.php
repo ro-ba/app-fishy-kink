@@ -4,7 +4,7 @@
     $mongo = new MongoClient();
     $db = $mongo->selectDB("User");
     $col = new MongoCollection($db,"user");
-    
+
     $check = $col -> findone(["_id" => $newid]);
     if($check){
         echo "NG";
@@ -13,8 +13,5 @@
     }
 
     }
-    if(isset($_POST[‘comment’])){
-        $comment = $_POST[‘comment’];
-        echo $comment;
     IDcheck("1a");
 ?>
