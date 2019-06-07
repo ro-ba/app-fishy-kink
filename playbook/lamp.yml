@@ -12,6 +12,7 @@
     - mongodb
     - php-twitter-git-config
     - python36&pip
+    - mount
 
 
     

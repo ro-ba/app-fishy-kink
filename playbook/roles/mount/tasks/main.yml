@@ -1,0 +1,21 @@
+########mountタグを使った場合うまくマウントされない######################
+- name: mount /vagrant/source to /var/www/html
+  mount:
+    path: /var/www/html 
+    src: /vagrant/source
+    opts: bind
+    fstype: none
+    state: mounted
+# 　register: fstab
+
+# - name: Reload fstab
+#   command: mount -a
+#   when: fstab.changed
+
+###妥協案
+
+# - name: mount /vagrant/source to /var/www/html
+#   command: mount --bind /vagrant/source /var/www/html
+#   args:
+#     warn:False
+
