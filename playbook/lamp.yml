@@ -3,6 +3,7 @@
   become: yes
   vars:
     config_path: '/vagrant'
+    home_path: '/home/vagrant'
   roles:
     - php72
     - composer
@@ -12,6 +13,8 @@
     - mongodb
     - php-twitter-git-config
     - python36&pip
+    - mount
+    - alias
 
 
     
