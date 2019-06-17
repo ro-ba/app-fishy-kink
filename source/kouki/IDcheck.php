@@ -7,7 +7,7 @@
         if($check){
             return "登録できません";
         }else{
-            return "True";
+            return $newid;
         }
 
     }
