@@ -7,6 +7,7 @@ function connectMongo(){
     $userDB = $FishyKinkDB->selectCollection('user');
     $tweetDB = $FishyKinkDB->selectCollection('tweet');
     $DMDB = $FishyKinkDB->selectCollection('DM');
-    return ["userDB" => $userDB, "tweetDB" => $tweetDB, "DMDB" => $DMDB];
+    $notifyDB= $FishyKinkDB->selectCollection('notify');
+    return ["userDB" => $userDB, "tweetDB" => $tweetDB, "DMDB" => $DMDB, "notifyDB" => $notifyDB];
 }
 ?>
