@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+require "/vagrant/source/func/FKSession.php";
+
 class HomeController extends Controller
 {
     /**
@@ -13,6 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (session_exists()){
+            return view("home");
+        }else{
+            return redirect("/");
+        }
+        
         //
     }
 

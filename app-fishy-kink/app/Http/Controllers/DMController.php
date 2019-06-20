@@ -13,6 +13,7 @@ class DMController extends Controller
      */
     public function index()
     {
+        return view("DM");
         //
     }
 

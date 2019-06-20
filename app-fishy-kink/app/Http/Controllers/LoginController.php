@@ -13,6 +13,7 @@ class LoginController extends Controller
      */
     public function index()
     {
+        return view('login');
         //
     }
 
@@ -34,6 +35,11 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
+        if ($request -> input("userID")){
+            $name = $request -> input('userID');
+            session(["userID" => $name]);
+        }
+        return redirect("home");
         //
     }
 
