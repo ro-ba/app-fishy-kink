@@ -1,17 +1,16 @@
 <?php
+    require "../func/FKMongo.php";
     function IDcheck($newid){
-    //$newid = $_GET['newid'];
-    $mongo = new MongoClient();
-    $db = $mongo->selectDB("User");
-    $col = new MongoCollection($db,"user");
+        $data = connectMongo();
+        $check = $data["userDB"]->findOne(["_id" => $newid]);
 
-    $check = $col -> findone(["_id" => $newid]);
-    if($check){
-        echo "NG";
-    }else{
-        echo "OK";
-    }
+        if($check){
+            return "登録できません";
+        }else{
+            return $newid;
+        }
 
     }
-    IDcheck("1a");
+    //$anser = IDcheck("1a");
+    //print_r($anser);
 ?>
