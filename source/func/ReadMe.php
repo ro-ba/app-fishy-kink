@@ -1,5 +1,5 @@
 <?php
-//Usage: FKMongo
+//Usage: FKMongo.connectMongo()
 require "FKMongo.php";
 
 $data = connectMongo();
@@ -10,11 +10,22 @@ $a = $data["userDB"]->findOne(["name" => "たまの"]);
 print_r($a);
 
 
-//Usage:FKHash
+//Usage:FKHash.fkHash()
 require "FKHash.php";
 
 $password = "P@ssword";
 $salt = "Atsushi Tamano";
 $data = fkHash($password,$salt);
 print_r($data);
+
+//Usage:FKSession.session_exists()
+require "FKSession.php";
+
+if (session_exists()){
+    //
+}else{
+    //
+}
 ?>
+
+
