@@ -1,14 +1,8 @@
 <?php
-session_start();
+//require_once dirname(__FILE__) . '/vendor/autoload.php';
+require 'vendor/autoload.php'; 
+
 $data = dbAccess();
-
-// $tweet = $data['tweet'];
-// $text = $data['text'];
-// $icon = $data['icon'];
-// $birthday = $data['birthday'];
-// $follow = count($data['follow']);
-// $follower = count($data['follower']);
-
 $user_json = json_encode($data);
 
 $ch = curl_init();
@@ -22,18 +16,17 @@ echo 'RETURN:'.$result;
 curl_close($ch);
 
 function dbAccess(){
-    $mongo = new MongoClient();
-    $db = $mongo->selectDB("User");
-    $collection = new MongoCollection($db,"user");
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    $db = $client->selectDatabase('User');
+    $collection = $db->selectCollection('user');
 
     // $userName = array('userName' => '$_SESSION[‘username’]');
-    $userName = array('userName' => 'test');
-    $cursor = $collection->find($userName);
-    $data = array();
-    foreach ($cursor as $userData) {
-       array_push($data,$userData);
-    }
 
+    $cursor = $collection->find(['userName' => 'test']);
+    foreach ($cursor as $userData) {
+       $data = $userData;
+    };
+    var_dump($data);
     return $data;
-}
+};
 ?>
