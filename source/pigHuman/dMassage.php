@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php'; 
+require "/vagrant/source/func/FKMongo.php";
 
 session_start();
 $data = dbAccess();
@@ -34,31 +34,22 @@ if(is_null($data)){
 }
 
 function dbAccess(){
-    $client = new MongoDB\Client("mongodb://localhost:27017");
-    $db = $client->selectDatabase('dm');
-    $collection = $db->selectCollection('dMssage');
-
-    // $userName = array('userName' => '$_SESSION[‘username’]');
-
-    $cursor = $collection->find(['userName' => 'test']);
-
+    $data = connectMongo();
+    $cursor = $data["userDB"]->findOne(["userName" => "test"]);
     foreach ($cursor as $userData) {
-       $data=$userData;
+       $result=$userData;
     };
 
-    return $data;
+    return $result;
 }
 function newTalk(){
-    $client = new MongoDB\Client("mongodb://localhost:27017");
-    $db = $client->selectDatabase('User');
-    $collection = $db->selectCollection('user');
-
-    $cursor = $collection->find(['userName' => 'test']);
+    $data = connectMongo();
+    $cursor = $data["userDB"]->findOne(["userName" => "test"]);
 
     foreach ($cursor as $userData) {
-        $data=$userData;
+        $result=$userData;
     };
  
-    return $data;
+    return $result;
 }
 ?>
