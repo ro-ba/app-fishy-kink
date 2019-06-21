@@ -1,0 +1,80 @@
+.body{
+    font: 14px/1.6 "Hiragino Kaku Gothic Pro",Osaka,"メイリオ","ＭＳ Ｐゴシック","MS PGothic",Verdana,Arial,sans-serif;
+    margin:0;
+    color:#313131;
+}
+
+.userData{
+    width:400px;
+    height:100px;
+    margin:5px; padding:10px; border:1px solid black;
+    background-color:#6091d3;;
+}
+
+.userData > #myIcon{
+    float:left;
+    outline:none;
+    border-style:none;
+}
+
+.userData > #name{
+    background: #FFF;
+    text-align: center;
+    float: left;
+    font-weight: bold;
+    font-size:100px;
+}
+
+.userData > #userID{
+    background: #FFF;
+    text-align: center;
+    float:left;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.profile{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    background-color: #6091d3;
+    background: #FFF;
+    border: solid 3px #6091d3;
+    border-radius: 10px;
+}
+
+.tweet{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    background-color: #6091d3;
+    background: #FFF;
+    border: solid 3px #6091d3;
+    border-radius: 10px;
+}
+
+.profile p{
+    margin: 0; 
+    padding: 0;
+}
+
+.tweet p{
+    margin: 0; 
+    padding: 0;
+}
+
+.setButton{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.btn-square:active {
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    border-bottom: none;
+}
