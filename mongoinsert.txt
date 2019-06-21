@@ -1,0 +1,13 @@
+db.userDB.insert({"_id":"123aaa","pass":"11aa"})
+db.userDB.insert({"_id":"123qqq","pass":"22aa"})
+db.userDB.insert({"_id":"123ccc","pass":"33aa"})
+db.userDB.insert({"_id":"123bbb","pass":"44aa"})
+
+
+
+
+
+
+
+
+
