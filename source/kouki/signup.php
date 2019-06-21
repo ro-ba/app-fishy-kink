@@ -1,6 +1,6 @@
 <?php
     require "../func/FKMongo.php";
-    require "../func/FKHash.php"
+    require "../func/FKHash.php";
     $data = connectMongo();
 
     //if(isset($_POST[‘name’]) ){
@@ -10,31 +10,48 @@
     //       print_r("名前を入力してください");
     //    }
 
-       $id = $_POST[‘id’];
-       $pass = $_POST[‘パスワード’];
-
 
     //$ID = IDcheck($id);
     //$Pass = Passcheck($pass);
 
-    $ID = IDcheck("12as");
-    $Pass = Passcheck("Pasrr4");
+    $ID = IDcheck("あ");
+    $Pass = Passcheck("Pasrr");
 
-    if(preg_match("/^[a-zA-Z0-9]+$/", $ID )){
-        if(preg_match("/^[a-zA-Z0-9]+$/", $Pass)){
-            $salt = salt("20");
-            $Passsolt = $Pass . $salt;
-            $Pass = password_hash($Passsolt , PASSWORD_DEFAULT);
-            //print_r($Passsolt);
-            print_r($Pass);
-
+    //if(preg_match("/^[a-zA-Z0-9]+$/", $ID )){
+    //    if(preg_match("/^[a-zA-Z0-9]+$/", $Pass)){
+    //        $salt = salt("20");
+    //        $Pass = fkHash($Pass,$salt);
             //$data["userDB"]->insertOne(["userID" => $ID,"password" => $Pass ,"solt" => $salt,"userName" => $Name]);
-        }else{
-            print_r($Pass);
-        }
+    //    }else{
+    //        print_r($Pass);
+    //    }
+    //}else{
+    //    print_r($ID);
+    //}
+    if(preg_match("/^[a-zA-Z0-9]+$/", $ID )){
+        $c = $c + 5;
     }else{
+        $c = $c + 1;
+    }
+    if(preg_match("/^[a-zA-Z0-9]+$/", $Pass)){
+        $c = $c + 5;
+    }else{
+        $c = $c + 2;
+    }
+    
+    if($c == 10){
+        $salt = salt("20");
+        $Pass = fkHash($Pass,$salt);
+        //$data["userDB"]->insertOne(["userID" => $ID,"password" => $Pass ,"solt" => $salt,"userName" => $Name]);
+    }elseif($c == 6){
+        print_r($ID);
+    }elseif($c == 7){
+        print_r($Pass);
+    }elseif($c == 3){
+        $ID = $ID ."<br \>". $Pass;
         print_r($ID);
     }
+
 
     function IDcheck($newid){
         $data = connectMongo();
