@@ -1,13 +1,10 @@
 <?php
-require "/vagrant/source/func/FKMongo.php";
-
+require "/vagrant/source/func/FKMongo.php"; 
 session_start();
 $data = dbAccess();
-
 if(is_null($data)){
     $newTalkList = newTalk();
     $talk_json = json_encode($newTalkList);
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -21,7 +18,6 @@ if(is_null($data)){
 }else{
     
     $dm_json = json_encode($data);
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -32,24 +28,26 @@ if(is_null($data)){
     echo 'RETURN:'.$result;
     curl_close($ch);
 }
-
 function dbAccess(){
-    $data = connectMongo();
-    $cursor = $data["userDB"]->findOne(["userName" => "test"]);
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    $db = $client->selectDatabase('FishyKink');
+    $collection = $db->selectCollection('DMDB');
+    // $userName = array('userName' => '$_SESSION[‘username’]');
+    $cursor = $collection->find(['userName' => 'test']);
     foreach ($cursor as $userData) {
-       $result=$userData;
+       $data=$userData;
     };
-
-    return $result;
+    return $data;
 }
 function newTalk(){
-    $data = connectMongo();
-    $cursor = $data["userDB"]->findOne(["userName" => "test"]);
-
+    $client = new MongoDB\Client("mongodb://localhost:27017");
+    $db = $client->selectDatabase('FishyKink');
+    $collection = $db->selectCollection('userDB');
+    $cursor = $collection->find(['userName' => 'test']);
     foreach ($cursor as $userData) {
-        $result=$userData;
+        $data=$userData;
     };
- 
-    return $result;
+    var_dump($data);
+    return $data;
 }
 ?>
