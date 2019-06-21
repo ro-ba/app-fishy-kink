@@ -8,13 +8,13 @@
 </head>
 
 <body>
-    <form class="input" action="POST">
+    <form class="input" method= action="POST">
         <div class="inputId"><input type="text" value="ID/メールアドレス" /></div>
         <div class="inputPass"><input type="text" value="パスワード" /></div>
-        <div><a href="login.html">ID・パスワードを忘れた場合はこちら</a></div>
+        <div><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
         <input class="loginButton" type="submit" method="GET" value="ログイン">
         <div>または</div>
-        <input class="registerButton" type="button" onclick="location.href='./signUp.html'" value="新規登録">
+        <input class="registerButton" type="button" onclick="location.href='/signUp'" value="新規登録">
     </form>
 </body>
 
