@@ -18,11 +18,14 @@
     </form> -->
     <form method="POST" action="/login">
         @csrf
-        <!-- {{ csrf_field() }} -->
+        {{ csrf_field() }}
         userID:<input type="text" name="userID"/>
         password:<input type="password" name="password"/>
         <input type="submit" value="login" />
     </form>
+    <div><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
+    <div>または</div>
+    <input class="registerButton" type="button" onclick="location.href='/signUp'" value="新規登録">
     
 </body>
 
