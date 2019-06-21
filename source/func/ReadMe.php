@@ -34,6 +34,8 @@ if (session_exists()){
     //entry session
         session(["username" => "tamano"]);
 
+    // Detail is example1.php
+
 //Usage: POST Parameter !Laravel enviroment only!
 
     // 名前の取得
@@ -50,6 +52,8 @@ if (session_exists()){
     $request->has('name');
     // リクエストにnameが存在しており、かつ空でない事を判定
     $request->filled('name');
+
+    // Detail is example1.php
 
 ?>
 
