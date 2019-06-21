@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>tweet</title>
@@ -12,11 +11,11 @@
     <link rel="shortcut icon" href="">
 </head>
 
-
 <script>
-    // 文字制限
+    // 文字制限 試しに遷移する
     function getValue(txt){
-       if(document.getElementById(txt).value.length < 10) {
+        // テキストエリアの入力値が10文字以内なら遷移する
+       if(document.getElementById(txt).value.length < 10) { 
             var form = document.forms['tweet'];
             form.method = 'POST';
             form.action = 'test.php';
@@ -27,17 +26,7 @@
 </script>
 
 <script>
-	$(function(){
-		// ページ読み込み時に実行したい処理
-		$(document).ready( function(){
-			var session_img = "{{ session.img_url }}";
-		
-			$('.preview').attr('src',session_img );
-		});
-	});
-</script>
-
-<script>
+    //　画像を選択して表示する
     function OnFileSelect(inputElement){
 	// フォームで選択された全ファイルを取得
 	var fileList = inputElement.files;
@@ -60,17 +49,12 @@
 	
 </script>
 
-
-
-
-
 <body>
     <form name = "tweet">
         <div>
             <textarea id = "area" name = "body" cols="50" rows="7" maxlength="200" ></textarea>
             <div>
                 <input type="file" id="preview" onchange="OnFileSelect(this);" simple>
-                
                 <input type="button" value="ツイート" onclick="getValue('area');"/>
             </div>
     </form>
