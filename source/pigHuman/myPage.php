@@ -3,12 +3,13 @@
 require "/vagrant/source/func/FKMongo.php";
 $client = connectMongo();
 
-//if($_SERVER["REQUEST_METHOD"] != "POST"){
-    function myPage(){
-    $data = dbAccess();
+function myPage(){
+    //if($_SERVER["REQUEST_METHOD"] != "POST"){
+    $userData = dbUser();
+    $tweetData = dbTweet();
 
-    $user_json = json_encode($data);
-    return $user_json;
+    $data_json = json_encode(array_merge(json_decode($userData,true),json_decode($tweetData,true)))
+    return $data_json;
 //}
 
 // $ch = curl_init();
@@ -22,11 +23,18 @@ $client = connectMongo();
 // curl_close($ch);
 }
 
-function dbAccess(){
+function dbUser(){
     $cursor = $client["userDB"]->find(['userName' => session('userID')]);
     foreach ($cursor as $userData) {
        $data = $userData;
     };
     return $data;
-};
+}
+function dbTweet(){
+    $cursor = $client["tweetDB"]->find(['userName' => session('userID')]);
+    foreach ($cursor as $tweetData) {
+       $data = $tweetData;
+    };
+    return $data;
+}
 ?>
