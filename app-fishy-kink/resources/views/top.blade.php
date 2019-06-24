@@ -19,7 +19,6 @@
     <div id="link area">
         <button class="btn btn-default" type="button"onclick="location.href='./signUp'">アカウント作成</button>
         <button class="btn btn-default" type="button"onclick="location.href='/login'">ログイン</button>
-        <button class="btn btn-default"type="button"onclick="location.href='/test'">テスト</button>
     </div>
 </body>
 </html>
