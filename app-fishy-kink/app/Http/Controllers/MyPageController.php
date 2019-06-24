@@ -13,6 +13,7 @@ class MyPageController extends Controller
      */
     public function index()
     {
+        
         //
     }
 
