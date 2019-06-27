@@ -15,11 +15,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (session_exists()){
-            return view("home");
-        }else{
-            return redirect("/");
-        }
+        return view("home");
+        // if (session_exists()){
+        //     return view("home");
+        // }else{
+        //     return redirect("/");
+        // }
         
         //
     }
