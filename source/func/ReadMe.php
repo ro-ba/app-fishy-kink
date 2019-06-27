@@ -3,7 +3,7 @@
 require "FKMongo.php";
 
 $data = connectMongo();
-// key = userDB, tweetDB,DMDB
+// key = userDB, tweetDB, DMDB, NotifyDB
 $data["userDB"]->insertOne(["name" => "たまの","tweetID" => "tamano"]);
 
 $a = $data["userDB"]->findOne(["name" => "たまの"]);
