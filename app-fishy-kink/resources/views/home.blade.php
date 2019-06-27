@@ -10,38 +10,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div id="menu"> 
-        <div class="link_button">
-            <button type="button"onclick="location.href='/home'">home</button>
-        </div>
-        <div class="link_button">
-            <button type="button"onclick="location.href='/notify'">通知</button>
-        </div>
-        <div class="link_button">
-            <button type="button"onclick="location.href='/dMessage'">メッセージ</button>
-        </div>
-        <div class="link_button">
-            <button type="button"onclick="location.href='/story'">ストーリー</button>
-        </div>
-        <div id="link_icon"></div>
-        <form method='get' action="/serchResult" >
-            <image src=""></image>
-            <input type=text name="serchString">
-            <input type=submit value="検索">
+    <div id="menu row d-inline col-md-12"> 
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/notify'">通知</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/DM'">メッセージ</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/story'">ストーリー</button>
+
+        
+        <form method='get' action="/serchResult" class="form-inline d-inline" >
+            <!-- <div class="form-group"> -->
+                <image class="form-control" src=""></image>
+                <input class="form-control" type=text name="serchString">
+                <input class="form-control " type=submit value="検索">
+            <!-- </div> -->
         </form>
-        <div class="link_button">
-            <button type="button"onclick="location.href='/tweet'">ツイート</button>
-        </div>
-        <div class="link_button">
-            <button type="button"onclick="location.href='/logout'">ログアウト</button>
-        </div>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/tweet'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
     </div>
-    <div id="mainContents">
-        <div id="leftContents"></div>
-        <div id="centerContents">
-            <div class="tweet">
+    
+    <div class="row">
+        <div id="leftContents" class="col-sm-3"></div>
+        <div id="centerContents" class="col-sm-6">
+            <div class="tweet card">
                 <div class=tweetTop>
                         <div class="date">5/23</div> 　
                         <div class="time">11:34</div>
@@ -62,7 +55,6 @@
                 </div>
             </div>
         </div>
-        <div id="rightContents"></div>
-    </div>
+        <div id="rightContents" class="col-sm-3"></div>
 </body>
 </html>

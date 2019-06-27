@@ -18,7 +18,7 @@
     </form>
     <div class="btn btn-warning"><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
     <div>または</div>
-    <input class="btn btn-primary" type="button" onclick="location.href='/signUp'" value="新規登録">
+    <input class="btn btn-success" type="button" onclick="location.href='/signUp'" value="新規登録">
     
 </body>
 
