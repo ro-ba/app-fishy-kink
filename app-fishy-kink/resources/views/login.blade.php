@@ -10,7 +10,7 @@
 
 <body>
     <form method="POST" action="/login">
-        @csrf
+        <!-- @csrf -->
         {{ csrf_field() }}
         <div class="form-group">userID:<input class="form-control" type="text" name="userID"/></div>
         password:<input class="form-control" type="password" name="password"/></div>

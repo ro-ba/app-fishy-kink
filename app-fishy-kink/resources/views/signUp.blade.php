@@ -16,7 +16,9 @@
 <body class="bg-secondary">
 <div class="card mb-3">
     <div class="card-body">
-    <form method="post">
+    <form method="post" action="/signUp">
+    {{ csrf_field() }}
+    @csrf
         <h4 class="card-title">新規アカウント登録</h4>
         <div class="form-group"><input class="form-control" type="text" name="name" placeholder="名前"></div>
         <div class="form-group"><input class="form-control" type="text" name="id" placeholder="ID"></div>

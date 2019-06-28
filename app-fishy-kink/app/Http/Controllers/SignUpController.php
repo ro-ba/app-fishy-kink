@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/kouki/signUp.php";
 
 class SignUpController extends Controller
 {
@@ -35,7 +36,8 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // echo "konnnitwa";
+        echo iji($request);
     }
 
     /**
