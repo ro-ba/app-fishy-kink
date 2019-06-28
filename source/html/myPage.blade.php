@@ -14,20 +14,20 @@
 
 <body>
     <div>
-        <div class=userData>
-            <img name="myIcon" src="<%= icon %>" alt="myIcon" />
-            <p name="usenName">ホリカクァ（仮）</p>
-            <p name="userId">@horikakua</p>
+        <div id=userData>
+            <img id="myIcon" src="<%= icon %>" alt="myIcon" />
+            <p id="userName">ホリカクァ（仮）</p>
+            <p id="userId">@horikakua</p>
         </div>
-        <p>フォロー<span class="follow"></span>人</p>
-        <p>フォロワー<span class="follower"></span>人</p>
+        <p id="follow">フォロー</p>
+        <p id="follower">フォロワー</p>
+        <div id=profile>プロフィール
+            <p id=text></p>
+        </div>
         <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
     </div>
-    <div>
-        <p name="profile">プロフィール</p>
-    </div>
-    <div>
-        <p name="tweet">ツイート</p>
+    <div id="tweet">ツイート
+        <p id="tweetText"></p>
     </div>
 </body>
 

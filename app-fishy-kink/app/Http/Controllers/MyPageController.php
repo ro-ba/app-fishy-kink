@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php"
 
 class MyPageController extends Controller
 {
@@ -13,7 +14,7 @@ class MyPageController extends Controller
      */
     public function index()
     {
-        //
+        echo myPage();
     }
 
     /**
