@@ -2,6 +2,8 @@
 require "/vagrant/source/func/FKMongo.php"; 
 require "FKSession.php"
 
+//DM画面：図七
+
 function dMassage(){
     //if($_SERVER["REQUEST_METHOD"] != "POST"){
         $client = connectMongo();

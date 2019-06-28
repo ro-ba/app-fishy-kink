@@ -6,6 +6,10 @@ function tweet($request){
     $data = connectMongo();
     $request = $request -> all();
 
+    //if($request["type"] == "retweet"){
+
+    //}
+
     //$cursor = $data["userDB"]->find(["userID"=>"tamano"]);
     //$cursor = $data["userDB"]->findOne(["userID"=>$_SESSION[‘userName’]]);
     // foreach($cursor as $userData){
