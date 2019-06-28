@@ -1,5 +1,6 @@
 <?php
 require "/vagrant/source/func/FKMongo.php";
+require "FKSession.php"
 
 function tweet($request){
     $data = connectMongo();

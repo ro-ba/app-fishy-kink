@@ -1,8 +1,9 @@
 <?php
 require "/vagrant/source/func/FKMongo.php"; 
+require "FKSession.php"
 
 function dMassage(){
-    if($_SERVER["REQUEST_METHOD"] != "POST"){
+    //if($_SERVER["REQUEST_METHOD"] != "POST"){
         $client = connectMongo();
         $data = dbAccess();
         if(is_null($data)){
@@ -33,7 +34,7 @@ function dMassage(){
             // echo 'RETURN:'.$result;
             // curl_close($ch);
         }
-    }
+    //}
 
 }
 function dbAccess(){
