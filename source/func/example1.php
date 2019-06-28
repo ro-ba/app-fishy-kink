@@ -1,9 +1,8 @@
 <?php
     require "/vagrant/source/func/FKMongo.php";
 
-$data = connectMongo();
-
-function shibuya_test($request){
+function shibuya_test($request){    //$requestにはpostで送られたパラメータが入っている
+    $data = connectMongo();
     session( ["userID" => $request -> input("userID")]);
     session( ["pass" => $request -> input("password")]);
     // print_r(session("loginname"));

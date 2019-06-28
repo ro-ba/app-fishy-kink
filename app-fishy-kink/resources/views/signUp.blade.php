@@ -10,18 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
     <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-secondary">
+<div class="card mb-3">
+    <div class="card-body">
     <form method="post">
-        <div>新規アカウント登録</div>
-        <div><input type="text" name="name" placeholder="名前"></div>
-        <div><input type="text" name="id" placeholder="ID"></div>
-        <div><input type="password" placeholder="パスワード"></div>
-        <div><input type="submit" value="新規登録"></div>
+        <h4 class="card-title">新規アカウント登録</h4>
+        <div class="form-group"><input class="form-control" type="text" name="name" placeholder="名前"></div>
+        <div class="form-group"><input class="form-control" type="text" name="id" placeholder="ID"></div>
+        <div class="form-group"><input class="form-control" type="password" placeholder="パスワード"></div>
+        <div class="form-group"><input class="btn btn-success" type="submit" value="新規登録"></div>
     </form>
     または
-    <div><a href="/login">ログイン</a></div>
+    <div ><a class="btn btn-primary" href="/login">ログイン</a></div>
+    </div>
+</div>
     
 </body>
 
