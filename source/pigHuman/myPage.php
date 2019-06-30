@@ -3,29 +3,31 @@
 
 function myPage(){
     require "/vagrant/source/func/FKMongo.php";
-    require "FKSession.php"
+    require "/vagrant/source/func/FKSession.php";
     $client = connectMongo();
-    //if($_SERVER["REQUEST_METHOD"] != "POST"){
-    $userData = dbUser();
-    $tweetData = dbTweet();
-
-    $data_json = json_encode(array_merge(json_decode($userData,true),json_decode($tweetData,true)))
-    return $data_json;
 
     function dbUser(){
         $cursor = $client["userDB"]->find(['userName' => session('userID')]);
         foreach ($cursor as $userData) {
-           $data = $userData;
+           $userData = $userData;
         };
-        return $data;
+        return $userData;
     }
     function dbTweet(){
         $cursor = $client["tweetDB"]->find(['userName' => session('userID')]);
         foreach ($cursor as $tweetData) {
-           $data = $tweetData;
+           $tweetData = $tweetData;
         };
-        return $data;
+        return $tweetData;
     }
+
+    $userDara = dbUser();
+    $tweetData = dbTweet();
+
+    $data_json = json_encode(array_merge(json_decode($userData,true),json_decode($tweetData,true)));
+    return $data_json;
+
+
 }
 //}
 
