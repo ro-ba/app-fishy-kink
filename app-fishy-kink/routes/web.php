@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::resources([
     "/" => "TopController",
     "login" => "LoginController",
+    "logout" => "LogoutController",
     "signUp" => "SignUpController",
     "home" => "HomeController",
     "tweet" => "TweetController",
