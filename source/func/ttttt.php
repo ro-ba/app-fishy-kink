@@ -1,9 +1,21 @@
 <?php
-    ini_set('date.timezone', 'Asia/Tokyo');
-    echo(date("Y/m/d H:i:s"));
+    // ini_set('date.timezone', 'Asia/Tokyo');
+    // echo(date("Y/m/d H:i:s"));
 ?>
 
-db.user.insert(
+<?php
+    require "FKMongo.php";
+    $data = connectMongo();
+    $name = $request->input('name');
+    // print_r($data['userDB']->findOne(array('userID' => "tamano")));
+    print_r($data['userDB']->findOne(array('userID' => $request->input('name'))));
+    print_r($data['userDB']->findOne(array('userID' => "shibuya")));
+
+?>
+
+########################################################
+
+<!-- db.user.insert(
     {
             "userID"    :   "tamano",
             "userName"  :   "たまのくん",
@@ -125,4 +137,4 @@ db.notify.insert(
         "text"      :   "たまのくんにフォローされました。",
         "time"      :   "2019/06/27 10:25:30"
     }
-)
+) -->
