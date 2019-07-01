@@ -1,35 +1,55 @@
 <?php
 //require_once dirname(__FILE__) . '/vendor/autoload.php';
 
-function myPage(){
-    require "/vagrant/source/func/FKMongo.php";
-    require "/vagrant/source/func/FKSession.php";
-    $client = connectMongo();
+require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/func/FKSession.php";
+$FishyKink = connectMongo();
 
-    function dbUser(){
-        $cursor = $client["userDB"]->find(['userName' => session('userID')]);
-        foreach ($cursor as $userData) {
-           $userData = $userData;
+function myPage($FishyKink,$flg){
+
+   function dbUser($FishyKink){
+        //$FishyKink = connectMongo();
+        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => 'ino'));
+        //$userCursor = $FishyKink["userDB"]->find(['userName' => session('userID')]);
+        foreach ($userCursor as $userData) {
+            //array_push($Data,$userData);
+            $Data[] = $userData;
         };
-        return $userData;
+        $user_json = json_encode($Data, JSON_UNESCAPED_UNICODE);
+        // var_dump($user_json);
+        return $user_json;
     }
-    function dbTweet(){
-        $cursor = $client["tweetDB"]->find(['userName' => session('userID')]);
-        foreach ($cursor as $tweetData) {
-           $tweetData = $tweetData;
+
+    function dbTweet($FishyKink){
+        //$FishyKink = connectMongo();
+        $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => 'ino'));
+        //$tweetCursor = $FishyKink["tweetDB"]->find(['userName' => session('userID')]);
+        foreach ($tweetCursor as $tweetData) {
+            $Data[] = $tweetData;
         };
-        return $tweetData;
+        $tweet_json = json_encode($Data, JSON_UNESCAPED_UNICODE);
+        return $tweet_json;
     }
 
-    $userDara = dbUser();
-    $tweetData = dbTweet();
+    // $user_json = dbUser($FishyKink);
+    // $tweet_json = dbTweet($FishyKink);
 
-    $data_json = json_encode(array_merge(json_decode($userData,true),json_decode($tweetData,true)));
-    return $data_json;
-
-
+    //$data_json = json_encode(array_merge(json_decode(dbUser($FishyKink),true),json_decode(dbTweet($FishyKink),true)));
+    if($flg == "user"){
+        $user_json = dbUser($FishyKink);
+        return $user_json;
+    }
+    else{
+        $tweet_json = dbTweet($FishyKink);
+        return $tweet_json;
+    }
+    return false;
 }
-//}
+
+// $flg = "user";
+
+// myPage($FishyKink,$flg);
+
 
 // $ch = curl_init();
 // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
