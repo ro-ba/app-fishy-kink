@@ -5,11 +5,13 @@
 
 <?php
     require "FKMongo.php";
-    $data = connectMongo();
-    $name = $request->input('name');
-    // print_r($data['userDB']->findOne(array('userID' => "tamano")));
-    print_r($data['userDB']->findOne(array('userID' => $request->input('name'))));
-    print_r($data['userDB']->findOne(array('userID' => "shibuya")));
+    require "FKHash.php";
+
+    print_r (fkHash("ino","banana"));
+    // $data = connectMongo();
+    // print_r($data['userDB']->findOne(["userID" => "tamano"]));
+    // print_r($data['userDB']->findOne(array('userID' => $request->input('name'))));
+    // print_r($data['userDB']->findOne(array('userID' => "shibuya")));
 
 ?>
 
