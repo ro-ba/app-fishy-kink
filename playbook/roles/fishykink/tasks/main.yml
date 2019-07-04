@@ -19,5 +19,6 @@
         chdir: /vagrant/app-fishy-kink/
   when: not env.stat.exists
 
-- name: 
-
+- name: run dropdb and importTestDB script
+  script: "{{ func_path }}/sh/dropDB.sh"
+  script: "{{ func_path }}/sh/importTestDB.sh"
