@@ -1,22 +1,23 @@
-- name: update composer
-  composer:
-    command: update
-    working_dir: /vagrant/app-fishy-kink/
+- stat:
+    path: /vagrant/app-fishy-kink/.env
+  register: env
 
-- name: create .env
-  copy:
-    src: /vagrant/app-fishy-kink/.env.example
-    dest: /vagrant/app-fishy-kink/.env
+- block:
+    - name: update composer
+      composer:
+        command: update
+        working_dir: /vagrant/app-fishy-kink/
 
-- name: create env key
-  command: php artisan key:generate
-  args:
-    chdir: /vagrant/app-fishy-kink/
+    - name: create .env
+      copy:
+        src: /vagrant/app-fishy-kink/.env.example
+        dest: /vagrant/app-fishy-kink/.env
 
-- name: import fishykinkDB in mongo
-    command: mongoimport --db FishyKink --collection DM --file /vagrant/source/func/db/DM.json
-    command: mongoimport --db FishyKink --collection notify --file ../files/notify.json
-    command: mongoimport --db FishyKink --collection tweet --file ../files/tweet.json
-    command: mongoimport --db FishyKink --collection user --file ../files/user.json
+    - name: create env key
+      command: php artisan key:generate
+      args:
+        chdir: /vagrant/app-fishy-kink/
+  when: not env.stat.exists
 
+- name: 
 
