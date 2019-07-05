@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html>
+        <?php
+        require "/vagrant/source/func/FKMongo.php";
+        require "/vagrant/source/func/FKHash.php";
+        
+        function login($request){
+            $data = connectMongo();
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>login</title>
-</head>
+            session( ["userID" => $request -> input("userID")]);
+            session( ["pass" => $request -> input("password")]);
 
-<body>
-    <!-- <form class="input" method="POST" action="/login">
-        <div class="inputId"><input type="text" name="userID" value="ID/メールアドレス" /></div>
-        <div class="inputPass"><input type="text" name="password" value="パスワード" /></div>
-        <div><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
-        <input class="loginButton" type="submit" value="ログイン">
-        <div>または</div>
-        <input class="registerButton" type="button" onclick="location.href='/signUp'" value="新規登録">
-    </form> -->
-    <form method="POST" action="/login">
-        @csrf
-        <!-- {{ csrf_field() }} -->
-        userID:<input type="text" name="userID"/>
-        password:<input type="password" name="password"/>
-        <input type="submit" value="login" />
-    </form>
-    
-</body>
+            $d = $request->session()->get('userID');
 
-</html>
+            $a = $data["userDB"]->findOne(["userID" => $d]);
+        
+            $ID         =  $a["userID"];
+            $password   =  $a["password"];
+            
+            $salt       =  $a["salt"];
+            $data = fkHash($request -> input("password"),$salt);
+
+            if(session("userID") !== $ID || $data !== $password){
+                \Session::flush();
+                ?>
+                ログインに失敗しました。<br />
+                <a href="login">ログインページヘ</a>
+                <?php
+                exit;
+            }          
+        }
+
+        ?>
