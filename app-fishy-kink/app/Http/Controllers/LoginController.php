@@ -36,12 +36,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        shibuya_test($request);
-
-        // if ($request -> input("userID")){
-        //     $name = $request -> input('userID');
-        //     session(["userID" => $name]);
-        // }
+        login($request);
         return view("login");
         // return redirect("home");
         
