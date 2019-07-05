@@ -37,6 +37,7 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         login($request);
+        
         return view("login");
         // return redirect("home");
         

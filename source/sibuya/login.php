@@ -3,6 +3,7 @@
         require "/vagrant/source/func/FKHash.php";
         
         function login($request){
+
             $data = connectMongo();
 
             session( ["userID" => $request -> input("userID")]);
@@ -17,14 +18,15 @@
             
             $salt       =  $a["salt"];
             $data = fkHash($request -> input("password"),$salt);
+            test();
 
             if(session("userID") !== $ID || $data !== $password){
                 \Session::flush();
                 ?>
-                ログインに失敗しました。<br />
-                <a href="login">ログインページヘ</a>
+                <script>
+                    alert("ログインに失敗しました");
+                </script>
                 <?php
-                exit;
             }          
         }
 
