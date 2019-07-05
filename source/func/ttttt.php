@@ -14,8 +14,8 @@
 ?>
 
 ########################################################
-
-<!-- db.user.insert(
+//pass = apple
+db.user.insert(
     {
             "userID"    :   "tamano",
             "userName"  :   "たまのくん",
@@ -28,7 +28,7 @@
             "birthday"  :   "1999-02-26"
     }
 )
-
+//pass = banana
 db.user.insert(
     {
         "userID"    :   "ino",
@@ -137,4 +137,4 @@ db.notify.insert(
         "text"      :   "たまのくんにフォローされました。",
         "time"      :   "2019/06/27 10:25:30"
     }
-) -->
+)
