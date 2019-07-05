@@ -19,17 +19,15 @@
     $password   =  $a["password"];
     
     $salt       =  $a["salt"];
-    $data = fkHash($request -> input("password"),$salt)."</br>";
-    // print_r($password);
-    // print_r("</br>");
-    // print_r( $data);
-    // print_r(strcmp($data,$password));
-    for ($i = 0;$i < strlen($data); $i++){
-        print_r($i);
-        // if($data[$i] !== $password[$i]){
-        //     // echo("犯人は".$password[$i]."ですですですで");
-        // }
-    }
+    $data = fkHash($request -> input("password"),$salt);
+    print_r($password);
+    print_r("</br>");
+    print_r($data);
+    // if(!hash_equals($data,$password)){
+    //     print_r("false");
+    // }else{
+    //     print_r("true");
+    // }
 
     if(session("userID") !== $ID || $data !== $password){
         // print_r(strcmp($data,$password));
