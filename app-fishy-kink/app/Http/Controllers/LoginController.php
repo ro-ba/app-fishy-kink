@@ -42,7 +42,8 @@ class LoginController extends Controller
         //     $name = $request -> input('userID');
         //     session(["userID" => $name]);
         // }
-        return redirect("home");
+        return view("login");
+        // return redirect("home");
         
     }
 
