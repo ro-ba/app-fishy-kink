@@ -22,7 +22,7 @@
         <h4 class="card-title">新規アカウント登録</h4>
         <div class="form-group"><input class="form-control" type="text" name="name" placeholder="名前"></div>
         <div class="form-group"><input class="form-control" type="text" name="id" placeholder="ID"></div>
-        <div class="form-group"><input class="form-control" type="password" placeholder="パスワード"></div>
+        <div class="form-group"><input class="form-control" type="password" name="password" placeholder="パスワード"></div>
         <div class="form-group"><input class="btn btn-success" type="submit" value="新規登録"></div>
     </form>
     または
