@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/sibuya/a.php";
+require "/vagrant/source/sibuya/login.php";
 
 class LoginController extends Controller
 {
