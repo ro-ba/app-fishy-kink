@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 require "/vagrant/source/kouki/signUp.php";
+require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/func/FKHash.php";
+$data = connectMongo();
 
 class SignUpController extends Controller
 {
@@ -12,6 +15,7 @@ class SignUpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         return view("signUp");
@@ -36,8 +40,18 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
-        // echo "konnnitwa";
-        echo iji($request);
+        global $data;
+        print_r($data['userDB']);
+        $name = $request->name;
+        $id = $request->id;
+        $pass = $request->password;
+
+        
+
+        $ID = IDcheck($id,$data);
+        // $Pass = Passcheck($pass);
+
+        // $Judg = judg($ID,$Pass,$name);
     }
 
     /**
