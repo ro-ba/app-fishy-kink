@@ -1,4 +1,4 @@
-        <?php
+    <?php
         require "/vagrant/source/func/FKMongo.php";
         require "/vagrant/source/func/FKHash.php";
         
@@ -18,14 +18,15 @@
             $salt       =  $a["salt"];
             $data = fkHash($request -> input("password"),$salt);
 
-            if(session("userID") !== $ID || $data !== $password){
+            if(session("userID") == $ID && $data == $password){
                 \Session::flush();
-                ?>
-                ログインに失敗しました。<br />
-                <a href="login">ログインページヘ</a>
-                <?php
-                exit;
-            }          
+                echo "<script>alert('ログイン成功');</script>";
+                // return "OK";
+            }else if(session("userID") != $ID ){
+                echo "<script>alert('ログインに失敗しました。\nユーザIDが間違っているか登録されていません。');</script>";
+            }else if(session("userID") == $ID && $data != $password){
+                echo "<script>alert('ログインに失敗しました。\nパスワードが違っています。');</script>";
+            }
+                 
         }
-
-        ?>
+    ?>
