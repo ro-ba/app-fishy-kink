@@ -9,10 +9,17 @@
 </head>
 
 <body>
+    @isset($return)
+        <div class="alert alert-danger">{{$return["message"]}}</div>
+    @endisset
+    
     <form method="POST" action="/login">
         @csrf
-        {{ csrf_field() }}
-        <div class="form-group">userID:<input class="form-control" type="text" name="userID"/></div>
+        @isset($return)
+            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus value= "{{ $return['userID'] }}"></div>
+        @else
+            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus></div>
+        @endisset
         password:<input class="form-control" type="password" name="password"/></div>
         <div class="form-group"><input class="btn btn-primary" type="submit" value="ログイン" />
     </form>

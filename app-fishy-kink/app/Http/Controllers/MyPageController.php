@@ -19,6 +19,7 @@ class MyPageController extends Controller
         $FishyKink = connectMongo();
         $flg = "user";
         echo myPage($FishyKink,$flg);
+
     }
 
     /**

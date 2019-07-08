@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/sibuya/a.php";
+require "/vagrant/source/sibuya/login.php";
 
 class LoginController extends Controller
 {
@@ -14,8 +14,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login');
-        //
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            return view("login");
+        }
     }
 
     /**
@@ -36,13 +39,14 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        shibuya_test($request);
-
-        // if ($request -> input("userID")){
-        //     $name = $request -> input('userID');
-        //     session(["userID" => $name]);
-        // }
-        return redirect("home");
+        $return = login($request);
+        
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            return view("login",compact("return"));
+        }
+        // return redirect("home");
         
     }
 
