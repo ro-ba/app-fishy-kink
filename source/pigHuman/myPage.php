@@ -9,10 +9,9 @@ function myPage($FishyKink,$flg){
 
    function dbUser($FishyKink){
         //$FishyKink = connectMongo();
-        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => 'ino'));
-        //$userCursor = $FishyKink["userDB"]->find(['userName' => session('userID')]);
+        //$userCursor = $FishyKink["userDB"]->findOne(array('userID' => 'ino'));
+        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => session('userID'));
         foreach ($userCursor as $userData) {
-            //array_push($Data,$userData);
             $Data[] = $userData;
         };
         $user_json = json_encode($Data, JSON_UNESCAPED_UNICODE);
@@ -22,8 +21,8 @@ function myPage($FishyKink,$flg){
 
     function dbTweet($FishyKink){
         //$FishyKink = connectMongo();
-        $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => 'ino'));
-        //$tweetCursor = $FishyKink["tweetDB"]->find(['userName' => session('userID')]);
+        //$tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => 'ino'));
+        $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => session('userID'));
         foreach ($tweetCursor as $tweetData) {
             $Data[] = $tweetData;
         };
