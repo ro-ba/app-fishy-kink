@@ -17,7 +17,7 @@
         <input class="registerButton" type="button" onclick="location.href='/signUp'" value="新規登録">
     </form> -->
     <form method="POST" action="/login">
-        @csrf
+         @csrf 
         <!-- {{ csrf_field() }} -->
         <div>userID:<input type="text" name="userID"/></div>
         <div>password:<input type="password" name="password"/></div>

@@ -13,6 +13,7 @@ class LogoutController extends Controller
      */
     public function index()
     {
+        session() -> flush();
         return redirect("/");
         //
     }
