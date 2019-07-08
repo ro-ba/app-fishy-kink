@@ -1,0 +1,24 @@
+- stat:
+    path: /vagrant/app-fishy-kink/.env
+  register: env
+
+- block:
+    - name: update composer
+      composer:
+        command: update
+        working_dir: /vagrant/app-fishy-kink/
+
+    - name: create .env
+      copy:
+        src: /vagrant/app-fishy-kink/.env.example
+        dest: /vagrant/app-fishy-kink/.env
+
+    - name: create env key
+      command: php artisan key:generate
+      args:
+        chdir: /vagrant/app-fishy-kink/
+  when: not env.stat.exists
+
+- name: run dropdb and importTestDB script
+  script: "{{ func_path }}/sh/dropDB.sh"
+  script: "{{ func_path }}/sh/importTestDB.sh"

@@ -1,0 +1,13 @@
+- name: add alias to .bashrc
+  blockinfile:
+    dest: "{{ home_path }}/.bashrc"
+    insertafter: "# User specific aliases and functions"
+    content: |
+      alias ll='ls -la --color=auto'
+
+- name: set to read .bashrc at startup
+  blockinfile:
+    dest: "{{ home_path }}/.bash_profile"
+    insertafter: "# User specific environment and startup programs"
+    content: |
+      source ~/.bashrc
