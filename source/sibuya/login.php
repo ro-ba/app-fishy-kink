@@ -4,32 +4,39 @@
         
         function login($request){
 
+            $return = [];
+
             $data = connectMongo();
 
-            session( ["userID" => $request -> input("userID")]);
-            session( ["pass" => $request -> input("password")]);
+            $userID = $request -> input("userID");
+            $pass = $request -> input("password");
 
-            $d = $request->session()->get('userID');
+            $d = $request ->get('userID');
 
             $a = $data["userDB"]->findOne(["userID" => $d]);
-        
+
             $ID         =  $a["userID"];
             $password   =  $a["password"];
-            
+
             $salt       =  $a["salt"];
             $data = fkHash($request -> input("password"),$salt);
-            test();
+            
+            if($userID== $ID && $data == $password){
+                session(["userID" => $userID]);
+                session(["pass" => $pass]);
+                
+                return null;
+            }else if($userID != $ID ){
 
-            if(session("userID") == $ID && $data == $password){
-                \Session::flush();
+                $return["message"] = "ユーザIDが間違っているか登録されていません。";
+                $return["userID"] = $userID;
+                return $return;
+            
+            }else if($userID == $ID  && $data != $password){
 
-                echo "<script>alert('ログイン成功');</script>";
-                // return "OK";
-            }else if(session("userID") != $ID ){
-                echo "<script>alert('ログインに失敗しました。\nユーザIDが間違っているか登録されていません。');</script>";
-            }else if(session("userID") == $ID && $data != $password){
-                echo "<script>alert('ログインに失敗しました。\nパスワードが違っています。');</script>";
+                $return["message"] = "パスワードが違っています。";
+                $return["userID"] = $userID;
+                return $return;
             }
-                 
         }
     ?>
