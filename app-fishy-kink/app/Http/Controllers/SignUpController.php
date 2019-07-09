@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/kouki/signup.php";
+require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/func/FKHash.php";
 
 class SignUpController extends Controller
 {
@@ -35,6 +38,13 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
+        $db = connectMongo();
+        $message = [];
+        if (IDcheck($db, $request -> input("userID"), $message)) {
+            print_r("true");
+        }
+        print_r($message);
+        // return view("signUp");
         //
     }
 

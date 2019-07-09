@@ -1,55 +1,32 @@
 <?php
-    require "../func/FKMongo.php";
-    require "../func/FKHash.php"
-    $data = connectMongo();
+    // if(preg_match("/^[a-zA-Z0-9]+$/", $ID )){
+    //     if(preg_match("/^[a-zA-Z0-9]+$/", $Pass)){
+    //         $salt = salt("20");
+    //         $Passsolt = $Pass . $salt;
+    //         $Pass = password_hash($Passsolt , PASSWORD_DEFAULT);
+    //         //print_r($Passsolt);
+    //         print_r($Pass);
 
-    //if(isset($_POST[‘name’]) ){
-    //    $name = $_POST[‘name’];
-    //    $Name = $name;
-    //    }else{
-    //       print_r("名前を入力してください");
-    //    }
+    //         //$data["userDB"]->insertOne(["userID" => $ID,"password" => $Pass ,"solt" => $salt,"userName" => $Name]);
+    //     }else{
+    //         print_r($Pass);
+    //     }
+    // }else{
+    //     print_r($ID);
+    // }
 
-       $id = $_POST[‘id’];
-       $pass = $_POST[‘パスワード’];
-
-
-    //$ID = IDcheck($id);
-    //$Pass = Passcheck($pass);
-
-    $ID = IDcheck("12as");
-    $Pass = Passcheck("Pasrr4");
-
-    if(preg_match("/^[a-zA-Z0-9]+$/", $ID )){
-        if(preg_match("/^[a-zA-Z0-9]+$/", $Pass)){
-            $salt = salt("20");
-            $Passsolt = $Pass . $salt;
-            $Pass = password_hash($Passsolt , PASSWORD_DEFAULT);
-            //print_r($Passsolt);
-            print_r($Pass);
-
-            //$data["userDB"]->insertOne(["userID" => $ID,"password" => $Pass ,"solt" => $salt,"userName" => $Name]);
-        }else{
-            print_r($Pass);
-        }
-    }else{
-        print_r($ID);
-    }
-
-    function IDcheck($newid){
-        $data = connectMongo();
-        $check = $data["userDB"]->findOne(["_id" => $newid]);
-
+    function IDcheck($data,$newid,$message){
+        $check = $data["userDB"]->findOne(["userID" => $newid]);
         if($check){
-            return "このIDは使われています";
+            $message[] = "このIDは使われています";
         }else{
             if(preg_match("/^[a-zA-Z0-9]+$/",$newid )){
-                return $newid;
+                return true;
             }else{
-                return "IDは英数字で入力してください";
+                $message[] = "IDは英数字で入力してください";
             }
         }
-
+        return false;
     }
 
     function Passcheck($newpass){
