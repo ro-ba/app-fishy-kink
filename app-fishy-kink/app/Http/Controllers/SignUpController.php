@@ -53,7 +53,7 @@ class SignUpController extends Controller
                 return view("login",compact("message"));
             }
         }
-        return view("signUp",compact("message"));
+        return view("signUp",compact("userID","userName","message"));
         //
     }
 

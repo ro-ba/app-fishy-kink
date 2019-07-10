@@ -16,18 +16,33 @@
 <body class="bg-secondary">
 <div class="card mb-3">
     <div class="card-header">
-        @foreach ($message as $msg )
-            <div class="alert alert-{{ $msg[0] }}">{{ $msg[1] }}</div>
-        @endforeach
     </div>
     <div class="card-body">
     <form method="post">
         @csrf
         <h4 class="card-title">新規アカウント登録</h4>
-        <div class="form-group"><input class="form-control" type="text" name="username" placeholder="名前" required></div>
-        <div class="form-group"><input class="form-control" type="text" name="userID" placeholder="ID" required></div>
+        @isset($message["userID"])
+            <div class="form-group has-{{ $message['userID'][0] }} has-feedback">
+        @endisset
+            @isset($userName)
+                <input class="form-control" type="text" name="username" placeholder="名前" required value="{{ $userName }}">
+            @else
+                <input class="form-control" type="text" name="username" placeholder="名前" required>
+            @endisset
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        @isset($userID)
+            <div class="form-group"><input class="form-control" type="text" name="userID" placeholder="ID" required value="{{ $userID }}"></div>
+        @else
+            <div class="form-group"><input class="form-control" type="text" name="userID" placeholder="ID" required></div>
+        @endisset
         <div class="form-group"><input class="form-control" type="password" name="password" placeholder="パスワード" required></div>
         <div class="form-group"><input class="btn btn-success" type="submit" value="新規登録"></div>
+    
+        <div class="form-group has-success has-feedback">
+            <input type="text" class="form-control">
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
     </form>
     または
     <div ><a class="btn btn-primary" href="/login">ログイン</a></div>
