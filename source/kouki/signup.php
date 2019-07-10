@@ -1,18 +1,18 @@
 <?php
 
-function check_ID(&$data,$newID,&$message){
+// function check_ID(&$data,$newID,&$message){
     
-    if($data["userDB"]->findOne(["userID" => $newID])){
-        $message["userID"] = ["danger", "このIDは使われています"];
-        return false;
-    }
-    if(preg_match("/^[a-zA-Z0-9]+$/", $newID)){
-        return true;
-    }else{
-        $message["userID"] = ["danger", "IDは英数字で入力してください"];
-    }
-    return false;
-}
+//     if($data["userDB"]->findOne(["userID" => $newID])){
+//         $message["userID"] = ["danger", "このIDは使われています"];
+//         return false;
+//     }
+//     if(preg_match("/^[a-zA-Z0-9]+$/", $newID)){
+//         return true;
+//     }else{
+//         $message["userID"] = ["danger", "IDは英数字で入力してください"];
+//     }
+//     return false;
+// }
 
 function check_password_rules($newPass, &$message){
     //パスワードが半角英字・数字を両方含み、文字数が4文字以上の場合

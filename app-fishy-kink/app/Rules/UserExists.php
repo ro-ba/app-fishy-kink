@@ -1,4 +1,7 @@
 <?php
+/*
+    入力されたuserIDをDBと照合して、既に存在していればFalse,存在しなければTrueを返す
+*/
 
 namespace App\Rules;
 
@@ -11,9 +14,12 @@ class UserExists implements Rule
      *
      * @return void
      */
-    public function __construct()
+
+    protected $data = [];
+
+    public function __construct(array &$data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -25,7 +31,10 @@ class UserExists implements Rule
      */
     public function passes($attribute, $value)
     {
-        
+        if($this -> data["userDB"]->findOne(["userID" => $value])){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -35,6 +44,6 @@ class UserExists implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'このIDは使われています';
     }
 }

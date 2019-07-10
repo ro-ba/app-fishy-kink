@@ -1,4 +1,7 @@
 <?php
+/*
+    入力された文字列が英数字のみであればTrue,でなければFalseを返す
+*/
 
 namespace App\Rules;
 
@@ -12,11 +15,11 @@ class ValidateUserID implements Rule
      * @return void
      */
 
-    protected $data = ["tetetetete"];
+    
 
-    public function __construct(array &$data)
+    public function __construct()
     {
-        $this->data = $data;
+        
     }
 
     // public function __construct()
@@ -33,10 +36,10 @@ class ValidateUserID implements Rule
      */
     public function passes($attribute, $value)
     {
-        if($this -> data["userDB"]->findOne(["userID" => $value])){
-            return false;
+        if(preg_match("/^[a-zA-Z0-9]+$/", $value)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -46,6 +49,6 @@ class ValidateUserID implements Rule
      */
     public function message()
     {
-        return 'このIDは使われています';
+        return 'IDは英数字しか使用できません';
     }
 }

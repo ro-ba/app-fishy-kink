@@ -25,7 +25,10 @@ class ValidatePassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        //
+        if (preg_match('/[0-9].*[a-zA-Z]|[a-zA-Z].*[0-9]/', $value)){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -35,6 +38,6 @@ class ValidatePassword implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'パスワードは半角の英字・数字の両方を含む必要があります';
     }
 }

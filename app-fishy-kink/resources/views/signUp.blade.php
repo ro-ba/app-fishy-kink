@@ -24,24 +24,41 @@
         <div class="form-group">
             <input class="form-control" type="text" name="username" placeholder="名前">
         </div>
+
         <div class="form-group">
             <input class="form-control" type="text" name="userID" placeholder="ID">
         </div>
         @if ($errors->first("userID"))
-            <p class="validation">※{{$errors->first('userID')}}</p>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->get("userID") as $error)
+                    <li> {{ $error }} </li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
+
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="パスワード" required>
+            <input class="form-control" type="password" name="password" placeholder="パスワード" >
         </div>
+        @if ($errors->first("password"))
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->get("password") as $error)
+                    <li> {{ $error }} </li>
+                    @endforeach
+                    <!-- <p class="validation">※{{$errors->first('userid')}}</p> -->
+                </ul>
+            </div>
+        @else
+            <div class="form-text text-muted">
+                パスワードは4～20文字で英字・数字を両方含む必要があります。
+            </div>
+        @endif
+        
         <div class="form-group">
             <input class="btn btn-success" type="submit" value="新規登録">
         </div>
-
-        @if ($errors->any())
-            @foreach ($errors as $error)
-                <p class="validation">{{$error}}</p>
-            @endforeach
-        @endif
     </form>
     または
     <div ><a class="btn btn-primary" href="/login">ログイン</a></div>

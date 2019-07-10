@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Rules\validateUserID;
+use App\Rules\UserExists;
+use App\Rules\ValidateUserID;
+use App\Rules\ValidatePassword;
 require "/vagrant/source/kouki/signup.php";
 require "/vagrant/source/func/FKMongo.php";
 require "/vagrant/source/func/FKHash.php";
@@ -44,9 +46,10 @@ class SignUpController extends Controller
     {
         $db = connect_mongo();
         $validator = $request->validate([
-            "userID" => [new ValidateUserID($db),"ip",],
+            "userID" => [new UserExists($db), new ValidateUserID(), "required"],
+            "password" => ["required", new ValidatePassword(), "between:4,20"],
         ]);
-        // return view("signUp");
+        return view("signUp");
 
 
         // $db = connect_mongo();
