@@ -15,6 +15,11 @@
 
 <body class="bg-secondary">
 <div class="card mb-3">
+    <div class="card-header">
+        @foreach ($message as $msg )
+            <div class="alert alert-{{ $msg[0] }}">{{ $msg[1] }}</div>
+        @endforeach
+    </div>
     <div class="card-body">
     <form method="post">
         @csrf

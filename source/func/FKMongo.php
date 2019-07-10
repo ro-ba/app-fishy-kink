@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__) . "/vendor/autoload.php";
 
-function connectMongo(){   
+function connect_mongo(){   
     $client = new MongoDB\Client("mongodb://localhost:27017");
     $FishyKinkDB = $client->selectDatabase('FishyKink');
     $userDB = $FishyKinkDB->selectCollection('user');

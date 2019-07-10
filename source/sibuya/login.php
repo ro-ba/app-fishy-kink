@@ -1,12 +1,9 @@
     <?php
-        require "/vagrant/source/func/FKMongo.php";
         require "/vagrant/source/func/FKHash.php";
         
-        function login($request){
+        function login($request ,&$data){
 
             $return = [];
-
-            $data = connectMongo();
 
             $userID = $request -> input("userID");
             $pass = $request -> input("password");
@@ -19,22 +16,21 @@
             $password   =  $a["password"];
 
             $salt       =  $a["salt"];
-            $data = fkHash($request -> input("password"),$salt);
+            $data = fk_hash($request -> input("password"),$salt);
             
             if($userID== $ID && $data == $password){
+                
                 session(["userID" => $userID]);
                 session(["pass" => $pass]);
-                
                 return null;
             }else if($userID != $ID ){
 
-                $return["message"] = "ユーザIDが間違っているか登録されていません。";
+                $return["message"] = ["danger","ユーザIDが間違っているか登録されていません。"];
                 $return["userID"] = $userID;
                 return $return;
-            
             }else if($userID == $ID  && $data != $password){
-
-                $return["message"] = "パスワードが違っています。";
+                
+                $return["message"] = ["danger","パスワードが違っています。"];
                 $return["userID"] = $userID;
                 return $return;
             }

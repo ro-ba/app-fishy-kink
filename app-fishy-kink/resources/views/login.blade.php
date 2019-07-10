@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    @isset($return)
-        <div class="alert alert-danger">{{$return["message"]}}</div>
+    @isset($message)
+        <div class="alert alert-{{ $message[0] }}">{{ $message[1] }} </div>
     @endisset
     
     <form method="POST" action="/login">
         @csrf
-        @isset($return)
-            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus value= "{{ $return['userID'] }}"></div>
+        @isset($oldID)
+            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus value= "{{ $oldID }}"></div>
         @else
             <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus></div>
         @endisset

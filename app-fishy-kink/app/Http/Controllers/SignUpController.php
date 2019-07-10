@@ -38,13 +38,21 @@ class SignUpController extends Controller
      */
     public function store(Request $request)
     {
-        $db = connectMongo();
+        $db = connect_mongo();
         $message = [];
-        if (IDcheck($db, $request -> input("userID"), $message)) {
-            print_r("true");
+        $userID = $request -> input("userID");
+        $password = $request -> input("password");
+        $userName = $request -> input("username");
+        if (check_ID($db, $userID, $message)) {
+            if(check_password_rules($password, $message)){
+                $salt = generate_salt();
+                $newPass = fk_hash($password.$salt);
+                add_user($db, $userID, $newPass, $userName, $salt);
+                $message = ["success", "登録に成功しました。"];
+                return view("login",compact("message"));
+            }
         }
-        print_r($message);
-        // return view("signUp");
+        return view("signUp",compact("message"));
         //
     }
 
