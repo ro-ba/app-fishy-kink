@@ -30,6 +30,7 @@
         }
         return false;
     }
+}
 
     function add_user(&$data, $userID, $password, $userName, $salt){
         $user = array(
@@ -40,7 +41,7 @@
         );
         $data["userDB"] ->  insertOne($user);
     }
-
+}
     function generate_salt() {
         $length = 20;
         $str = array_merge(range('a', 'z'), range('0', '9'), range('A', 'Z'));
