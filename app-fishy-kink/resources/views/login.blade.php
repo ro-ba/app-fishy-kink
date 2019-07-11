@@ -9,25 +9,24 @@
 </head>
 
 <body>
+    <div class="card mb-3">
     @isset($message)
         <div class="alert alert-{{ $message[0] }}">{{ $message[1] }} </div>
     @endisset
-    
+    <div class="card-body">
     <form method="POST" action="/login">
         @csrf
-
-        @isset($oldID)
-            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus value= "{{ $oldID }}"></div>
-        @else
-            <div class="form-group">userID:<input class="form-control" type="text" name="userID" autofocus></div>
-        @endisset
-        password:<input class="form-control" type="password" name="password"/></div>
-        <div class="form-group"><input class="btn btn-primary" type="submit" value="ログイン" />
+        <div class="form-group">
+        <input class="form-control" type="text" name="userID" value="@isset($oldID) {{ $oldID }} @endisset" placeholder="ID"></div>
+        <input class="form-control" type="password" name="password" placeholder="password"/></div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="ログイン" />
+            <div class="btn btn-warning"><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
+            <div>または</div>
+            <input class="btn btn-success" type="button" onclick="location.href='/signUp'" value="新規登録">
+        </div>
     </form>
-    <div class="btn btn-warning"><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
-    <div>または</div>
-    <input class="btn btn-success" type="button" onclick="location.href='/signUp'" value="新規登録">
-    
+    </div>
 </body>
 
 </html>

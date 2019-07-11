@@ -15,20 +15,21 @@
 
 <body class="bg-secondary">
 <div class="card mb-3">
-    <div class="card-header">
-    </div>
     <div class="card-body">
     <form method="post">
         @csrf
         <h4 class="card-title">新規アカウント登録</h4>
         <div class="form-group">
-            <input class="form-control" type="text" name="username" placeholder="名前">
+        @if ($errors->has("username"))
+            <input class="form-control is-invalid" type="text" name="username" value="{{ old('username') }}" placeholder="username">
+            <p class="alert alert-danger">{{ $errors->first("username") }}</p>
+        @else
+            <input class="form-control @if(old('username'))is-valid @endif " type="text" name="username" value="{{ old('username') }}" placeholder="username">
+        @endif
         </div>
-
         <div class="form-group">
-            <input class="form-control" type="text" name="userID" placeholder="ID">
-        </div>
-        @if ($errors->first("userID"))
+        @if ($errors->has("userID"))
+            <input class="form-control is-invalid" type="text" name="userID" value="{{ old('userID') }}" placeholder="ID"> 
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->get("userID") as $error)
@@ -36,25 +37,28 @@
                     @endforeach
                 </ul>
             </div>
+        @else
+            <input class="form-control @if(old('userID'))is-valid @endif" type="text" name="userID" value="{{ old('userID') }}" placeholder="ID">
         @endif
+        </div>
 
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="パスワード" >
-        </div>
-        @if ($errors->first("password"))
+        @if ($errors->has("password"))
+            <input class="form-control is-invalid" type="password" name="password" placeholder="password" >
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->get("password") as $error)
                     <li> {{ $error }} </li>
                     @endforeach
-                    <!-- <p class="validation">※{{$errors->first('userid')}}</p> -->
                 </ul>
             </div>
         @else
-            <div class="form-text text-muted">
+            <input class="form-control" type="password" name="password" placeholder="password" >
+            <small class="form-text text-muted">
                 パスワードは4～20文字で英字・数字を両方含む必要があります。
-            </div>
+            </small>
         @endif
+        </div>
         
         <div class="form-group">
             <input class="btn btn-success" type="submit" value="新規登録">

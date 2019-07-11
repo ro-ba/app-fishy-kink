@@ -7,10 +7,10 @@
 
             $userID = $request -> input("userID");
             $pass = $request -> input("password");
+            // $d = $request ->get('userID');
 
-            $d = $request ->get('userID');
-
-            $a = $data["userDB"]->findOne(["userID" => $d]);
+            // $a = $data["userDB"]->findOne(["userID" => $d]);
+            $a = $data["userDB"]->findOne(["userID" => $userID]);
 
             $ID         =  $a["userID"];
             $password   =  $a["password"];

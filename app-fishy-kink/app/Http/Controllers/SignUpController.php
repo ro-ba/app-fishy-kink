@@ -35,7 +35,6 @@ class SignUpController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -45,29 +44,26 @@ class SignUpController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
+        //validation
         $validator = $request->validate([
+            "username" => ["min:1"],
             "userID" => [new UserExists($db), new ValidateUserID(), "required"],
             "password" => ["required", new ValidatePassword(), "between:4,20"],
         ]);
-        return view("signUp");
-
-
-        // $db = connect_mongo();
-        // $message = [];
-        // $userID = $request -> input("userID");
-        // $password = $request -> input("password");
-        // $userName = $request -> input("username");
-        // if (check_ID($db, $userID, $message)) {
-        //     if(check_password_rules($password, $message)){
-        //         $salt = generate_salt();
-        //         $newPass = fk_hash($password.$salt);
-        //         add_user($db, $userID, $newPass, $userName, $salt);
-        //         $message = ["success", "登録に成功しました。"];
-        //         return view("login",compact("message"));
-        //     }
-        // }
-        // return view("signUp",compact("userID","userName","message"));
-        //
+        //saltを生成して、パスワードをハッシュ化
+        $salt = generate_salt();
+        $password = fk_hash($request->input("password"),$salt);
+        //データベースにデータを格納
+        $db["userDB"] -> insertOne([
+            "userID" => $request->input("userID"),
+            "userName" => $request->input("username"),
+            "password" => $password,
+            "salt"  =>  $salt
+        ]);
+        //loginに画面遷移した際に必要な情報を渡す
+        $message = ["success","ユーザー登録に成功しました。"];
+        $oldID = $request->input("userID");
+        return view("login",compact("oldID","message"));
     }
 
     /**
