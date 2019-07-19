@@ -44,7 +44,6 @@
             <div class="tweet">
                 <div class=tweetTop>
                         <div class="date"></div> 　
-                            
                         <div class="time"></div>
                             
                 </div>

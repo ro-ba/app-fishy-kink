@@ -17,9 +17,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = connect_mongo();
-        $tweets = $data["tweetDB"]->find();
-        return view("home",compact("tweets"));
+        if(session('userID')){
+            $data = connect_mongo();
+            $tweets = $data["tweetDB"]->find();
+            return view("home",compact("tweets"));
+        }else{
+            return redirect("login");
+        }
     }
 
     /**
