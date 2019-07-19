@@ -9,5 +9,7 @@
 - name: start & enable mongodb
   systemd: 
     name: mongod
+    state: restarted
+    daemon_reload: yes
     enabled: yes
 
