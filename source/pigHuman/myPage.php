@@ -10,7 +10,7 @@ function myPage($FishyKink,$flg){
    function dbUser($FishyKink){
         //$FishyKink = connectMongo();
         //$userCursor = $FishyKink["userDB"]->findOne(array('userID' => 'ino'));
-        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => session('userID'));
+        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => session('userID')));
         foreach ($userCursor as $userData) {
             $Data[] = $userData;
         };
@@ -22,7 +22,7 @@ function myPage($FishyKink,$flg){
     function dbTweet($FishyKink){
         //$FishyKink = connectMongo();
         //$tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => 'ino'));
-        $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => session('userID'));
+        $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => session('userID')));
         foreach ($tweetCursor as $tweetData) {
             $Data[] = $tweetData;
         };
