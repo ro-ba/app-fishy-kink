@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php";
+
 
 class MyPageController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -13,8 +16,10 @@ class MyPageController extends Controller
      */
     public function index()
     {
-        return view("myPage");
-        //
+        $FishyKink = connectMongo();
+        $flg = "user";
+        echo myPage($FishyKink,$flg);
+
     }
 
     /**

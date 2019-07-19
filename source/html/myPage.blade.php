@@ -8,24 +8,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="myPage.css">
     <link rel="shortcut icon" href="">
 </head>
 
 <body>
     <div>
-        <img class="myIcon" src="<%= icon %>" alt="myIcon" />
-        <p class="usenName">ホリカクァ（仮）</p>
-        <p class="userId">@horikakua</p>
-        <p>フォロー<span class="follow"></span>人</p>
-        <p>フォロワー<span class="follower"></span>人</p>
-        <input type="button" onclick="location.href='./setting.html'" value="プロフィール変更" />
+        <div id=userData>
+            <img id="myIcon" src="<%= icon %>" alt="myIcon" />
+            <p id="userName">ホリカクァ（仮）</p>
+            <p id="userId">@horikakua</p>
+        </div>
+        <p id="follow">フォロー</p>
+        <p id="follower">フォロワー</p>
+        <div id=profile>プロフィール
+            <p id=text></p>
+        </div>
+        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
     </div>
-    <div>
-        <p class="profile">プロフィール</p>
-    </div>
-    <div>
-        <p class="tweet">ツイート</p>
+    <div id="tweet">ツイート
+        <p id="tweetText"></p>
     </div>
 </body>
 
