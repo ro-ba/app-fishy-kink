@@ -4,6 +4,7 @@
   vars:
     config_path: '/vagrant'
     home_path: '/home/vagrant'
+    func_path: '/vagrant/source/func'
   roles:
     - php72
     - composer
@@ -15,7 +16,7 @@
     - python36&pip
     - mount
     - alias
-    - laravel
+    - fishykink
 
 
     

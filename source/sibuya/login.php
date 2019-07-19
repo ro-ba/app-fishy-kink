@@ -1,29 +1,42 @@
-<!DOCTYPE html>
-<html>
+    <?php
+        require "/vagrant/source/func/FKMongo.php";
+        require "/vagrant/source/func/FKHash.php";
+        
+        function login($request){
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>login</title>
-</head>
+            $return = [];
 
-<body>
-    <!-- <form class="input" method="POST" action="/login">
-        <div class="inputId"><input type="text" name="userID" value="ID/メールアドレス" /></div>
-        <div class="inputPass"><input type="text" name="password" value="パスワード" /></div>
-        <div><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
-        <input class="loginButton" type="submit" value="ログイン">
-        <div>または</div>
-        <input class="registerButton" type="button" onclick="location.href='/signUp'" value="新規登録">
-    </form> -->
-    <form method="POST" action="/login">
-        @csrf
-        <!-- {{ csrf_field() }} -->
-        userID:<input type="text" name="userID"/>
-        password:<input type="password" name="password"/>
-        <input type="submit" value="login" />
-    </form>
-    
-</body>
+            $data = connectMongo();
 
-</html>
+            $userID = $request -> input("userID");
+            $pass = $request -> input("password");
+
+            $d = $request ->get('userID');
+
+            $a = $data["userDB"]->findOne(["userID" => $d]);
+
+            $ID         =  $a["userID"];
+            $password   =  $a["password"];
+
+            $salt       =  $a["salt"];
+            $data = fkHash($request -> input("password"),$salt);
+            
+            if($userID== $ID && $data == $password){
+                session(["userID" => $userID]);
+                session(["pass" => $pass]);
+                
+                return null;
+            }else if($userID != $ID ){
+
+                $return["message"] = "ユーザIDが間違っているか登録されていません。";
+                $return["userID"] = $userID;
+                return $return;
+            
+            }else if($userID == $ID  && $data != $password){
+
+                $return["message"] = "パスワードが違っています。";
+                $return["userID"] = $userID;
+                return $return;
+            }
+        }
+    ?>
