@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 require "/vagrant/source/sibuya/login.php";
+require "/vagrant/source/func/FKMongo.php";
 
 class LoginController extends Controller
 {
@@ -14,8 +15,11 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login');
-        //
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            return view("login");
+        }
     }
 
     /**
@@ -36,9 +40,15 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        login($request);
-        
-        return view("login");
+        $db = connect_mongo();
+        $return = login($request, $db);
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            $oldID = $return["userID"];
+            $message = $return["message"];
+            return view("login",compact("oldID","message"));
+        }
         // return redirect("home");
         
     }

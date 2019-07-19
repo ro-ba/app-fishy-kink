@@ -1,24 +1,30 @@
 <?php
 require "/vagrant/source/func/FKMongo.php";
+require "FKSession.php"
 
-$data = connectMongo();
+function tweet($request){
+    $data = connectMongo();
+    $request = $request -> all();
 
-$cursor = $data["userDB"]->find(["userID"=>"tamano"]);
-//$cursor = $data["userDB"]->findOne(["userID"=>$_SESSION[‘userName’]]);
-foreach($cursor as $userData){
-    $user=$userData;
-};
+    //if($request["type"] == "retweet"){
+
+    //}
+
+    //$cursor = $data["userDB"]->find(["userID"=>"tamano"]);
+    //$cursor = $data["userDB"]->findOne(["userID"=>$_SESSION[‘userName’]]);
+    // foreach($cursor as $userData){
+    //     $user=$userData;
+    // };
 
 
-if(!empty($_POST['image'])){
-    $data["tweetDB"]->insertOne(["tweetID" => $user["userID"],"text" => $_POST['tweetText'],"image"=>$_POST['image']]);
+    if(!empty($request['image'])){
+        $data["tweetDB"]->insertOne(["tweetID" => session('userID'),"text" => $request['tweetText'],"image"=>$request['image']]);
+        return true;
+    }
+    else{
+        $data["tweetDB"]->insertOne(["tweetID" => session('userID'),"text" => $request['tweetText']]);
+        return true;
+    }
 }
-else{
-    $data["tweetDB"]->insertOne(["tweetID" => $user["userID"],"text" => $_POST['tweetText']]);
-}
-
-//tweet($user);
-echo "実行完了";
-header( "Location: ../html/home.blade.php" ) ;
 
 ?>
