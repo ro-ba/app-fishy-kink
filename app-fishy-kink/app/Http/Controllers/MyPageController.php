@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 require "/vagrant/source/pigHuman/myPage.php";
-
+require "/vagrant/source/func/FKMongo.php";
 
 class MyPageController extends Controller
 {
@@ -16,10 +16,9 @@ class MyPageController extends Controller
      */
     public function index()
     {
-        $FishyKink = connectMongo();
-        $flg = "user";
-        echo myPage($FishyKink,$flg);
-
+        $FishyKink = connect_mongo();
+        $json = myPage($FishyKink);
+        var_dump($json);
     }
 
     /**
