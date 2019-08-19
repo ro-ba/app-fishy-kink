@@ -17,8 +17,8 @@ class MyPageController extends Controller
     public function index()
     {
         $FishyKink = connect_mongo();
-        $json = myPage($FishyKink);
-        var_dump($json);
+        $userData = myPage($FishyKink);
+        return view('myPage',compact('userData'));
     }
 
     /**

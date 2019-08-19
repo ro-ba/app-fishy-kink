@@ -14,18 +14,22 @@
 
 <body>
     <div>
+        <!-- @foreach($userData as $users) -->
         <img class="myIcon" src="<%= icon %>" alt="myIcon" />
-        <p class="usenName">ホリカクァ（仮）</p>
-        <p class="userId">@horikakua</p>
-        <p>フォロー<span class="follow"></span>人</p>
-        <p>フォロワー<span class="follower"></span>人</p>
+        <!-- <p class="usenName">{{ $users->userName }}}</p>
+        <p class="userId">{{ $users->userID }}</p>
+        <p>フォロー<span class="follow"></span>{{ $users->follow }}人</p>
+        <p>フォロワー<span class="follower"></span>{{ $users->follower }}人</p> -->
         <input type="button" onclick="location.href='/setting'" value="プロフィール変更" />
     </div>
     <div>
         <p class="profile">プロフィール</p>
+        <!-- {{ $users->profile }} -->
     </div>
     <div>
         <p class="tweet">ツイート</p>
+        <!-- {{ $users->tweet }}
+        @endforeach -->
     </div>
 </body>
 

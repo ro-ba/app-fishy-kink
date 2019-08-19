@@ -35,24 +35,32 @@
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6">
             <div class="tweet card">
-                <div class=tweetTop>
-                        <div class="date">5/23</div> 　
-                        <div class="time">11:34</div>
+            @foreach ($tweets as $tweet)
+                <div class="tweetTop card-header">
+                @if ($tweet["type"] == "retweet")
+                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+
+                @endif
+                <div class="tweet-user"> {{ $tweet["userID"] }} </div>
+                <div class="time"> {{ $tweet["time"] }}</div>
+                        <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
+                        <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
-                <div class=tweetMain>
-                    <p>おなかがすいたなー</p>
+                <div class="tweetMain card-body">
+                    {{ $tweet["text"] }}
                 </div>
-                <div class="tweetBottom">
-                    <div class="reply">
-                        <image src=""></image>
+                <div class="tweetBottom d-inline">
+                    <div class="reply d-inline-block">
+                        <image src="images/reply.jpg"/>
                     </div>
-                    <div class="retweet">
-                        <image src=""></image>
+                    <div class="retweet d-inline-block">
+                        <image src="images/retweet.png"/>
                     </div>
-                    <div class="fab">
-                        <image src=""></image>
+                    <div class="fab d-inline-block">
+                        <image src="images/fabo.jpg"/>
                     </div>
                 </div>
+            @endforeach
             </div>
         </div>
         <div id="rightContents" class="col-sm-3"></div>

@@ -47,4 +47,8 @@ function myPage($FishyKink){
 
     return $resJson;
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> 0125b78c979203250c4220892c9dcb38098aca95
