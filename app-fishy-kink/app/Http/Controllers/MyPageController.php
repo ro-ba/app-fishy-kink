@@ -18,7 +18,10 @@ class MyPageController extends Controller
     {
         $FishyKink = connect_mongo();
         $userData = myPage($FishyKink);
-        return view('myPage',compact('userData'));
+        // echo $userData["userID"];
+        // var_dump($userData);
+        // print_r($userData["userName"]);
+        return view("myPage",compact("userData"));
     }
 
     /**

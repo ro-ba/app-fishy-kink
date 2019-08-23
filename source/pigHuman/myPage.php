@@ -2,32 +2,39 @@
 //require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 require "/vagrant/source/func/FKSession.php";
+// require "/vagrant/source/func/FKMongo.php";
 
+// $FishyKink = connect_mongo();
 
 function myPage($FishyKink){
 
     function dbUser($FishyKink){
 
         $id = session('userID');
+        //$id = 'ino';
 
         $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
-        foreach ($userCursor as $userData) {
-            $Data[] = $userData;
+        $Data = [];
+        foreach ($userCursor as $key => $userData) {
+            $Data[$key] = $userData;
         };
-        $user_json = json_encode($Data);
-        return $user_json;
+        //$user_json = json_encode($Data);
+        return $Data;
     }
 
     function dbTweet($FishyKink){
 
         $id = session('userID');
+        // $id = 'ino';
 
         $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => $id));
-        foreach ($tweetCursor as $tweetData) {
-            $Data[] = $tweetData;
+
+        $Data = [];
+        foreach ($tweetCursor as $key => $tweetData) {
+            $Data[$key] = $tweetData;
         };
-        $tweet_json = json_encode($Data);
-        return $tweet_json;
+        //$tweet_json = json_encode($Data);
+        return $Data;
     }
 
 
@@ -40,15 +47,16 @@ function myPage($FishyKink){
     // }
 
 
-    $user = json_decode( dbUser($FishyKink), true );
-    $tweet = json_decode( dbTweet($FishyKink), true );
-    $res = array_merge_recursive( $user, $tweet );
-    $resJson = json_encode( $res ,JSON_UNESCAPED_UNICODE );
+    $user = dbUser($FishyKink);
+    $tweet = dbTweet($FishyKink);
+    $res = array_merge( $user, $tweet );
 
-    return $resJson;
+
+    //$resJson = json_encode( $res ,JSON_UNESCAPED_UNICODE );
+    return $res;
 }
-<<<<<<< HEAD
+
+// myPage($FishyKink);
+
 ?>
-=======
-?>
->>>>>>> 0125b78c979203250c4220892c9dcb38098aca95
+
