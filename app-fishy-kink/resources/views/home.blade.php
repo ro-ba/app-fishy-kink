@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 </head>
 <body>
     <div id="menu row d-inline col-md-12"> 
@@ -18,13 +19,13 @@
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/notify'">通知</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/DM'">メッセージ</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/story'">ストーリー</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block"><img class="form-control" src=""/></button>
+        <button type="button" class="btn btn-default"> <font color="red"> <span class="oi oi-magnifying-glass"></span> 検索 </font></button>
 
-        
         <form method='get' action="/serchResult" class="form-inline d-inline" >
             <!-- <div class="form-group"> -->
-                <image class="form-control" src=""></image>
                 <input class="form-control" type=text name="serchString">
-                <input class="form-control " type=submit value="検索">
+                <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/tweet'">ツイート</button>
