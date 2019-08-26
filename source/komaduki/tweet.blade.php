@@ -15,12 +15,6 @@
 <body>
     <form action="./pighuman/tweet.php"  class="tweet" method="POST">
         <div>
-                <?php
-                    //require "/vagrant/source/func/FKMongo.php"; 
-                    //$data = connectMongo();
-                    //require "/vagrant/source/komaduki/Tweet.php";
-                    //$func = tweet($data);
-                ?>
             <img class="myIcon" src="<%= icon %>" alt="myIcon" />
             <textarea class="tweetText" cols="50" rows="7" maxlength="200" value="いまどうしてる？"></textarea>
             <div>
