@@ -15,7 +15,7 @@
 <body>
   <div>・出力内容</div>
   <?php 
-        echo $_POST['body'];      
+        echo "ツイート完了！";      
   ?>
 
   <script>
