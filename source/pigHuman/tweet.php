@@ -16,7 +16,7 @@ function tweet($request){
     //     $user=$userData;
     // };
 
-
+    
     if(!empty($request['image'])){
         $data["tweetDB"]->insertOne(["tweetID" => session('userID'),"text" => $request['tweetText'],"image"=>$request['image']]);
         return true;
