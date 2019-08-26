@@ -25,14 +25,20 @@ function myPage($FishyKink){
     function dbTweet($FishyKink){
 
         $id = session('userID');
-        // $id = 'ino';
+        // $id = 'takuwa';
 
         $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => $id));
 
         $Data = [];
-        foreach ($tweetCursor as $key => $tweetData) {
-            $Data[$key] = $tweetData;
-        };
+        if(isset($tweetCursor)){
+           foreach ($tweetCursor as $key => $tweetData) {
+                $Data[$key] = $tweetData;
+            }
+        }
+        else{
+            $Data["tweet"] = "ツイートがありません";
+        }
+
         //$tweet_json = json_encode($Data);
         return $Data;
     }
