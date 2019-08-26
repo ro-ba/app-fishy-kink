@@ -41,7 +41,7 @@ class TweetController extends Controller
         $tweet["tweet"] -> insertOne([
             "type"          => "tweet",
             "text"          => $_POST['tweetText'],
-            "userID"        => "ino"
+            "userID"        => "ino",
             "time"          => date("Y/m/d H:i:s"),
             "img"           => "",
             "retweetUser"   => "",
