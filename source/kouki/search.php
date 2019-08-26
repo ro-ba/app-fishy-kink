@@ -1,9 +1,11 @@
 <?php
 require "/vagrant/source/func/FKMongo.php";
+
 function search(){
     $db = connect_mongo();
     //$search = $request->input("search");
-    $find = array("text" => new \MongoDB\BSON\Regex("おにぎり"));
+    $word = "お";
+    $find = array("text" => new \MongoDB\BSON\Regex("$word"));
     $datas = $db ["tweetDB"] -> find($find);
     $result = [];
     foreach($datas as $id => $obj){
