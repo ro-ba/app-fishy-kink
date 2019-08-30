@@ -35,9 +35,9 @@
         </button>
         <button type="button" class="btn btn-default"> <font color="red"> <span class="oi oi-magnifying-glass"></span> 検索 </font></button>
 
-        <form method='get' action="/serchResult" class="form-inline d-inline" >
+        <form method='get' action="/search" class="form-inline d-inline" >
             <!-- <div class="form-group"> -->
-                <input class="form-control" type=text name="serchString">
+                <input class="form-control" type=text name="searchString">
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>

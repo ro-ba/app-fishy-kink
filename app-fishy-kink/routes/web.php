@@ -25,7 +25,8 @@ Route::resources([
     "DM" => "DMController",
     "myPage" => "MyPageController",
     "setting" => "SettingController",
-    "FFlist" => "FFlistController"
+    "FFlist" => "FFlistController",
+    "search" => "SearchController"
     ]);
 
 // Route::resource("/","TopController");
