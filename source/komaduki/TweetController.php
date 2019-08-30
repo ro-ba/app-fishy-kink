@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/func/FKMongo.php";
 
 class TweetController extends Controller
 {
@@ -40,9 +38,9 @@ class TweetController extends Controller
         //
         $db = connect_mongo();
 
-        $db["tweetDB"] -> insertOne([
+        $tweet["tweet"] -> insertOne([
             "type"          => "tweet",
-            "text"          => $request->input("tweetText"),
+            "text"          => $_POST['tweetText'],
             "userID"        => "ino",
             "time"          => date("Y/m/d H:i:s"),
             "img"           => "",
@@ -51,7 +49,6 @@ class TweetController extends Controller
             "originTweetID" => "",
             "parentTweetID" => ""
         ]);
-        return redirect("home");
     }
 
     /**
