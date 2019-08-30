@@ -1,25 +1,26 @@
 <?php
-require "/vagrant/source/func/FKMongo.php";
-
-function search(){
+function search($search){
     $db = connect_mongo();
-    //$search = $request->input("search");
-    $search = "おにぎり たべ";
+    #$search = $request->input("searchString");
+    #$search = "おにぎり たべ";
+    $search = mb_convert_kana($search, 's');
     $search = explode(" ", $search);
     $count = count($search);
-    #print_r($search);
     $result = [];
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
-        #print_r($search_word);
         $find = array("text" => new \MongoDB\BSON\Regex("$search_word"));
-        $datas = $db ["tweetDB"] -> find($find);
-    }
-        foreach($datas as $id => $obj){
-            array_push($result, $obj);
+        if($i == 0){
+            $datas = $db ["tweetDB"] -> find($find);
+        }else{
+            $datas = $datas->find($find);
         }
-    print_r($result);
+    }
+    foreach($datas as $obj){
+        array_push($result, $obj);
+        print_r($result);
+        //array_push($result,"<br />" );
+    }
     return $result;
 }
-$search = search();
 ?>
