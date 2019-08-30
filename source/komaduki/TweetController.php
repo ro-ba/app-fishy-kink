@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/pigHuman/myPage.php";
-require "/vagrant/source/func/FKMongo.php";
 
-class MyPageController extends Controller
+class TweetController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +13,8 @@ class MyPageController extends Controller
      */
     public function index()
     {
-        $FishyKink = connect_mongo();
-        $userData = myPage($FishyKink);
-        // echo $userData["userID"];
-        // var_dump($userData);
-        // print_r($userData["userName"]);
-        return view("myPage",compact("userData"));
+        return view("tweet");
+        //
     }
 
     /**
@@ -43,6 +36,19 @@ class MyPageController extends Controller
     public function store(Request $request)
     {
         //
+        $db = connect_mongo();
+
+        $tweet["tweet"] -> insertOne([
+            "type"          => "tweet",
+            "text"          => $_POST['tweetText'],
+            "userID"        => "ino",
+            "time"          => date("Y/m/d H:i:s"),
+            "img"           => "",
+            "retweetUser"   => "",
+            "fabUser"       => "",
+            "originTweetID" => "",
+            "parentTweetID" => ""
+        ]);
     }
 
     /**

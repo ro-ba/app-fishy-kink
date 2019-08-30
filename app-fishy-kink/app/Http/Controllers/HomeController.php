@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 require "/vagrant/source/func/FKSession.php";
+require "/vagrant/source/komaduki/GetTweet.php";
+require "/vagrant/source/func/FKMongo.php";
 
 class HomeController extends Controller
 {
@@ -15,14 +17,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view("home");
-        // if (session_exists()){
-        //     return view("home");
-        // }else{
-        //     return redirect("/");
-        // }
-        
-        //
+        if(session('userID')){
+            $data = connect_mongo();
+            $tweets = $data["tweetDB"]->find();
+            return view("home",compact("tweets"));
+        }else{
+            return redirect("login");
+        }
     }
 
     /**

@@ -3,25 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/pigHuman/myPage.php";
-require "/vagrant/source/func/FKMongo.php";
 
-class MyPageController extends Controller
+class SearchController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $FishyKink = connect_mongo();
-        $userData = myPage($FishyKink);
-        // echo $userData["userID"];
-        // var_dump($userData);
-        // print_r($userData["userName"]);
-        return view("myPage",compact("userData"));
+        print_r($request -> input("searchString"));
+        // return view ("search");
     }
 
     /**
@@ -42,7 +35,7 @@ class MyPageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return view ("search");
     }
 
     /**
