@@ -21,7 +21,7 @@ class MyPageController extends Controller
         // echo $userData["userID"];
         // var_dump($userData);
         // print_r($userData["userName"]);
-        // return view("myPage",compact("userData"));
+        return view("myPage",compact("userData"));
     }
 
     /**
