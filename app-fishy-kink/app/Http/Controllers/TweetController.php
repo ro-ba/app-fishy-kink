@@ -38,20 +38,22 @@ class TweetController extends Controller
     public function store(Request $request)
     {
         //
-        $db = connect_mongo();
+        if(session('userID')){ 
+            $db = connect_mongo();
 
-        $db["tweetDB"] -> insertOne([
+            $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
-            "userID"        => "ino",
+            "userID"        => session('userID'),
             "time"          => date("Y/m/d H:i:s"),
             "img"           => "",
             "retweetUser"   => "",
             "fabUser"       => "",
             "originTweetID" => "",
             "parentTweetID" => ""
-        ]);
-        return redirect("home");
+            ]); 
+            
+        }
     }
 
     /**
