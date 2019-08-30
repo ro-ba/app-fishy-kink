@@ -32,7 +32,14 @@
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/tweet'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1()' onclick="location.href='/tweet'">ツイート</button>
+        
+        <script type="text/javascript">
+            function open1() {
+            window.open("/tweet", "hoge", 'width=200, height=200');
+        }
+        </script>
+        
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
     </div>
     
