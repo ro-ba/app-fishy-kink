@@ -4,7 +4,7 @@ function search($search){
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
-    $find = [];
+    $find = [];//
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
         //検索する文字列の数文下の配列を増やす
