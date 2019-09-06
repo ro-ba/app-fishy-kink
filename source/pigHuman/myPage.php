@@ -6,42 +6,43 @@ require "/vagrant/source/func/FKSession.php";
 
 // $FishyKink = connect_mongo();
 
-function myPage($FishyKink){
+// function myPage($FishyKink){
 
-    function dbUser($FishyKink){
+function dbUser($FishyKink){
 
-        $id = session('userID');
-        //$id = 'ino';
+    $id = session('userID');
+    //$id = 'ino';
 
-        $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
-        $Data = [];
-        foreach ($userCursor as $key => $userData) {
-            $Data[$key] = $userData;
-        };
-        //$user_json = json_encode($Data);
-        return $Data;
-    }
+    $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
+    $Data = [];
+    foreach ($userCursor as $key => $userData) {
+        $Data[$key] = $userData;
+    };
+    //$user_json = json_encode($Data);
+    return $Data;
+}
 
-    function dbTweet($FishyKink){
+function dbTweet($FishyKink){
 
-        $id = session('userID');
-        // $id = 'takuwa';
+    $id = session('userID');
+    // $id = 'takuwa';
 
-        $tweetCursor = $FishyKink["tweetDB"]->findOne(array('userID' => $id));
+    $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => $id));
 
-        $Data = [];
-        if(isset($tweetCursor)){
-           foreach ($tweetCursor as $key => $tweetData) {
-                $Data[$key] = $tweetData;
-            }
-        }
-        else{
-            $Data["tweet"] = "ツイートがありません";
-        }
+    // $Data = [];
+    // if(isset($tweetCursor)){
+    //     foreach ($tweetCursor as $key => $tweetData) {
+    //         $Data[$key] = $tweetData;
+    //     }
+    // }
+    // else{
+    //     $Data["tweet"] = "ツイートがありません";
+    // }
 
-        //$tweet_json = json_encode($Data);
-        return $Data;
-    }
+    // var_dump($Data);
+
+    return $tweetCursor;
+}
 
 
     // if($flg== true){
@@ -53,14 +54,12 @@ function myPage($FishyKink){
     // }
 
 
-    $user = dbUser($FishyKink);
-    $tweet = dbTweet($FishyKink);
-    $res = array_merge( $user, $tweet );
+    // $user = dbUser($FishyKink);
+    // $tweet = dbTweet($FishyKink);
+    // $res = array_merge( $user, $tweet );
 
-
-    //$resJson = json_encode( $res ,JSON_UNESCAPED_UNICODE );
-    return $res;
-}
+    // return $res;
+// }
 
 // myPage($FishyKink);
 
