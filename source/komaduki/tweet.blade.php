@@ -13,15 +13,14 @@
 </head>
 
 <body>
-    <form action="tweet"  class="tweet" method="POST">
-    @csrf
+    <form action="./pighuman/tweet.php"  class="tweet" method="POST">
         <div>
             <img class="myIcon" src="<%= icon %>" alt="myIcon" />
-            <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+            <textarea class="tweetText" cols="50" rows="7" maxlength="200" value="いまどうしてる？"></textarea>
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
-                <input type="file" name="tweetImage"/>
-                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>   
+                <a href="./newTweetImage.html"><img src="./plusImage.jpg" alt="画像追加" /></a>
+                <input class="newTweet" method="POST" type="submit" value="tweet"/>   
             </div>
         </div>
     </form>

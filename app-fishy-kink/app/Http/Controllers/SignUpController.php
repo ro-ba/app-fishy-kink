@@ -22,8 +22,11 @@ class SignUpController extends Controller
     
     public function index()
     {
-        return view("signUp");
-        //
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            return view("signUp");
+        }
     }
 
     /**
@@ -53,12 +56,19 @@ class SignUpController extends Controller
         //saltを生成して、パスワードをハッシュ化
         $salt = generate_salt();
         $password = fk_hash($request->input("password"),$salt);
+        $filename = "images/default-icon.jpg";
+        $encode_img = base64_encode(file_get_contents($filename));
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
         //データベースにデータを格納
         $db["userDB"] -> insertOne([
             "userID" => $request->input("userID"),
             "userName" => $request->input("username"),
             "password" => $password,
-            "salt"  =>  $salt
+            "salt"  =>  $salt,
+            "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
+            "follow" => [],
+            "follower" => [],
+            "profile" => "よろしくおねがいします。！。！"
         ]);
         //loginに画面遷移した際に必要な情報を渡す
         $message = ["success","ユーザー登録に成功しました。"];

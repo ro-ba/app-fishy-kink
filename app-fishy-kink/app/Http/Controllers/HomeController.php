@@ -20,7 +20,8 @@ class HomeController extends Controller
         if(session('userID')){
             $data = connect_mongo();
             $tweets = $data["tweetDB"]->find();
-            return view("home",compact("tweets"));
+            $userIcon = $data["userDB"]->findOne(["userID"=>session("userID")])["userImg"];
+            return view("home",compact("tweets","userIcon"));
         }else{
             return redirect("login");
         }
