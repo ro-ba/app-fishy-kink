@@ -7,10 +7,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/myPage.css">
 </head>
 <body>
 @isset($userData)
@@ -77,6 +77,7 @@
             </table>
         </div>
     </div>
+    <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
     @else
     <p id="error">エラー</p>
     @endisset
