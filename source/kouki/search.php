@@ -1,26 +1,24 @@
 <?php
 function search($search){
     $db = connect_mongo();
-    #$search = $request->input("searchString");
-    #$search = "おにぎり たべ";
-    $search = mb_convert_kana($search, 's');
+    $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
-    $result = [];
+    $find = [];
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
-        $find = array("text" => new \MongoDB\BSON\Regex("$search_word"));
-        if($i == 0){
-            $datas = $db ["tweetDB"] -> find($find);
-        }else{
-            $datas = $datas->find($find);
-        }
+        //検索する文字列の数文下の配列を増やす
+        ${"find".$i} = array("text" => new \MongoDB\BSON\Regex("$search_word"));
+        array_push($find, ${"find".$i});
     }
+    $datas = $db ["tweetDB"] -> find(array('$and' => $find));//検索する
+    //$datas = $db ["tweetDB"] -> find(array("text" => "おにぎり","text" => "たべたい"));
+    
     foreach($datas as $obj){
-        array_push($result, $obj);
-        print_r($result);
-        //array_push($result,"<br />" );
+        //array_push($result, $obj);
+        //print_r($result);
+        print_r($obj);
     }
-    return $result;
+    return true;
 }
 ?>
