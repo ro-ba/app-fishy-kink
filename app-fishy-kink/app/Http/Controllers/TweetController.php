@@ -41,17 +41,24 @@ class TweetController extends Controller
         if(session('userID')){ 
             $db = connect_mongo();
 
-            $db["tweetDB"] -> insertOne([
-            "type"          => "tweet",
-            "text"          => $request->input("tweetText"),
-            "userID"        => session('userID'),
-            "time"          => date("Y/m/d H:i:s"),
-            "img"           => "",
-            "retweetUser"   => "",
-            "fabUser"       => "",
-            "originTweetID" => "",
-            "parentTweetID" => ""
-            ]); 
+            print_r($request->input("tweetImage"));
+            var_dump($request->file("tweetImage"));
+
+            // foreach($request->input("tweetImage") as $image){
+            //     print_r($image);
+            // }
+
+            // $db["tweetDB"] -> insertOne([
+            // "type"          => "tweet",
+            // "text"          => $request->input("tweetText"),
+            // "userID"        => session('userID'),
+            // "time"          => date("Y/m/d H:i:s"),
+            // "img"           => "",
+            // "retweetUser"   => "",
+            // "fabUser"       => "",
+            // "originTweetID" => "",
+            // "parentTweetID" => ""
+            // ]); 
             
         }
     }
