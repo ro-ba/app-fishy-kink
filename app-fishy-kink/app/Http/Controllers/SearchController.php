@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/func/FKMongo.php";
 
-class TweetController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("tweet");
-        //
+        print_r($request -> input("searchString"));
+        return view ("search");
     }
 
     /**
@@ -37,23 +35,7 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if(session('userID')){ 
-            $db = connect_mongo();
-
-            $db["tweetDB"] -> insertOne([
-            "type"          => "tweet",
-            "text"          => $request->input("tweetText"),
-            "userID"        => session('userID'),
-            "time"          => date("Y/m/d H:i:s"),
-            "img"           => "",
-            "retweetUser"   => "",
-            "fabUser"       => "",
-            "originTweetID" => "",
-            "parentTweetID" => ""
-            ]); 
-            
-        }
+        // return view ("search");
     }
 
     /**

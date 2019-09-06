@@ -20,8 +20,8 @@
             <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
-                <a href="./newTweetImage.html"><img src="./plusImage.jpg" alt="画像追加" /></a>
-                <input class="newTweet" method="POST" type="submit" value="tweet"/>   
+                <input type="file" name="tweetImage"/>
+                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>   
             </div>
         </div>
     </form>
