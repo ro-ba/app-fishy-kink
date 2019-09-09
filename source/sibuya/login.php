@@ -19,7 +19,7 @@
             if($userID== $ID && $data == $password){
                 
                 session(["userID" => $userID]);
-                session(["pass" => $pass]);
+     
                 return null;
             }else if($userID != $ID ){
 
