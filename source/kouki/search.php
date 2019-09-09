@@ -4,10 +4,10 @@ function search($search){
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
-    $find = [];//
+    $find = [];
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
-        //検索する文字列の数文下の配列を増やす
+        //検索する文字列の数に応じて下の配列を増やす
         ${"find".$i} = array("text" => new \MongoDB\BSON\Regex("$search_word"));
         array_push($find, ${"find".$i});
     }
@@ -16,7 +16,6 @@ function search($search){
     
     foreach($datas as $obj){
         //array_push($result, $obj);
-        //print_r($result);
         print_r($obj);
     }
     return true;

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <b>Hello World!</b>
+    <input type="text"/>
 </body>
 
 </html>

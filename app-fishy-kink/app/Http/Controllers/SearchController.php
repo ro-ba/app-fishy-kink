@@ -16,11 +16,8 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        //print_r($request -> input("searchString"));
-        // return view ("search");
         $search = $request->input("searchString");
         search($search);
-        
     }
 
     /**
