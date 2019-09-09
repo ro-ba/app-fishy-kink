@@ -13,15 +13,16 @@
 </head>
 
 <body>
-    <form action="tweet"  class="tweet" method="POST">
+    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
         <div>
             <img class="myIcon" src="<%= icon %>" alt="myIcon" />
             <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
-                <input type="file" name="tweetImage"/>
-                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>   
+                <input type="file" name="tweetImage" multiple="multiple" accept="image/*"/>
+                <!-- <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>    -->
+                <input class="newTweet" method="POST" type="submit" value="tweet" />   
             </div>
         </div>
     </form>
