@@ -21,7 +21,11 @@ function() {
     data: null
   }).done(function (results) {
     // 通信成功時の処理
-    $('#main-contents').text(results);
+    $('#main-contents'),text();
+    results.forEach(function(tweet){
+      console.log(tweet);
+    });
+    // $('#main-contents').text(results);
   }).fail(function (err) {
     // 通信失敗時の処理
     alert('ファイルの取得に失敗しました。');

@@ -20,8 +20,10 @@ class ReloadTweetController extends Controller
     {
         $data = connect_mongo();
         $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+        // dd(json_encode(iterator_to_array($tweets)));
+        // return response() -> $tweets;
         // return response() -> json($tweets);
-        return response() -> json($tweets);
+        return json_encode(iterator_to_array($tweets));
     }
 
     /**
