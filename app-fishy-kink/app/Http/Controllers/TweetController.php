@@ -40,23 +40,27 @@ class TweetController extends Controller
         //
         if(session('userID')){ 
             $db = connect_mongo();
-
-
-            foreach($request->input("tweetImage") as $image){
-                print_r($image);
+            $tweetImg = [];
+            foreach($request->tweetImage as $image){
+                //拡張子取得
+                $ext = explode("/",$image->getMimeType())[1];
+                //画像fileを取得してバイナリにエンコード
+                $encode_img = base64_encode(file_get_contents($image));
+                
+                $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
             }
 
-            // $db["tweetDB"] -> insertOne([
-            // "type"          => "tweet",
-            // "text"          => $request->input("tweetText"),
-            // "userID"        => session('userID'),
-            // "time"          => date("Y/m/d H:i:s"),
-            // "img"           => "",
-            // "retweetUser"   => "",
-            // "fabUser"       => "",
-            // "originTweetID" => "",
-            // "parentTweetID" => ""
-            // ]); 
+            $db["tweetDB"] -> insertOne([
+            "type"          => "tweet",
+            "text"          => $request->input("tweetText"),
+            "userID"        => session('userID'),
+            "time"          => date("Y/m/d H:i:s"),
+            "img"           => $tweetImg,
+            "retweetUser"   => [],
+            "fabUser"       => [],
+            "originTweetID" => "",
+            "parentTweetID" => ""
+            ]); 
             
         }
     }
