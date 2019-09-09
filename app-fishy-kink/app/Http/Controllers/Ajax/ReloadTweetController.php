@@ -1,15 +1,15 @@
 <?php
+namespace App\Http\Controllers\Ajax;
 
-namespace App\Http\Controllers;
+ini_set('display_errors',1);
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
-require "/vagrant/source/komaduki/GetTweet.php";
 
-
-class HomeController extends Controller
+class ReloadTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,14 +18,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(session('userID')){
-            $data = connect_mongo();
-            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-            $userIcon = $data["userDB"]->findOne(["userID"=>session("userID")])["userImg"];
-            return view("home",compact("tweets","userIcon"));
-        }else{
-            return redirect("login");
-        }
+        $data = connect_mongo();
+        $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+        // return response() -> json($tweets);
+        return response() -> json($tweets);
     }
 
     /**
