@@ -37,7 +37,7 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
         if(session('userID')){ 
             $db = connect_mongo();
             $tweetImg = [];
@@ -50,19 +50,18 @@ class TweetController extends Controller
                     
                     $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
                 }
-
-                $db["tweetDB"] -> insertOne([
-                "type"          => "tweet",
-                "text"          => $request->input("tweetText"),
-                "userID"        => session('userID'),
-                "time"          => date("Y/m/d H:i:s"),
-                "img"           => $tweetImg,
-                "retweetUser"   => "",
-                "fabUser"       => "",
-                "originTweetID" => "",
-                "parentTweetID" => ""
-                ]); 
             }
+            $db["tweetDB"] -> insertOne([
+            "type"          => "tweet",
+            "text"          => $request->input("tweetText"),
+            "userID"        => session('userID'),
+            "time"          => date("Y/m/d H:i:s"),
+            "img"           => $tweetImg,
+            "retweetUser"   => [],
+            "fabUser"       => [],
+            "originTweetID" => "",
+            "parentTweetID" => ""
+            ]); 
         }
     }
 
