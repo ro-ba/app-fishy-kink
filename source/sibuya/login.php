@@ -19,18 +19,15 @@
             if($userID== $ID && $data == $password){
                 
                 session(["userID" => $userID]);
-                session(["pass" => $pass]);
                 return null;
             }else if($userID != $ID ){
 
                 $return["message"] = ["danger","ユーザIDが間違っているか登録されていません。"];
-                $return["userID"] = $userID;
-                return $return;
             }else if($userID == $ID  && $data != $password){
                 
                 $return["message"] = ["danger","パスワードが違っています。"];
-                $return["userID"] = $userID;
-                return $return;
             }
+            $return["userID"] = $userID;
+            return $return;
         }
     ?>
