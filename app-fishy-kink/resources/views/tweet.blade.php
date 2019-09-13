@@ -21,10 +21,12 @@
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
                 <input type="file" name="tweetImage"/>
-                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>   
+                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close()"/>
             </div>
+            
         </div>
     </form>
 </body>
 
 </html>
+

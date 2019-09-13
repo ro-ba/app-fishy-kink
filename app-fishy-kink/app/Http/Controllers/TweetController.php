@@ -52,7 +52,6 @@ class TweetController extends Controller
             "originTweetID" => "",
             "parentTweetID" => ""
             ]); 
-            
         }
     }
 
