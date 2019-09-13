@@ -19,9 +19,15 @@ class HomeController extends Controller
     {
         if(session('userID')){
             $data = connect_mongo();
-            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-            $userIcon = $data["userDB"]->findOne(["userID"=>session("userID")])["userImg"];
+            $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
+
+            // foreach ($tweets as $tweet) {
+            //     dd($tweet["img"][0]);
+            // }
+
             return view("home",compact("tweets","userIcon"));
+            // return view("home",compact("tweets","userIcon"));
         }else{
             return redirect("login");
         }
