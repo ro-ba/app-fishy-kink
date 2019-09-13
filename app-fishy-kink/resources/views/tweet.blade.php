@@ -20,11 +20,17 @@
             <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
+                <input type="file" name="tweetImage"/>
+
                 <input type="file" name="tweetImage[]" multiple="multiple" accept="image/*"/>
+
                 <input class="newTweet" method="POST" type="submit" value="tweet" />   
+
             </div>
+            
         </div>
     </form>
 </body>
 
 </html>
+

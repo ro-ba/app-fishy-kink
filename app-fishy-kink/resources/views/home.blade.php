@@ -13,6 +13,30 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 </head>
+
+<script>
+$(function){
+    function(){
+    $.ajax( {  // ajax の非同期通信として ajaxメソッドを使用
+        // 以下Ajax のオプション指定
+        type: GET,
+        url: home.blade.php
+    })
+    $.ajaxSetup({
+        type: "POST",
+        timeout: 5000, // 10sec
+    });
+    // $.ajax()を呼び出す。
+    $.ajax({
+        url: "../home.blade.php",
+        data: null
+    });
+}
+};
+
+</script>
+
+
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -36,7 +60,7 @@
         
         <script type="text/javascript">
             function open1() {
-            window.open("/tweet", "hoge", 'width=200, height=200');
+            window.open("/tweet", "hoge", 'width=600, height=600');
         }
         </script>
         
