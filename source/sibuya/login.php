@@ -1,33 +1,36 @@
-        <?php
-        require "/vagrant/source/func/FKMongo.php";
+    <?php
         require "/vagrant/source/func/FKHash.php";
         
-        function login($request){
+        function login($request ,&$data){
 
-            $data = connectMongo();
+            $return = [];
 
-            session( ["userID" => $request -> input("userID")]);
-            session( ["pass" => $request -> input("password")]);
+            $userID = $request -> input("userID");
+            $pass = $request -> input("password");
+            
+            $a = $data["userDB"]->findOne(["userID" => $userID]);
 
-            $d = $request->session()->get('userID');
-
-            $a = $data["userDB"]->findOne(["userID" => $d]);
-        
             $ID         =  $a["userID"];
             $password   =  $a["password"];
-            
+
             $salt       =  $a["salt"];
-            $data = fkHash($request -> input("password"),$salt);
-            test();
+            $data = fk_hash($request -> input("password"),$salt);
+            
+            if($userID== $ID && $data == $password){
+                
+                session(["userID" => $userID]);
+                session(["pass" => $pass]);
+                return null;
+            }else if($userID != $ID ){
 
-            if(session("userID") !== $ID || $data !== $password){
-                \Session::flush();
-                ?>
-                <script>
-                    alert("ログインに失敗しました");
-                </script>
-                <?php
-            }          
+                $return["message"] = ["danger","ユーザIDが間違っているか登録されていません。"];
+                $return["userID"] = $userID;
+                return $return;
+            }else if($userID == $ID  && $data != $password){
+                
+                $return["message"] = ["danger","パスワードが違っています。"];
+                $return["userID"] = $userID;
+                return $return;
+            }
         }
-
-        ?>
+    ?>

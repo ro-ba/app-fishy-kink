@@ -25,7 +25,10 @@ Route::resources([
     "DM" => "DMController",
     "myPage" => "MyPageController",
     "setting" => "SettingController",
-    "FFlist" => "FFlistController"
+    "FFlist" => "FFlistController",
+    "search" => "SearchController",
+    "reloadTweet" =>"Ajax\ReloadTweetController",
+    "test" => "TestController"
     ]);
 
 // Route::resource("/","TopController");

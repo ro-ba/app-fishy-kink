@@ -13,8 +13,11 @@ class TopController extends Controller
      */
     public function index()
     {
-        return view("top");
-        //
+        if(session('userID')){
+            return redirect("home");
+        }else{
+            return view("top");
+        }
     }
 
     /**

@@ -2,7 +2,7 @@
 //Usage: FKMongo.connectMongo()
 require "FKMongo.php";
 
-$data = connectMongo();
+$data = connect_mongo();
 // key = userDB, tweetDB, DMDB, NotifyDB
 $data["userDB"]->insertOne(["name" => "たまの","tweetID" => "tamano"]);
 
@@ -15,7 +15,7 @@ require "FKHash.php";
 
 $password = "P@ssword";
 $salt = "Atsushi Tamano";
-$data = fkHash($password,$salt);
+$data = fk_hash($password,$salt);
 print_r($data);
 
 //Usage:FKSession.session_exists()
