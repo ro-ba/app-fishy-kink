@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/komaduki/GetTweet.php";
 require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/komaduki/GetTweet.php";
+
 
 class HomeController extends Controller
 {
