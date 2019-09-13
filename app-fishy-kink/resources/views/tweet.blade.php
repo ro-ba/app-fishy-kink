@@ -21,8 +21,7 @@
             <div>
                 <img src="<%= image%>" alt="ツイート画像" />
                 <input type="file" name="tweetImage[]" multiple="multiple" accept="image/*"/>
-                <input class="newTweet" method="POST" type="submit" value="tweet" onClick="window.close();"/>   
-                <!-- <input class="newTweet" method="POST" type="submit" value="tweet" />    -->
+                <input class="newTweet" method="POST" type="submit" value="tweet" />   
             </div>
         </div>
     </form>

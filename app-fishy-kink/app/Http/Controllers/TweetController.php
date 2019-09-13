@@ -51,6 +51,7 @@ class TweetController extends Controller
                     $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
                 }
             }
+            // var_dump($tweetImg);
             $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
