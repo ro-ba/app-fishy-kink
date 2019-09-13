@@ -26,7 +26,6 @@
 
                 <input class="newTweet" method="POST" type="submit" value="tweet" />   
 
-
             </div>
             
         </div>
