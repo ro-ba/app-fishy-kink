@@ -19,12 +19,14 @@ function() {
     type: 'GET',
     url: '/api/reloadTweet', // url: は読み込むURLを表す
     dataType: 'json', // 読み込むデータの種類を記入
-    data: null
+    data: null,
+    cache : false
   }).done(function (results) {
     // 通信成功時の処理
     $('#main-contents').text();
+    $('#main-contents').empty();
     results.forEach(function(tweet){
-      // console.log(tweet);
+      console.log(tweet);
       $('#main-contents').append('<div class="tweetTop card-header">');
       if (tweet["type"] == "retweet"){
         $('#main-contents').append('<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>');
