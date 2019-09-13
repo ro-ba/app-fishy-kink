@@ -1,93 +1,133 @@
 @charset "UTF-8";
 
-#myIcon {
-    width:110px;
-    height:110px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: skyblue;
-    margin-right: 40px;
-    text-align:center;
-    line-height: 80px;
-    float: left;
-    border-radius: 100%;
-}
 
-#usenName {
-    height: 60px;
-    width: 800px;
-    font-size: 50px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    position:fixed; top:0px; left:200px;
-    /* display:inline-block; */
-}
 
-#userId {
-    margin-top: 0px;
-    color: rgb(128,128,128);
-    position:fixed; top:100px; left:210px;
-}
 
-.follow {
-    border: solid 1px rgb(0,0,0);
-    border-left: 20%;
-    width: 120px;
-    margin-left: 0px;
-    margin-top: 0px;
-    border-radius: 5%;
-    float: left;
-    display:inline-block;
-    position:fixed; top:150px;
-}
+    #myIcon {
 
-.follower {
-    border: solid 1px rgb(0,0,0);
-    border-left: 20%;
-    width: 120px;
-    margin-left: 200px;
-    margin-top: 0px;
-    border-radius: 5%;
-    display:inline-block;
-    position:fixed; top:150px;
-}
+        width:140px;
+        height:140px;
 
-.setButton {
-    padding:0px 30px 0px 30px;
-    /* margin-left:450px;
-    margin-bottom: 300px; */
-    position: fixed; left:450px; bottom:760px; 
-    background-color: #59b1eb;
-    border: 1px solid #59b1eb;
-    border-radius:10px;
-    color: #fff;
-    line-height: 30px;
-    display: table-cell;
-}
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background-color: skyblue;
+        margin-right: 40px;
+        text-align:center;
+        line-height: 80px;
+        float: left;
+        border-radius: 100%;
 
-.setButton:hover {
-    background-color: #fff;
-    border-color: #59b1eb;
-    color: #59b1eb;
-}
+        /* position:fixed; top:1%; left:1%; */
+    }
 
-hr {
-    border-bottom: solid 3px #cce4ff;
-    position: fixed; top:180px;
-    width:1800px;
-}
 
-/* hr:after {
-    position: absolute;
-    content: " ";
-    display: block;
-    border-bottom: solid 3px #5472cd;
-    bottom: -3px;
-    width: 20%;
-} */
 
-.profile {
-    position: fixed; top:200px; left:90px;
-}
+    #usenName {
+        height: 60px;
+        width: 800px;
+        font-size: 50px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+
+        /* position:fixed; top:0%; left:12%; */
+    }
+
+    #userId {
+        margin-top: 0px;
+        color: rgb(128,128,128);
+
+        position:fixed; top:6.3%; left:12%;
+    }
+
+    .follow {
+        font-size:19px;
+        border: solid 1px rgb(0,0,0);
+        border-left: 20%;
+        /* width: 120px; */
+        margin-left: 0px;
+        margin-top: 0px;
+        border-radius: 5%;
+        float: left;
+        display:inline-block;
+
+        position:fixed; top:12%; left:12%;
+    }
+
+    .follower {
+        font-size:19px;
+        border: solid 1px rgb(0,0,0);
+        /* border-left: 20%; */
+        /* width: 120px; */
+        margin-left: 0px;
+        margin-top: 0px;
+        margin-right:20px;
+        border-radius: 5%;
+        display:inline-block;
+        position:fixed; top:12%; left:22%;
+
+    }
+
+    .setButton {
+        padding:0px 30px 0px 30px;
+        /* margin-left:450px;
+
+        margin-bottom: 300px; */ 
+
+        background-color: #59b1eb;
+        border: 1px solid #59b1eb;
+        border-radius:10px;
+        color: #fff;
+        line-height: 30px;
+        display: table-cell;
+
+        position: fixed; top:8%; left:43%;
+    }
+
+    .setButton:hover {
+        background-color: #fff;
+        border-color: #59b1eb;
+        color: #59b1eb;
+    }
+
+    hr {
+        border-bottom: solid 3px #cce4ff;
+        width:100%;
+        position: fixed; top:15%; 
+    }
+    /* hr:after {
+        position: absolute;
+        content: " ";
+        display: block;
+        border-bottom: solid 3px #5472cd;
+        bottom: -3px;
+        width: 20%;
+    } */
+
+    .profile {
+        /* width:100%; */
+        position: fixed; top:21%; left:22%;
+        margin-left:0%;
+        text-align: center;
+        display:inline-block;
+    }
+
+    /* .prof {
+        text-align: center;
+    } */
+
+    .tweet {
+        /* float: left; */
+        position: fixed; top:33%; left:0%;
+        text-align: center;
+    }
+
+    .btn {
+        position: fixed; top:80%; left: 50%
+
+    }
+
+
+
+
