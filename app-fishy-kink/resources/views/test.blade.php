@@ -13,9 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
-  $(function(){
-    setInterval(update,1000); //10000ミリ秒ごとにupdateという関数を実行する
-  });
+    setInterval(update, 1000);
+    //10000ミリ秒ごとにupdateという関数を実行する
 function update() {
   $.ajax({
     type: 'GET',
