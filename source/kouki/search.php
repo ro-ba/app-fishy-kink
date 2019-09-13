@@ -7,6 +7,7 @@ function search($search){
     $find_tweet = [];
     $find_name = [];
     $find_id = [];
+    $img = [];
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
         //検索する文字列の数に応じて下の配列を増やす
@@ -19,10 +20,11 @@ function search($search){
     }
     $tweet_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));//ツイート検索
     $name_result = $db ["userDB"] -> find(array('$and' => $find_name));//名前検索
-    $id_result = $db ["userDB"] -> find(array('$and' => $find_id));//id検索
-
-    //$datas = $db ["tweetDB"] -> find(array("text" => "おにぎり","text" => "たべたい"));
+    $id_result = $db ["tweetDB"] -> find(array('$and' => $find_id));//id検索
+    //$img_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));
+    
     foreach($tweet_result as $obj){
+        
         print_r($obj);
     }
     foreach($name_result as $obj){
