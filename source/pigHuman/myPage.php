@@ -2,9 +2,6 @@
 //require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 require "/vagrant/source/func/FKSession.php";
-// require "/vagrant/source/func/FKMongo.php";
-
-// $FishyKink = connect_mongo();
 
 // function myPage($FishyKink){
 

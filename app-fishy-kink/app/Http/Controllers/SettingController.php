@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php";
+require "/vagrant/source/pigHuman/myPageSetting.php";
+require "/vagrant/source/komaduki/GetTweet.php";
+require "/vagrant/source/func/FKSession.php";
+require "/vagrant/source/func/FKMongo.php";
 
 class SettingController extends Controller
 {
@@ -13,8 +18,10 @@ class SettingController extends Controller
      */
     public function index()
     {
-        // return view("setting");
-        //
+        $FishyKink = connect_mongo();
+        $userData = dbUser($FishyKink);
+        $tweetData = dbTweet($FishyKink);
+        return view("setting",compact("userData","tweetData"));
     }
 
     /**
@@ -35,7 +42,14 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = session('userID');
+        // myPageSetting($request,$FishyKink);
+        $db["userDB"] -> update(array($id),[
+            "userName" => $request->input("userName"),
+            // "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
+            "profile" => $request->input("profile")
+        ]);
+        return view("myPage");
     }
 
     /**
@@ -69,7 +83,7 @@ class SettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
