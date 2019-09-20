@@ -23,7 +23,7 @@ Route::resources([
     "tweet" => "TweetController",
     "notify" => "NotifyController",
     "DM" => "DMController",
-    "myPage" => "MyPageController",
+    "profile" => "ProfileController",
     "setting" => "SettingController",
     "FFlist" => "FFlistController",
     "search" => "SearchController",
