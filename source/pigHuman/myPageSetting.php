@@ -1,16 +1,16 @@
 <?php
 //require_once dirname(__FILE__) . '/vendor/autoload.php';
 
-require "/vagrant/source/func/FKMongo.php";
-require "/vagrant/source/func/FKSession.php";
-$FishyKink = connectMongo();
-
 function myPageSetting($request,$FishyKink){
     $request = $request -> all();
-    $userID = session('userID');
+    $id = session('userID');
 
-    $FishyKink['userDB']->updata(array("userID"=>$userID),$request);
-    
+    // $FishyKink['userDB']->updata(array("userID"=>$id),$request);
+    $FishyKink["userDB"] -> update(array("userID"=>$id),[
+        "userName" => $request->input("userName"),
+        "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
+        "profile" => $request->input("profile")
+    ]);
     return true;
 }
 
