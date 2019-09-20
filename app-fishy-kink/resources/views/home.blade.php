@@ -63,11 +63,13 @@
                     
                 </div>
                   
-                  <?php
-                    print_r($tweet["img"]);
-                    echo '<img src = $tweet["img"] alt="画像だよーん"/>';
-                  ?>
-
+                 <div style = float: left>
+                @isset($tweet["img"][0])
+                @foreach($tweet["img"] as $img)
+                    <img src=" {{ $img }}" width="200" height="150"/>
+                @endforeach
+                @endisset
+                </div>
                 <div class="tweetBottom d-inline">
                     <div class="reply d-inline-block">
                         <image src="images/reply.jpg"/>

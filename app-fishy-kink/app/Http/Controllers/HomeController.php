@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/komaduki/GetTweet.php";
 require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/komaduki/GetTweet.php";
+
 
 class HomeController extends Controller
 {
@@ -21,11 +22,6 @@ class HomeController extends Controller
             $data = connect_mongo();
             $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
             $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-
-            // foreach ($tweets as $tweet) {
-            //     dd($tweet["img"][0]);
-            // }
-
             return view("home",compact("tweets","userIcon"));
             // return view("home",compact("tweets","userIcon"));
         }else{
