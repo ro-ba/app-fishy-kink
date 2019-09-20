@@ -12,6 +12,7 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
@@ -28,7 +29,7 @@ $(function(){ // 遅延処理
         results.forEach(function(tweet){
           // console.log(tweet);
           $('#centerContents').append('<div class="tweet card">');      
-
+          
           if (tweet["type"] == "tweet") {
             $('#centerContents').append('<div class="tweetTop card-header">'+'<div class="tweet-user ">' + tweet["userID"] + '</div>' + '<div class="time">'+ tweet["time"] + '</div></div>'); 
           } 
@@ -43,7 +44,6 @@ $(function(){ // 遅延処理
                 <img src=" {{ $img }}" />
             @endforeach
             @endisset
-            
           $('#centerContents').append('<div class="tweetBottom d-inline">');
           $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
           $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
@@ -60,13 +60,15 @@ $(function(){ // 遅延処理
 </script>
 
 </head>
+=======
+</head>
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/notify'">通知</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/DM'">メッセージ</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/story'">ストーリー</button>
-        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/myPage'"
+        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'"
         src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail"
         style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;"
         >
