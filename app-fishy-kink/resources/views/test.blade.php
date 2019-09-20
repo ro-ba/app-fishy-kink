@@ -40,7 +40,7 @@ $(function(){ // 遅延処理
       return update;
     }()),1000);
 });
-
+</script>
 
 
 
@@ -75,7 +75,7 @@ $(function(){ // 遅延処理
 //   });
 // }
 // });
-</script>
+
 </head>
 <body>
     <input type="button" id="button" value="更新" />

@@ -20,7 +20,7 @@
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/notify'">通知</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/DM'">メッセージ</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/story'">ストーリー</button>
-        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/myPage'"
+        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'"
         src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail"
         style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;"
         >
@@ -50,9 +50,8 @@
             <div class="tweet card">
             @foreach ($tweets as $tweet)
                 <div class="tweetTop card-header">
-                @if ($tweet["type"] == "retweet")
-                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
+                @if ($tweet["type"] == "retweet") 
+                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました </div>
                 @endif
                 <div class="tweet-user"> {{ $tweet["userID"] }} </div>
                 <div class="time"> {{ $tweet["time"] }}</div>
