@@ -14,36 +14,13 @@
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 </head>
 
-<script>
-$(function){
-    function(){
-    $.ajax( {  // ajax の非同期通信として ajaxメソッドを使用
-        // 以下Ajax のオプション指定
-        type: GET,
-        url: home.blade.php
-    })
-    $.ajaxSetup({
-        type: "POST",
-        timeout: 5000, // 10sec
-    });
-    // $.ajax()を呼び出す。
-    $.ajax({
-        url: "../home.blade.php",
-        data: null
-    });
-}
-};
-
-</script>
-
-
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/notify'">通知</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/DM'">メッセージ</button>
         <button type="button" class="link_button btn page-link text-dark d-inline-block"  onclick="location.href='/story'">ストーリー</button>
-        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/myPage'"
+        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'"
         src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail"
         style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;"
         >
@@ -73,9 +50,8 @@ $(function){
             <div class="tweet card">
             @foreach ($tweets as $tweet)
                 <div class="tweetTop card-header">
-                @if ($tweet["type"] == "retweet")
-                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
+                @if ($tweet["type"] == "retweet") 
+                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました </div>
                 @endif
                 <div class="tweet-user"> {{ $tweet["userID"] }} </div>
                 <div class="time"> {{ $tweet["time"] }}</div>
