@@ -20,11 +20,10 @@ function search($search){
     }
     $tweet_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));//ツイート検索
     $name_result = $db ["userDB"] -> find(array('$and' => $find_name));//名前検索
-    $id_result = $db ["tweetDB"] -> find(array('$and' => $find_id));//id検索
+    $id_result = $db ["userDB"] -> find(array('$and' => $find_id));//id検索
     //$img_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));
     
     foreach($tweet_result as $obj){
-        
         print_r($obj);
     }
     foreach($name_result as $obj){
