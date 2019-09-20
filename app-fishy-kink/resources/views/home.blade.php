@@ -77,7 +77,7 @@ $(function){
                     <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
 
                 @endif
-                <div class="tweet-user"> {{ $tweet["userID"] }} </div>
+                <a name=user href="/profile?user={{ $tweet['userID'] }}" value={{ $tweet["userID"] }}/>
                 <div class="time"> {{ $tweet["time"] }}</div>
                         <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
