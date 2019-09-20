@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/komaduki/GetTweet.php";
@@ -7,6 +9,7 @@ require "/vagrant/source/komaduki/GetTweet.php";
 require "/vagrant/source/func/FKMongo.php";
 class ProfileController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,12 +17,14 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
+
         $id = $request->input("user");
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink,$id);
         $tweetData = dbTweet($FishyKink,$id);
         return view("profile",compact("userData","tweetData"));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,6 +34,7 @@ class ProfileController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,6 +45,7 @@ class ProfileController extends Controller
     {
         //
     }
+
     /**
      * Display the specified resource.
      *
@@ -49,6 +56,7 @@ class ProfileController extends Controller
     {
         //
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -59,6 +67,7 @@ class ProfileController extends Controller
     {
         //
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -70,6 +79,7 @@ class ProfileController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      *
