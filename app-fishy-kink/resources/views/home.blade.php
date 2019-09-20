@@ -94,7 +94,44 @@ $(function(){ // 遅延処理
     
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
-        <div id="centerContents" class="col-sm-6"></div>
+
+        <div id="centerContents" class="col-sm-6">
+            <div class="tweet card">
+            @foreach ($tweets as $tweet)
+                <div class="tweetTop card-header">
+                @if ($tweet["type"] == "retweet")
+                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+
+                @endif
+                <a name=user href="/profile?user={{ $tweet['userID'] }}" value={{ $tweet["userID"] }}/>
+                <div class="time"> {{ $tweet["time"] }}</div>
+                        <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
+                        <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
+                </div>
+                <div class="tweetMain card-body">
+                    {{ $tweet["text"] }}
+                </div>
+
+                @isset($tweet["img"][0])
+                @foreach($tweet["img"] as $img)
+                    <img src=" {{ $img }}" />
+                @endforeach
+                @endisset
+                <div class="tweetBottom d-inline">
+                    <div class="reply d-inline-block">
+                        <image src="images/reply.jpg"/>
+                    </div>
+                    <div class="retweet d-inline-block">
+                        <image src="images/retweet.png"/>
+                    </div>
+                    <div class="fab d-inline-block">
+                        <image src="images/fabo.jpg"/>
+                    </div>
+                </div>
+            @endforeach
+            </div>
+        </div>
+
         <div id="rightContents" class="col-sm-3"></div>
 </body>
 </html>

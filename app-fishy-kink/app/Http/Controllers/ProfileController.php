@@ -7,7 +7,6 @@ require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/komaduki/GetTweet.php";
 // require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
-
 class ProfileController extends Controller
 {
 
@@ -18,13 +17,12 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->input("user"));
+
+        $id = $request->input("user");
         $FishyKink = connect_mongo();
-        $userData = dbUser($FishyKink);
-        $tweetData = dbTweet($FishyKink);
-
+        $userData = dbUser($FishyKink,$id);
+        $tweetData = dbTweet($FishyKink,$id);
         return view("profile",compact("userData","tweetData"));
-
     }
 
     /**
