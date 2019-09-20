@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-// require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
 class MyPageController extends Controller
@@ -18,12 +17,12 @@ class MyPageController extends Controller
      */
     public function index()
     {
-
+        $id = session('userData');
         $FishyKink = connect_mongo();
-        $userData = dbUser($FishyKink);
-        $tweetData = dbTweet($FishyKink);
+        $userData = dbUser($FishyKink,$id);
+        $tweetData = dbTweet($FishyKink,$id);
 
-        return view("myPage",compact("userData","tweetData"));
+        return view("profile",compact("userData","tweetData"));
 
     }
 
