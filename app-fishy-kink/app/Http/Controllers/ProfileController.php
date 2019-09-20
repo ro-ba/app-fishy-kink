@@ -18,7 +18,6 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request->input("user"));
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink);
         $tweetData = dbTweet($FishyKink);

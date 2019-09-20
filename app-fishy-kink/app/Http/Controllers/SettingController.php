@@ -18,9 +18,11 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $id = session('userID');
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink);
         $tweetData = dbTweet($FishyKink);
+        $userID = dbuser($id);
         return view("setting",compact("userData","tweetData"));
     }
 
