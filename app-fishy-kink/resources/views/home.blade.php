@@ -14,29 +14,6 @@
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 </head>
 
-<script>
-$(function){
-    function(){
-    $.ajax( {  // ajax の非同期通信として ajaxメソッドを使用
-        // 以下Ajax のオプション指定
-        type: GET,
-        url: home.blade.php
-    })
-    $.ajaxSetup({
-        type: "POST",
-        timeout: 5000, // 10sec
-    });
-    // $.ajax()を呼び出す。
-    $.ajax({
-        url: "../home.blade.php",
-        data: null
-    });
-}
-};
-
-</script>
-
-
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -83,15 +60,14 @@ $(function){
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-                    {{ $tweet["text"] }}
-                    
+                    {{ $tweet["text"] }}                    
                 </div>
                   
                  <div style = float: left>
                 @isset($tweet["img"][0])
-                @foreach($tweet["img"] as $img)
-                    <img src=" {{ $img }}" width="200" height="150"/>
-                @endforeach
+                    @foreach($tweet["img"] as $img)
+                     <img src=" {{ $img }}" width="200" height="150"/>
+                    @endforeach
                 @endisset
                 </div>
                 <div class="tweetBottom d-inline">
