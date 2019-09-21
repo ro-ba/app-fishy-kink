@@ -1,0 +1,22 @@
+- name: install JDK
+  yum: name=java-1.8.0-openjdk.x86_64 state=installed
+
+- name: copy mongodb-org-3.6.repo
+  copy:
+    src: ../files/elasticsearch.repo
+    dest: /etc/yum.repos.d
+
+- name: generate PGP key
+  rpm_key:
+      key: "https://packages.elastic.co/GPG-KEY-elasticsearch"
+
+- name: yum install elasticsearch
+  yum: name=elasticsearch state=installed
+
+- name: start & enable elasticsearch
+  systemd: 
+    name: elasticsearch.service
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
