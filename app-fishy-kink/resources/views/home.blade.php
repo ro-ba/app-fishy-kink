@@ -103,7 +103,7 @@ $(function(){ // 遅延処理
                     <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
 
                 @endif
-                <a name=user href="/profile?user={{ $tweet['userID'] }}" value={{ $tweet["userID"] }}/>
+                <a name=user href="/profile?user={{ $tweet['userID'] }}" >{{ $tweet['userID'] }}</a>
                 <div class="time"> {{ $tweet["time"] }}</div>
                         <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
