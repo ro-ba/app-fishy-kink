@@ -7,9 +7,9 @@ require "/vagrant/source/func/FKSession.php";
 
 function dbUser($FishyKink,$id){
 
-    empty($id){
+    if(empty($id)){
         $id = session('userID');
-    }
+    };
     //$id = 'ino';
 
     $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
@@ -23,6 +23,9 @@ function dbUser($FishyKink,$id){
 
 function dbTweet($FishyKink,$id){
 
+    if(empty($id)){
+        $id = session('userID');
+    };
     $id = session('userID');
     // $id = 'takuwa';
 
