@@ -31,25 +31,26 @@ $(function(){ // 遅延処理
           // console.log(tweet);
           $('#centerContents').append('<div class="tweet card">');      
           
+          // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
           } 
-          // リツイート         
+                  
           else {
             tweetType = ""
           }
             $('#centerContents').append(
-                '<div class="tweetTop card-header"> \ 
-                    <div class="tweet-user"> \
-                    </div> \
-                    '+ tweetType + ' \
-                    <a href=/profile?user=' + tweet["userID"] +'>'+
+                '<div class="tweetTop card-header">'+
+                    '<div class="tweet-user">' +
+                    '</div>' +
+                    tweetType + 
+                    '<a href=/profile?user=' + tweet["userID"] +'>'+
                         tweet["userID"] +
-                    '</a> \
-                   <div class="time">'
+                    '</a> '+
+                   '<div class="time">'
                         + tweet["time"] + 
-                    '</div>\
-                </div>');
+                    '</div> '+
+                '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
           
@@ -70,17 +71,17 @@ $(function(){ // 遅延処理
           // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
           
           $('#centerContents').append(
-            '<div class="tweetBottom d-inline"> \
-                <div class="reply d-inline-block"> \
-                <image src="images/reply.jpg"/> \
-                </div> \
-                <div class="retweet d-inline-block"> \
-                    <image src="images/retweet.png"/> \
-                </div> \
-                <div class="fab d-inline-block"> \
-                    <image src="images/fabo.jpg"/> \
-                </div> \
-            </div>'
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
           );                       
       });
       // $('#main-contents').text(results);
@@ -128,54 +129,8 @@ $(function(){ // 遅延処理
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
 
-        <div id="centerContents" class="col-sm-6">
-            <div class="tweet card">
-            @foreach ($tweets as $tweet)
-                <div class="tweetTop card-header">
-                @if ($tweet["type"] == "retweet")
-                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
-                @endif
-                <a name=user href="/profile?user={{ $tweet['userID'] }}" >{{ $tweet['userID'] }}</a>
-                <div class="time"> {{ $tweet["time"] }}</div>
-                        <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
-                        <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
-                </div>
-                <div class="tweetMain card-body">
-                    {{ $tweet["text"] }}                    
-                </div>
-                  
-                <div style = float: left>
-                @isset($tweet["img"][0])
-                    @foreach($tweet["img"] as $img)
-                     <img src=" {{ $img }}" width="200" height="150"/>
-                    @endforeach
-                @endisset
-                </div>
-                <div class="tweetBottom d-inline">
-                    <div class="reply d-inline-block">
-                        <image src="images/reply.jpg"/>
-                    </div>
-                    <div class="retweet d-inline-block">
-                        <image src="images/retweet.png"/>
-                    </div>
-                    <div class="fab d-inline-block">
-                        <image src="images/fabo.jpg"/>
-                    </div>
-                </div>
-            @endforeach
-
+        <div id="centerContents" class="col-sm-6"></div>
             
-            </div>
-        </div>
-
         <div id="rightContents" class="col-sm-3"></div>
-</body>
-<<<<<<< HEAD
-<img class="" height="100" width="100" 
-        src="images/twitter.jpg"
-        />
-</html>
-=======
->>>>>>> c25585207edaf74bec8f8a5512ebde9516eb0131
-</html>
+    </body>
+    </html>
