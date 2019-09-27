@@ -142,14 +142,16 @@ $(function(){ // 遅延処理
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-                    {{ $tweet["text"] }}
+                    {{ $tweet["text"] }}                    
                 </div>
-
+                  
+                <div style = float: left>
                 @isset($tweet["img"][0])
-                @foreach($tweet["img"] as $img)
-                    <img src=" {{ $img }}" />
-                @endforeach
+                    @foreach($tweet["img"] as $img)
+                     <img src=" {{ $img }}" width="200" height="150"/>
+                    @endforeach
                 @endisset
+                </div>
                 <div class="tweetBottom d-inline">
                     <div class="reply d-inline-block">
                         <image src="images/reply.jpg"/>
@@ -162,9 +164,18 @@ $(function(){ // 遅延処理
                     </div>
                 </div>
             @endforeach
+
+            
             </div>
         </div>
 
         <div id="rightContents" class="col-sm-3"></div>
 </body>
+<<<<<<< HEAD
+<img class="" height="100" width="100" 
+        src="images/twitter.jpg"
+        />
+</html>
+=======
+>>>>>>> c25585207edaf74bec8f8a5512ebde9516eb0131
 </html>
