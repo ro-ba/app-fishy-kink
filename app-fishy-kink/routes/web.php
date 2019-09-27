@@ -28,7 +28,9 @@ Route::resources([
     "FFlist" => "FFlistController",
     "search" => "SearchController",
     "/api/reloadTweet" =>"Ajax\ReloadTweetController",
-    "test" => "TestController"
+    "test" => "TestController",
+    "followers" => "FollowersController",
+    "following" => "FollowingController"
     ]);
 
 // Route::resource("/","TopController");
