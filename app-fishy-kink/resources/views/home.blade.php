@@ -31,25 +31,26 @@ $(function(){ // 遅延処理
           // console.log(tweet);
           $('#centerContents').append('<div class="tweet card">');      
           
+          // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
           } 
-          // リツイート         
+                  
           else {
             tweetType = ""
           }
             $('#centerContents').append(
-                '<div class="tweetTop card-header"> \ 
-                    <div class="tweet-user"> \
-                    </div> \
-                    '+ tweetType + ' \
-                    <a href=/profile?user=' + tweet["userID"] +'>'+
+                '<div class="tweetTop card-header">'+
+                    '<div class="tweet-user">' +
+                    '</div>' +
+                    tweetType + 
+                    '<a href=/profile?user=' + tweet["userID"] +'>'+
                         tweet["userID"] +
-                    '</a> \
-                   <div class="time">'
+                    '</a> '+
+                   '<div class="time">'
                         + tweet["time"] + 
-                    '</div>\
-                </div>');
+                    '</div> '+
+                '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
           @isset($tweet["img"][0])
@@ -58,17 +59,17 @@ $(function(){ // 遅延処理
             @endforeach
             @endisset
           $('#centerContents').append(
-            '<div class="tweetBottom d-inline"> \
-                <div class="reply d-inline-block"> \
-                <image src="images/reply.jpg"/> \
-                </div> \
-                <div class="retweet d-inline-block"> \
-                    <image src="images/retweet.png"/> \
-                </div> \
-                <div class="fab d-inline-block"> \
-                    <image src="images/fabo.jpg"/> \
-                </div> \
-            </div>'
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
           );                       
       });
       // $('#main-contents').text(results);

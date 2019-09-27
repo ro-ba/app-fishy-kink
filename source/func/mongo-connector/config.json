@@ -1,0 +1,25 @@
+{
+  "mainAddress": "localhost:27017",
+  "oplogFile": "/var/log/mongo-connector/oplog.timestamp",
+  "verbosity": 1,
+  "logging": {
+    "type": "file",
+    "filename": "/var/log/mongo-connector/mongo-connector.log",
+    "__rotationWhen": "D",
+    "__rotationInterval": 1,
+    "__rotationBackups": 10
+  },
+  "namespaces": {
+    "include": ["FishyKink.user", "FishyKink.tweet"],
+    "mapping": {
+      "FishyKink.user": "FishyKink_index.user",
+      "FishyKink.tweet": "FishyKink_index.tweet"
+    }
+  },
+  "docManagers": [
+    {
+      "docManager": "elastic2_doc_manager",
+      "targetURL": "localhost:9200"
+    }
+  ]
+}
