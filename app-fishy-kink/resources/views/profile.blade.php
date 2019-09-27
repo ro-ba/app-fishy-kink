@@ -55,22 +55,27 @@
                                 <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
                                 <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                         </div>
-                        <div class="tweetMain card-body">
-                            {{ $tweet["text"] }}
+                    <div class="tweetMain card-body">
+                        {{ $tweet["text"] }}
+                    </div>
+
+                @isset($tweet["img"][0])
+                @foreach($tweet["img"] as $img)
+                    <img src=" {{ $img }}" />
+                @endforeach
+                @endisset
+                    <div class="tweetBottom d-inline">
+                        <div class="reply d-inline-block">
+                            <image src="images/reply.jpg"/>
                         </div>
-                        <div class="tweetBottom d-inline">
-                            <div class="reply d-inline-block">
-                                <image src="images/reply.jpg"/>
-                            </div>
-                            <div class="retweet d-inline-block">
-                                <image src="images/retweet.png"/>
-                            </div>
-                            <div class="fab d-inline-block">
-                                <image src="images/fabo.jpg"/>
-                            </div>
+                        <div class="retweet d-inline-block">
+                            <image src="images/retweet.png"/>
+                        </div>
+                        <div class="fab d-inline-block">
+                            <image src="images/fabo.jpg"/>
                         </div>
                     </div>
-                @endforeach           
+                @endforeach      
                 @else
                     <p id=error_tweet >ツイートがありません</p>
                 @endisset
