@@ -16,10 +16,12 @@ class FollowersController extends Controller
      */
     public function index()
     {
+        $id = session("userID");
         $FishyKink = connect_mongo();
-        $followData = dbUser($FishyKink);
+        $followData = dbUser($FishyKink,$id);
 
         return view("followers",compact("followData"));
+        
     }
 
     /**

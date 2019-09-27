@@ -29,10 +29,15 @@
 
             @isset($followData["follow"][0])
                 @foreach ($followData["follow"] as $followers)
+                    {{ $followers }}
+                    @if($followData["userID"]) 
+                        {{$followData["profile"]}}
+                    @endif
 
-                    {{ $followers }} 
-                    {{$followData["profile"]}} 
                 @endforeach
+
+                
+                
             @endisset
             </div>
            
