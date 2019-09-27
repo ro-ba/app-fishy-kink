@@ -5,9 +5,11 @@ require "/vagrant/source/func/FKSession.php";
 
 // function myPage($FishyKink){
 
-function dbUser($FishyKink){
+function dbUser($FishyKink,$id){
 
-    $id = session('userID');
+    if(empty($id)){
+        $id = session('userID');
+    };
     //$id = 'ino';
 
     $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
@@ -19,18 +21,19 @@ function dbUser($FishyKink){
     return $Data;
 }
 
-function dbTweet($FishyKink){
+function dbTweet($FishyKink,$id){
 
-    $id = session('userID');
+    if(empty($id)){
+        $id = session('userID');
+    };
     // $id = 'takuwa';
 
     $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => $id));
 
     // $Data = [];
-    // if(isset($tweetCursor)){
-    //     foreach ($tweetCursor as $key => $tweetData) {
-    //         $Data[$key] = $tweetData;
-    //     }
+    // foreach ($tweetCursor as $key => $tweetData) {
+    //     $Data[$key] = $tweetData;
+    // }
     // }
     // else{
     //     $Data["tweet"] = "ツイートがありません";
