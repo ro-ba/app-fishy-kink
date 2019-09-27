@@ -112,7 +112,7 @@ $(function(){ // 遅延処理
                     {{ $tweet["text"] }}                    
                 </div>
                   
-                 <div style = float: left>
+                <div style = float: left>
                 @isset($tweet["img"][0])
                     @foreach($tweet["img"] as $img)
                      <img src=" {{ $img }}" width="200" height="150"/>
