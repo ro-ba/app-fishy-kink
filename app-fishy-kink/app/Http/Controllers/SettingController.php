@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/pigHuman/myPageSetting.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-require "/vagrant/source/func/FKSession.php";
+// require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
 class SettingController extends Controller
@@ -20,10 +20,8 @@ class SettingController extends Controller
     {
         $id = session('userID');
         $FishyKink = connect_mongo();
-        $userData = dbUser($FishyKink);
-        $tweetData = dbTweet($FishyKink);
-        $userID = dbuser($id);
-        return view("setting",compact("userData","tweetData"));
+        $userData = $FishyKink["userDB"]->findOne(["userID"=>$id]);
+        return view("setting",compact("userData"));
     }
 
     /**
@@ -51,7 +49,7 @@ class SettingController extends Controller
             // "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
             "profile" => $request->input("profile")
         ]);
-        return view("myPage");
+        return view("profile");
     }
 
     /**
