@@ -39,16 +39,14 @@ $(function(){ // 遅延処理
           }
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
           
-          
-          // @isset($tweet["img"][0])
-          //   @foreach($tweet["img"] as $img)
-          //       <img src=" {{ $img }}" />
-          //   @endforeach
-          //   @endisset
-
+          $('#centerContents').append('<div style=float:left>');
+          for(var i=0;i<tweet["img"].length;i++){
+            $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
+          }
+          $('#centerContents').append('</div><p>');
+        
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');
-          console.log(tweet);                   
+          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');             
           $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
           $('#centerContents').append('<button type="button" class="good">いいね</button>');
 
