@@ -18,7 +18,7 @@
         <form method="post">
             <div class="userData">
                 <img class="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-                <input type="text" class="usenName" value='{{ $userData["userName"] }}'>
+                <input type="text" name="userName" class="usenName" value='{{ $userData["userName"] }}'>
                 <p class="userId"><span>@</span>{{ $userData["userID"] }}</p>
             </div>
             <div class="profile">
