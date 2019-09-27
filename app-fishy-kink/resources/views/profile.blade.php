@@ -26,15 +26,16 @@
         @else
             <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
         @endif
+        
         @if ( isset ($userData["follower"]) )
             <p class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
         @else
+            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
             <p class="follower">フォロワー<span></span>0人</p>
         @endif
 
         <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
     </div>
-    <hr>
     <div class="profile">
         <p>プロフィール</p>
            <p>{{ $userData["profile"] }}</p>
@@ -47,35 +48,31 @@
 
                 @foreach ( $tweetData as $tweet)
                 <div class="tweetTop card-header">
-                    @if ( $tweet["type"] == "retweet" )
+                    @if ($tweet["type"] == "retweet")
                         <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+
                     @endif
                     <div class="tweet-user"> {{ $tweet["userID"] }} </div>
                         <div class="time"> {{ $tweet["time"] }}</div>
                                 <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
                                 <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                         </div>
-                    <div class="tweetMain card-body">
-                        {{ $tweet["text"] }}
-                    </div>
-
-                @isset($tweet["img"][0])
-                @foreach($tweet["img"] as $img)
-                    <img src=" {{ $img }}" />
-                @endforeach
-                @endisset
-                    <div class="tweetBottom d-inline">
-                        <div class="reply d-inline-block">
-                            <image src="images/reply.jpg"/>
+                        <div class="tweetMain card-body">
+                            {{ $tweet["text"] }}
                         </div>
-                        <div class="retweet d-inline-block">
-                            <image src="images/retweet.png"/>
-                        </div>
-                        <div class="fab d-inline-block">
-                            <image src="images/fabo.jpg"/>
+                        <div class="tweetBottom d-inline">
+                            <div class="reply d-inline-block">
+                                <image src="images/reply.jpg"/>
+                            </div>
+                            <div class="retweet d-inline-block">
+                                <image src="images/retweet.png"/>
+                            </div>
+                            <div class="fab d-inline-block">
+                                <image src="images/fabo.jpg"/>
+                            </div>
                         </div>
                     </div>
-                @endforeach      
+                @endforeach           
                 @else
                     <p id=error_tweet >ツイートがありません</p>
                 @endisset
