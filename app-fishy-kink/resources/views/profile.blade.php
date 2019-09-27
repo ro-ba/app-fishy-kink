@@ -47,9 +47,8 @@
 
                 @foreach ( $tweetData as $tweet)
                 <div class="tweetTop card-header">
-                    @if ($tweet["type"] == "retweet")
+                    @if ( $tweet["type"] == "retweet" )
                         <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
                     @endif
                     <div class="tweet-user"> {{ $tweet["userID"] }} </div>
                         <div class="time"> {{ $tweet["time"] }}</div>
