@@ -33,11 +33,7 @@
                     @if($followData["userID"]) 
                         {{$followData["profile"]}}
                     @endif
-
-                @endforeach
-
-                
-                
+                @endforeach        
             @endisset
             </div>
            
