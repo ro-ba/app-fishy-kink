@@ -17,7 +17,6 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-
         $id = $request->input("user");
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink,$id);
