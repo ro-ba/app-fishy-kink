@@ -41,7 +41,7 @@
     </div>
     <div class="tweet">
         <p >ツイート</p>
-        <div style="height:400px; width:900px; overflow-y:scroll;">
+        <div class="tweet_scroll" style="height:400px; width:100%; overflow-y:scroll;">
             <table height="100" width="600">
                 @isset($tweetData)
 
