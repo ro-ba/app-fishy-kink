@@ -26,17 +26,30 @@ $(function(){ // 遅延処理
       }).done(function (results) {
         // 通信成功時の処理
         $('#centerContents').empty();
+        let tweetType = "";
         results.forEach(function(tweet){
           // console.log(tweet);
           $('#centerContents').append('<div class="tweet card">');      
           
-          if (tweet["type"] == "tweet") {
-            $('#centerContents').append('<div class="tweetTop card-header">'+'<div class="tweet-user ">' + tweet["userID"] + '</div>' + '<div class="time">'+ tweet["time"] + '</div></div>'); 
+          if (tweet["type"] == "retweet") {
+            tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
           } 
           // リツイート         
-          else if (tweet["type"] == "retweet"){
-            $('#centerContents').append('<div class="tweetTop card-header">'+'<div class="tweet-user ">' + '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>' + tweet["userID"] + '</div>' + '<div class="time">'+ tweet["time"] + '</div></div>'); 
+          else {
+            tweetType = ""
           }
+            $('#centerContents').append(
+                '<div class="tweetTop card-header"> \ 
+                    <div class="tweet-user"> \
+                    </div> \
+                    '+ tweetType + ' \
+                    <a href=/profile?user=' + tweet["userID"] +'>'+
+                        tweet["userID"] +
+                    '</a> \
+                   <div class="time">'
+                        + tweet["time"] + 
+                    '</div>\
+                </div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
           @isset($tweet["img"][0])
@@ -44,10 +57,19 @@ $(function(){ // 遅延処理
                 <img src=" {{ $img }}" />
             @endforeach
             @endisset
-          $('#centerContents').append('<div class="tweetBottom d-inline">');
-          $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
-          $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
-          $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          $('#centerContents').append(
+            '<div class="tweetBottom d-inline"> \
+                <div class="reply d-inline-block"> \
+                <image src="images/reply.jpg"/> \
+                </div> \
+                <div class="retweet d-inline-block"> \
+                    <image src="images/retweet.png"/> \
+                </div> \
+                <div class="fab d-inline-block"> \
+                    <image src="images/fabo.jpg"/> \
+                </div> \
+            </div>'
+          );                       
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
