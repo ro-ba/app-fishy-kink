@@ -53,11 +53,23 @@ $(function(){ // 遅延処理
                 '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
-          @isset($tweet["img"][0])
-            @foreach($tweet["img"] as $img)
-                <img src=" {{ $img }}" />
-            @endforeach
-            @endisset
+          
+          $('#centerContents').append('<div style=float:left>');
+          for(var i=0;i<tweet["img"].length;i++){
+            $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
+          }
+          $('#centerContents').append('</div><p>');
+        
+          $('#centerContents').append('<div class="tweetBottom d-inline">');
+          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');             
+          $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
+          $('#centerContents').append('<button type="button" class="good">いいね</button>');
+
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          
           $('#centerContents').append(
             '<div class="tweetBottom d-inline"> '+
                 '<div class="reply d-inline-block"> '+
@@ -83,7 +95,6 @@ $(function(){ // 遅延処理
 </script>
 
 </head>
-=======
 </head>
 <body>
     <div id="menu row d-inline col-md-12"> 
@@ -132,14 +143,16 @@ $(function(){ // 遅延処理
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-                    {{ $tweet["text"] }}
+                    {{ $tweet["text"] }}                    
                 </div>
-
+                  
+                <div style = float: left>
                 @isset($tweet["img"][0])
-                @foreach($tweet["img"] as $img)
-                    <img src=" {{ $img }}" />
-                @endforeach
+                    @foreach($tweet["img"] as $img)
+                     <img src=" {{ $img }}" width="200" height="150"/>
+                    @endforeach
                 @endisset
+                </div>
                 <div class="tweetBottom d-inline">
                     <div class="reply d-inline-block">
                         <image src="images/reply.jpg"/>
@@ -152,9 +165,18 @@ $(function(){ // 遅延処理
                     </div>
                 </div>
             @endforeach
+
+            
             </div>
         </div>
 
         <div id="rightContents" class="col-sm-3"></div>
 </body>
+<<<<<<< HEAD
+<img class="" height="100" width="100" 
+        src="images/twitter.jpg"
+        />
+</html>
+=======
+>>>>>>> c25585207edaf74bec8f8a5512ebde9516eb0131
 </html>

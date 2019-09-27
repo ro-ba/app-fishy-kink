@@ -26,16 +26,14 @@ function dbTweet($FishyKink,$id){
     if(empty($id)){
         $id = session('userID');
     };
-    $id = session('userID');
     // $id = 'takuwa';
 
     $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => $id));
 
     // $Data = [];
-    // if(isset($tweetCursor)){
-    //     foreach ($tweetCursor as $key => $tweetData) {
-    //         $Data[$key] = $tweetData;
-    //     }
+    // foreach ($tweetCursor as $key => $tweetData) {
+    //     $Data[$key] = $tweetData;
+    // }
     // }
     // else{
     //     $Data["tweet"] = "ツイートがありません";
