@@ -172,11 +172,4 @@ $(function(){ // 遅延処理
 
         <div id="rightContents" class="col-sm-3"></div>
 </body>
-<<<<<<< HEAD
-<img class="" height="100" width="100" 
-        src="images/twitter.jpg"
-        />
-</html>
-=======
->>>>>>> c25585207edaf74bec8f8a5512ebde9516eb0131
 </html>
