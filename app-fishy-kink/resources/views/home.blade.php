@@ -38,16 +38,24 @@ $(function(){ // 遅延処理
             $('#centerContents').append('<div class="tweetTop card-header">'+'<div class="tweet-user ">' + '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>' + tweet["userID"] + '</div>' + '<div class="time">'+ tweet["time"] + '</div></div>'); 
           }
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
+          
+          
+          // @isset($tweet["img"][0])
+          //   @foreach($tweet["img"] as $img)
+          //       <img src=" {{ $img }}" />
+          //   @endforeach
+          //   @endisset
 
-          @isset($tweet["img"][0])
-            @foreach($tweet["img"] as $img)
-                <img src=" {{ $img }}" />
-            @endforeach
-            @endisset
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-          $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
-          $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
-          $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');
+          console.log(tweet);                   
+          $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
+          $('#centerContents').append('<button type="button" class="good">いいね</button>');
+
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -60,7 +68,6 @@ $(function(){ // 遅延処理
 </script>
 
 </head>
-=======
 </head>
 <body>
     <div id="menu row d-inline col-md-12"> 
