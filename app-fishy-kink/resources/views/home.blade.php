@@ -39,11 +39,11 @@ $(function(){ // 遅延処理
             tweetType = ""
           }
             $('#centerContents').append(
-                '<div class="tweetTop card-header"> \ 
+                '<div class="tweetTop card-header"> \
                     <div class="tweet-user"> \
-                    </div> \
-                    '+ tweetType + ' \
-                    <a href=/profile?user=' + tweet["userID"] +'>'+
+                    </div>' \
+                    + tweetType + \
+                    '<a href=/profile?user=' + tweet["userID"] +'>'+
                         tweet["userID"] +
                     '</a> \
                    <div class="time">'
