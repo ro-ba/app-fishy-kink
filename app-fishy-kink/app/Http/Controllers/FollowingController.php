@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/func/FKMongo.php";
-require "/vagrant/source/komaduki/GetTweet.php";
-
-
-class HomeController extends Controller
+class FollowingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(session('userID')){
-            $data = connect_mongo();
-            $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            return view("home",compact("tweets","userIcon"));
-            // return view("home",compact("tweets","userIcon"));
-        }else{
-            return redirect("login");
-        }
+        //
     }
 
     /**
@@ -47,7 +34,7 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-         
+        //
     }
 
     /**

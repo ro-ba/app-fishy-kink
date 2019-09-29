@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php";
 
-require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
-require "/vagrant/source/komaduki/GetTweet.php";
 
-
-class HomeController extends Controller
+class FollowersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +16,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(session('userID')){
-            $data = connect_mongo();
-            $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            return view("home",compact("tweets","userIcon"));
-            // return view("home",compact("tweets","userIcon"));
-        }else{
-            return redirect("login");
-        }
+        $id = session("userID");
+        $FishyKink = connect_mongo();
+        $followData = dbUser($FishyKink,$id);
+
+        return view("followers",compact("followData"));
+        
     }
 
     /**
@@ -47,7 +42,7 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-         
+        //
     }
 
     /**
