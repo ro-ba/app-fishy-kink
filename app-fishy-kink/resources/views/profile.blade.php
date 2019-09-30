@@ -16,13 +16,14 @@
 @isset($userData)
     <div>
         <div class="userData">
-            <img id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+            <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
             <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
             <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
         </div>
         @if ( isset ($userData["follow"]) )
 
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
+            <p class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
+            <!-- <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p> -->
         @else
             <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
         @endif
@@ -35,6 +36,7 @@
         @endif
 
         <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+    <hr class="bar1">
     </div>
     <div class="profile">
         <p>プロフィール</p>
