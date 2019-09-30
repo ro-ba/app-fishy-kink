@@ -53,13 +53,13 @@ $(function(){ // 遅延処理
                 '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
-          
+          // 画像表示
           $('#centerContents').append('<div style=float:left>');
           for(var i=0;i<tweet["img"].length;i++){
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-        
+          
           $('#centerContents').append('<div class="tweetBottom d-inline">');
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>');             
           $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
@@ -128,9 +128,10 @@ $(function(){ // 遅延処理
     
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
-
         <div id="centerContents" class="col-sm-6"></div>
-            
         <div id="rightContents" class="col-sm-3"></div>
-    </body>
-    </html>
+
+</body>
+</html>
+
+

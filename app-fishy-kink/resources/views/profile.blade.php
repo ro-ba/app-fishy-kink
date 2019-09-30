@@ -34,7 +34,7 @@
             <p class="follower">フォロワー<span></span>0人</p>
         @endif
 
-        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+        <button class="setButton" type="button" onclick="location.href='/setting'">プロフィール変更</button>
     </div>
     <div class="profile">
         <p>プロフィール</p>
@@ -42,7 +42,7 @@
     </div>
     <div class="tweet">
         <p >ツイート</p>
-        <div style="height:400px; width:900px; overflow-y:scroll;">
+        <div class="tweet_scroll" style="height:400px; width:100%; overflow-y:scroll;">
             <table height="100" width="600">
                 @isset($tweetData)
 

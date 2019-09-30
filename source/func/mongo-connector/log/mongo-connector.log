@@ -1,19 +1,8 @@
-2019-09-27 15:50:53,697 [WARNING] mongo_connector.connector:943 - Deprecation warning: the current namespaces configuration format is outdated and support may be removed in a future release. Please update your config file to use the new format.
-2019-09-27 15:50:53,754 [ALWAYS] mongo_connector.connector:50 - Starting mongo-connector version: 3.1.1
-2019-09-27 15:50:53,755 [ALWAYS] mongo_connector.connector:50 - Python version: 3.6.8 (default, Aug  7 2019, 17:28:10) 
+2019-09-30 10:13:20,026 [WARNING] mongo_connector.connector:943 - Deprecation warning: the current namespaces configuration format is outdated and support may be removed in a future release. Please update your config file to use the new format.
+2019-09-30 10:13:20,461 [ALWAYS] mongo_connector.connector:50 - Starting mongo-connector version: 3.1.1
+2019-09-30 10:13:20,461 [ALWAYS] mongo_connector.connector:50 - Python version: 3.6.8 (default, Aug  7 2019, 17:28:10) 
 [GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
-2019-09-27 15:50:53,756 [ALWAYS] mongo_connector.connector:50 - Platform: Linux-3.10.0-693.el7.x86_64-x86_64-with-centos-7.4.1708-Core
-2019-09-27 15:50:53,756 [ALWAYS] mongo_connector.connector:50 - pymongo version: 3.9.0
-2019-09-27 15:50:53,757 [WARNING] mongo_connector.connector:170 - MongoConnector: Can't find /vagrant/source/func/mongo-connector/log/oplog.timestamp, attempting to create an empty progress log
-2019-09-27 15:50:53,762 [ALWAYS] mongo_connector.connector:50 - Source MongoDB version: 3.6.14
-2019-09-27 15:50:53,762 [ALWAYS] mongo_connector.connector:50 - Target DocManager: mongo_connector.doc_managers.elastic2_doc_manager version: 1.0.0
-2019-09-27 15:50:53,763 [ERROR] mongo_connector.connector:383 - No replica set at "localhost:27017"! A replica set is required to run mongo-connector. Shutting down...
-2019-09-27 15:52:47,034 [WARNING] mongo_connector.connector:943 - Deprecation warning: the current namespaces configuration format is outdated and support may be removed in a future release. Please update your config file to use the new format.
-2019-09-27 15:52:47,115 [ALWAYS] mongo_connector.connector:50 - Starting mongo-connector version: 3.1.1
-2019-09-27 15:52:47,116 [ALWAYS] mongo_connector.connector:50 - Python version: 3.6.8 (default, Aug  7 2019, 17:28:10) 
-[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)]
-2019-09-27 15:52:47,117 [ALWAYS] mongo_connector.connector:50 - Platform: Linux-3.10.0-693.el7.x86_64-x86_64-with-centos-7.4.1708-Core
-2019-09-27 15:52:47,117 [ALWAYS] mongo_connector.connector:50 - pymongo version: 3.9.0
-2019-09-27 15:52:47,124 [ALWAYS] mongo_connector.connector:50 - Source MongoDB version: 3.6.14
-2019-09-27 15:52:47,124 [ALWAYS] mongo_connector.connector:50 - Target DocManager: mongo_connector.doc_managers.elastic2_doc_manager version: 1.0.0
-2019-09-27 15:52:47,126 [ERROR] mongo_connector.connector:383 - No replica set at "localhost:27017"! A replica set is required to run mongo-connector. Shutting down...
+2019-09-30 10:13:20,462 [ALWAYS] mongo_connector.connector:50 - Platform: Linux-3.10.0-693.el7.x86_64-x86_64-with-centos-7.4.1708-Core
+2019-09-30 10:13:20,463 [ALWAYS] mongo_connector.connector:50 - pymongo version: 3.9.0
+2019-09-30 10:13:20,584 [ALWAYS] mongo_connector.connector:50 - Source MongoDB version: 3.6.14
+2019-09-30 10:13:20,585 [ALWAYS] mongo_connector.connector:50 - Target DocManager: mongo_connector.doc_managers.elastic2_doc_manager version: 1.0.0

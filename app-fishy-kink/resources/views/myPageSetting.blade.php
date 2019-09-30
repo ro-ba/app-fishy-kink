@@ -16,9 +16,9 @@
     <div>
     <form method = post>
         <img class="myIcon" src="$icon" alt="myIcon" />
-        <div>ユーザ名<input type="text" class="userName" value="$name" /></div>
+        <div>ユーザ名<input type="text" name="userName" class="userName" value="$name" /></div>
         <div>自己紹介</div>
-        <div><textarea class="userId" cols="50" rows="7" maxlength="200" value="$profile"></textarea></div>
+        <div><textarea class="userId" name="profile" cols="50" rows="7" maxlength="200" value="$profile"></textarea></div>
         <input class="save" type="submit" value="保存" />
     </form>
     </div>
