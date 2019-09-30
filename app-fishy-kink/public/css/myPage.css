@@ -35,10 +35,12 @@
     }
 
     #userId {
+        height:0px;
+        width:0px;
         margin-top: 0px;
         color: rgb(128,128,128);
 
-        position:fixed; top:6.3%; left:150px;
+        position:fixed; top:8px; left:150px;
     }
 
     .follow {
@@ -118,8 +120,8 @@
     } */
 
     .profile {
-        /* width:100%; */
-        position: fixed; top:21%; left:22%;
+        width:100%;
+        position: fixed; top:190px;
         margin-left:0%;
         text-align: center;
         display:inline-block;
@@ -131,12 +133,14 @@
 
     .tweet {
         /* float: left; */
-        position: fixed; top:33%; left:0%;
+        width:100%;
+        position: fixed; top:300px;
         text-align: center;
     }
+    
 
     .btn {
-        position: fixed; top:80%; left: 50%
+        position: fixed; top:750px; left: 90%
 
     }
 }
@@ -180,7 +184,7 @@
         margin-top: 0px;
         color: rgb(128,128,128);
 
-        position:fixed; top:6.3%; left:150px;
+        position:fixed; top:60px; left:150px;
     }
 
     .follow {
@@ -260,8 +264,8 @@
     } */
 
     .profile {
-        /* width:100%; */
-        position: fixed; top:21%; left:22%;
+        width:100%;
+        position: fixed; top:190px; 
         margin-left:0%;
         text-align: center;
         display:inline-block;
@@ -273,12 +277,13 @@
 
     .tweet {
         /* float: left; */
-        position: fixed; top:33%; left:0%;
+        width:100%;
+        position: fixed; top:300px;
         text-align: center;
     }
 
     .btn {
-        position: fixed; top:80%; left: 50%
+        position: fixed; top:750px; left: 90%
 
     }
 }
@@ -331,7 +336,7 @@
         float: left;
         display:inline-block;
 
-        position:fixed; top:94px; left:40px;
+        position:fixed; top:94px; left:25px;
     }
 
     .follow:hover {
@@ -399,7 +404,9 @@
 
     .profile {
         /* width:100%; */
-        position: fixed; top:21%; left:22%;
+        width:100%;
+
+        position: fixed; top:190px; 
         margin-left:0%;
         text-align: center;
         display:inline-block;
@@ -411,12 +418,15 @@
 
     .tweet {
         /* float: left; */
-        position: fixed; top:33%; left:0%;
+        width:100%;
+        position: fixed; top:300px;
         text-align: center;
     }
 
+    
+
     .btn {
-        position: fixed; top:80%; left: 50%
+        position: fixed; top:750px; left: 90%
 
     }
 

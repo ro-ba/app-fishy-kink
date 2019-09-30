@@ -26,7 +26,7 @@
             <button type="button"onclick="location.href='./story.html'">ストーリー</button>
         </div>
         <div id="link_icon"></div>
-        <form method='get' action="../source/kouki/search.php" >
+        <form method='get' action="/serchResult.html" >
             <image src=""></image>
             <input type=text name="serchString">
             <input type=submit value="検索">
