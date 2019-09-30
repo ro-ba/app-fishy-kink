@@ -1,32 +1,67 @@
 <?php
 //require_once dirname(__FILE__) . '/vendor/autoload.php';
-require 'vendor/autoload.php'; 
 
-$data = dbAccess();
-$user_json = json_encode($data);
+require "/vagrant/source/func/FKSession.php";
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($ch, CURLOPT_POSTFIELDS, $user_json);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_URL, 'http://posttestserver.com/post.php');//URLは仮名
-$result=curl_exec($ch);
-echo 'RETURN:'.$result;
-curl_close($ch);
+// function myPage($FishyKink){
 
-function dbAccess(){
-    $client = new MongoDB\Client("mongodb://localhost:27017");
-    $db = $client->selectDatabase('User');
-    $collection = $db->selectCollection('user');
+function dbUser($FishyKink,$id){
 
-    // $userName = array('userName' => '$_SESSION[‘username’]');
-
-    $cursor = $collection->find(['userName' => 'test']);
-    foreach ($cursor as $userData) {
-       $data = $userData;
+    if(empty($id)){
+        $id = session('userID');
     };
-    var_dump($data);
-    return $data;
-};
+    //$id = 'ino';
+
+    $userCursor = $FishyKink["userDB"]->findOne(array('userID' => $id));
+    $Data = [];
+    foreach ($userCursor as $key => $userData) {
+        $Data[$key] = $userData;
+    };
+    //$user_json = json_encode($Data);
+    return $Data;
+}
+
+function dbTweet($FishyKink,$id){
+
+    if(empty($id)){
+        $id = session('userID');
+    };
+    // $id = 'takuwa';
+
+    $tweetCursor = $FishyKink["tweetDB"]->find(array('userID' => $id));
+
+    // $Data = [];
+    // foreach ($tweetCursor as $key => $tweetData) {
+    //     $Data[$key] = $tweetData;
+    // }
+    // }
+    // else{
+    //     $Data["tweet"] = "ツイートがありません";
+    // }
+
+    // var_dump($Data);
+
+    return $tweetCursor;
+}
+
+
+    // if($flg== true){
+    //$user_json = dbUser($FishyKink);
+    //     return $user_json;
+    // }else{
+    //$tweet_json = dbTweet($FishyKink);
+    //     return $tweet_json;
+    // }
+
+
+    // $user = dbUser($FishyKink);
+    // $tweet = dbTweet($FishyKink);
+    // $res = array_merge( $user, $tweet );
+
+    // return $res;
+// }
+
+// myPage($FishyKink);
+
 ?>
+

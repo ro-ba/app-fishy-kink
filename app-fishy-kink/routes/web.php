@@ -23,9 +23,14 @@ Route::resources([
     "tweet" => "TweetController",
     "notify" => "NotifyController",
     "DM" => "DMController",
-    "myPage" => "MyPageController",
+    "profile" => "ProfileController",
     "setting" => "SettingController",
-    "FFlist" => "FFlistController"
+    "FFlist" => "FFlistController",
+    "search" => "SearchController",
+    "/api/reloadTweet" =>"Ajax\ReloadTweetController",
+    "test" => "TestController",
+    "followers" => "FollowersController",
+    "following" => "FollowingController"
     ]);
 
 // Route::resource("/","TopController");

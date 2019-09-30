@@ -1,10 +1,15 @@
 <?php
+namespace App\Http\Controllers\Ajax;
 
-namespace App\Http\Controllers;
+ini_set('display_errors',1);
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class MyPageController extends Controller
+require "/vagrant/source/func/FKSession.php";
+require "/vagrant/source/func/FKMongo.php";
+
+class ReloadTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +18,9 @@ class MyPageController extends Controller
      */
     public function index()
     {
-        return view("myPage");
-        //
+        $data = connect_mongo();
+        $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+        return json_encode(iterator_to_array($tweets));
     }
 
     /**
