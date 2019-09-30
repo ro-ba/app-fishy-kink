@@ -8,7 +8,7 @@ require "/vagrant/source/komaduki/GetTweet.php";
 // require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
-class MyPageController extends Controller
+class ProfileController extends Controller
 {
 
     /**
@@ -16,14 +16,14 @@ class MyPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
+        dd($request->input("user"));
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink);
         $tweetData = dbTweet($FishyKink);
 
-        return view("myPage",compact("userData","tweetData"));
+        return view("profile",compact("userData","tweetData"));
 
     }
 
