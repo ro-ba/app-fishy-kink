@@ -132,10 +132,5 @@ $(function(){ // 遅延処理
         <div id="centerContents" class="col-sm-6"></div>
             
         <div id="rightContents" class="col-sm-3"></div>
-<<<<<<< HEAD
-</body>
-</html>
-=======
     </body>
     </html>
->>>>>>> 3660db1fad2a3902221702dffdb84b751788e1f5
