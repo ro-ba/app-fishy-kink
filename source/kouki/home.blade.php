@@ -8,7 +8,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet" type="text" href="style.css"> -->
+<link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
 </head>
 <body>
@@ -43,21 +43,11 @@
         <div id="centerContents">
             <div class="tweet">
                 <div class=tweetTop>
-                        <div class="date"></div> 　
-                            
-                        <div class="time"></div>
-                            
+                        <div class="date">5/23</div> 　
+                        <div class="time">11:34</div>
                 </div>
                 <div class=tweetMain>
-                    <p>
-                    <?php
-                        require "/vagrant/source/func/FKMongo.php"; 
-                        $data = connectMongo();
-                        require "/vagrant/source/komaduki/GetTweet.php";
-                        $func = getTweet($data);
-
-                    ?>
-                    </p>
+                    <p>おなかがすいたなー</p>
                 </div>
                 <div class="tweetBottom">
                     <div class="reply">

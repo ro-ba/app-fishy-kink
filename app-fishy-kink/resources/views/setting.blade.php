@@ -18,7 +18,7 @@
         <form method="post">
             <div class="userData">
                 <img class="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-                <input type="text" class="usenName" value='{{ $userData["userName"] }}'>
+                <input type="text" name="userName" class="usenName" value='{{ $userData["userName"] }}'>
                 <p class="userId"><span>@</span>{{ $userData["userID"] }}</p>
             </div>
             <div class="profile">
@@ -26,7 +26,7 @@
                 <textarea name="profileText" rows="4" cols="80">{{ $userData["profile"] }}</textarea>
             </div>
             <input class="btn setting" type="submit" value="適用">
-            <input class="btn btn-success" type="button" onclick="location.href='/myPage'" value="戻る">
+            <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る">
         </form>
     @else
     <p id="error">エラー</p>
