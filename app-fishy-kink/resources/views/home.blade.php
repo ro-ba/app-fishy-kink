@@ -130,6 +130,8 @@ $(function(){ // 遅延処理
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6"></div>
         <div id="rightContents" class="col-sm-3"></div>
+
 </body>
 </html>
+
 
