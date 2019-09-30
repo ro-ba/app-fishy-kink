@@ -34,7 +34,7 @@
             <p class="follower">フォロワー<span></span>0人</p>
         @endif
 
-        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+        <button class="setButton" type="button" onclick="location.href='/setting'">プロフィール変更</button>
     </div>
     <div class="profile">
         <p>プロフィール</p>
