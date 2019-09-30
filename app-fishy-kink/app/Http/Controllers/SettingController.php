@@ -6,11 +6,7 @@ use Illuminate\Http\Request;
 require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/pigHuman/myPageSetting.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-<<<<<<< HEAD
-//require "/vagrant/source/func/FKSession.php";
-=======
 // require "/vagrant/source/func/FKSession.php";
->>>>>>> 943590f8e7ce30d180a860b16629c6eb6f55f8e9
 require "/vagrant/source/func/FKMongo.php";
 
 
@@ -47,18 +43,18 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        $FishyKink = connect_mongo();
-        $id = session('userID');
+        //$FishyKink = connect_mongo();
+        //$id = session('userID');
 
-        myPageSetting($id);
+        //myPageSetting($id);
         
 
-        // // myPageSetting($request,$FishyKink);
-        // $db["userDB"] -> update(array($id),[
-        //     "userName" => $request->input("userName"),
-        //     // "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
-        //     "profile" => $request->input("profile")
-        // ]);
+         myPageSetting($request,$FishyKink);
+         $db["userDB"] -> update(array($id),[
+             "userName" => $request->input("userName"),
+             // "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
+             "profile" => $request->input("profile")
+         ]);
 
         return view("profile");
     }
