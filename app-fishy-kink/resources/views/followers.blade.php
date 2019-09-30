@@ -29,15 +29,12 @@
 
             @isset($followData["follow"][0])
                 @foreach ($followData["follow"] as $followers)
+                <button type="button" onclick="location.href='/followers'">
                     {{ $followers }}
                     @if($followData["userID"]) 
                         {{$followData["profile"]}}
                     @endif
-
-                @endforeach
-
-                
-                
+                @endforeach        
             @endisset
             </div>
            
