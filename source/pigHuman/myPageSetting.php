@@ -4,10 +4,11 @@
 function myPageSetting($id, $request,$FishyKink){
     $name = $request->input("userName");
     $profile = $request->input("profileText");
-    $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name]]);
-    $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["profile" => $profile]]);
-        
-    return "変更しました";
+    if(empty($name)); //userNameが空だったら
+        return "変更できませんでした。";
+    else; //空じゃなかったら変更
+        $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name] , ["profile" => $profile]]);
+        return "変更しました。";
 }
 
 ?>
