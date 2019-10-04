@@ -1,152 +1,6 @@
 @charset "UTF-8";
 
 
-@media (min-width: 1188px) {
-
-    #myIcon {
-
-        width:140px;
-        height:140px;
-
-        padding-top: 1px;
-        padding-bottom: 1px;
-        padding-left: 1px;
-        padding-right: 1px;
-        background-color: skyblue;
-        margin-right: 40px;
-        text-align:center;
-        line-height: 80px;
-        float: left;
-        border-radius: 100%;
-
-        position:fixed; top:5px;; left:5px;
-    }
-
-    
-
-    
-
-    #usenName {
-        height: 60px;
-        width: 500px;
-        font-size: 50px;
-        margin-bottom: 0px;
-        padding-bottom: 0px;
-
-        position:fixed; top:4px; left:150px;
-    }
-
-    #userId {
-        height:0px;
-        width:0px;
-        margin-top: 0px;
-        color: rgb(128,128,128);
-
-        position:fixed; top:8px; left:150px;
-    }
-
-    .follow {
-        font-size:19px;
-        border: solid 3px #cce4ff;
-        border-left: 20%;
-        /* width: 120px; */
-        margin-left: 0px;
-        margin-top: 0px;
-        border-radius: 5%;
-        /* float: left; */
-        display:inline;
-
-        position:fixed; top:12%; left:12%;
-    }
-
-    .follow:hover {
-        background-color: #fff;
-        border-color: #59b1eb;
-        color: #59b1eb;
-    }
-
-    .follower {
-        font-size:19px;
-        border: solid 3px #cce4ff;
-        /* border-left: 20%; */
-        /* width: 120px; */
-        margin-left: 0px;
-        margin-top: 0px;
-        margin-right:20px;
-        border-radius: 5%;
-        /* display:inline-block; */
-        position:fixed; top:12%; left:22%;
-
-    }
-
-    .follower:hover {
-        background-color: #fff;
-        border-color: #59b1eb;
-        color: #59b1eb;
-    }
-
-    .setButton {
-        padding:0px 30px 0px 30px;
-        /* margin-left:450px;
-
-        margin-bottom: 300px; */ 
-
-        background-color: #59b1eb;
-        border: 1px solid #59b1eb;
-        border-radius:10px;
-        color: #fff;
-        line-height: 30px;
-        display: table-cell;
-
-        position: fixed; top:8%; left:43%;
-    }
-
-    .setButton:hover {
-        background-color: #fff;
-        border-color: #59b1eb;
-        color: #59b1eb;
-    }
-
-    .bar1 {
-        border-bottom: solid 3px #cce4ff;
-        width:100%;
-        position: fixed; top:135px; 
-    }
-    /* hr:after {
-        position: absolute;
-        content: " ";
-        display: block;
-        border-bottom: solid 3px #5472cd;
-        bottom: -3px;
-        width: 20%;
-    } */
-
-    .profile {
-        width:100%;
-        position: fixed; top:190px;
-        margin-left:0%;
-        text-align: center;
-        display:inline-block;
-    }
-
-    /* .prof {
-        text-align: center;
-    } */
-
-    .tweet {
-        /* float: left; */
-        width:100%;
-        position: fixed; top:300px;
-        text-align: center;
-    }
-    
-
-    .btn {
-        position: fixed; top:750px; left: 90%
-
-    }
-}
-
 @media (min-width: 506px) {
 
     #myIcon {
@@ -238,7 +92,7 @@
         line-height: 30px;
         display: table-cell;
 
-        position: fixed; top:8%; left:43%;
+        position: fixed; top:80px; left:43%;
     }
 
     .setButton:hover {
@@ -267,6 +121,13 @@
         margin-left:0%;
         text-align: center;
         display:inline-block;
+
+        /* position: relative; */
+        /* padding: 0.5em 0.7em; */
+        /* margin: 2em 0; */
+        /* background: #c0e3f3; */
+        color: #5c98d4;
+        font-weight: bold;
     }
 
     /* .prof {
@@ -278,10 +139,18 @@
         width:100%;
         position: fixed; top:300px;
         text-align: center;
+
+        position: relative;
+        /* padding: 0.5em 0.7em; */
+        /* margin: 2em 0; */
+        /* background: #c0e3f3; */
+        color: #5c98d4;
+        font-weight: bold;
     }
+    
 
     .btn {
-        position: fixed; top:750px; left: 90%
+        position: fixed; top:80%; left: 90%
 
     }
 }
@@ -424,7 +293,7 @@
     
 
     .btn {
-        position: fixed; top:750px; left: 90%
+        position: fixed; top:80%; left: 90%
 
     }
 
