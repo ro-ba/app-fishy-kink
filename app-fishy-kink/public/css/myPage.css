@@ -8,10 +8,10 @@
         width:140px;
         height:140px;
 
-        padding-top: 30px;
-        padding-bottom: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-left: 1px;
+        padding-right: 1px;
         background-color: skyblue;
         margin-right: 40px;
         text-align:center;
@@ -21,6 +21,8 @@
 
         position:fixed; top:5px;; left:5px;
     }
+
+    
 
     
 
@@ -51,8 +53,8 @@
         margin-left: 0px;
         margin-top: 0px;
         border-radius: 5%;
-        float: left;
-        display:inline-block;
+        /* float: left; */
+        display:inline;
 
         position:fixed; top:12%; left:12%;
     }
@@ -72,7 +74,7 @@
         margin-top: 0px;
         margin-right:20px;
         border-radius: 5%;
-        display:inline-block;
+        /* display:inline-block; */
         position:fixed; top:12%; left:22%;
 
     }
@@ -105,7 +107,7 @@
         color: #59b1eb;
     }
 
-    hr {
+    .bar1 {
         border-bottom: solid 3px #cce4ff;
         width:100%;
         position: fixed; top:135px; 
@@ -145,10 +147,6 @@
     }
 }
 
-@media (min-width: 1350px) {
-
-}
-
 @media (min-width: 506px) {
 
     #myIcon {
@@ -156,10 +154,10 @@
         width:140px;
         height:140px;
 
-        padding-top: 30px;
-        padding-bottom: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-left: 1px;
+        padding-right: 1px;
         background-color: skyblue;
         margin-right: 40px;
         text-align:center;
@@ -188,17 +186,17 @@
     }
 
     .follow {
-        font-size:20px;
+        font-size:23px;
         border: solid 3px #cce4ff;
         border-left: 20%;
         /* width: 120px; */
         margin-left: 100px;
         margin-top: 0px;
         border-radius: 5%;
-        float: left;
-        display:inline-block;
+        /* float: left; */
+        display:inline;
 
-        position:fixed; top:119px; left:12%;
+        position:fixed; top:115px; left:12%;
     }
 
     .follow:hover {
@@ -208,7 +206,7 @@
     }
 
     .follower {
-        font-size:20px;
+        font-size:23px;
         border: solid 3px #cce4ff;
         /* border-left: 20%; */
         /* width: 120px; */
@@ -216,8 +214,8 @@
         margin-top: 0px;
         margin-right:20px;
         border-radius: 5%;
-        display:inline-block;
-        position:fixed; top:119px; left:15%;
+        /* display:inline-block; */
+        position:fixed; top:115px; left:22%;
 
     }
 
@@ -249,7 +247,7 @@
         color: #59b1eb;
     }
 
-    hr {
+    .bar1 {
         border-bottom: solid 3px #cce4ff;
         width:100%;
         position: fixed; top:135px; 
@@ -291,13 +289,13 @@
 @media (max-width: 650px) {
     #myIcon {
 
-        width:40px;
-        height:40px;
+        width:50px;
+        height:50px;
 
-        padding-top: 30px;
-        padding-bottom: 30px;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
         background-color: skyblue;
         margin-right: 40px;
         text-align:center;
@@ -305,7 +303,7 @@
         float: left;
         border-radius: 100%;
 
-        position:fixed; top:5px;; left:5px;
+        position:fixed; top:10px;; left:5px;
     }
 
     #usenName {
@@ -387,7 +385,7 @@
         color: #59b1eb;
     }
 
-    hr {
+    .bar1 {
         border-bottom: solid 3px #cce4ff;
         width:100%;
         position: fixed; top:110px; 
