@@ -34,7 +34,7 @@
                     {{ $followers }}
                     </button>
                
-                    {{$followerPro[]}}
+                    {{$followerPro[0]}}
             
 
                 @endforeach     

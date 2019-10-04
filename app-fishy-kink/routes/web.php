@@ -27,10 +27,11 @@ Route::resources([
     "setting" => "SettingController",
     "FFlist" => "FFlistController",
     "search" => "SearchController",
-    "/api/reloadTweet" =>"Ajax\ReloadTweetController",
     "test" => "TestController",
     "followers" => "FollowersController",
-    "following" => "FollowingController"
+    "following" => "FollowingController",
+    "/api/reloadTweet" =>"API\ReloadTweetController",
+    "/api/fabChange" => "API\FabChangeController"
     ]);
 
 // Route::resource("/","TopController");
