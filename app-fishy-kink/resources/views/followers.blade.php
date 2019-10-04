@@ -33,12 +33,6 @@
                 <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
                     {{ $followers }}
                     </button>
-               
-                    {{$followerPro[0]}}
-            
-
-                @endforeach     
-              
             @endisset
             </div>
            
