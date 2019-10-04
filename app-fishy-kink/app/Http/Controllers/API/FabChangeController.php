@@ -17,20 +17,20 @@ class FabChangeController extends Controller
     public function index()
     {
         $db = connect_mongo();
-        $tweetID = $request->input("tweetID");
-        $userID = $request->input("userID");
-        $fablist = $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
-        if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
+        $tweet = $request->input("tweetID");
+        $user = $request->input("userID");
+        $fablist = $db["tweetDB"]->findOne(["_id" => $tweet["tweetID"]])["fabUser"];
+        if (in_array($user["userID"],$fablist)){    //もし、すでにファボしていればリストから削除する
             //削除
-            $fablist = array_diff($fablist,$userID);
+            $fablist = array_diff($fablist,$user["userID"]);
             //indexを詰める
             $fablist = array_values($fablist);
         } else {
             //追加
-            array_push($fablist,$userID);
+            array_push($fablist,$user["userID"]);
         };
         //更新
-        $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["fabUser" => $fablist]]);
+        $db["tweetDB"]->updateOne(["_id" => $tweet["tweetID"]],['$set'=>["fabUser" => $fablist]]);
     }
 
     /**
@@ -43,19 +43,19 @@ class FabChangeController extends Controller
     {
         $db = connect_mongo();
         $tweetID = $request->input("tweetID");
-        $userID = $request->input("userID");
-        $fablist = $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
-        if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
+        $user["userID"] = $request->input("user["userID"]");
+        $fablist = $db["tweetDB"]->findOne(["_id" => $tweet["tweetID"]])["fabUser"];
+        if (in_array($user["userID"],$fablist)){    //もし、すでにファボしていればリストから削除する
             //削除
-            $fablist = array_diff($fablist,$userID);
+            $fablist = array_diff($fablist,$user["userID"]);
             //indexを詰める
             $fablist = array_values($fablist);
         } else {
             //追加
-            array_push($fablist,$userID);
+            array_push($fablist,$user["userID"]);
         };
         //更新
-        $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["fabUser" => $fablist]]);
+        $db["tweetDB"]->updateOne(["_id" => $tweet["tweetID"]],['$set'=>["fabUser" => $fablist]]);
     }
 
     /**
