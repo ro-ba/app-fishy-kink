@@ -26,7 +26,7 @@ class HomeController extends Controller
             // return view("home",compact("tweets","userIcon"));
         }else{
             return redirect("login");
-        }
+        };
     }
 
     /**
