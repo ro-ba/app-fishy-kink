@@ -22,14 +22,17 @@
         </div>
         @if ( isset ($userData["follow"]) )
 
-            <p class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
+
+            <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
             <!-- <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p> -->
+            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
+
         @else
             <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
         @endif
         
         @if ( isset ($userData["follower"]) )
-            <p class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
+            <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
         @else
             <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
             <p class="follower">フォロワー<span></span>0人</p>
@@ -42,49 +45,93 @@
     <div class="profile">
         <p>プロフィール</p>
            <p>{{ $userData["profile"] }}</p>
-    </div>
-    <div class="tweet">
-        <p >ツイート</p>
-        <div class="tweet_scroll" style="height:400px; width:100%; overflow-y:scroll;">
-            <table height="100" width="600">
-                @isset($tweetData)
 
-                @foreach ( $tweetData as $tweet)
-                <div class="tweetTop card-header">
-                    @if ($tweet["type"] == "retweet")
-                        <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+           
+    <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
+    
+    
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script>
+$(function(){ // 遅延処理
+  setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
+    $.ajax({
+      type: 'POST',
+      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      dataType: 'json',           // 読み込むデータの種類を記入
+      data: {userID:{{ $userData["userID"] }},
+            _token: '{{ csrf_token() }}'
+            },
+      cache: false
+      }).done(function (results) {
+        // 通信成功時の処理          
+        $('#tweet').empty();
+        let tweetType = "";
 
-                    @endif
-                    <div class="tweet-user"> {{ $tweet["userID"] }} </div>
-                        <div class="time"> {{ $tweet["time"] }}</div>
-                                <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
-                                <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
-                        </div>
-                        <div class="tweetMain card-body">
-                            {{ $tweet["text"] }}
-                        </div>
-                        <div class="tweetBottom d-inline">
-                            <div class="reply d-inline-block">
-                                <image src="images/reply.jpg"/>
-                            </div>
-                            <div class="retweet d-inline-block">
-                                <image src="images/retweet.png"/>
-                            </div>
-                            <div class="fab d-inline-block">
-                                <image src="images/fabo.jpg"/>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach           
-                @else
-                    <p id=error_tweet >ツイートがありません</p>
-                @endisset
-            </table>
-        </div>
-    </div>
-    <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
-    @else
-    <p id="error">エラー</p>
+        results.forEach(function(tweet){
+
+
+          // リツイート 
+          if (tweet["type"] == "retweet") {
+            tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
+          } 
+
+          else {
+            tweetType = ""
+          }        
+          $('#tweet').append(
+                '<div class="tweetTop card-header">'+
+                    '<div class="tweet-user">' +
+                    '</div>' +
+                    tweetType + 
+                    '<a href=/profile?user=' + tweet["userID"] +'>'+
+                        tweet["userID"] +
+                    '</a> '+
+                   '<div class="time">'
+                        + tweet["time"] + 
+                    '</div> '+
+                '</div></div>');
+                $('#tweet').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
+
+          // 画像表示
+          $('#tweet').append('<div style=float:left>');
+          for(var i=0;i<tweet["img"].length;i++){
+            $('#tweet').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
+          }
+          $('#tweet').append('</div><p>');
+          
+          $('#tweet').append('<div class="tweetBottom d-inline">');
+          $('#tweet').append('<button type="button" class="reply">リプライ</button>');             
+          $('#tweet').append('<button type="button" class="retweet">リツーイト</button>');
+          $('#tweet').append('<button type="button" class="good">いいね</button>');
+
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          
+          $('#tweet').append(
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
+          );                       
+      });
+      // $('#main-contents').text(results);
+      }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+      });
+      return update;
+    }()),1000);
+});
+</script>           
     @endisset
 </body>
 
