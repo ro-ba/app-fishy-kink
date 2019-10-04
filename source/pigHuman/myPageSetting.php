@@ -7,7 +7,7 @@ function myPageSetting($id, $request,$FishyKink){
     if(empty($name)){ //userNameが空だったら
         return "変更できませんでした。";
     }else{ //空じゃなかったら変更
-        $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name] , ["profile" => $profile]]);
+        $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
         return "変更しました。";
     }
 }
