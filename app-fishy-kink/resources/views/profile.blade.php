@@ -22,14 +22,14 @@
         </div>
         @if ( isset ($userData["follow"]) )
 
-            <p class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
+            <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
             <!-- <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p> -->
         @else
             <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
         @endif
         
         @if ( isset ($userData["follower"]) )
-            <p class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
+            <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
         @else
             <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
             <p class="follower">フォロワー<span></span>0人</p>
