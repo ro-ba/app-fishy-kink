@@ -277,6 +277,13 @@
         margin-left:0%;
         text-align: center;
         display:inline-block;
+
+        position: relative;
+        /* padding: 0.5em 0.7em; */
+        /* margin: 2em 0; */
+        /* background: #c0e3f3; */
+        color: #5c98d4;
+        font-weight: bold;
     }
 
     /* .prof {
@@ -288,6 +295,13 @@
         width:100%;
         position: fixed; top:300px;
         text-align: center;
+
+        position: relative;
+        /* padding: 0.5em 0.7em; */
+        /* margin: 2em 0; */
+        /* background: #c0e3f3; */
+        color: #5c98d4;
+        font-weight: bold;
     }
 
     
