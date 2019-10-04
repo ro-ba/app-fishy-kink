@@ -5,31 +5,26 @@ function search($search){
     $search = explode(" ", $search);
     $count = count($search);
     $find_tweet = [];
-    $find_name = [];
-    $find_id = [];
-    $img = [];
+    $find_user = [];
     for($i = 0; $i < $count; $i++){
         $search_word = $search[$i];
         //検索する文字列の数に応じて下の配列を増やす
         $tweet = array("text" => new \MongoDB\BSON\Regex("$search_word"));
-        $name = array("userName" => new \MongoDB\BSON\Regex("$search_word"));
-        $id = array("userID" => new \MongoDB\BSON\Regex("$search_word"));
+        $user = [array("userName" => new \MongoDB\BSON\Regex("$search_word")),
+            array("userID" => new \MongoDB\BSON\Regex("$search_word")),
+            array("profile" => new \MongoDB\BSON\Regex("$search_word"))];
+        
         array_push($find_tweet,$tweet);
-        array_push($find_name,$name);
-        array_push($find_id,$id);
+        array_push($find_user,$user);
+
     }
-    $tweet_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));//ツイート検索
-    $name_result = $db ["userDB"] -> find(array('$and' => $find_name));//名前検索
-    $id_result = $db ["userDB"] -> find(array('$and' => $find_id));//id検索
-    //$img_result = $db ["tweetDB"] -> find(array('$and' => $find_tweet));
-    
+    $tweet_result = $db ["tweetDB"] -> find(['$and' => $find_tweet]);//ツイート検索
+    #$user_result = $db ["userDB"] -> find(array('$and' => $find_user));//id検索
+    $user_result = $db ["userDB"] -> find(['$or' => $find_user]);
     foreach($tweet_result as $obj){
         print_r($obj);
     }
-    foreach($name_result as $obj){
-        print_r($obj);
-    }
-    foreach($id_result as $obj){
+    foreach($user_result as $obj){
         print_r($obj);
     }
 
