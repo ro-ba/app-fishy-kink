@@ -413,6 +413,11 @@
         /* float: left; */
         position: fixed; top:33%; left:0%;
         text-align: center;
+        height:400px; 
+        width:100%;
+        
+        /* background: skyblue; */
+
     }
 
     .btn {
