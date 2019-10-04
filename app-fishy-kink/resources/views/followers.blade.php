@@ -25,28 +25,46 @@
 
         <div class="tab-content">
             <div class="tab-pane" id="followers">
-        @isset($followData)
+    
 
+        @isset($followData)
             @isset($followData["follow"][0])
                 @foreach ($followData["follow"] as $followers)
-                <button type="button" onclick="location.href='/followers'">
+                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
                     {{ $followers }}
-                    @if($followData["userID"]) 
-                        {{$followData["profile"]}}
-                    @endif
+                    </button>
+                    <?php
+                        $data = connect_mongo();
+                        $userProfile = $data["userDB"] -> findOne(["userID" => session("userID")]);
+                       foreach($userProfile["follow"] as $followers){
+                        $userProfile = $data["userDB"] -> findOne(["userID" => $followers]);
+                    }
+                    print_r($userProfile["profile"]);
+                    ?>
                 @endforeach        
             @endisset
             </div>
            
-
+       
             <div class="tab-pane" id="following">
             @isset($followData["follower"][0])
                 @foreach ($followData["follower"] as $following)
-                    {{ $following }}  
+                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                    {{ $following }} 
+                    </button> 
+                    <?php
+                        $data = connect_mongo();
+                        $userProfile = $data["userDB"] -> findOne(["userID" => session("userID")]);
+                       foreach($userProfile["follow"] as $followers){
+                        $userProfile = $data["userDB"] -> findOne(["userID" => $followers]);
+                    }
+                    print_r($userProfile["profile"]);
+                    ?>
                 @endforeach
             @endisset
             </div>
         @endisset
+   
         <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
         </div>
     </div>

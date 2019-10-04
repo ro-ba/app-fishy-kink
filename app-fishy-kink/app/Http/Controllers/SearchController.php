@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+require "/vagrant/source/kouki/search.php";
+require "/vagrant/source/func/FKMongo.php";
+
 class SearchController extends Controller
 {
     /**
@@ -13,8 +16,12 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
-        print_r($request -> input("searchString"));
-        return view ("search");
+        $search = $request->input("searchString");
+        if(emty($search);
+            return "文字を入力してください";
+        else;
+           search($search);
+           return true;
     }
 
     /**
