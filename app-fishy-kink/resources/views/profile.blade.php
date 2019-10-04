@@ -54,7 +54,7 @@ $(function(){ // 遅延処理
       type: 'POST',
       url: '/api/reloadTweet',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
-      data: {userID:{{ $userData["userID"] }},
+      data: {userID:'{{ $userData["userID"] }}',
             _token: '{{ csrf_token() }}'
             },
       cache: false
