@@ -3,25 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/pigHuman/myPage.php";
-require "/vagrant/source/komaduki/GetTweet.php";
-// require "/vagrant/source/func/FKSession.php";
-require "/vagrant/source/func/FKMongo.php";
-class ProfileController extends Controller
-{
 
+class FollowingController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id = $request->input("user");
-        $FishyKink = connect_mongo();
-        $userData = dbUser($FishyKink,$id);
-        $tweetData = dbTweet($FishyKink,$id);
-        return view("profile",compact("userData","tweetData"));
+        //
     }
 
     /**

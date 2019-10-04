@@ -21,7 +21,7 @@ $(function(){ // 遅延処理
       type: 'GET',
       url: '/api/reloadTweet',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
-      data: null,
+      data: {action:'homeLib'},
       cache: false
       }).done(function (results) {
         // 通信成功時の処理
@@ -31,25 +31,26 @@ $(function(){ // 遅延処理
           // console.log(tweet);
           $('#centerContents').append('<div class="tweet card">');      
           
+          // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
           } 
-          // リツイート         
+                  
           else {
             tweetType = ""
           }
             $('#centerContents').append(
-                '<div class="tweetTop card-header"> \
-                    <div class="tweet-user"> \
-                    </div>' \
-                    + tweetType + \
+                '<div class="tweetTop card-header">'+
+                    '<div class="tweet-user">' +
+                    '</div>' +
+                    tweetType + 
                     '<a href=/profile?user=' + tweet["userID"] +'>'+
                         tweet["userID"] +
-                    '</a> \
-                   <div class="time">'
+                    '</a> '+
+                   '<div class="time">'
                         + tweet["time"] + 
-                    '</div>\
-                </div>');
+                    '</div> '+
+                '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
           
@@ -60,28 +61,42 @@ $(function(){ // 遅延処理
           $('#centerContents').append('</div><p>');
         
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');             
-          $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
-          $('#centerContents').append('<button type="button" class="good">いいね</button>');
+          $('#centerContents').append('<input name="reply" onclick="reply()" type="image" src="images/reply.jpg" alt="リプライ">');  
+          $('#centerContents').append('<input name="retweet" type="image" src="images/retweet.png" alt="リツイート"/>');
+          $('#centerContents').append('<input name="fab" type="image" src="images/fabo.jpg" alt="いいね"/>');
 
+          
+          $(reply()){
+            $("[name=reply]").on("click", fab() {
+
+                $.get("homeLib.php", {
+                    id : $("[type=image]").val()
+                }, function(data) {
+                    $("span").text(data);
+                });
+            });
+          }):
+
+
+    
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
           // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
           // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
           // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
           
-          $('#centerContents').append(
-            '<div class="tweetBottom d-inline"> \
-                <div class="reply d-inline-block"> \
-                <image src="images/reply.jpg"/> \
-                </div> \
-                <div class="retweet d-inline-block"> \
-                    <image src="images/retweet.png"/> \
-                </div> \
-                <div class="fab d-inline-block"> \
-                    <image src="images/fabo.jpg"/> \
-                </div> \
-            </div>'
-          );                       
+        //   $('#centerContents').append(
+        //     '<div class="tweetBottom d-inline"> '+
+        //         '<div class="reply d-inline-block"> '+
+        //         '<image src="images/reply.jpg"/> '+
+        //         '</div> '+
+        //         '<div class="retweet d-inline-block"> '+
+        //             '<image src="images/retweet.png"/> '+
+        //         '</div> '+
+        //         '<div class="fab d-inline-block"> '+
+        //             '<image src="images/fabo.jpg"/> '+
+        //         '</div> '+
+        //     '</div>'
+        //   );                       
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -142,29 +157,39 @@ $(function(){ // 遅延処理
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-                    {{ $tweet["text"] }}
+                    {{ $tweet["text"] }}                    
                 </div>
-
+                  
+                <div style = float: left>
                 @isset($tweet["img"][0])
-                @foreach($tweet["img"] as $img)
-                    <img src=" {{ $img }}" />
-                @endforeach
+                    @foreach($tweet["img"] as $img)
+                     <img src=" {{ $img }}" width="200" height="150"/>
+                    @endforeach
                 @endisset
+                </div>
                 <div class="tweetBottom d-inline">
                     <div class="reply d-inline-block">
-                        <image src="images/reply.jpg"/>
+                        
                     </div>
                     <div class="retweet d-inline-block">
-                        <image src="images/retweet.png"/>
+                        
                     </div>
                     <div class="fab d-inline-block">
-                        <image src="images/fabo.jpg"/>
+                        
                     </div>
                 </div>
             @endforeach
+
+            
             </div>
         </div>
 
         <div id="rightContents" class="col-sm-3"></div>
 </body>
+
+<img class="" height="100" width="100" 
+        src="images/twitter.jpg"
+        />
+</html>
+
 </html>
