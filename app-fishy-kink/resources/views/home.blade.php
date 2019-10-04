@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
@@ -53,13 +54,13 @@ $(function(){ // 遅延処理
                 '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
 
-          
+          // 画像表示
           $('#centerContents').append('<div style=float:left>');
           for(var i=0;i<tweet["img"].length;i++){
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-        
+          
           $('#centerContents').append('<div class="tweetBottom d-inline">');
           $('#centerContents').append('<input name="reply" onclick="reply()" type="image" src="images/reply.jpg" alt="リプライ">');  
           $('#centerContents').append('<input name="retweet" type="image" src="images/retweet.png" alt="リツイート"/>');
@@ -109,7 +110,7 @@ $(function(){ // 遅延処理
 </script>
 
 </head>
-</head>
+
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -142,6 +143,7 @@ $(function(){ // 遅延処理
     
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
+<<<<<<< HEAD
 
         <div id="centerContents" class="col-sm-6">
             <div class="tweet card">
@@ -184,12 +186,21 @@ $(function(){ // 遅延処理
             </div>
         </div>
 
+=======
+        <div id="centerContents" class="col-sm-6"></div>
+>>>>>>> 1e311affc6c6d722043f4695841a76b87adf381a
         <div id="rightContents" class="col-sm-3"></div>
+
 </body>
+<<<<<<< HEAD
 
 <img class="" height="100" width="100" 
         src="images/twitter.jpg"
         />
 </html>
 
+=======
+>>>>>>> 1e311affc6c6d722043f4695841a76b87adf381a
 </html>
+
+
