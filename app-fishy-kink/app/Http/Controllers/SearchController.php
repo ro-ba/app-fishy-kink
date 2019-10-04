@@ -17,7 +17,11 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $search = $request->input("searchString");
-        search($search);
+        if(emty($search);
+            return "文字を入力してください";
+        else;
+           search($search);
+           return true;
     }
 
     /**

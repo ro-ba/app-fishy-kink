@@ -19,6 +19,7 @@ class FollowersController extends Controller
         $id = session("userID");
         $FishyKink = connect_mongo();
         $followData = dbUser($FishyKink,$id);
+     
 
         return view("followers",compact("followData"));
         

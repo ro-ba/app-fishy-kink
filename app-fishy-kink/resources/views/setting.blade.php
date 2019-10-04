@@ -16,6 +16,7 @@
 @isset($userData)
     <div>
         <form method="post">
+        @csrf
             <div class="userData">
                 <img class="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
                 <input type="text" name="userName" class="usenName" value='{{ $userData["userName"] }}'>
