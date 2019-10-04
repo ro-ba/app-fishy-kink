@@ -16,28 +16,23 @@
 @isset($userData)
     <div>
         <div class="userData">
-            <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+            <img id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
             <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
             <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
         </div>
         @if ( isset ($userData["follow"]) )
-
-            <p class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
-            <!-- <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p> -->
+            <p>フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
         @else
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
+            <p>フォロー<span class="follow"></span>0人</p>
         @endif
-        
+
         @if ( isset ($userData["follower"]) )
-            <p class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
+            <p>フォロワー<span class="follower"></span>{{ count($userData["follower"]) }} 人</p>
         @else
-            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
-            <p class="follower">フォロワー<span></span>0人</p>
+            <p>フォロー<span class="follower"></span>0人</p>
         @endif
 
         <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
-    <hr class="bar1">
-
     </div>
     <div class="profile">
         <p>プロフィール</p>
@@ -45,7 +40,7 @@
     </div>
     <div class="tweet">
         <p >ツイート</p>
-        <div class="tweet_scroll" style="height:400px; width:100%; overflow-y:scroll;">
+        <div style="height:400px; width:900px; overflow-y:scroll;">
             <table height="100" width="600">
                 @isset($tweetData)
 

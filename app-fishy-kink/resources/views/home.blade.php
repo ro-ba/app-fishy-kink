@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
@@ -95,7 +96,7 @@ $(function(){ // 遅延処理
 </script>
 
 </head>
-</head>
+
 <body>
     <div id="menu row d-inline col-md-12"> 
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -130,6 +131,8 @@ $(function(){ // 遅延処理
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6"></div>
         <div id="rightContents" class="col-sm-3"></div>
+
 </body>
 </html>
+
 
