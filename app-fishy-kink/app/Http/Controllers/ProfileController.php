@@ -20,6 +20,8 @@ class ProfileController extends Controller
         $id = $request->input("user");
         $FishyKink = connect_mongo();
         $userData = dbUser($FishyKink,$id);
+        // $userData = $FishyKink["userDB"]->findOne(["userID" => $id])[0];
+        dd($userData);
         $tweetData = dbTweet($FishyKink,$id);
         return view("profile",compact("userData","tweetData"));
     }

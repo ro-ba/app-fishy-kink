@@ -1,12 +1,10 @@
 <?php
-namespace App\Http\Controllers\Ajax;
 
-ini_set('display_errors',1);
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
 class ReloadTweetController extends Controller
@@ -17,18 +15,6 @@ class ReloadTweetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $data = connect_mongo();
-        $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-        return json_encode(iterator_to_array($tweets));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -41,7 +27,14 @@ class ReloadTweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = connect_mongo();
+        $userID = $request->input("userID");
+        if ($userID){
+            $tweets = $data["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
+        }else{
+            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+        };
+        return json_encode(iterator_to_array($tweets));
     }
 
     /**
@@ -51,17 +44,6 @@ class ReloadTweetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

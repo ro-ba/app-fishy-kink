@@ -21,15 +21,16 @@
             <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
         </div>
         @if ( isset ($userData["follow"]) )
-            <p>フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
+
+            <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</button>
         @else
-            <p>フォロー<span class="follow"></span>0人</p>
+            <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</button>
         @endif
 
         @if ( isset ($userData["follower"]) )
-            <p>フォロワー<span class="follower"></span>{{ count($userData["follower"]) }} 人</p>
+            <button type="button" onclick="location.href='/followers'">フォロワー<span class="follower"></span>{{ count($userData["follower"]) }} 人</button>
         @else
-            <p>フォロー<span class="follower"></span>0人</p>
+            <button type="button" onclick="location.href='/followers'">フォロー<span class="follower"></span>0人</button>
         @endif
 
         <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
