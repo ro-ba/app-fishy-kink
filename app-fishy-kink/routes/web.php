@@ -24,7 +24,7 @@ Route::resources([
     "notify" => "NotifyController",
     "DM" => "DMController",
     "profile" => "ProfileController",
-    "setting" => "SettingController",
+    "settings" => "SettingsController",
     "FFlist" => "FFlistController",
     "search" => "SearchController",
     "test" => "TestController",
