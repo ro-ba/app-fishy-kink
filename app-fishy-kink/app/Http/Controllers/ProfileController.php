@@ -14,12 +14,18 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $FishyKink = connect_mongo();
-        $userData = $FishyKink["userDB"]->findOne(["userID" =>  session('userID')]);
-        $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  session('userID')],['sort' => ['time' => -1]]);
-        return view("profile",compact("userData","tweetData"));
+        $id = $request->input("user");
+        $isShowSettings = False;
+        if (is_null($id) or $id == session("userID") ){
+            $id = session("userID");
+            $isShowSettings = True;
+        }
+        $userData = $FishyKink["userDB"]->findOne(["userID" =>  $id]);
+        $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
+        return view("profile",compact("userData","tweetData","isShowSettings"));
     }
 
     /**

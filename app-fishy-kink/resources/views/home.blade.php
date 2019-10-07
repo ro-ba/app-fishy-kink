@@ -10,46 +10,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-
-<style>
-
-.accordion2 {text-align: center;}
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer; padding: 10px;}
-.accordion2 p.ac1{background: #F50057;}
-.accordion2 p.ac2{background: #FFEA00;}
-.accordion2 p.ac3{background: #64DD17;}
-.accordion2 .inner li{padding: 10px 0;}
-.accordion2 .inner li.content1-1{background: #F48FB1;}
-.accordion2 .inner li.content1-2{background: #F8BBD0;}
-.accordion2 .inner li.content1-3{background: #FCE4EC;}
-.accordion2 .inner li.content2-1{background: #FFF59D;}
-.accordion2 .inner li.content2-2{background: #FFF9C4;}
-.accordion2 .inner li.content2-3{background: #FFFDE7;}
-.accordion2 .inner li.content3-1{background: #C5E1A5;}
-.accordion2 .inner li.content3-2{background: #DCEDC8;}
-.accordion2 .inner li.content3-3{background: #F1F8E9;}
-.accordion2 {text-align: center;}
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer; padding: 10px;}
-.accordion2 p.ac1{background: #F50057;}
-.accordion2 p.ac2{background: #FFEA00;}
-.accordion2 p.ac3{background: #64DD17;}
-.accordion2 .inner li{padding: 10px 0;}
-.accordion2 .inner li.content1-1{background: #F48FB1;}
-.accordion2 .inner li.content1-2{background: #F8BBD0;}
-.accordion2 .inner li.content1-3{background: #FCE4EC;}
-.accordion2 .inner li.content2-1{background: #FFF59D;}
-.accordion2 .inner li.content2-2{background: #FFF9C4;}
-.accordion2 .inner li.content2-3{background: #FFFDE7;}
-.accordion2 .inner li.content3-1{background: #C5E1A5;}
-.accordion2 .inner li.content3-2{background: #DCEDC8;}
-.accordion2 .inner li.content3-3{background: #F1F8E9;}
-</style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>    
 $(function(){
     //.accordion2の中のp要素がクリックされたら
@@ -64,13 +27,6 @@ $(function(){
 	});
 });
 </script>
-
-
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
@@ -166,9 +122,6 @@ $(function(){ // 遅延処理
     }()),1000000000);
 });
 </script>
-
-
-	
 
 
 
