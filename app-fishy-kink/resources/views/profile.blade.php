@@ -21,20 +21,15 @@
             <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
         </div>
         @if ( isset ($userData["follow"]) )
-
-
-            <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
-            <!-- <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p> -->
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
-
+            <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
         @else
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
+            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
         @endif
         
         @if ( isset ($userData["follower"]) )
-            <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
+            <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
         @else
-            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
+            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
             <p class="follower">フォロワー<span></span>0人</p>
         @endif
 
