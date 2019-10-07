@@ -64,8 +64,25 @@ $(function(){ // 遅延処理
           $('#centerContents').append('</div><p>');
           
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-          $('#centerContents').append('<button type="button" class="reply">リプライ</button>');             
-          $('#centerContents').append('<button type="button" class="retweet">リツーイト</button>');
+          $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
+
+
+
+          // $('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
+          $('#centerContents').append('<ul class="accordion2">' +
+                                        '<li>' + 
+                                          '<p class="ac1">アコーディオン１</p>' +
+                                            '<ul class="inner">' +
+                                              '<li class="content1-1">コンテンツ１</li>' +
+                                                '<li class="content1-2">コンテンツ２</li>' +
+                                                  '<li class="content1-3">コンテンツ３</li>' +
+                                            '</ul>' +
+                                          '</li>' +
+                                        '<li>' +
+                                      '</ul>');
+
+
+
           $('#centerContents').append('<button type="button" class="good">いいね</button>');
 
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
@@ -97,6 +114,59 @@ $(function(){ // 遅延処理
 });
 </script>
 
+<style>
+
+.accordion2 {text-align: center;}
+.accordion2 .inner {display: none;}
+.accordion2 p{cursor: pointer; padding: 10px;}
+.accordion2 p.ac1{background: #F50057;}
+.accordion2 p.ac2{background: #FFEA00;}
+.accordion2 p.ac3{background: #64DD17;}
+.accordion2 .inner li{padding: 10px 0;}
+.accordion2 .inner li.content1-1{background: #F48FB1;}
+.accordion2 .inner li.content1-2{background: #F8BBD0;}
+.accordion2 .inner li.content1-3{background: #FCE4EC;}
+.accordion2 .inner li.content2-1{background: #FFF59D;}
+.accordion2 .inner li.content2-2{background: #FFF9C4;}
+.accordion2 .inner li.content2-3{background: #FFFDE7;}
+.accordion2 .inner li.content3-1{background: #C5E1A5;}
+.accordion2 .inner li.content3-2{background: #DCEDC8;}
+.accordion2 .inner li.content3-3{background: #F1F8E9;}
+.accordion2 {text-align: center;}
+.accordion2 .inner {display: none;}
+.accordion2 p{cursor: pointer; padding: 10px;}
+.accordion2 p.ac1{background: #F50057;}
+.accordion2 p.ac2{background: #FFEA00;}
+.accordion2 p.ac3{background: #64DD17;}
+.accordion2 .inner li{padding: 10px 0;}
+.accordion2 .inner li.content1-1{background: #F48FB1;}
+.accordion2 .inner li.content1-2{background: #F8BBD0;}
+.accordion2 .inner li.content1-3{background: #FCE4EC;}
+.accordion2 .inner li.content2-1{background: #FFF59D;}
+.accordion2 .inner li.content2-2{background: #FFF9C4;}
+.accordion2 .inner li.content2-3{background: #FFFDE7;}
+.accordion2 .inner li.content3-1{background: #C5E1A5;}
+.accordion2 .inner li.content3-2{background: #DCEDC8;}
+.accordion2 .inner li.content3-3{background: #F1F8E9;}
+</style>
+
+<script>
+$(function(){
+	
+    //.accordion2の中のp要素がクリックされたら
+	$('.accordion2 p').click(function(){
+ 
+		//クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
+		$(this).next('.accordion2 .inner').slideToggle();
+ 
+		//クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
+		$('.accordion2 p').not($(this)).next('.accordion2 .inner').slideUp();
+ 
+	});
+});
+</script>
+
+
 </head>
 
 <body>
@@ -120,11 +190,9 @@ $(function(){ // 遅延処理
         </form>
         <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1()' onclick="location.href='/tweet'">ツイート</button>
         
-        <script type="text/javascript">
-            function open1() {
-            window.open("/tweet", "hoge", 'width=600, height=600');
-        }
-        </script>
+
+
+        
         
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
     </div>
@@ -133,8 +201,17 @@ $(function(){ // 遅延処理
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6"></div>
         <div id="rightContents" class="col-sm-3"></div>
-
 </body>
 </html>
 
+<script type="text/javascript">
+  function open1() {
+    window.open("/tweet", "hoge", 'width=600, height=600');
+  }
+</script>
 
+<script type="text/javascript">
+  function open2() {
+    window.open("/tweet", "hoge", 'width=600, height=600');
+  }
+</script>
