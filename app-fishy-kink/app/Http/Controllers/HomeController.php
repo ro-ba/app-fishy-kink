@@ -20,14 +20,15 @@ class HomeController extends Controller
     {
         if(session('userID')){
             $data = connect_mongo();
+            $userData = $data["userDB"]->findOne(["userID" =>  session('userID')]);
             $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
             $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            $userID = session("userID");
+            $userID =  session("userID");
             return view("home",compact("tweets","userIcon","userID"));
             // return view("home",compact("tweets","userIcon"));
         }else{
             return redirect("login");
-        }
+        };
     }
 
     /**

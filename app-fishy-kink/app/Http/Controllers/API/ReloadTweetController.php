@@ -16,9 +16,7 @@ class ReloadTweetController extends Controller
      */
     public function index()
     {
-        $data = connect_mongo();
-        $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-        return json_encode(iterator_to_array($tweets));
+        //
     }
 
     /**
@@ -29,7 +27,14 @@ class ReloadTweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = connect_mongo();
+        $userID = $request->input("userID");
+        if ($userID){
+            $tweets = $data["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
+        }else{
+            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+        };
+        return json_encode(iterator_to_array($tweets));
     }
 
     /**
