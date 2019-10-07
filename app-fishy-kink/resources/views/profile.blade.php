@@ -67,7 +67,7 @@ $(function(){ // 遅延処理
 
           // リツイート 
           if (tweet["type"] == "retweet") {
-            tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
+            tweetType = '<div class="retweet-user">リツイート済み</div>';
           } 
 
           else {
