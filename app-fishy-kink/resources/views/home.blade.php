@@ -13,20 +13,13 @@
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<script>    
-$(function(){
-    //.accordion2の中のp要素がクリックされたら
-	$('.accordion2 p').click(function(){
- 
-		//クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-		$(this).next('.accordion2 .inner').slideToggle();
- 
-		//クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-		$('.accordion2 p').not($(this)).next('.accordion2 .inner').slideUp();
- 
-	});
-});
-</script>
+
+<style>
+.accordion2 .inner {display: none;}
+.accordion2 p{cursor: pointer;}
+.accordion2 {display:inline;}
+</style>
+
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
@@ -79,19 +72,14 @@ $(function(){ // 遅延処理
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
           //$('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
-          $('#centerContents').append('<ul class="accordion2">'+
-                                        '<li>' +
-                                          '<p class="ac1">アコーディオン１</p>' +
-                                            '<ul class="inner">' +
-                                              '<li class="content1-1">コンテンツ１</li>' +
-                                              '<li class="content1-2">コンテンツ２</li>' +
-                                              '<li class="content1-3">コンテンツ３</li>' +
-                                            '</ul>' +
-                                          '</li>' +
-                                        '</ul>');
-
-
-
+          $('#centerContents').append('<div class="accordion2">' +
+                                          '<button type="button" class="ac1">リツイート</button>' +
+                                          '<div class="inner">' +
+                                            '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
+                                            '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
+                                          '</div>' +
+                                      '</div>');
+                                      
           $('#centerContents').append('<button type="button" class="good">いいね</button>');
 
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
@@ -119,11 +107,21 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000000000);
+    }()),1000000);
 });
 </script>
 
+<script>
+$(document).on("click", ".ac1", function () {
+  
+  //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
+  $(this).next('.accordion2 .inner').slideToggle();
 
+  //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
+  $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
+
+});
+</script>
 
 </head>
 
@@ -146,7 +144,7 @@ $(function(){ // 遅延処理
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1()' onclick="location.href='/tweet'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
         
 
 
@@ -159,17 +157,20 @@ $(function(){ // 遅延処理
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6"></div>
         <div id="rightContents" class="col-sm-3"></div>
+
 </body>
 </html>
 
 <script type="text/javascript">
   function open1() {
-    window.open("/tweet", "hoge", 'width=600, height=600');
+    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
 
 <script type="text/javascript">
   function open2() {
-    window.open("/tweet", "hoge", 'width=600, height=600');
+    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
+
+
