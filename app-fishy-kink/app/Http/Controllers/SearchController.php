@@ -21,7 +21,7 @@ class SearchController extends Controller
             return "文字を入力してください";
         }else{
            search($search);
-           return true;
+           //return true;
         }
 }
 
