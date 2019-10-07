@@ -13,60 +13,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
+
 <style>
+.accordion2 .inner {display: none;}
+.accordion2 p{cursor: pointer;}
+.accordion2 {display:inline;}
 
-.accordion2 {text-align: center;}
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer; padding: 10px;}
-.accordion2 p.ac1{background: #F50057;}
-.accordion2 p.ac2{background: #FFEA00;}
-.accordion2 p.ac3{background: #64DD17;}
-.accordion2 .inner li{padding: 10px 0;}
-.accordion2 .inner li.content1-1{background: #F48FB1;}
-.accordion2 .inner li.content1-2{background: #F8BBD0;}
-.accordion2 .inner li.content1-3{background: #FCE4EC;}
-.accordion2 .inner li.content2-1{background: #FFF59D;}
-.accordion2 .inner li.content2-2{background: #FFF9C4;}
-.accordion2 .inner li.content2-3{background: #FFFDE7;}
-.accordion2 .inner li.content3-1{background: #C5E1A5;}
-.accordion2 .inner li.content3-2{background: #DCEDC8;}
-.accordion2 .inner li.content3-3{background: #F1F8E9;}
-.accordion2 {text-align: center;}
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer; padding: 10px;}
-.accordion2 p.ac1{background: #F50057;}
-.accordion2 p.ac2{background: #FFEA00;}
-.accordion2 p.ac3{background: #64DD17;}
-.accordion2 .inner li{padding: 10px 0;}
-.accordion2 .inner li.content1-1{background: #F48FB1;}
-.accordion2 .inner li.content1-2{background: #F8BBD0;}
-.accordion2 .inner li.content1-3{background: #FCE4EC;}
-.accordion2 .inner li.content2-1{background: #FFF59D;}
-.accordion2 .inner li.content2-2{background: #FFF9C4;}
-.accordion2 .inner li.content2-3{background: #FFFDE7;}
-.accordion2 .inner li.content3-1{background: #C5E1A5;}
-.accordion2 .inner li.content3-2{background: #DCEDC8;}
-.accordion2 .inner li.content3-3{background: #F1F8E9;}
 </style>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>    
-$(function(){
-    //.accordion2の中のp要素がクリックされたら
-	$('.accordion2 p').click(function(){
- 
-		//クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-		$(this).next('.accordion2 .inner').slideToggle();
- 
-		//クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-		$('.accordion2 p').not($(this)).next('.accordion2 .inner').slideUp();
- 
-	});
-});
-</script>
-
-
-
 
 
 
@@ -123,19 +76,14 @@ $(function(){ // 遅延処理
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
           //$('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
-          $('#centerContents').append('<ul class="accordion2">'+
-                                        '<li>' +
-                                          '<p class="ac1">アコーディオン１</p>' +
-                                            '<ul class="inner">' +
-                                              '<li class="content1-1">コンテンツ１</li>' +
-                                              '<li class="content1-2">コンテンツ２</li>' +
-                                              '<li class="content1-3">コンテンツ３</li>' +
-                                            '</ul>' +
-                                          '</li>' +
-                                        '</ul>');
-
-
-
+          $('#centerContents').append('<div class="accordion2">' +
+                                          '<button type="button" class="ac1">リツイート</button>' +
+                                          '<div class="inner">' +
+                                            '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
+                                            '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
+                                          '</div>' +
+                                      '</div>');
+                                      
           $('#centerContents').append('<button type="button" class="good">いいね</button>');
 
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
@@ -163,14 +111,22 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000000000);
+    }()),1000000);
 });
 </script>
 
+<script>
 
-	
+$(document).on("click", ".ac1", function () {
+  
+  //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
+  $(this).next('.accordion2 .inner').slideToggle();
 
+  //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
+  $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
 
+});
+</script>
 
 </head>
 
@@ -193,7 +149,7 @@ $(function(){ // 遅延処理
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1()' onclick="location.href='/tweet'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
         
 
 
@@ -206,17 +162,20 @@ $(function(){ // 遅延処理
         <div id="leftContents" class="col-sm-3"></div>
         <div id="centerContents" class="col-sm-6"></div>
         <div id="rightContents" class="col-sm-3"></div>
+
 </body>
 </html>
 
 <script type="text/javascript">
   function open1() {
-    window.open("/tweet", "hoge", 'width=600, height=600');
+    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
 
 <script type="text/javascript">
   function open2() {
-    window.open("/tweet", "hoge", 'width=600, height=600');
+    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
+
+
