@@ -24,13 +24,14 @@
 
 
 
-function fab(userID){
-  var tweetID = $('#tweetIdValue [name=tweetID]').val();
+function fab(userID,tweetID){
+ // var tweetID = $('#tweetIdValue [name=tweetID]');
+  console.log(tweetID);
   $.ajax({
       type: 'POST',
       url: '/api/fabChange',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
-      data: { user:userID , tweet:tweetID , _token:'@csrf'},
+      data: { userID:userID , tweetID:tweetID , _token:'{{ csrf_token() }}'},
       cache: false
       }).done(function (results) {
         // if(now_image == imageArr.length - 1){
@@ -38,10 +39,12 @@ function fab(userID){
         // } else {
         //    now_image_count++;
         // }
-        results.forEach(function(tweet){
-          var tweetID = tweet["_id"];
-        });
+        // results.forEach(function(tweet){
+        //   var tweetID = tweet["_id"];
+        // });
         alert('成功しました。');
+      }).fail(function (err) {
+        // 通信失敗時の処理
       });
 };
 
@@ -97,13 +100,19 @@ $(function(){ // 遅延処理
           // $('#centerContents').append('<input name="fab" type="image" src="images/fabo.jpg" alt="いいね"/>');
 
           $('#centerContents').append('<div class="tweetBottom d-inline">');
+
           $('#centerContents').append('<div class="reply d-inline-block">');
-          $('#centerContents').append('<input name="reply" type="image" src="images/reply.jpg" onclick="reply()" alt="リプライ"></div>');
-          $('#centerContents').append('<div id="tweetIdValue"><input name="tweetID" type="hidden" value="tweet[_id]"/></div>');
+          $('#centerContents').append('<input name="reply" type="image" src="images/reply.jpg" onclick="reply()" alt="リプライ">');
+          $('#centerContents').append('</div>');
+
           $('#centerContents').append('<div class="retweet d-inline-block">');
           $('#centerContents').append('<input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>');
-          $('#centerContents').append('</div><div class="fab d-inline-block">');
-          $('#centerContents').append('<input name="fab" type="image" src="images/faboDis.jpg" onclick="fab()" alt="いいね"/></div></div>');
+          $('#centerContents').append('</div>');
+
+          $('#centerContents').append('<div class="fab d-inline-block">');
+          $('#centerContents').append('<input name="fab" type="image" src="images/faboDis.jpg" onclick="fab("' + userID + ',' + tweet["_id"] + '")" alt="いいね"/></div>');
+
+          $('#centerContents').append('<form id="tweetIdValue"><input name="tweetID" type="hidden" value="' + tweet["_id"] + '"/></form></div>');
 
 
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
@@ -202,7 +211,7 @@ $(function(){ // 遅延処理
                       <input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>
                     </div>
                     <div class="fab d-inline-block">
-                      <input name="fab" type="image" src="images/faboDis.jpg" onclick="fab( {{ $userID }} )" alt="いいね"/>
+                      <input name="fab" type="image" src="images/faboDis.jpg" onclick="fab( {{ $userID }},{{ $tweet['_id'] }} )" alt="いいね"/>
                     </div>
                 </div>
             @endforeach
