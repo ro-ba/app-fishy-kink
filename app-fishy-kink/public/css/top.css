@@ -1,0 +1,101 @@
+input, button, textarea, select {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+  
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    font-weight:lighter;
+}
+
+button {
+    cursor: pointer;
+    font-size: 18px;
+    border: 1px solid #fff;
+    color: #fff;
+    opacity: 0.8;
+}
+
+body {
+
+    background-image: url("/images/toop.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: rgba(255,255,255,0.5);
+}
+
+#wrap {
+    width: 1080px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.content {
+   width: 80%;
+   height: auto;
+   margin: 250px auto 0 auto;
+   text-align: center;
+}
+
+.image {
+    position: absolute;
+    margin-top: 210px;
+    margin-left: 750px;
+    width: 210px;
+    height: 200px;
+    /* background-image: url("/images/イニエスタ.jpg"); */
+}
+
+.image:hover {
+    opacity: 0.3;
+    border-radius: 100%;
+    background-image: url("/images/イニエスタ.jpg");
+}
+
+.title {
+   color: #fff;
+   font-size: 20px;
+   opacity: 0.8;
+   /* -webkit-text-stroke: 1px #fff; */
+}
+
+.title .app-name {
+   font-size: 120px;
+   font-family: 'Vibes', cursive;
+   font-family: 'Josefin Sans', sans-serif;
+   font-family: 'Caveat', cursive;
+  }
+
+.btn-group {
+    margin: 70px 0;
+}
+
+.btn-signup {
+    padding: 14px 20px;
+    margin: 0 20px 0 0;
+}
+
+.btn-signup:hover {
+    color: #f8b862;
+    border: 1px solid #f8b862;
+}
+
+.btn-login {
+    padding: 14px 40px;
+    margin: 0 0 0 20px;
+}
+
+.btn-login:hover {
+    color: #83ccd2;
+    border: 1px solid #83ccd2;
+}
