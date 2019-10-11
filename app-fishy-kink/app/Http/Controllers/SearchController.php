@@ -18,6 +18,7 @@ class SearchController extends Controller
     {
         $search = $request->input("searchString");
         ( empty($search) ) ?  print_r("文字を入力してください") : search($search); 
+        
     }
 
     /**
