@@ -23,11 +23,12 @@ function search($search){
     foreach($tweet_result as $obj){
         print_r($obj);
     }
+    print_r("<br>");
     print_r("ユーザー"."<br>");
     foreach($user_result as $obj){
         print_r($obj);
     }
-
+    print_r("<br>");
     return true;
 }
 ?>

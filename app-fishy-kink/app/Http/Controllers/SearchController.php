@@ -17,13 +17,8 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $search = $request->input("searchString");
-        if(empty($search)){
-            return "文字を入力してください";
-        }else{
-           search($search);
-           //return true;
-        }
-}
+        ( empty($search) ) ?  print_r("文字を入力してください") : search($search); 
+    }
 
     /**
      * Show the form for creating a new resource.
