@@ -20,6 +20,28 @@
 </style>
 
 <script>
+$(function(){
+  $("#centerContents").on('click',".fab",function() {
+    var tweetid = $("#centerContents > #tweetID").val();
+    console.log(tweetid);
+    $.ajax({
+      type: 'POST',
+      url: '/api/fabCahnge',
+      dataType: 'json',
+      data: {
+        userID: "test" , 
+        tweetID:tweetid , 
+        _token:'{{ csrf_token() }}'
+      },
+      cache: false
+    }).done(function(results){
+      alert('成功しました。');
+    });
+  });
+});
+</script>
+
+<script>
 // var imageArr = 
 //  [
 //   'images/fabo.jpg',
@@ -28,9 +50,7 @@
 //  var now_image = 0;
 
 
-$(".fab").on('click',function(){
-  alert("fabがクリックされました");
-});
+
 // function fab(userid,tweetid){
 //   console.log(tweetID);
 //   $.ajax({
@@ -66,6 +86,7 @@ $(function(){ // 遅延処理
         let tweetType = "";
         results.forEach(function(tweet){
           // console.log(tweet);
+          $('#centerContents').append("<input id=tweetID type='hidden' value='"+ tweet["_id"]+"' />")
           $('#centerContents').append('<div class="tweet card">');      
           
           // リツイート 
@@ -115,7 +136,7 @@ $(function(){ // 遅延処理
 
           var tweet_json = JSON.stringify(tweet["_id"])
 
-          $('#centerContents').append('<button type=button class=good >いいね</button></div>');
+          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
