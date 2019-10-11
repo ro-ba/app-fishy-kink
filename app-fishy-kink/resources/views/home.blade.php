@@ -26,28 +26,30 @@ $(function(){
     console.log(tweetid);
     $.ajax({
       type: 'POST',
-      url: '/api/fabCahnge',
+      url: '/api/fabChange',
       dataType: 'json',
       data: {
-        userID: "test" , 
-        tweetID:tweetid , 
+        userID: "takuwa" , 
+        tweetID: tweetid, 
         _token:'{{ csrf_token() }}'
       },
       cache: false
     }).done(function(results){
-      alert('成功しました。');
+      console.log(results);
     });
   });
 });
+
 </script>
 
 <script>
-// var imageArr = 
-//  [
-//   'images/fabo.jpg',
-//   'images/faboDis.jpg'
-//  ];
-//  var now_image = 0;
+
+var imageArr = 
+ [
+  'images/fabo.jpg',
+  'images/faboDis.jpg'
+ ];
+ var now_image = 0;
 
 
 
@@ -86,9 +88,8 @@ $(function(){ // 遅延処理
         let tweetType = "";
         results.forEach(function(tweet){
           // console.log(tweet);
-          $('#centerContents').append("<input id=tweetID type='hidden' value='"+ tweet["_id"]+"' />")
-          $('#centerContents').append('<div class="tweet card">');      
-          
+          $('#centerContents').append('<div class="tweet card">');    
+          $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
@@ -146,6 +147,7 @@ $(function(){ // 遅延処理
       return update;
     }()),1000000);
 });
+
 </script>
 
 <script>
@@ -225,7 +227,7 @@ $(document).on("click", ".ac1", function () {
                       <input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>
                     </div>
                     <div class="fab d-inline-block">
-                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg"  alt="いいね"/>
+                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg" alt="いいね"/>
                     </div>
                 </div>
             @endforeach
