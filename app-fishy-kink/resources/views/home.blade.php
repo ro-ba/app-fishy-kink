@@ -28,30 +28,26 @@
 //  var now_image = 0;
 
 
-
-function fab(userID,tweetID){
- // var tweetID = $('#tweetIdValue [name=tweetID]');
-  console.log(tweetID);
-  $.ajax({
-      type: 'POST',
-      url: '/api/fabChange',    // url: は読み込むURLを表す
-      dataType: 'json',           // 読み込むデータの種類を記入
-      data: { userID:userID , tweetID:tweetID , _token:'{{ csrf_token() }}'},
-      cache: false
-      }).done(function (results) {
-        // if(now_image == imageArr.length - 1){
-        //   now_image_count = 0;
-        // } else {
-        //    now_image_count++;
-        // }
-        // results.forEach(function(tweet){
-        //   var tweetID = tweet["_id"];
-        // });
-        alert('成功しました。');
-      }).fail(function (err) {
-        // 通信失敗時の処理
-      });
-};
+$(".fab").on('click',function(){
+  alert("fabがクリックされました");
+});
+// function fab(userid,tweetid){
+//   console.log(tweetID);
+//   $.ajax({
+//       type: 'POST',
+//       url: '/api/fabChange',    // url: は読み込むURLを表す
+//       dataType: 'json',           // 読み込むデータの種類を記入
+//       data: { 
+//         userID:userid , 
+//         tweetID:tweetid , 
+//         _token:'{{ csrf_token() }}'},
+//       cache: false
+//       }).done(function (results) {
+//         alert('成功しました。');
+//       }).fail(function (err) {
+//         // 通信失敗時の処理
+//       });
+// };
 
 
 $(function(){ // 遅延処理
@@ -100,33 +96,12 @@ $(function(){ // 遅延処理
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-          
-          // $('#centerContents').append('<div class="tweetBottom d-inline">');
-          // $('#tweet').append('<button type="button" class="reply">リプライ</button>');             
-          // $('#tweet').append('<button type="button" class="retweet">リツーイト</button>');
-          // $('#tweet').append('<button type="button" class="good">いいね</button>');
 
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-// <<<<<<< HEAD
 
-          // $('#centerContents').append('<div class="reply d-inline-block">');
-          // $('#centerContents').append('<input name="reply" type="image" src="images/reply.jpg" onclick="reply()" alt="リプライ">');
-          // $('#centerContents').append('</div>');
-
-          // $('#centerContents').append('<div class="retweet d-inline-block">');
-          // $('#centerContents').append('<input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>');
-          // $('#centerContents').append('</div>');
-
-          // $('#centerContents').append('<div class="fab d-inline-block">');
-          // $('#centerContents').append('<input name="fab" type="image" src="images/faboDis.jpg" onclick="fab("' + userID + ',' + tweet["_id"] + '")" alt="いいね"/></div>');
-
-          // $('#centerContents').append('<form id="tweetIdValue"><input name="tweetID" type="hidden" value="' + tweet["_id"] + '"/></form></div>');
-
-// =======
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
-          //$('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
-// <<<<<<< HEAD
+          // $('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
           $('#centerContents').append('<ul class="accordion2">'+
                                         '<li>' +
                                           '<p class="ac1">アコーディオン１</p>' +
@@ -138,43 +113,9 @@ $(function(){ // 遅延処理
                                           '</li>' +
                                         '</ul>');
 
-          
-          // console.log(JSON.stringify(tweet["_id"]));
-
           var tweet_json = JSON.stringify(tweet["_id"])
 
-          $('#centerContents').append('<button type=button class=good onclick=fab( {"userID": {{ $userID }} , "tweetID": '+`${tweet["_id"]}` +'}) >いいね</button></div>');
-// >>>>>>> bb0421d9f5c304ac1cb8b1835ce4017bed11606d
-// =======
-          // $('#centerContents').append('<div class="accordion2">' +
-          //                                 '<button type="button" class="ac1">リツイート</button>' +
-          //                                 '<div class="inner">' +
-          //                                   '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
-          //                                   '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
-          //                                 '</div>' +
-          //                             '</div>');
-                                      
-          // $('#centerContents').append('<button type="button" class="good">いいね</button>');
-// >>>>>>> a20a559b1f99ada108a7a357cffc2fa16c8dd55f
-
-          // $('#centerContents').append('<div class="tweetBottom d-inline">');
-          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
-          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
-          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
-          
-        //   $('#centerContents').append(
-        //     '<div class="tweetBottom d-inline"> '+
-        //         '<div class="reply d-inline-block"> '+
-        //         '<image src="images/reply.jpg"/> '+
-        //         '</div> '+
-        //         '<div class="retweet d-inline-block"> '+
-        //             '<image src="images/retweet.png"/> '+
-        //         '</div> '+
-        //         '<div class="fab d-inline-block"> '+
-        //             '<image src="images/fabo.jpg"/> '+
-        //         '</div> '+
-        //     '</div>'
-        //   );                       
+          $('#centerContents').append('<button type=button class=good >いいね</button></div>');
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -263,7 +204,7 @@ $(document).on("click", ".ac1", function () {
                       <input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>
                     </div>
                     <div class="fab d-inline-block">
-                      <input name="fab" type="image" src="images/faboDis.jpg" onclick="fab(  )" alt="いいね"/>
+                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg"  alt="いいね"/>
                     </div>
                 </div>
             @endforeach
