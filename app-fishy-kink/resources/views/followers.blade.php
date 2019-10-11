@@ -7,6 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/Followers.css">
 
 </head>
 <body>
@@ -18,52 +19,31 @@
             </form>
         </div>
 
-        <ul class="search-tab">
-            <li class="tab_list"><a href="#followers">フォロー</a></li>
-            <li class="tab_list"><a href="#following">フォロワー</a></li>     
-        </ul>
+       
+            <a location.href='/followers' value="フォロワー"></a>
+            <!-- <a href="#following">フォロワー</a>           -->
+        
 
-        <div class="tab-content">
-            <div class="tab-pane" id="followers">
+        <div class="">
+            
     
 
         @isset($followData)
-            @isset($followData["follow"][0])
-                @foreach ($followData["follow"] as $followers)
+            @isset($followData["follower"][0])
+                @foreach ($followData["follower"] as $key => $followers)
                 <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
                     {{ $followers }}
                     </button>
-               
-                    {{$followerPro[0]}}
-            
-
-                @endforeach     
-              
-            @endisset
-            </div>
-           
-       
-            <div class="tab-pane" id="following">
-            @isset($followData["follower"][0])
-                @foreach ($followData["follower"] as $following)
-                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                    {{ $following }} 
-                    </button> 
-                    <?php
-                        $data = connect_mongo();
-                        $userProfile = $data["userDB"] -> findOne(["userID" => session("userID")]);
-                       foreach($userProfile["follow"] as $followers){
-                        $userProfile = $data["userDB"] -> findOne(["userID" => $followers]);
-                    }
-                    print_r($userProfile["profile"]);
-                    ?>
+                   {{
+                    $followerPro[$key]
+                    ,$key = $key + 1  
+                    }}
                 @endforeach
             @endisset
-            </div>
         @endisset
    
-        <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
-        </div>
+        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る">
+       
     </div>
 
 </body>
