@@ -48,7 +48,6 @@ class SettingsController extends Controller
         //$result =
         myPageSetting($id, $request,$FishyKink);
 
-        //return $result;
         return redirect("/profile");
     }
 

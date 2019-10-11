@@ -26,8 +26,6 @@
 //   'images/faboDis.jpg'
 //  ];
 //  var now_image = 0;
-
-
 $(".fab").on('click',function(){
   alert("fabがクリックされました");
 });
@@ -48,8 +46,6 @@ $(".fab").on('click',function(){
 //         // 通信失敗時の処理
 //       });
 // };
-
-
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
@@ -89,18 +85,14 @@ $(function(){ // 遅延処理
                     '</div> '+
                 '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
-
           // 画像表示
           $('#centerContents').append('<div style=float:left>');
           for(var i=0;i<tweet["img"].length;i++){
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
-
           // $('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
           $('#centerContents').append('<ul class="accordion2">'+
                                         '<li>' +
@@ -112,9 +104,7 @@ $(function(){ // 遅延処理
                                             '</ul>' +
                                           '</li>' +
                                         '</ul>');
-
           var tweet_json = JSON.stringify(tweet["_id"])
-
           $('#centerContents').append('<button type=button class=good >いいね</button></div>');
       });
       // $('#main-contents').text(results);
@@ -132,10 +122,8 @@ $(document).on("click", ".ac1", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
   $(this).next('.accordion2 .inner').slideToggle();
-
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
   $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
-
 });
 </script>
 
@@ -162,8 +150,6 @@ $(document).on("click", ".ac1", function () {
         </form>
         <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
         
-
-
         
         
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
@@ -171,14 +157,12 @@ $(document).on("click", ".ac1", function () {
     
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
-
         <div id="centerContents" class="col-sm-6">
             <div class="tweet card">
             @foreach ($tweets as $tweet)
                 <div class="tweetTop card-header">
                 @if ($tweet["type"] == "retweet")
                     <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
                 @endif
                 <a name=user href="/profile?user={{ $tweet['userID'] }}" >{{ $tweet['userID'] }}</a>
                 <div class="time"> {{ $tweet["time"] }}</div>
@@ -208,30 +192,22 @@ $(document).on("click", ".ac1", function () {
                     </div>
                 </div>
             @endforeach
-
             
             </div>
         </div>
-
-
         <div id="rightContents" class="col-sm-3"></div>
-
 </body>
 <img class="" height="100" width="100" 
         src="images/twitter.jpg"
         />
 </html>
-
 <script type="text/javascript">
   function open1() {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
-
 <script type="text/javascript">
   function open2() {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
-
-
