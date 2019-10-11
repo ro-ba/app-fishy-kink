@@ -14,10 +14,32 @@
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
 <style>
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer;}
-.accordion2 {display:inline;}
+.accordion .inner {display: none;}
+.accordion p {cursor: pointer;}
+.accordion {display:inline;}
 </style>
+
+<script>
+$(function(){
+  $("#centerContents").on('click',".fab",function() {
+    var tweetid = $("#centerContents > #tweetID").val();
+    console.log(tweetid);
+    $.ajax({
+      type: 'POST',
+      url: '/api/fabCahnge',
+      dataType: 'json',
+      data: {
+        userID: "test" , 
+        tweetID:tweetid , 
+        _token:'{{ csrf_token() }}'
+      },
+      cache: false
+    }).done(function(results){
+      alert('成功しました。');
+    });
+  });
+});
+</script>
 
 <script>
 // var imageArr = 
@@ -26,9 +48,15 @@
 //   'images/faboDis.jpg'
 //  ];
 //  var now_image = 0;
+<<<<<<< HEAD
 $(".fab").on('click',function(){
   alert("fabがクリックされました");
 });
+=======
+
+
+
+>>>>>>> 99fa60c315544f57e3446a1ea5d084f7ddee0851
 // function fab(userid,tweetid){
 //   console.log(tweetID);
 //   $.ajax({
@@ -62,6 +90,7 @@ $(function(){ // 遅延処理
         let tweetType = "";
         results.forEach(function(tweet){
           // console.log(tweet);
+          $('#centerContents').append("<input id=tweetID type='hidden' value='"+ tweet["_id"]+"' />")
           $('#centerContents').append('<div class="tweet card">');      
           
           // リツイート 
@@ -93,6 +122,7 @@ $(function(){ // 遅延処理
           $('#centerContents').append('</div><p>');
           $('#centerContents').append('<div class="tweetBottom d-inline">');
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
+<<<<<<< HEAD
           // $('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
           $('#centerContents').append('<ul class="accordion2">'+
                                         '<li>' +
@@ -106,6 +136,41 @@ $(function(){ // 遅延処理
                                         '</ul>');
           var tweet_json = JSON.stringify(tweet["_id"])
           $('#centerContents').append('<button type=button class=good >いいね</button></div>');
+=======
+
+          $('#centerContents').append('<div class="accordion">' +
+                                          '<button type="button" class="reTweet">リツイート</button>' +
+                                          '<div class="inner">' +
+                                            '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
+                                            '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
+                                          '</div>' +
+                                      '</div>');
+                                      
+          $('#centerContents').append('<button type="button" class="good">いいね</button>');
+
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          
+          $('#centerContents').append(
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
+          );
+          
+          var tweet_json = JSON.stringify(tweet["_id"])
+          
+          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
+>>>>>>> 99fa60c315544f57e3446a1ea5d084f7ddee0851
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -113,17 +178,25 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000000);
+    }()),100000);
 });
 </script>
 
 <script>
-$(document).on("click", ".ac1", function () {
+$(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
+// <<<<<<< HEAD
   $(this).next('.accordion2 .inner').slideToggle();
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
   $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
+// =======
+//   $(this).next('.accordion .inner').slideToggle();
+
+//   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
+//   $('.accordion').not($(this)).next('.accordion .inner').slideUp();
+
+// >>>>>>> 99fa60c315544f57e3446a1ea5d084f7ddee0851
 });
 </script>
 
