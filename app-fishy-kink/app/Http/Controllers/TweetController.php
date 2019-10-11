@@ -62,8 +62,6 @@ class TweetController extends Controller
             "originTweetID" => "",
             "parentTweetID" => ""
             ]); 
-
-            echo $userID;
         }
     }
 
