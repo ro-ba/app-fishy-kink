@@ -30,13 +30,20 @@
        @isset($followData)
             @isset($followData["follower"][0])
                 @foreach ($followData["follower"] as $key => $followers)
-                <li><button type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                    {{ $followers }}
-                    </button></li>
+            <ul calss="list_none"> 
+                <li>
+                    {{$followerName[$key]}}    
+                    <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                        {{ $followers }}
+                    </button>
+                </li>
+            </ul>
+                <div class="profilePro">
                    {{
                     $followerPro[$key]
                     ,$key = $key + 1  
                     }}
+                </div>
                 @endforeach
             @endisset
         @endisset
