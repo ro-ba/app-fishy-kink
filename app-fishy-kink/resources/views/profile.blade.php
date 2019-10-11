@@ -43,15 +43,18 @@
     <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
     
     
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
-      type: 'GET',
+      type: 'POST',
       url: '/api/reloadTweet',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
-      data: null,
+      data: {userID:'{{ $userData["userID"] }}',
+            _token: '{{ csrf_token() }}'
+            },
       cache: false
       }).done(function (results) {
         // 通信成功時の処理          
@@ -63,7 +66,7 @@ $(function(){ // 遅延処理
 
           // リツイート 
           if (tweet["type"] == "retweet") {
-            tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
+            tweetType = '<div class="retweet-user">リツイート済み</div>';
           } 
 
           else {
@@ -122,8 +125,45 @@ $(function(){ // 遅延処理
       return update;
     }()),1000);
 });
-</script>           
-    @endisset
+</script>   
+
+
+</head>
+<body>
+@isset($userData)
+  <div>
+      <div class="userData">
+          <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+          <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
+          <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
+      </div>
+      @isset ($userData["follow"])
+          <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
+      @else
+          <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
+      @endisset
+      
+      @isset ($userData["follower"]) 
+          <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
+      @else
+          <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
+          <p class="follower">フォロワー<span></span>0人</p>
+      @endisset
+      
+      @if($isShowSettings)
+        <input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" />
+      @endif
+  <hr class="bar1">
+
+  </div>
+  <div class="profile">
+      <p>プロフィール</p>
+          <p>{{ $userData["profile"] }}</p>          
+  <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>        
+@else
+  <b>ユーザーが存在しません。</b>
+  <button onclick="location.href='/'">戻る</button>
+@endisset
 </body>
 
 </html>

@@ -21,6 +21,7 @@
             <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
         </div>
         @if ( isset ($userData["follow"]) )
+
             <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</button>
         @else
             <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</button>

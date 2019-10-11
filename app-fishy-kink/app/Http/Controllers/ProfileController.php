@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-// require "/vagrant/source/func/FKSession.php";
+require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 class ProfileController extends Controller
 {
@@ -17,11 +16,16 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $id = $request->input("user");
         $FishyKink = connect_mongo();
-        $userData = dbUser($FishyKink,$id);
-        $tweetData = dbTweet($FishyKink,$id);
-        return view("profile",compact("userData","tweetData"));
+        $id = $request->input("user");
+        $isShowSettings = False;
+        if (is_null($id) or $id == session("userID") ){
+            $id = session("userID");
+            $isShowSettings = True;
+        }
+        $userData = $FishyKink["userDB"]->findOne(["userID" =>  $id]);
+        $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
+        return view("profile",compact("userData","tweetData","isShowSettings"));
     }
 
     /**
