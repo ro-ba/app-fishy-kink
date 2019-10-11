@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php";
+
+require "/vagrant/source/func/FKMongo.php";
 
 class FollowingController extends Controller
 {
@@ -13,7 +16,16 @@ class FollowingController extends Controller
      */
     public function index()
     {
-        //
+        $id = session("userID");
+        $FishyKink = connect_mongo();
+        $followData = dbUser($FishyKink,$id);
+        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
+         foreach($userProfile["follow"] as $followerid){
+            $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
+            $followerPro[] = $follower["profile"];
+            $followerName[] = $follower["userName"];      
+        }
+        return view("following",compact("followData","followerPro","followerName"));
     }
 
     /**

@@ -1,10 +1,9 @@
 body {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 a {
   text-decoration: none;
-  
 }
 
 ul {
@@ -28,7 +27,7 @@ input, button, textarea, select {
     -moz-appearance: none;
     appearance: none;
 }
-  
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
@@ -40,7 +39,7 @@ input[type="text"], input[type="password"] {
     border: 1px solid #ccc;
     text-align: left;
 }
-  
+
 .main {
     width: 1080px;
     height: auto;
@@ -91,26 +90,16 @@ h1 {
   width: 60%;
   height: auto;
   margin: 0 auto 20px auto;
-  border: 2px solid #ccc;
+  border: 1.5px solid #ccc;
   padding: 8px 10px;
   border-radius: 5px;
   text-align: left;
   transition: all 1s;
-}  
-
-.signup .form-group input:focus {
-  border: 2px solid #f8b862;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,0.5);
 }
 
-
-
-
-
-
-
-
-
+.signup .form-group input:focus {
+  border: 1.5px solid #f8b862;
+}
 
 .pass-msg {
   margin-bottom: 30px;
@@ -150,16 +139,15 @@ h1 {
   margin-bottom: 10px;
   color: rgb(90, 86, 86);
   font-size: 14px;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .signup-submit:hover {
-  color: #fff;
-  background-color: #f8b862;
-  border: 2px solid #ccc;
+  color: #f8b862;
+  border: 1px solid #f8b862;
   border-radius: 5px;
 }
 
@@ -170,14 +158,13 @@ h1 {
   margin: 10px 0 10px 0;
   font-size: 14px;
   border-radius: 5px;
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.3s;
 }
 
 .login input:hover{
-  color: #fff;
-  background-color: #83ccd2;
-  border: 2px solid #ccc;
+  color: #83ccd2;
+  border: 1px solid #83ccd2;
   border-radius: 5px;
 }

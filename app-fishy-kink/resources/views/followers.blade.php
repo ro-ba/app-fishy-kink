@@ -7,6 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/Followers.css">
 
 </head>
 <body>
@@ -18,47 +19,43 @@
             </form>
         </div>
 
-        <ul class="search-tab">
-            <li class="tab_list"><a href="#followers">フォロー</a></li>
-            <li class="tab_list"><a href="#following">フォロワー</a></li>     
-        </ul>
+        <div class="tabs">
+        <input id="follower" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follower">フォロワー</label>
 
-        <div class="tab-content">
-            <div class="tab-pane" id="followers">
-    
+        <!-- <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follow">フォロー</label> -->
 
-        @isset($followData)
-            @isset($followData["follow"][0])
-                @foreach ($followData["follow"] as $followers)
-                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                    {{ $followers }}
-                    </button>
-            @endisset
-            </div>
-           
-       
-            <div class="tab-pane" id="following">
+    <div class="tab_content" id="follower_content">
+       @isset($followData)
             @isset($followData["follower"][0])
-                @foreach ($followData["follower"] as $following)
-                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                    {{ $following }} 
-                    </button> 
-                    <?php
-                        $data = connect_mongo();
-                        $userProfile = $data["userDB"] -> findOne(["userID" => session("userID")]);
-                       foreach($userProfile["follow"] as $followers){
-                        $userProfile = $data["userDB"] -> findOne(["userID" => $followers]);
-                    }
-                    print_r($userProfile["profile"]);
-                    ?>
+                @foreach ($followData["follower"] as $key => $followers)
+            <ul calss="list_none"> 
+                <li>
+                    {{$followerName[$key]}}    
+                    <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                        {{ $followers }}
+                    </button>
+                </li>
+            </ul>
+                <div class="profilePro">
+                   {{
+                    $followerPro[$key]
+                    ,$key = $key + 1  
+                    }}
+                </div>
                 @endforeach
             @endisset
-            </div>
         @endisset
-   
-        <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
-        </div>
     </div>
+
+    <!-- <div class="tab_content" id="follow_content">
+      
+    </div> -->
+
+        <div>
+        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る"/>
+        </div>
 
 </body>
 </html>

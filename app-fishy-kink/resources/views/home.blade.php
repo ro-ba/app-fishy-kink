@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
 <style>
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer;}
-.accordion2 {display:inline;}
+.accordion .inner {display: none;}
+.accordion p {cursor: pointer;}
+.accordion {display:inline;}
 </style>
 
 <script>
@@ -123,20 +123,37 @@ $(function(){ // 遅延処理
 
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
-          // $('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
-          $('#centerContents').append('<ul class="accordion2">'+
-                                        '<li>' +
-                                          '<p class="ac1">アコーディオン１</p>' +
-                                            '<ul class="inner">' +
-                                              '<li class="content1-1">コンテンツ１</li>' +
-                                              '<li class="content1-2">コンテンツ２</li>' +
-                                              '<li class="content1-3">コンテンツ３</li>' +
-                                            '</ul>' +
-                                          '</li>' +
-                                        '</ul>');
+          $('#centerContents').append('<div class="accordion">' +
+                                          '<button type="button" class="reTweet">リツイート</button>' +
+                                          '<div class="inner">' +
+                                            '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
+                                            '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
+                                          '</div>' +
+                                      '</div>');
+                                      
+          $('#centerContents').append('<button type="button" class="good">いいね</button>');
 
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          
+          $('#centerContents').append(
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
+          );
+          
           var tweet_json = JSON.stringify(tweet["_id"])
-
+          
           $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
       });
       // $('#main-contents').text(results);
@@ -145,19 +162,19 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000000);
+    }()),100000);
 });
 
 </script>
 
 <script>
-$(document).on("click", ".ac1", function () {
+$(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-  $(this).next('.accordion2 .inner').slideToggle();
+  $(this).next('.accordion .inner').slideToggle();
 
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-  $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
+  $('.accordion').not($(this)).next('.accordion .inner').slideUp();
 
 });
 </script>
