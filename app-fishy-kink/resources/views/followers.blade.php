@@ -19,21 +19,20 @@
             </form>
         </div>
 
-       
-            <a location.href='/followers' value="フォロワー"></a>
-            <!-- <a href="#following">フォロワー</a>           -->
-        
+        <div class="tabs">
+        <input id="follower" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follower">フォロワー</label>
 
-        <div class="">
-            
-    
+        <!-- <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follow">フォロー</label> -->
 
-        @isset($followData)
+    <div class="tab_content" id="follower_content">
+       @isset($followData)
             @isset($followData["follower"][0])
                 @foreach ($followData["follower"] as $key => $followers)
-                <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                <li><button type="button" onclick="location.href='/profile?user={{ $followers }}'">
                     {{ $followers }}
-                    </button>
+                    </button></li>
                    {{
                     $followerPro[$key]
                     ,$key = $key + 1  
@@ -41,10 +40,15 @@
                 @endforeach
             @endisset
         @endisset
-   
-        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る">
-       
     </div>
+
+    <!-- <div class="tab_content" id="follow_content">
+      
+    </div> -->
+
+        <div>
+        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る"/>
+        </div>
 
 </body>
 </html>

@@ -13,37 +13,9 @@
 <link rel="stylesheet" type="text/css" href="css/myPage.css">
 </head>
 <body>
-@isset($userData)
-    <div>
-        <div class="userData">
-            <img id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-            <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
-            <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
-        </div>
-        @if ( isset ($userData["follow"]) )
-            <button type="button" onclick="location.href='/following'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</p>
-        @else
-            <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</p>
-        @endif
-        
-        @if ( isset ($userData["follower"]) )
-            <button type="button" onclick="location.href='/followers'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
-        @else
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follower"></span>0人</p>
-            <p class="follower">フォロワー<span></span>0人</p>
-        @endif
 
-        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
-    </div>
-    <div class="profile">
-        <p>プロフィール</p>
-           <p>{{ $userData["profile"] }}</p>
-
-           
     <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
     
-    
-
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
@@ -138,15 +110,15 @@ $(function(){ // 遅延処理
           <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
       </div>
       @isset ($userData["follow"])
-          <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
+          <button type="button" onclick="location.href='/following'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
+          <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</button>
       @endisset
       
       @isset ($userData["follower"]) 
-          <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
+          <button type="button" onclick="location.href='/followers'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
+          <button type="button" onclick="location.href='/followers'">フォロー<span class="follower"></span>0人</button>
           <p class="follower">フォロワー<span></span>0人</p>
       @endisset
       

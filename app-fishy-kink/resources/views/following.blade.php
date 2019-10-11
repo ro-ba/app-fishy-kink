@@ -7,6 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/Followers.css">
 
 </head>
 <body>
@@ -18,28 +19,37 @@
             </form>
         </div>
 
-        <ul class="search-tab">
-            <li class="tab_list"><a href="#following">フォロー</a></li>    
-        </ul>
+        <div class="tabs">
+        <!-- <input id="follower" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follower">フォロワー</label> -->
+
+        <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follow">フォロー中</label>
+
+    <div class="tab_content" id="follow_content">
         @isset($followData)
             @isset($followData["follow"][0])
                 
                 @foreach ($followData["follow"] as $key => $following)
-                <button type="button" onclick="location.href='/profile?user={{ $following }}'">
+                <li><button type="button" onclick="location.href='/profile?user={{ $following }}'">
                     {{ $following }}
-                    </button>
+                    </button></li>
                    {{
                        $followerPro[$key]
                         ,$key = $key + 1   
                     }}
-                  
                 @endforeach
             @endisset
         @endisset
-   
-        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る">
-        </div>
+                    
     </div>
+
+    <input  type="button" onclick="location.href='/profile'" value="戻る">
+   
+
+    <!-- <div class="tab_content" id="followerS_content">
+           
+    </div> -->
 
 </body>
 </html>
