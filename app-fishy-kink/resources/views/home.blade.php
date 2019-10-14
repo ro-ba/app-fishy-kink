@@ -22,23 +22,29 @@
 <script>
 $(function(){
   $("#centerContents").on('click',".fab",function() {
-    var tweetid = $("#centerContents > #tweetID").val();
-    console.log(tweetid);
+    // var tweetid = $("#centerContents > #tweetID").val();
+    var tweetid = $(this).prevAll("#tweetID").val();
+    var push_button = this;
     $.ajax({
       type: 'POST',
       url: '/api/fabChange',
       dataType: 'json',
       data: {
-        userID: "takuwa" , 
+        userID: "{{ session('userID') }}", 
         tweetID: tweetid, 
         _token:'{{ csrf_token() }}'
       },
       cache: false
     }).done(function(results){
-      console.log(results);
+      if (results["message"] == "add"){
+        $(push_button).css("color","red");
+      }else{
+        $(push_button).css("color","gray");
+      }
     });
   });
 });
+
 
 </script>
 
@@ -152,9 +158,17 @@ $(function(){ // 遅延処理
             '</div>'
           );
           
-          var tweet_json = JSON.stringify(tweet["_id"])
+          // var tweet_json = JSON.stringify(tweet["_id"])
           
-          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
+          // $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style=""></span> </button></div>');
+
+          if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:gray;"></span> </button></div>');
+          }else{
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:red;"></span> </button></div>');
+          }
+          
+          
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -162,7 +176,7 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),100000);
+    }()),1000);
 });
 
 </script>
