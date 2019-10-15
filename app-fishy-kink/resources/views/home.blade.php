@@ -37,9 +37,9 @@ $(function(){
       cache: false
     }).done(function(results){
       if (results["message"] == "add"){
-        $(push_button).css("color","red");
+        $(push_button).children().css("color","red");
       }else{
-        $(push_button).css("color","gray");
+        $(push_button).children().css("color","gray");
       }
     });
   });
@@ -176,7 +176,7 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000);
+    }()),100000);
 });
 
 </script>
