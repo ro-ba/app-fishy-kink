@@ -11,41 +11,22 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/myPage.css">
-</head>
-<body>
-@isset($userData)
-    <div>
-        <div class="userData">
-            <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-            <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
-            <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
-        </div>
-        @if ( isset ($userData["follow"]) )
-            <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
-        @else
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
-        @endif
-        
-        @if ( isset ($userData["follower"]) )
-            <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
-        @else
-            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
-            <p class="follower">フォロワー<span></span>0人</p>
-        @endif
 
-        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+
+        <!-- <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
     <hr class="bar1">
 
     </div>
     <div class="profile">
         <p>プロフィール</p>
-           <p>{{ $userData["profile"] }}</p>
+           <p>{{ $userData["profile"] }}</p> -->
 
            
     <!-- <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> -->
     <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
     
     
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
@@ -127,8 +108,48 @@ $(function(){ // 遅延処理
       return update;
     }()),1000);
 });
-</script>           
-    @endisset
+</script>   
+
+
+</head>
+<body>
+@isset($userData)
+  <div class = "userBar">
+      <div class="userData">
+          <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+          <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
+          <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
+      </div>
+      @isset ($userData["follow"])
+          <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
+      @else
+          <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
+      @endisset
+      
+      @isset ($userData["follower"]) 
+          <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
+      @else
+          <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
+          <p class="follower">フォロワー<span></span>0人</p>
+      @endisset
+      
+      @if($isShowSettings)
+        <input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" />
+      @endif
+  <hr class="bar1"/>
+  <hr class="bar2"/>
+  <!-- <hr class="bar3"/>
+  <hr class="h1">  -->
+
+  </div>
+  <div class="profile">
+      <p>プロフィール</p>
+          <p>{{ $userData["profile"] }}</p>          
+  <div id="tweet" class="tweet" style=""></div>        
+@else
+  <b>ユーザーが存在しません。</b>
+  <button onclick="location.href='/'">戻る</button>
+@endisset
 </body>
 
 </html>

@@ -35,9 +35,8 @@ class TweetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request , $userID)
     {
-        
         if(session('userID')){ 
             $db = connect_mongo();
             $tweetImg = [];
@@ -63,6 +62,8 @@ class TweetController extends Controller
             "originTweetID" => "",
             "parentTweetID" => ""
             ]); 
+
+            echo $userID;
         }
     }
 
