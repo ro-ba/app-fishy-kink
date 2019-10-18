@@ -91,9 +91,15 @@ $(function(){ // 遅延処理
       }).done(function (results) {
         // 通信成功時の処理
         $('#centerContents').empty();
+
         let tweetType = "";
+        
         results.forEach(function(tweet){
           // console.log(tweet);
+
+          $('#centerContents').append('<input id="tweetID" type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
+          $('#centerContents').append('<div class="tweet card">');  
+          
           $('#centerContents').append('<div class="tweet card">');    
           $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
@@ -130,7 +136,7 @@ $(function(){ // 遅延処理
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
           $('#centerContents').append('<div class="accordion">' +
-                                          '<button type="button" class="reTweet">リツイート</button>' +
+                                          '<button type="button" class="reTweet" id="reTwwet">リツイート</button>' +
                                           '<div class="inner">' +
                                             '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
                                             '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
@@ -171,8 +177,9 @@ $(function(){ // 遅延処理
           }else{
             $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:red;"></span> </button></div>');
           }
-          
-          
+         
+          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
+
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -287,7 +294,7 @@ $(document).on("click", ".reTweet", function () {
 </script>
 
 <script type="text/javascript">
-  function open2() {
+  function open2(count) {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
