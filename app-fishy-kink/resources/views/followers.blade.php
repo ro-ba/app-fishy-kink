@@ -11,13 +11,13 @@
 
 </head>
 <body>
-    <div class="search-main">
+    <!-- <div class="search-main">
         <div class="search">
             <form action="">
                 <input type="text" value="" class="">
                 <input type=submit value="検索">
             </form>
-        </div>
+        </div> -->
 
         <div class="tabs">
         <input id="follower" type="radio" name="tab_item" checked>
@@ -30,31 +30,30 @@
        @isset($followData)
             @isset($followData["follower"][0])
                 @foreach ($followData["follower"] as $key => $followers)
-            <ul calss="list_none"> 
-                <li>
+        <ul class ="list_none">
+            <li>
+            <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key]}}'/></a>
                     {{$followerName[$key]}}    
-                    <button type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                        {{ $followers }}
-                    </button>
-                </li>
-            </ul>
+                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                    <span>@</span>{{ $followers }}
+                </button>
+
                 <div class="profilePro">
                    {{
-                    $followerPro[$key]
-                    ,$key = $key + 1  
+                       $followerPro[$key]
+                        ,$key = $key + 1   
                     }}
+                    
                 </div>
+            </li>
+        </ul>
                 @endforeach
             @endisset
         @endisset
     </div>
 
-    <!-- <div class="tab_content" id="follow_content">
-      
-    </div> -->
-
         <div>
-        <input class="btn btn-success" type="button" onclick="location.href='/profile'" value="戻る"/>
+            <button class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
         </div>
 
 </body>

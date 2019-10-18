@@ -16,21 +16,7 @@ class FabChangeController extends Controller
      */
     public function index()
     {
-        // $db = connect_mongo();
-        // $tweetID = $request->input("tweetID");
-        // $userID = $request->input("userID");
-        // $fablist = $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
-        // if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
-        //     //削除
-        //     $fablist = array_diff($fablist,$userID);
-        //     //indexを詰める
-        //     $fablist = array_values($fablist);
-        // } else {
-        //     //追加
-        //     array_push($fablist,$userID);
-        // };
-        // //更新
-        // $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["fabUser" => $fablist]]);
+        //
     }
 
     /**
@@ -42,13 +28,10 @@ class FabChangeController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        // $tweetID = $request->input("tweetID");
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = $request->input("userID");
 
         $fablist = (array)$db["tweetDB"] -> findOne(["_id" => $tweetID])["fabUser"];
-        // $fablist = $db["tweetDB"]->findOne(['_id'=> new MongoDB\BSON\ObjectId($tweetID)]))["fabUser"]; 
-        // $fablist = (array)$db["tweetDB"] -> findOne(["_id" => new \MongoDB\BSON\ObjectId($tweetID)])["fabUser"];
         $return = "";
         if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
             //削除
