@@ -37,9 +37,7 @@
                 <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $following }}'">
                 <span>@</span>{{ $following }}
                 </button>
-
-                
-            
+                       
                 <div class="profilePro">
                    {{
                        $followingPro[$key]
