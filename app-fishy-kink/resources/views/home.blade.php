@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,19 +14,77 @@
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 
 <style>
-.accordion2 .inner {display: none;}
-.accordion2 p{cursor: pointer;}
-.accordion2 {display:inline;}
+.accordion .inner {display: none;}
+.accordion p {cursor: pointer;}
+.accordion {display:inline;}
 </style>
 
 <script>
+$(function(){
+  $("#centerContents").on('click',".fab",function() {
+    // var tweetid = $("#centerContents > #tweetID").val();
+    var tweetid = $(this).prevAll("#tweetID").val();
+    var push_button = this;
+    $.ajax({
+      type: 'POST',
+      url: '/api/fabChange',
+      dataType: 'json',
+      data: {
+        userID: "{{ session('userID') }}", 
+        tweetID: tweetid, 
+        _token:'{{ csrf_token() }}'
+      },
+      cache: false
+    }).done(function(results){
+      if (results["message"] == "add"){
+        $(push_button).children().css("color","red");
+      }else{
+        $(push_button).children().css("color","gray");
+      }
+    });
+  });
+});
+
+
+</script>
+
+<script>
+
+var imageArr = 
+ [
+  'images/fabo.jpg',
+  'images/faboDis.jpg'
+ ];
+ var now_image = 0;
+
+
+
+// function fab(userid,tweetid){
+//   console.log(tweetID);
+//   $.ajax({
+//       type: 'POST',
+//       url: '/api/fabChange',    // url: は読み込むURLを表す
+//       dataType: 'json',           // 読み込むデータの種類を記入
+//       data: { 
+//         userID:userid , 
+//         tweetID:tweetid , 
+//         _token:'{{ csrf_token() }}'},
+//       cache: false
+//       }).done(function (results) {
+//         alert('成功しました。');
+//       }).fail(function (err) {
+//         // 通信失敗時の処理
+//       });
+// };
+
+
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
       url: '/api/reloadTweet',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
-      data: {UserID:"",
+      data: {userID:'',
             _token: '{{ csrf_token() }}'
             },
       cache: false
@@ -37,8 +94,8 @@ $(function(){ // 遅延処理
         let tweetType = "";
         results.forEach(function(tweet){
           // console.log(tweet);
-          $('#centerContents').append('<div class="tweet card">');      
-          
+          $('#centerContents').append('<div class="tweet card">');    
+          $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
@@ -67,13 +124,13 @@ $(function(){ // 遅延処理
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-          
+
           $('#centerContents').append('<div class="tweetBottom d-inline">');
+
           $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
 
-          //$('#centerContents').append('<button type="button" class="retweet">リツイート</button>' + 
-          $('#centerContents').append('<div class="accordion2">' +
-                                          '<button type="button" class="ac1">リツイート</button>' +
+          $('#centerContents').append('<div class="accordion">' +
+                                          '<button type="button" class="reTweet">リツイート</button>' +
                                           '<div class="inner">' +
                                             '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
                                             '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
@@ -99,7 +156,19 @@ $(function(){ // 遅延処理
                     '<image src="images/fabo.jpg"/> '+
                 '</div> '+
             '</div>'
-          );                       
+          );
+          
+          // var tweet_json = JSON.stringify(tweet["_id"])
+          
+          // $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style=""></span> </button></div>');
+
+          if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:gray;"></span> </button></div>');
+          }else{
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:red;"></span> </button></div>');
+          }
+          
+          
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -107,18 +176,19 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-    }()),1000000);
+    }()),100000);
 });
+
 </script>
 
 <script>
-$(document).on("click", ".ac1", function () {
+$(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-  $(this).next('.accordion2 .inner').slideToggle();
+  $(this).next('.accordion .inner').slideToggle();
 
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-  $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
+  $('.accordion').not($(this)).next('.accordion .inner').slideUp();
 
 });
 </script>
@@ -155,10 +225,55 @@ $(document).on("click", ".ac1", function () {
     
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
-        <div id="centerContents" class="col-sm-6"></div>
+
+        <div id="centerContents" class="col-sm-6">
+            <div class="tweet card">
+            @foreach ($tweets as $tweet)
+                <div class="tweetTop card-header">
+                @if ($tweet["type"] == "retweet")
+                    <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+
+                @endif
+                <a name=user href="/profile?user={{ $tweet['userID'] }}" >{{ $tweet['userID'] }}</a>
+                <div class="time"> {{ $tweet["time"] }}</div>
+                        <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
+                        <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
+                </div>
+                <div class="tweetMain card-body">
+                    {{ $tweet["text"] }}                    
+                </div>
+                  
+                <div style = float: left>
+                @isset($tweet["img"][0])
+                    @foreach($tweet["img"] as $img)
+                     <img src=" {{ $img }}" width="200" height="150"/>
+                    @endforeach
+                @endisset
+                </div>
+                <div class="tweetBottom d-inline">
+                    <div class="reply d-inline-block">
+                      <input name="reply" type="image" src="images/reply.jpg" onclick="reply()" alt="リプライ">
+                    </div>
+                    <div class="retweet d-inline-block">
+                      <input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>
+                    </div>
+                    <div class="fab d-inline-block">
+                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg" alt="いいね"/>
+                    </div>
+                </div>
+            @endforeach
+
+            
+            </div>
+        </div>
+
+
         <div id="rightContents" class="col-sm-3"></div>
 
 </body>
+<img class="" height="100" width="100" 
+        src="images/twitter.jpg"
+        />
 </html>
 
 <script type="text/javascript">
