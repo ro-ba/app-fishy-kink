@@ -11,13 +11,13 @@
 
 </head>
 <body>
-    <div class="search-main">
+    <!-- <div class="search-main">
         <div class="search">
             <form action="">
-                <input type="text" value="" class="">
+                <input type="text" value="" >
                 <input type=submit value="検索">
             </form>
-        </div>
+        </div> -->
 
         <div class="tabs">
         <!-- <input id="follower" type="radio" name="tab_item" checked>
@@ -28,32 +28,35 @@
 
     <div class="tab_content" id="follow_content">
         @isset($followData)
-            @isset($followData["follow"][0])
-                
+            @isset($followData["follow"][0]) 
                 @foreach ($followData["follow"] as $key => $following)
-            <ul class ="list_none">
-                <li >
-                    {{$followerName[$key]}}    
-                <button type="button" onclick="location.href='/profile?user={{ $following }}'">
-                    {{ $following }}
+        <ul class ="list_none">
+            <li>
+            <a onclick="location.href='/profile?user={{ $following }}'"><img src='{{ $followingImg[$key]}}'/></a>
+                    {{$followingName[$key]}}    
+                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $following }}'">
+                <span>@</span>{{ $following }}
                 </button>
 
-                </li>
-            </ul>
+                
+            
                 <div class="profilePro">
                    {{
-                       $followerPro[$key]
+                       $followingPro[$key]
                         ,$key = $key + 1   
                     }}
+                    
                 </div>
+            </li>
+        </ul>
                 @endforeach
             @endisset
         @endisset
                     
     </div>
-
-    <input  type="button" onclick="location.href='/profile'" value="戻る">
-   
+    <div>
+        <button  class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
+    </div>  
 
     <!-- <div class="tab_content" id="followerS_content">
            

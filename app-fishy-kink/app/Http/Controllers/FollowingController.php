@@ -20,12 +20,13 @@ class FollowingController extends Controller
         $FishyKink = connect_mongo();
         $followData = dbUser($FishyKink,$id);
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
-         foreach($userProfile["follow"] as $followerid){
-            $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
-            $followerPro[] = $follower["profile"];
-            $followerName[] = $follower["userName"];      
+         foreach($userProfile["follow"] as $followingid){
+            $following = $FishyKink["userDB"] -> findOne(["userID" => $followingid]);
+            $followingPro[] = $following["profile"];
+            $followingName[] = $following["userName"];
+            $followingImg[] = $following["userImg"];     
         }
-        return view("following",compact("followData","followerPro","followerName"));
+        return view("following",compact("followData","followingPro","followingName","followingImg"));
     }
 
     /**
