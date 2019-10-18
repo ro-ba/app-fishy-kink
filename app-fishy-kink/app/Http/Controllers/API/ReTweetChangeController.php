@@ -55,7 +55,8 @@ class ReTweetChangeController extends Controller
                 "type"          => "retweet",
                 "userID"        => session('userID'),
                 "time"          => date("Y/m/d H:i:s"),
-                "originTweetID" => $originalTweetID
+                "originTweetID" => $originalTweetID,
+                "parentTweetID" => ""
                 ]); 
 
             $return = "add";

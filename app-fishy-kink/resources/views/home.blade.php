@@ -61,6 +61,9 @@ $(function(){
       },
       cache: false
     }).done(function(results){
+      //アコーディオンを閉じる処理
+      $(push_button).parents(".inner").slideToggle();
+
       if (results["message"] == "add"){
         $(push_button).parents().prevAll(".reTweet").children().css("color","green");
         $(push_button).text("リツイートを取り消す");
@@ -68,10 +71,10 @@ $(function(){
         $(push_button).parents().prevAll(".reTweet").children().css("color","gray");
         $(push_button).text("リツイート");
       }
+        
     });
   });
 });
-
 
 </script>
 
