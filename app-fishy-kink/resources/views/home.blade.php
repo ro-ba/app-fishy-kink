@@ -22,32 +22,40 @@
 <script>
 $(function(){
   $("#centerContents").on('click',".fab",function() {
-    var tweetid = $("#centerContents > #tweetID").val();
-    console.log(tweetid);
+    // var tweetid = $("#centerContents > #tweetID").val();
+    var tweetid = $(this).prevAll("#tweetID").val();
+    var push_button = this;
     $.ajax({
       type: 'POST',
-      url: '/api/fabCahnge',
+      url: '/api/fabChange',
       dataType: 'json',
       data: {
-        userID: "test" , 
-        tweetID:tweetid , 
+        userID: "{{ session('userID') }}", 
+        tweetID: tweetid, 
         _token:'{{ csrf_token() }}'
       },
       cache: false
     }).done(function(results){
-      alert('成功しました。');
+      if (results["message"] == "add"){
+        $(push_button).children().css("color","red");
+      }else{
+        $(push_button).children().css("color","gray");
+      }
     });
   });
 });
+
+
 </script>
 
 <script>
-// var imageArr = 
-//  [
-//   'images/fabo.jpg',
-//   'images/faboDis.jpg'
-//  ];
-//  var now_image = 0;
+
+var imageArr = 
+ [
+  'images/fabo.jpg',
+  'images/faboDis.jpg'
+ ];
+ var now_image = 0;
 
 
 
@@ -88,9 +96,12 @@ $(function(){ // 遅延処理
         
         results.forEach(function(tweet){
           // console.log(tweet);
+
           $('#centerContents').append('<input id="tweetID" type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
           $('#centerContents').append('<div class="tweet card">');  
           
+          $('#centerContents').append('<div class="tweet card">');    
+          $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
@@ -153,11 +164,17 @@ $(function(){ // 遅延処理
             '</div>'
           );
           
-          var tweet_json = JSON.stringify(tweet["_id"])
+          // var tweet_json = JSON.stringify(tweet["_id"])
           
-          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
+          // $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style=""></span> </button></div>');
 
-          count++;
+          if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:gray;"></span> </button></div>');
+          }else{
+            $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:red;"></span> </button></div>');
+          }
+         
+          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
 
       });
       // $('#main-contents').text(results);
@@ -168,6 +185,7 @@ $(function(){ // 遅延処理
       return update;
     }()),100000);
 });
+
 </script>
 
 <script>
@@ -247,7 +265,7 @@ $(document).on("click", ".reTweet", function () {
                       <input name="retweet" type="image" src="images/retweet.png" onclick="retweet()" alt="リツイート"/>
                     </div>
                     <div class="fab d-inline-block">
-                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg"  alt="いいね"/>
+                      <input  class="fab" name="fab" type="image" src="images/faboDis.jpg" alt="いいね"/>
                     </div>
                 </div>
             @endforeach
