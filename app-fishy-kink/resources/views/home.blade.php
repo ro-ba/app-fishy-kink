@@ -89,9 +89,15 @@ $(function(){ // 遅延処理
       }).done(function (results) {
         // 通信成功時の処理
         $('#centerContents').empty();
+
         let tweetType = "";
+        
         results.forEach(function(tweet){
           // console.log(tweet);
+
+          $('#centerContents').append('<input id="tweetID" type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
+          $('#centerContents').append('<div class="tweet card">');  
+          
           $('#centerContents').append('<div class="tweet card">');    
           $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
@@ -159,6 +165,7 @@ $(function(){ // 遅延処理
 
           $('#centerContents').append('<div class="accordion">' +
                                           '<button class=reTweet type=button><span class="oi oi-loop" style="color:'+iconColor+';"></span> </button>' +
+
                                           '<div class="inner">' +
                                             '<a class=normalReTweet type=button>'+reTweetText+'</a>' +
                                             '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
@@ -293,7 +300,7 @@ $(document).on("click", ".reTweet", function () {
 </script>
 
 <script type="text/javascript">
-  function open2() {
+  function open2(count) {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
