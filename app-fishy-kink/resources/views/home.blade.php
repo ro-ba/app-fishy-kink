@@ -159,8 +159,12 @@ $(function(){ // 遅延処理
           );
           
           // var tweet_json = JSON.stringify(tweet["_id"])
-          
-          // $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style=""></span> </button></div>');
+
+//例
+          $('#centerContents').append('<button class=reply type=button class=good ><span class="oi oi-action-undo" style="color:blue;"></span> </button></div>');
+          $('#centerContents').append('<button class=retweet type=button class=good ><span class="oi oi-loop" style="color:green;"></span> </button></div>');
+
+//
 
           if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
             $('#centerContents').append('<button class=fab type=button class=good ><span class="oi oi-heart" style="color:gray;"></span> </button></div>');
