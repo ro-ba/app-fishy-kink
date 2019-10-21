@@ -42,37 +42,7 @@ $(function(){
 });
 </script>
 
-});
-</script>
-
 <script>
-// var imageArr = 
-//  [
-//   'images/fabo.jpg',
-//   'images/faboDis.jpg'
-//  ];
-//  var now_image = 0;
-// function fab(userid,tweetid){
-//   console.log(tweetID);
-//   $.ajax({
-//       type: 'POST',
-//       url: '/api/fabChange',    // url: は読み込むURLを表す
-//       dataType: 'json',           // 読み込むデータの種類を記入
-//       data: { 
-//         userID:userid , 
-//         tweetID:tweetid , 
-//         _token:'{{ csrf_token() }}'},
-//       cache: false
-//       }).done(function (results) {
-//         alert('成功しました。');
-//       }).fail(function (err) {
-//         // 通信失敗時の処理
-//       });
-// };
-
-
-
-
   //リツイート
   $("#centerContents").on('click',".normalReTweet",function() {
     // var tweetid = $("#centerContents > #tweetID").val();
@@ -120,11 +90,8 @@ $(function(){ // 遅延処理
         // 通信成功時の処理
         $('#centerContents').empty();
         let tweetType = "";
-
         console.log(results.length);
-
         results.forEach(function(tweet){
-
           $('#centerContents').append('<input id="tweetID "type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
           $('#centerContents').append('<div class="tweet card">');  
           
@@ -166,6 +133,7 @@ $(function(){ // 遅延処理
           
           var iconColor = "";
           var reTweetText = "";
+
           if (tweet["type"] == "tweet"){
             if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
               iconColor = "gray";
@@ -205,10 +173,8 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
     });
-
       return update;
     }()),50000);
-
 });
 </script>
 
@@ -266,14 +232,9 @@ $(document).on("click", ".reTweet", function () {
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-
-                    {{ $tweet["text"] }}
-
-
                   @isset($tweet["text"])
                     {{ $tweet["text"] }}
                   @endisset               
-
                 </div>
                   
                 <div style = float: left>
@@ -296,7 +257,6 @@ $(document).on("click", ".reTweet", function () {
                 </div>
             @endforeach
             
-
             </div>
         </div>
         <div id="rightContents" class="col-sm-3"></div>
@@ -314,10 +274,7 @@ $(document).on("click", ".reTweet", function () {
   function open2(count) {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
-
 </script>
-
-
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
@@ -341,8 +298,6 @@ $(function(){ // 遅延処理
                                                                 '<a href="#" class="alert-link">新しいツイート</a>' +
                                                                 '</div>';
         }
-
-
       }).fail(function (err) {
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
@@ -356,10 +311,7 @@ $(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
   $(this).next('.accordion .inner').slideToggle();
-
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
   $('.accordion').not($(this)).next('.accordion .inner').slideUp();
-
 });
 </script>
-
