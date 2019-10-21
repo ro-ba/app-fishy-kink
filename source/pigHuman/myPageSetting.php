@@ -4,6 +4,7 @@
 function myPageSetting($id, $request,$FishyKink){
     $name = $request->input("userName");
     $profile = $request->input("profileText");
+
     $userImg = $request->userImg;
     if(empty($name)){ //userNameが空だったら
         return "変更できませんでした。";
@@ -21,5 +22,6 @@ function myPageSetting($id, $request,$FishyKink){
        
         return "変更しました。";
     };
+
 }
 ?>

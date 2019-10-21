@@ -45,6 +45,9 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
+<<<<<<< HEAD
+        $result = myPageSetting($id, $request,$FishyKink);
+=======
         $name = $request->input("userName");
         // $profile = $request->input("profileText");
         if(empty($name)){ //userNameが空だったら
@@ -54,6 +57,7 @@ class SettingsController extends Controller
             myPageSetting($id,$request,$FishyKink);
             return redirect("profile");
         }
+>>>>>>> caf54202f4534c26963e698d58482881524a955c
     }
 
     /**
