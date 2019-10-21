@@ -19,7 +19,7 @@ function myPageSetting($id, $request,$FishyKink){
             $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
         }
        
-        return "変更しました。";
+        return True;
     };
 }
 ?>

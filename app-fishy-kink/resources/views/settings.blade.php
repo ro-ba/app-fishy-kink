@@ -16,6 +16,8 @@
 <script type="text/javascript" src="js/prev-image.js"></script>
 </head>
 <body>
+
+
 @isset($userData)
     <div>
         <form method="post" enctype="multipart/form-data">
@@ -23,9 +25,7 @@
             <div class="userData">
                 <div class="userImage">
                     <img class="myIcon preview" src='{{ $userData["userImg"] }}' alt="myIcon" style="width:200px; height:200px;"/>
-                    
                     <input type="file" name="userImg"  accept="image/*"/>
-
                 </div>
                 <div class="userID">
                     ユーザーID： {{ $userData["userID"] }}
