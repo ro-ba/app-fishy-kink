@@ -10,7 +10,9 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css/myPage.css">
+<link rel="stylesheet" type="text/css" href="css/profile.css">
+</head>
+<body>
 
 
         <!-- <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
@@ -25,6 +27,9 @@
     <!-- <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> -->
     <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
     
+    
+
+    <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
     
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
@@ -121,25 +126,34 @@ $(function(){ // 遅延処理
           <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
       </div>
       @isset ($userData["follow"])
-          <button type="button" onclick="location.href='/followers'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
+          <button type="button" onclick="location.href='/following'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</button>
+          <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</button>
       @endisset
       
       @isset ($userData["follower"]) 
-          <button type="button" onclick="location.href='/following'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
+          <button type="button" onclick="location.href='/followers'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</button>
+          <button type="button" onclick="location.href='/followers'">フォロー<span class="follower"></span>0人</button>
           <p class="follower">フォロワー<span></span>0人</p>
       @endisset
-      
+
       @if($isShowSettings)
         <input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" />
       @endif
+
   <hr class="bar1"/>
   <hr class="bar2"/>
   <!-- <hr class="bar3"/>
   <hr class="h1">  -->
+
+    <button class="btn-real-dent" onclick="location.href='/'">戻る
+    <i class="fa fa=home"></i>
+    </button>
+
+     
+</a>
+
 
   </div>
   <div class="profile">
@@ -149,6 +163,10 @@ $(function(){ // 遅延処理
 @else
   <b>ユーザーが存在しません。</b>
   <button onclick="location.href='/'">戻る</button>
+
+  <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> 
+         
+
 @endisset
 </body>
 

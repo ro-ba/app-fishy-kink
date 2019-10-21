@@ -45,8 +45,15 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
-        $result = myPageSetting($id, $request,$FishyKink);
-        return $result;
+
+        $name = $request->input("userName");
+        $profile = $request->input("profileText");
+        if(empty($name)){ //userNameが空だったら
+            return "変更できませんでした。";
+        }else{ //空じゃなかったら変更
+            $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
+            return "変更しました。";
+        }
     }
 
     /**

@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class FabChangeController extends Controller
+
+class ReTweetChangeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,22 +31,38 @@ class FabChangeController extends Controller
         $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = $request->input("userID");
-
-        $fablist = (array)$db["tweetDB"] -> findOne(["_id" => $tweetID])["fabUser"];
+        $originalTweetID = $db["tweetDB"] -> findOne(["_id" => $tweetID])["originTweetID"];
+        $reTweetlist = (array)$db["tweetDB"] ->findOne(["_id" => $originalTweetID])["retweetUser"];
         $return = "";
-        if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
+        if (in_array($userID,$reTweetlist)){    //もし、すでにリツイートしていればリストから削除する
             //削除
-            $fablist = array_diff($fablist,(array)$userID);
+            $reTweetlist = array_diff($reTweetlist,(array)$userID);
             //indexを詰める
-            $fablist = array_values($fablist);
+            $reTweetlist = array_values($reTweetlist);
+
+            $db["tweetDB"] ->deleteOne([
+                "type"          => "retweet",
+                "userID"        => session("userID"),
+                "originTweetID" => $originalTweetID
+                ]);
+
             $return = "delete";
         } else {
             //追加
-            array_push($fablist,$userID);
+            array_push($reTweetlist,$userID);
+
+            $db["tweetDB"] -> insertOne([
+                "type"          => "retweet",
+                "userID"        => session('userID'),
+                "time"          => date("Y/m/d H:i:s"),
+                "originTweetID" => $originalTweetID,
+                "parentTweetID" => ""
+                ]); 
+
             $return = "add";
         };
         //更新
-        $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["fabUser" => $fablist]]);
+        $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["retweetUser" => $reTweetlist]]);
         return ["message" => $return];
     }
 
