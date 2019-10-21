@@ -27,7 +27,7 @@ $(function(){
     console.log(tweetid);
     $.ajax({
       type: 'POST',
-      url: '/api/fabCahnge',
+      url: '/api/fabChange',
       dataType: 'json',
       data: {
         userID: "test" , 
@@ -36,46 +36,30 @@ $(function(){
       },
       cache: false
     }).done(function(results){
-      alert('成功しました。');
+      // alert('成功しました。');
+      console.log(results);
     });
   });
 
 });
 </script>
 
+<!-- <script>
+$(function(){
+  $("#centerContents").on('click','.reply',function(){
+    console.log($(this).siblings().val());
+  });
+})
+</script> -->
+
 <script>
-// var imageArr = 
-//  [
-//   'images/fabo.jpg',
-//   'images/faboDis.jpg'
-//  ];
-//  var now_image = 0;
 
-// function fab(userid,tweetid){
-//   console.log(tweetID);
-//   $.ajax({
-//       type: 'POST',
-//       url: '/api/fabChange',    // url: は読み込むURLを表す
-//       dataType: 'json',           // 読み込むデータの種類を記入
-//       data: { 
-//         userID:userid , 
-//         tweetID:tweetid , 
-//         _token:'{{ csrf_token() }}'},
-//       cache: false
-//       }).done(function (results) {
-//         alert('成功しました。');
-//       }).fail(function (err) {
-//         // 通信失敗時の処理
-//       });
-// };
-
-
-
-
-  //リツイート
-  $("#centerContents").on('click',".normalReTweet",function() {
+$(function(){
+ //リツイート
+ $("#centerContents").on('click',".normalReTweet",function() {
     // var tweetid = $("#centerContents > #tweetID").val();
     var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
+    console.log(tweetid);
     var push_button = this;
     $.ajax({
       type: 'POST',
@@ -90,7 +74,6 @@ $(function(){
     }).done(function(results){
       //アコーディオンを閉じる処理
       $(push_button).parents(".inner").slideToggle();
-
       if (results["message"] == "add"){
         $(push_button).parents().prevAll(".reTweet").children().css("color","green");
         $(push_button).text("リツイートを取り消す");
@@ -108,7 +91,7 @@ $(function(){
 <script>
 
 $(function(){ // 遅延処理
-  $('button').click(function () {
+  $('#qqqq').click(function () {
   // setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
@@ -120,39 +103,39 @@ $(function(){ // 遅延処理
       cache: false
       }).done(function (results) {
         // 通信成功時の処理
+        
         $('#centerContents').empty();
 
         let tweetType = "";
 
-        console.log(results.length);
+        console.log(results);
 
         results.forEach(function(tweet){
 
-          $('#centerContents').append('<input id="tweetID "type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
+          $('#centerContents').append('<input id="tweetID" type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
           $('#centerContents').append('<div class="tweet card">');  
           
           // リツイート 
           if (tweet["type"] == "retweet") {
             
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
-            $.ajax({
-              type: 'POST',
-              url: '/api/getTweet',
-              dataType : 'json',
-              data: {
-                tweetID : tweet["originTweetID"],
-                _token  : '{{ csrf_token() }}'
-              },
-              cache:false
-            }).done(function(originTweet){
-              console.log(tweet["originTweetID"]);
-              // tweet = originTweet;
-              // console.log(tweet);
-            });
-
+            // $.ajax({
+            //   type: 'POST',
+            //   url: '/api/getTweet',
+            //   dataType : 'json',
+            //   data: {
+            //     tweetID : tweet["originTweetID"],
+            //     _token  : '{{ csrf_token() }}'
+            //   },
+            //   cache:false
+            // }).done(function(originTweet){
+            //   tweet = originTweet["tweet"];
+            //   console.log(tweet);
+            // });
           }else{
             tweetType = ""
           }
+          console.log(tweet);
             $('#centerContents').append(
                 '<div class="tweetTop card-header">'+
                     '<div class="tweet-user">' +
@@ -227,9 +210,6 @@ $(function(){ // 遅延処理
       });
     });
 
-      return update;
-    }()),50000);
-
 });
 </script>
 
@@ -289,9 +269,6 @@ $(document).on("click", ".reTweet", function () {
                 </div>
                 <div class="tweetMain card-body">
 
-                    {{ $tweet["text"] }}
-
-
                   @isset($tweet["text"])
                     {{ $tweet["text"] }}
                   @endisset               
@@ -345,7 +322,7 @@ $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
-      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      url: '/api/reloadTweets',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
       data: {userID:'',
             _token: '{{ csrf_token() }}'
@@ -371,7 +348,7 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
       return update;
-  }()),1000);
+  }()),100000);
 });
 </script>
 

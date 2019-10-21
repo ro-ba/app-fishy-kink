@@ -22,7 +22,7 @@ $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
-      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      url: '/api/reloadTweets',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
       data: {userID:'{{ $userData["userID"] }}',
             _token: '{{ csrf_token() }}'
