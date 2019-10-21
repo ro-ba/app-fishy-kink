@@ -232,7 +232,7 @@ $(document).on("click", ".reTweet", function () {
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'>ツイート</button>
         
 
 
