@@ -30,25 +30,25 @@ class FabChangeController extends Controller
         $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = $request->input("userID");
-        $fablist = (array)$db["tweetDB"] -> findOne(["_id" => $tweetID]);
-        return ["fabuser" => $fablist];
-        
-        // $fablist = (array)$db["tweetDB"] -> findOne(["_id" => $tweetID])["fabUser"];
-        // $return = "";
-        // if (in_array($userID,$fablist)){    //もし、すでにファボしていればリストから削除する
-        //     //削除
-        //     $fablist = array_diff($fablist,(array)$userID);
-        //     //indexを詰める
-        //     $fablist = array_values($fablist);
-        //     $return = "delete";
-        // } else {
-        //     //追加
-        //     array_push($fablist,$userID);
-        //     $return = "add";
-        // };
-        // //更新
-        // $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["fabUser" => $fablist]]);
-        // return ["message" => $return];
+        // $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID]);
+        // return ["fabuser" => $fablist];
+
+        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
+        $return = "";
+        if (in_array($userID, $fablist)) {    //もし、すでにファボしていればリストから削除する
+            //削除
+            $fablist = array_diff($fablist, (array) $userID);
+            //indexを詰める
+            $fablist = array_values($fablist);
+            $return = "delete";
+        } else {
+            //追加
+            array_push($fablist, $userID);
+            $return = "add";
+        };
+        //更新
+        $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["fabUser" => $fablist]]);
+        return ["message" => $return];
     }
 
     /**
