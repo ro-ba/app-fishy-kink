@@ -14,12 +14,14 @@ class FollowersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = session("userID");
         $FishyKink = connect_mongo();
         $followData = dbUser($FishyKink,$id);
-
+        $id = $request->input("user");
+        dd($id);
+       
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
          foreach($userProfile["follower"] as $followerid){
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);

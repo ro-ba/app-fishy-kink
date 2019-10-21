@@ -30,8 +30,10 @@ Route::resources([
     "test" => "TestController",
     "followers" => "FollowersController",
     "following" => "FollowingController",
-    "/api/reloadTweet" =>"API\ReloadTweetController",
-    "/api/fabChange" => "API\FabChangeController"
+    "/api/reloadTweets" => "API\ReloadTweetsController",
+    "/api/fabChange" => "API\FabChangeController",
+    "/api/reTweetChange"=> "API\ReTweetChangeController",
+    "/api/getTweet" =>  "API\GetTweetController"
     ]);
 
 // Route::resource("/","TopController");
