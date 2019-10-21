@@ -32,15 +32,11 @@ $(function(){ // 遅延処理
         // 通信成功時の処理          
         $('#tweet').empty();
         let tweetType = "";
-
         results.forEach(function(tweet){
-
-
           // リツイート 
           if (tweet["type"] == "retweet") {
             tweetType = '<div class="retweet-user">リツイート済み</div>';
           } 
-
           else {
             tweetType = ""
           }        
@@ -57,7 +53,6 @@ $(function(){ // 遅延処理
                     '</div> '+
                 '</div></div>');
                 $('#tweet').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
-
           // 画像表示
           $('#tweet').append('<div style=float:left>');
           for(var i=0;i<tweet["img"].length;i++){
@@ -69,7 +64,6 @@ $(function(){ // 遅延処理
           $('#tweet').append('<button type="button" class="reply">リプライ</button>');             
           $('#tweet').append('<button type="button" class="retweet">リツーイト</button>');
           $('#tweet').append('<button type="button" class="good">いいね</button>');
-
           // $('#centerContents').append('<div class="tweetBottom d-inline">');
           // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
           // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');

@@ -42,6 +42,9 @@ $(function(){
 });
 </script>
 
+});
+</script>
+
 <script>
 // var imageArr = 
 //  [
@@ -66,6 +69,10 @@ $(function(){
 //         // 通信失敗時の処理
 //       });
 // };
+
+
+
+
   //リツイート
   $("#centerContents").on('click',".normalReTweet",function() {
     // var tweetid = $("#centerContents > #tweetID").val();
@@ -113,8 +120,11 @@ $(function(){ // 遅延処理
         // 通信成功時の処理
         $('#centerContents').empty();
         let tweetType = "";
+
         console.log(results.length);
+
         results.forEach(function(tweet){
+
           $('#centerContents').append('<input id="tweetID "type="hidden" value='+ tweet["_id"]["$oid"]+ ' />')
           $('#centerContents').append('<div class="tweet card">');  
           
@@ -195,8 +205,10 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
     });
+
       return update;
     }()),50000);
+
 });
 </script>
 
@@ -254,10 +266,14 @@ $(document).on("click", ".reTweet", function () {
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
+
                     {{ $tweet["text"] }}
+
+
                   @isset($tweet["text"])
                     {{ $tweet["text"] }}
                   @endisset               
+
                 </div>
                   
                 <div style = float: left>
@@ -280,6 +296,7 @@ $(document).on("click", ".reTweet", function () {
                 </div>
             @endforeach
             
+
             </div>
         </div>
         <div id="rightContents" class="col-sm-3"></div>
@@ -297,7 +314,10 @@ $(document).on("click", ".reTweet", function () {
   function open2(count) {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
+
 </script>
+
+
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
@@ -321,6 +341,8 @@ $(function(){ // 遅延処理
                                                                 '<a href="#" class="alert-link">新しいツイート</a>' +
                                                                 '</div>';
         }
+
+
       }).fail(function (err) {
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
@@ -334,7 +356,10 @@ $(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
   $(this).next('.accordion .inner').slideToggle();
+
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
   $('.accordion').not($(this)).next('.accordion .inner').slideUp();
+
 });
 </script>
+
