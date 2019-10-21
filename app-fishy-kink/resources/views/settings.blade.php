@@ -23,7 +23,11 @@
             <div class="userData">
                 <div class="userImage">
                     <img class="myIcon preview" src='{{ $userData["userImg"] }}' alt="myIcon" style="width:200px; height:200px;"/>
+<<<<<<< HEAD
                     <input type="file" name="userImg"  accept="image/*"/>
+=======
+                    <input type="file" name="userImage"  accept="image/*"/>
+>>>>>>> 16a0b5b133ae05f859cf2b541c32579993fd6863
                 </div>
                 <div class="userID">
                     ユーザーID： {{ $userData["userID"] }}

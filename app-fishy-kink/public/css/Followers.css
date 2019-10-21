@@ -1,0 +1,106 @@
+/*タブ切り替え全体のスタイル*/
+.tabs {
+    margin-top: 40px;
+    
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    margin: 0 auto;}
+
+/* タブのスタイル */
+.tab_item {
+    /* width: calc(100%); */
+    height: 50px;
+    /* border-bottom: 3px solid #5ab4bd; */
+    background-color: #d9d9d9;
+    line-height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #565656;
+    display: block;
+    float: none;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    margin-top: 40px; 
+
+  }
+/* ラジオボタン削除 */
+  input[name="tab_item"] {
+    display: none;
+  }
+
+  /*タブ切り替えの中身のスタイル*/
+.tab_content {
+    display: none;
+    padding-top: 10px;
+    clear: both;
+    overflow: hidden;
+  }
+
+  /* プロフィール */
+  .profilePro {
+    padding-left:45px;
+    
+  }
+
+  /*選択されているタブのコンテンツのみを表示*/
+#follower:checked ~ #follower_content,
+#follow:checked ~ #follow_content {
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+    background-color: #5ab4bd;
+    color: #fff;
+  }
+
+/* リストのアイコン削除 */
+.list_none{
+    list-style:  none; 
+    border-bottom: 1px solid black;
+   
+}
+
+/* ユーザID */
+.word_btn {
+	/* display: block; */
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+  color: #347ff0;
+  background: none;
+  border: 0;
+}
+
+/* ユーザ画像円形 */
+img {
+  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
+  width:  30px;       /* ※縦横を同値に */
+  height: 30px;       /* ※縦横を同値に */
+  margin-right: 5px;
+}
+
+.btn-square {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #3cb98f;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+}
+.btn-square:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+}
+
+.search{
+  text-align: center;
+  font-size: 1.4em;
+  padding: 10px 30px;
+
+}
