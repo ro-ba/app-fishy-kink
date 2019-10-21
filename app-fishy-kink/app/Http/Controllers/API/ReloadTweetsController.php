@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class ReloadTweetController extends Controller
+class ReloadTweetsController extends Controller
 {
     static $JS_ENABLE;
     /**
@@ -28,12 +28,12 @@ class ReloadTweetController extends Controller
      */
     public static function store(Request $request)
     {
-        $data = connect_mongo();
+        $db = connect_mongo();
         $userID = $request->input("userID");
         if ($userID){
-            $tweets = $data["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
+            $tweets = $db["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
         }else{
-            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
+            $tweets = $db["tweetDB"]->find([],['sort' => ['time' => -1]]);
         };
         return json_encode(iterator_to_array($tweets));
     }
