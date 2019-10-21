@@ -43,6 +43,7 @@ $(function(){
 </script>
 
 <script>
+
   //リツイート
   $("#centerContents").on('click',".normalReTweet",function() {
     // var tweetid = $("#centerContents > #tweetID").val();
@@ -101,7 +102,7 @@ $(function(){ // 遅延処理
           } 
                   
           else {
-            tweetType = ""
+            tweetType = "";
           }
             $('#centerContents').append(
                 '<div class="tweetTop card-header">'+
@@ -133,7 +134,6 @@ $(function(){ // 遅延処理
           
           var iconColor = "";
           var reTweetText = "";
-
           if (tweet["type"] == "tweet"){
             if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
               iconColor = "gray";
@@ -210,7 +210,7 @@ $(document).on("click", ".reTweet", function () {
                 <input class="form-control" type=submit value="検索">
             <!-- </div> -->
         </form>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" target="_blank" onclick='open1();'>ツイート</button>
         
         
         
