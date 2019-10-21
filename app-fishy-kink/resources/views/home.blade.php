@@ -83,7 +83,7 @@ $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
-      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      url: '/api/reloadTweets',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
       data: {userID:'',
             _token: '{{ csrf_token() }}'
@@ -105,10 +105,24 @@ $(function(){ // 遅延処理
           $('#centerContents').append("<input id=tweetID type='hidden' value="+ tweet["_id"]['$oid'] +" />");
           // リツイート 
           if (tweet["type"] == "retweet") {
+            
             tweetType = '<div class="retweet-user">'+ tweet["userID"] + 'さんがリツイートしました</div>';
-          } 
-                  
-          else {
+            $.ajax({
+              type: 'POST',
+              url: '/api/getTweet',
+              dataType : 'json',
+              data: {
+                tweetID : tweet["originTweetID"],
+                _token  : '{{ csrf_token() }}'
+              },
+              cache:false
+            }).done(function(originTweet){
+              console.log(tweet["originTweetID"]);
+              // tweet = originTweet;
+              // console.log(tweet);
+            });
+
+          }else{
             tweetType = ""
           }
             $('#centerContents').append(
@@ -157,14 +171,6 @@ $(function(){ // 遅延処理
               iconColor = "pink";
               reTweetText = "これはリツイートです";
           }
-
-          // if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
-          //   iconColor = "gray";
-          //   reTweetText = "リツイート";
-          // }else{
-          //   iconColor = "green";
-          //   reTweetText = "リツイートを取り消す";
-          // }
 
           $('#centerContents').append('<div class="accordion">' +
                                           '<button class=reTweet type=button><span class="oi oi-loop" style="color:'+iconColor+';"></span> </button>' +
