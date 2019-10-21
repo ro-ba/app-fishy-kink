@@ -1,14 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-
-
 class HomeController extends Controller
 {
     /**
@@ -24,12 +19,10 @@ class HomeController extends Controller
             $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
             $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
             return view("home",compact("tweets","userIcon"));
-            // return view("home",compact("tweets","userIcon"));
         }else{
             return redirect("login");
         };
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +32,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +42,6 @@ class HomeController extends Controller
     {
          
     }
-
     /**
      * Display the specified resource.
      *
@@ -61,7 +52,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -72,7 +62,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -84,7 +73,6 @@ class HomeController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
