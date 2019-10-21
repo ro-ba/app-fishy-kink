@@ -51,8 +51,6 @@ $(function(){
 //  ];
 //  var now_image = 0;
 
-
-
 // function fab(userid,tweetid){
 //   console.log(tweetID);
 //   $.ajax({
@@ -70,10 +68,6 @@ $(function(){
 //         // 通信失敗時の処理
 //       });
 // };
-
-
-
-
 
 
 
@@ -158,7 +152,6 @@ $(function(){ // 遅延処理
                     '</div> '+
                 '</div>');
           $('#centerContents').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
-
           // 画像表示
           $('#centerContents').append('<div style=float:left>');
           if (tweet["type"] == "tweet"){
@@ -170,9 +163,8 @@ $(function(){ // 遅延処理
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
-
           $('#centerContents').append('<div class="tweetBottom d-inline">');
-
+          
           $('#centerContents').append('<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button></div>');
           
           var iconColor = "";
@@ -192,14 +184,6 @@ $(function(){ // 遅延処理
               reTweetText = "これはリツイートです";
           }
 
-          // if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
-          //   iconColor = "gray";
-          //   reTweetText = "リツイート";
-          // }else{
-          //   iconColor = "green";
-          //   reTweetText = "リツイートを取り消す";
-          // }
-
           $('#centerContents').append('<div class="accordion">' +
                                           '<button class=reTweet type=button><span class="oi oi-loop" style="color:'+iconColor+';"></span> </button>' +
 
@@ -208,11 +192,6 @@ $(function(){ // 遅延処理
                                             '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
                                           '</div>' +
                                       '</div>'); 
-          
-
-          var tweet_json = JSON.stringify(tweet["_id"])
-          
-          $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
 
           if (tweet["type"] == "tweet"){
             if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
@@ -225,8 +204,7 @@ $(function(){ // 遅延処理
           }
           $('#centerContents').append('<button class=fab type=button><span class="oi oi-heart" style="color:'+iconColor+';"></span> </button></div>');
           
-          
-
+         
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -234,8 +212,6 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
     });
-  //     return update;
-  // }()),1000);
 
       return update;
     }()),50000);
@@ -247,11 +223,10 @@ $(function(){ // 遅延処理
 $(document).on("click", ".reTweet", function () {
   
   //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-  $(this).next('.accordion .inner').slideToggle();
 
+  $(this).next('.accordion2 .inner').slideToggle();
   //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-  $('.accordion').not($(this)).next('.accordion .inner').slideUp();
-
+  $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
 });
 </script>
 
@@ -279,8 +254,6 @@ $(document).on("click", ".reTweet", function () {
         </form>
         <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
         
-
-
         
         
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
@@ -288,14 +261,12 @@ $(document).on("click", ".reTweet", function () {
     <div id="alertContents"></div>
     <div class="row">
         <div id="leftContents" class="col-sm-3"></div>
-
         <div id="centerContents" class="col-sm-6">
             <div class="tweet card">                
             @foreach ($tweets as $tweet)
                 <div class="tweetTop card-header">
                 @if ($tweet["type"] == "retweet")
                     <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
                 @endif
                 <a name=user href="/profile?user={{ $tweet['userID'] }}" >{{ $tweet['userID'] }}</a>
                 <div class="time"> {{ $tweet["time"] }}</div>
@@ -337,23 +308,21 @@ $(document).on("click", ".reTweet", function () {
             </div>
         </div>
         <div id="rightContents" class="col-sm-3"></div>
-
 </body>
 <img class="" height="100" width="100" 
         src="images/twitter.jpg"
         />
 </html>
-
 <script type="text/javascript">
   function open1() {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
 </script>
-
 <script type="text/javascript">
   function open2(count) {
     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
   }
+
 </script>
 
 
@@ -403,3 +372,4 @@ $(document).on("click", ".reTweet", function () {
 
 });
 </script>
+
