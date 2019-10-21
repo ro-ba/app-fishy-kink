@@ -50,18 +50,21 @@ class TweetController extends Controller
                     $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
                 }
             }
+            $time = date("Y/m/d H:i:s");
             // var_dump($tweetImg);
             $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
             "userID"        => session('userID'),
-            "time"          => date("Y/m/d H:i:s"),
+            "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
             "fabUser"       => [],
             "originTweetID" => "",
             "parentTweetID" => ""
             ]); 
+            $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
+            $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
     }
 

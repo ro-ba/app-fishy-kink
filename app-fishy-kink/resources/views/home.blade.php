@@ -21,6 +21,7 @@
 
 <script>
 $(function(){
+  //ファボ
   $("#centerContents").on('click',".fab",function() {
     var tweetid = $("#centerContents > #tweetID").val();
     console.log(tweetid);
@@ -38,6 +39,7 @@ $(function(){
       alert('成功しました。');
     });
   });
+
 });
 </script>
 
@@ -73,6 +75,43 @@ $(function(){
 
 
 
+
+
+
+  //リツイート
+  $("#centerContents").on('click',".normalReTweet",function() {
+    // var tweetid = $("#centerContents > #tweetID").val();
+    var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
+    var push_button = this;
+    $.ajax({
+      type: 'POST',
+      url: '/api/reTweetChange',
+      dataType: 'json',
+      data: {
+        userID: "{{ session('userID') }}", 
+        tweetID: tweetid, 
+        _token:'{{ csrf_token() }}'
+      },
+      cache: false
+    }).done(function(results){
+      //アコーディオンを閉じる処理
+      $(push_button).parents(".inner").slideToggle();
+
+      if (results["message"] == "add"){
+        $(push_button).parents().prevAll(".reTweet").children().css("color","green");
+        $(push_button).text("リツイートを取り消す");
+      }else{
+        $(push_button).parents().prevAll(".reTweet").children().css("color","gray");
+        $(push_button).text("リツイート");
+      }
+        
+    });
+  });
+});
+
+</script>
+
+<script>
 
 $(function(){ // 遅延処理
   $('button').click(function () {
@@ -122,47 +161,72 @@ $(function(){ // 遅延処理
 
           // 画像表示
           $('#centerContents').append('<div style=float:left>');
-          for(var i=0;i<tweet["img"].length;i++){
+          if (tweet["type"] == "tweet"){
+            countImg = tweet["img"].length;
+          }else{
+            countImg = 0;
+          }
+          for(var i=0;i<countImg;i++){
             $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
           }
           $('#centerContents').append('</div><p>');
 
           $('#centerContents').append('<div class="tweetBottom d-inline">');
 
-          $('#centerContents').append('<button type="button" class="reply">リプライ</button>'); 
+          $('#centerContents').append('<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button></div>');
+          
+          var iconColor = "";
+          var reTweetText = "";
+
+          if (tweet["type"] == "tweet"){
+            if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
+              iconColor = "gray";
+              reTweetText = "リツイート";
+            }else{
+              iconColor = "green";
+              reTweetText = "リツイートを取り消す";
+            }
+          }else{
+            //とりあえず
+              iconColor = "pink";
+              reTweetText = "これはリツイートです";
+          }
+
+          // if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1){
+          //   iconColor = "gray";
+          //   reTweetText = "リツイート";
+          // }else{
+          //   iconColor = "green";
+          //   reTweetText = "リツイートを取り消す";
+          // }
 
           $('#centerContents').append('<div class="accordion">' +
-                                          '<button type="button" class="reTweet" id="reTwwet">リツイート</button>' +
+                                          '<button class=reTweet type=button><span class="oi oi-loop" style="color:'+iconColor+';"></span> </button>' +
+
                                           '<div class="inner">' +
-                                            '<a href= "target=”_blank” onclick= func onclick="location.href="view">リツイート</a><p>' +
+                                            '<a class=normalReTweet type=button>'+reTweetText+'</a>' +
                                             '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
                                           '</div>' +
-                                      '</div>');
-                                      
-          $('#centerContents').append('<button type="button" class="good">いいね</button>');
+                                      '</div>'); 
+          
 
-          // $('#centerContents').append('<div class="tweetBottom d-inline">');
-          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
-          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
-          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
-          
-          $('#centerContents').append(
-            '<div class="tweetBottom d-inline"> '+
-                '<div class="reply d-inline-block"> '+
-                '<image src="images/reply.jpg"/> '+
-                '</div> '+
-                '<div class="retweet d-inline-block"> '+
-                    '<image src="images/retweet.png"/> '+
-                '</div> '+
-                '<div class="fab d-inline-block"> '+
-                    '<image src="images/fabo.jpg"/> '+
-                '</div> '+
-            '</div>'
-          );
-          
           var tweet_json = JSON.stringify(tweet["_id"])
           
           $('#centerContents').append('<button class=fab type=button class=good >いいね</button></div>');
+
+          if (tweet["type"] == "tweet"){
+            if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1){
+              iconColor = "gray";
+            }else{
+              iconColor = "red";
+            }
+          }else{
+            iconColor = "pink";
+          }
+          $('#centerContents').append('<button class=fab type=button><span class="oi oi-heart" style="color:'+iconColor+';"></span> </button></div>');
+          
+          
+
       });
       // $('#main-contents').text(results);
       }).fail(function (err) {
@@ -172,6 +236,10 @@ $(function(){ // 遅延処理
     });
   //     return update;
   // }()),1000);
+
+      return update;
+    }()),50000);
+
 });
 </script>
 
@@ -235,7 +303,13 @@ $(document).on("click", ".reTweet", function () {
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
+
                     {{ $tweet["text"] }}
+
+
+                  @isset($tweet["text"])
+                    {{ $tweet["text"] }}
+                  @endisset               
 
                 </div>
                   
