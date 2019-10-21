@@ -45,6 +45,7 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
+
         $name = $request->input("userName");
         $profile = $request->input("profileText");
         if(empty($name)){ //userNameが空だったら
