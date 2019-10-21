@@ -35,7 +35,7 @@ class TweetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , $userID)
+    public function store(Request $request)
     {
         if(session('userID')){ 
             $db = connect_mongo();
