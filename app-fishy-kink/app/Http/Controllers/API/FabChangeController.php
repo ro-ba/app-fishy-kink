@@ -30,8 +30,6 @@ class FabChangeController extends Controller
         $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = $request->input("userID");
-        // $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID]);
-        // return ["fabuser" => $fablist];
 
         $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
         $return = "";
@@ -48,7 +46,9 @@ class FabChangeController extends Controller
         };
         //更新
         $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["fabUser" => $fablist]]);
-        return ["message" => $return];
+        // return ["message" => $return];
+        return ["message" => $fablist, "message2" => $return];
+
     }
 
     /**

@@ -89,7 +89,7 @@
         });
         return update;
 
-      }()), 1000000);
+      }()), 10000);
     });
 
     /******************************************************************* ファボ *******************************************************************/
@@ -108,7 +108,7 @@
           },
           cache: false
         }).done(function(results) {
-
+          console.log(results);
           // if (results["message"] == "add") {
           //   $(push_button).css("color", "red");
           //   $(push_button).children().css("color", "red");
@@ -174,18 +174,28 @@
           $('#centerContents').append('<div class="tweet card">');
           tweetType = "";
         }
+        let userIcon;
+        if (typeof tweet["userImg"] !== "undefined"){
+          userIcon = tweet["userImg"];
+        }else{
+          userIcon = "";
+        }
         console.log(tweet);
         $('#centerContents').append(
           '<div class="tweetTop card-header">' +
-          '<div class="tweet-user">' +
-          '</div>' +
           tweetType +
+          '<div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">' +
+          '<img src="' + userIcon + '"width="50px" height="50px" />' + 
+          '</div> <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">' +
+          '<div class="tweet-user">' +
           '<a href=/profile?user=' + tweet["userID"] + '>' +
           tweet["userID"] +
           '</a> ' +
+          '</div>' +
           '<div class="time">' +
           tweet["time"] +
           '</div> ' +
+          '</div>' +
           '</div>');
         $('#centerContents').append('<div class="tweetMain card-body">' + tweet["text"] + '</div>');
 
@@ -319,14 +329,11 @@
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
     </button>
-    <button type="button" class="btn btn-default">
-      <font color="red"> <span class="oi oi-magnifying-glass"></span> 検索 </font>
-    </button>
 
     <form method='get' action="/search" class="form-inline d-inline">
       <!-- <div class="form-group"> -->
       <input class="form-control" type=text name="searchString">
-      <input class="form-control" type=submit value="検索">
+      <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
@@ -338,6 +345,5 @@
     <div id="centerContents" class="col-sm-6"></div>
     <div id="rightContents" class="col-sm-3"></div>
 </body>
-<img class="" height="100" width="100" src="images/twitter.jpg" />
 
 </html>
