@@ -4,6 +4,8 @@ function search($search){
     $find_user = [];
     $search_han = [];
     $search_zen = [];
+    $find_tweet1 = [];
+    $find_user1 = [];
     $db = connect_mongo();
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
@@ -18,7 +20,6 @@ function search($search){
         }else{
             $search = $search_zen;
         }
-        #print_r($search);
         for($i = 0; $i < $count; $i++){
             $search_word = $search[$i];
             //検索する文字列の数に応じて下の配列を増やす
@@ -29,9 +30,12 @@ function search($search){
             array_push($find_tweet,$tweet);
             array_push($find_user,$user);
         }
+        #array_push($find_tweet1,array('$and' => $find_tweet));
+        #array_push($find_user1,array('$and' => $find_user));
+        print_r($find_tweet);
     }
     $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet]);//ツイート検索
-    $user_result = $db ["userDB"] -> find(['$and' => $find_user]);
+    $user_result = $db ["userDB"] -> find(['$or' => $find_user]);
     
     print_r("ツイート"."<br>");
     foreach($tweet_result as $obj){
