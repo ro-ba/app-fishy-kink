@@ -21,8 +21,7 @@ class FollowersController extends Controller
         $followerData = dbUser($FishyKink,$id);
         // dd($userId);
         $userId = $request -> input("user");
-        
-
+       
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
         // dd($userProfile["follower"][0]);
        if(count($userProfile["follower"]) == 1){
@@ -34,6 +33,7 @@ class FollowersController extends Controller
             return view("followers",compact("followerData","followerPro","followerName","followerImg","followerID","userProfile")); 
        }else{
         foreach($userProfile["follower"] as $followerid){
+
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
             $followerPro[] = $follower["profile"];      
             $followerName[] = $follower["userName"]; 
