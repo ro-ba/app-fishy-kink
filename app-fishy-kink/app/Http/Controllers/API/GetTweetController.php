@@ -1,32 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-require "/vagrant/source/kouki/search.php";
 require "/vagrant/source/func/FKMongo.php";
 
-class SearchController extends Controller
+class GetTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $search = $request->input("searchString");
-        ( empty($search) ) ?  print_r("文字を入力してください") : search($search); 
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index()
     {
         //
     }
@@ -39,7 +27,10 @@ class SearchController extends Controller
      */
     public function store(Request $request)
     {
-        // return view ("search");
+        $db = connect_mongo();
+        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID")['$oid']);
+        $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+        return ["tweet"=> $tweet];
     }
 
     /**
@@ -49,17 +40,6 @@ class SearchController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

@@ -14,19 +14,31 @@ class FollowingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = session("userID");
         $FishyKink = connect_mongo();
-        $followData = dbUser($FishyKink,$id);
-        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
-         foreach($userProfile["follow"] as $followingid){
-            $following = $FishyKink["userDB"] -> findOne(["userID" => $followingid]);
-            $followingPro[] = $following["profile"];
-            $followingName[] = $following["userName"];
-            $followingImg[] = $following["userImg"];     
+        $followingData = dbUser($FishyKink,$id);
+        $userId = $request -> input("user");
+        // dd($userId);
+        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
+
+        if(count($userProfile["follow"]) == 1){
+            $following = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follow"][0]]);
+            $followingID = $following["userID"];
+            $followingPro = $following["profile"];      
+            $followingName = $following["userName"]; 
+            $followingImg = $following["userImg"];     
+            return view("following",compact("followingData","followingPro","followingName","followingImg","followingID","userProfile")); 
+       }else{
+            foreach($userProfile["follow"] as $followingid){
+                $following = $FishyKink["userDB"] -> findOne(["userID" => $followingid]);
+                $followingPro[] = $following["profile"];
+                $followingName[] = $following["userName"];
+                $followingImg[] = $following["userImg"];     
+            }
+            return view("following",compact("followingData","followingPro","followingName","followingImg","userProfile"));
         }
-        return view("following",compact("followData","followingPro","followingName","followingImg"));
     }
 
     /**
