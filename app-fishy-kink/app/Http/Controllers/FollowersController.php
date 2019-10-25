@@ -14,20 +14,33 @@ class FollowersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $id = session("userID");
         $FishyKink = connect_mongo();
-        $followData = dbUser($FishyKink,$id);
+        $followerData = dbUser($FishyKink,$id);
+        // dd($userId);
+        $userId = $request -> input("user");
+        
 
-        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
-         foreach($userProfile["follower"] as $followerid){
+        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
+        // dd($userProfile["follower"][0]);
+       if(count($userProfile["follower"]) == 1){
+            $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);
+            $followerID = $follower["userID"];
+            $followerPro = $follower["profile"];      
+            $followerName = $follower["userName"]; 
+            $followerImg = $follower["userImg"];     
+            return view("followers",compact("followerData","followerPro","followerName","followerImg","followerID","userProfile")); 
+       }else{
+        foreach($userProfile["follower"] as $followerid){
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
             $followerPro[] = $follower["profile"];      
             $followerName[] = $follower["userName"]; 
             $followerImg[] = $follower["userImg"];     
         }
-        return view("followers",compact("followData","followerPro","followerName","followerImg"));
+        return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
+       }
     }
 
     /**

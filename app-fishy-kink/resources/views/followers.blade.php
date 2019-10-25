@@ -27,27 +27,39 @@
         <label class="tab_item" for="follow">フォロー</label> -->
 
     <div class="tab_content" id="follower_content">
-       @isset($followData)
-            @isset($followData["follower"][0])
-                @foreach ($followData["follower"] as $key => $followers)
-        <ul class ="list_none">
-            <li>
-            <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key]}}'/></a>
-                    {{$followerName[$key]}}    
-                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                    <span>@</span>{{ $followers }}
-                </button>
+       @isset($followerData)
+            @isset($followerData["follower"][0])
+                @if(count($userProfile["follower"]) == 1)
+                         <ul class ="list_none">
+                            <li>
+                            <a onclick="location.href='/profile?user={{$followerID}}'"><img src='{{$followerImg}}'/></a>
+                                    {{$followerName}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$followerID}}'">
+                                    <span>@</span>{{$followerID}}
+                                </button>
+                                <div class="profilePro">{{$followerPro}}</div>
+                            </li>
+                        </ul>
+                @elseif(count($userProfile["follower"]) > 1)     
+                    @foreach ($followerData["follower"] as $key => $followers)
+                        <ul class ="list_none">
+                            <li>
+                            <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key] }}'/></a>
+                                    {{$followerName[$key]}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                                    <span>@</span>{{ $followers }}
+                                </button>
 
-                <div class="profilePro">
-                   {{
-                       $followerPro[$key]
-                        ,$key = $key + 1   
-                    }}
-                    
-                </div>
-            </li>
-        </ul>
-                @endforeach
+                                <div class="profilePro">
+                                {{
+                                    $followerPro[$key]
+                                    ,$key = $key + 1   
+                                }}  
+                                </div>
+                            </li>
+                        </ul>
+                    @endforeach
+                @endif
             @endisset
         @endisset
     </div>

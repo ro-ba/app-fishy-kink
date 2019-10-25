@@ -101,7 +101,7 @@ $(function(){
         
     });
   });
-});
+// });
 
 </script>
 
@@ -213,8 +213,8 @@ $(function(){ // 遅延処理
       });
     });
 
-      return update;
-    }()),50000);
+    //   return update;
+    // }()),50000);
 
 });
 </script>
@@ -275,8 +275,7 @@ $(document).on("click", ".reTweet", function () {
                 </div>
                 <div class="tweetMain card-body">
 
-                    {{ $tweet["text"] }}
-
+                  
 
                   @isset($tweet["text"])
                     {{ $tweet["text"] }}
