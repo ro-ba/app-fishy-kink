@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// require "/vagrant/source/pigHuman/myPage.php";
+
 require "/vagrant/source/pigHuman/myPageSetting.php";
 require "/vagrant/source/komaduki/GetTweet.php";
-// require "/vagrant/source/func/FKSession.php";
+// require "/vagrant/source/pigHuman/accountDel.php";
+
+require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
 
@@ -46,13 +48,20 @@ class SettingsController extends Controller
         $FishyKink = connect_mongo();
         $id = session('userID');
         $name = $request->input("userName");
+        $check = $request->input("check");
+
         // $profile = $request->input("profileText");
         if(empty($name)){ //userNameが空だったら
             return "変更できませんでした。";
         }else{ //空じゃなかったら変更
-            //$FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile , "userImg" => $img]]);
-            myPageSetting($id,$request,$FishyKink);
-            return redirect("profile");
+            //$FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile , "userImg" => $img]]);           
+            if(isset($check)){
+                accountDel($id,$FishyKink);
+                return redirect("login");
+            }else{
+                myPageSetting($id,$request,$FishyKink);
+                return redirect("profile");
+            }
         }
     }
 

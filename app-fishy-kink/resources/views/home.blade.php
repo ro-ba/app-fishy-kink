@@ -72,34 +72,33 @@ $(function(){
 
 
 
-  //リツイート
-  $("#centerContents").on('click',".normalReTweet",function() {
-    // var tweetid = $("#centerContents > #tweetID").val();
-    var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
-    var push_button = this;
-    $.ajax({
-      type: 'POST',
-      url: '/api/reTweetChange',
-      dataType: 'json',
-      data: {
-        userID: "{{ session('userID') }}", 
-        tweetID: tweetid, 
-        _token:'{{ csrf_token() }}'
-      },
-      cache: false
-    }).done(function(results){
-      //アコーディオンを閉じる処理
-      $(push_button).parents(".inner").slideToggle();
+//リツイート
+$("#centerContents").on('click',".normalReTweet",function() {
+  // var tweetid = $("#centerContents > #tweetID").val();
+  var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
+  var push_button = this;
+  $.ajax({
+    type: 'POST',
+    url: '/api/reTweetChange',
+    dataType: 'json',
+    data: {
+      userID: "{{ session('userID') }}", 
+      tweetID: tweetid, 
+      _token:'{{ csrf_token() }}'
+    },
+    cache: false
+  }).done(function(results){
+    //アコーディオンを閉じる処理
+    $(push_button).parents(".inner").slideToggle();
 
-      if (results["message"] == "add"){
-        $(push_button).parents().prevAll(".reTweet").children().css("color","green");
-        $(push_button).text("リツイートを取り消す");
-      }else{
-        $(push_button).parents().prevAll(".reTweet").children().css("color","gray");
-        $(push_button).text("リツイート");
-      }
-        
-    });
+    if (results["message"] == "add"){
+      $(push_button).parents().prevAll(".reTweet").children().css("color","green");
+      $(push_button).text("リツイートを取り消す");
+    }else{
+      $(push_button).parents().prevAll(".reTweet").children().css("color","gray");
+      $(push_button).text("リツイート");
+    }
+      
   });
 });
 
@@ -212,10 +211,6 @@ $(function(){ // 遅延処理
         alert('ファイルの取得に失敗しました。');
       });
     });
-
-      return update;
-    }()),50000);
-
 });
 </script>
 
@@ -274,10 +269,6 @@ $(document).on("click", ".reTweet", function () {
                         <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
                 </div>
                 <div class="tweetMain card-body">
-
-                    {{ $tweet["text"] }}
-
-
                   @isset($tweet["text"])
                     {{ $tweet["text"] }}
                   @endisset               

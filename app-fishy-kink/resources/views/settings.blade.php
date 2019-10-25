@@ -14,6 +14,28 @@
 <!-- <script type="text/javascript" src="{{ URL::asset('js/prev-image.js') }}"></script> -->
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" src="js/prev-image.js"></script>
+<script type="text/javascript">
+    function closeSelf(){
+        self.close();
+        return true;
+}
+</script>
+<script>
+    var myWindow;
+    function openWin() {
+        myWindow = window.open("", "myWindow", "width=400,height=400");
+        myWindow.document.write("<HTML><HEAD>");
+        myWindow.document.write("<TITLE>Double Check!</Title>");
+        myWindow.document.write("<BODY>");
+        myWindow.document.write("<form action='/setting' enctype='multipart/form-data' onsubmit='closeSelf()' method='post'>");
+        myWindow.document.write("<p>本当にいいですか？</p><br></br><input name='check' type='checkbox'/>");
+        myWindow.document.write("<input type='submit' onClick='window.close()'/></form>");
+        myWindow.document.write("</BODY></HTML>");
+    }
+    // function popupUploadForm(){
+    //     var newWindow = window.open('/cert.html', 'name', 'height=500,width=600');
+    // }
+</script>
 </head>
 <body>
 @isset($userData)
@@ -39,6 +61,7 @@
             
             <input class="btn btn-primary" type="submit" value="適用">
             <input class="btn btn-default" type="button" onclick="location.href='/profile'" value="戻る">
+            <input class="btn btn-sec" type="button" onclick="openWin()" value="アカウント削除">
         </form>
 @else
     <p id="error">エラー</p>

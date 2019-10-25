@@ -1,6 +1,4 @@
 <?php
-//require_once dirname(__FILE__) . '/vendor/autoload.php';
-
 function myPageSetting($id, $request,$FishyKink){
     $name = $request->input("userName");
     $profile = $request->input("profileText");
@@ -18,8 +16,20 @@ function myPageSetting($id, $request,$FishyKink){
         }else{
             $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
         }
-       
         return "変更しました。";
+    };
+
+    function accountDel($id,$FishyKink){
+        $FishyKink["userDB"]->remove(["userID" => $id]);
+        $FishyKink["tweetDB"]->remove(["userID" => $id]);
+        $FishyKink["tweetDB"]->remove(["originTweetID" => $id]);
+        $deleteData = $FishyKink["tweetDB"]->find(["fabUser" => $id ]);
+        foreach($deleteData as $i){
+            $delete = str_replace($id,'',$i);
+            $FishyKink["tweetDB"]->update([ "_id" => $i["_id"] ],[$set=>[$delete]]);
+        };
+        unset($_SESSION("visited"));
+        return "削除しました";
     };
 }
 ?>
