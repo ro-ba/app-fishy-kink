@@ -111,9 +111,8 @@
     /******************************************************************* ファボ *******************************************************************/
     $(function() {
       $("#centerContents").on('click', ".fab", function() {
-        var tweetid = $(this).parent('#tweetID').val();
+        tweetid = $(this).parents().siblings("#tweetID").val();
         var push_button = this;
-        console.log(tweetid);
         $.ajax({
           type: 'POST',
           url: '/api/fabChange',
@@ -125,14 +124,15 @@
           },
           cache: false
         }).done(function(results) {
-          // console.log(results);
-          // if (results["message"] == "add") {
-          //   $(push_button).css("color", "red");
-          //   $(push_button).children().css("color", "red");
-          // } else {
-          //   $(push_button).css("color", "gray");
-          //   $(push_button).children().css("color", "gray");
-          // }
+          if (results["message"] == "add") {
+            $(push_button).css("color", "red");
+            $(push_button).children().css("color", "red");
+          } else if (results["message"] == "delete") {
+            $(push_button).css("color", "gray");
+            $(push_button).children().css("color", "gray");
+          } else{
+            alert("お気に入りに追加できませんでした");
+          }
         });
       });
     });
@@ -141,8 +141,7 @@
     $(function() {
       $("#centerContents").on('click', ".normalReTweet", function() {
         // var tweetid = $("#centerContents > #tweetID").val();
-        var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
-        console.log(tweetid);
+        var tweetid = $(this).parents("").siblings("#tweetID").val();
         var push_button = this;
         $.ajax({
           type: 'POST',
@@ -155,16 +154,17 @@
           },
           cache: false
         }).done(function(results) {
-
           //アコーディオンを閉じる処理
           $(push_button).parents(".inner").slideToggle();
 
           if (results["message"] == "add") {
             $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
             $(push_button).text("リツイートを取り消す");
-          } else {
+          } else if (result["message"] == "delete") {
             $(push_button).parents().prevAll(".reTweet").children().css("color", "gray");
             $(push_button).text("リツイート");
+          }else{
+            alert("リツイートできませんでした。");
           }
         });
       });
@@ -181,7 +181,7 @@
       let iconColor;
       let reTweetText;
 
-      results.forEach(function(tweet,index) {
+      results.forEach(function(tweet) {
 
         tweetDocument = "";
         
@@ -201,7 +201,6 @@
         }else{
           userIcon = "";
         }
-<<<<<<< HEAD
 
         tweetDocument +=`
         <div class="tweetTop card-header">
@@ -228,35 +227,6 @@
         countImg = tweet["img"].length;
         for (var i = 0; i < countImg; i++) {
           tweetDocument += `<img src=" ${tweet["img"][i]}"width="200" height="150" />`;
-=======
-        $('#centerContents').append(
-          '<div class="tweetTop card-header">' +
-          tweetType +
-          '<div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">' +
-          '<img src="' + userIcon + '"width="50px" height="50px" />' + 
-          '</div> <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">' +
-          '<div class="tweet-user">' +
-          '<a href=/profile?user=' + tweet["userID"] + '>' +
-          tweet["userID"] +
-          '</a> ' +
-          '</div>' +
-          '<div class="time">' +
-          tweet["time"] +
-          '</div> ' +
-          '</div>' +
-          '</div>');
-        $('#centerContents').append('<div class="tweetMain card-body">' + tweet["text"] + '</div>');
-
-        // 画像表示
-        $('#centerContents').append('<div style=float:left>');
-        if (tweet["type"] == "tweet") {
-          countImg = tweet["img"].length;
-        } else {
-          countImg = 0;
-        }
-        for (let i = 0; i < countImg; i++) {
-          $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
->>>>>>> 9fec82fe6b1ce658ff51801074e2fbe4ac419072
         }
 
         tweetDocument += `
@@ -285,10 +255,10 @@
         }
         tweetDocument += `
         <div class="accordion">
-          <button class=reTweet id="retweet${index}" type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+          <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
 
           <div class="inner">
-            <a class=normalReTweet type=button> ${reTweetText}</a>
+            <button class=normalReTweet type=button> ${reTweetText}</button>
             <a href=javascript:open2()>🖊コメントつけてリツイート</a>
           </div>
         </div>
@@ -301,7 +271,7 @@
             iconColor = "red";
         }
 
-        tweetDocument += `<button class=fab id="fab${index}" type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+        tweetDocument += `<button class=fab type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
         
         tweetDocument += '</div>';
         tweetDocument += '</div>';
@@ -343,20 +313,6 @@
 
     /******************************************************************* アコーディオンの閉じたり開いたり *******************************************************************/
 
-<<<<<<< HEAD
-=======
-
-    $(document).on("click", ".reTweet", function() {
-
-      //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-      $(this).next('.accordion2 .inner').slideToggle();
-
-
-      //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-      $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
-    });
-    //訂正案
->>>>>>> 9fec82fe6b1ce658ff51801074e2fbe4ac419072
     $(function() {
       $("#centerContents").on("click", ".reTweet", function() {
         //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
