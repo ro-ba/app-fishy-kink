@@ -14,15 +14,31 @@
 </head>
 <body>
 
+
+        <!-- <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+    <hr class="bar1">
+
+    </div>
+    <div class="profile">
+        <p>プロフィール</p>
+           <p>{{ $userData["profile"] }}</p> -->
+
+           
+    <!-- <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> -->
+    <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
+    
+    
+
     <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
     
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 <script>
 $(function(){ // 遅延処理
   setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
     $.ajax({
       type: 'POST',
-      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      url: '/api/reloadTweets',    // url: は読み込むURLを表す
       dataType: 'json',           // 読み込むデータの種類を記入
       data: {userID:'{{ $userData["userID"] }}',
             _token: '{{ csrf_token() }}'
@@ -103,7 +119,7 @@ $(function(){ // 遅延処理
 </head>
 <body>
 @isset($userData)
-  <div>
+  <div class = "userBar">
       <div class="userData">
           <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
           <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
@@ -126,6 +142,11 @@ $(function(){ // 遅延処理
         <input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" />
       @endif
 
+  <hr class="bar1"/>
+  <hr class="bar2"/>
+  <!-- <hr class="bar3"/>
+  <hr class="h1">  -->
+
     <button class="btn-real-dent" onclick="location.href='/'">戻る
     <i class="fa fa=home"></i>
     </button>
@@ -133,12 +154,19 @@ $(function(){ // 遅延処理
      
 </a>
 
+
   </div>
   <div class="profile">
       <p>プロフィール</p>
           <p>{{ $userData["profile"] }}</p>          
+  <div id="tweet" class="tweet" style=""></div>        
+@else
+  <b>ユーザーが存在しません。</b>
+  <button onclick="location.href='/'">戻る</button>
+
   <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> 
          
+
 @endisset
 </body>
 

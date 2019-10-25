@@ -47,20 +47,17 @@ class SettingsController extends Controller
         $id = session('userID');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         $result = myPageSetting($id, $request,$FishyKink);
 =======
 =======
 
 >>>>>>> 824700c268d3fa7f0aba41639f1f8ebec0e707fc
+=======
+>>>>>>> 98bfcb3f59bf607807ef011c74a6c55e7e4feef4
         $name = $request->input("userName");
-        $profile = $request->input("profileText");
-        if(empty($name)){ //userNameが空だったら
-            return "変更できませんでした。";
-        }else{ //空じゃなかったら変更
-            $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
-            return "変更しました。";
-        }
->>>>>>> caf54202f4534c26963e698d58482881524a955c
+        myPageSetting($id,$request,$FishyKink);
+        return redirect("profile");
     }
 
     /**
