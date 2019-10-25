@@ -312,7 +312,45 @@
       //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
       $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
     });
+    
+</html>
+<script type="text/javascript">
+  function open1() {
+    window.open("/tweet", "hoge", "width=600, height=500 , location=no");
+  }
+</script>
+<script type="text/javascript">
+  function open2(count) {
+    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
+  }
 
+</script>
+
+
+<script>
+$(function(){ // 遅延処理
+  setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
+    $.ajax({
+      type: 'POST',
+      url: '/api/reloadTweet',    // url: は読み込むURLを表す
+      dataType: 'json',           // 読み込むデータの種類を記入
+      data: {userID:'',
+            _token: '{{ csrf_token() }}'
+            },
+      cache: false
+      }).done(function (results) {
+        // 通信成功時の処理
+
+        let tweetCount = 162;
+        console.log(results.length);
+        if(tweetCount != results.length){
+          // $('#alertContents').append('<div class="alert alert-info" role="alert">' + 
+          //                               '<a href="#" class="alert-link">新しいツイート</a>' +
+          //                             '</div>');
+          document.getElementById('alertContents').innerHTML = '<div class="alert alert-info" role="alert">' + 
+                                                                '<a href="#" class="alert-link">新しいツイート</a>' +
+                                                                '</div>';
+        }
 
     //訂正案
     $(function() {
@@ -329,7 +367,6 @@
     function open1() {
       var w = (screen.width - 600) / 2;
       var h = (screen.height - 600) / 2;
-
       window.open("/tweet", "hoge", "width=600, height=500" + ",left=" + w + ",top=" + h + ",directions=0 , location=0  , menubar=0 , scrollbars=0 , status=0 , toolbar=0 , resizable=0");      
     }
 
@@ -364,5 +401,4 @@
     <div id="centerContents" class="col-sm-6"></div>
     <div id="rightContents" class="col-sm-3"></div>
 </body>
-
 </html>
