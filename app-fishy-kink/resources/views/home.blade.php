@@ -315,7 +315,7 @@ $(document).on("click", ".reTweet", function () {
 </html>
 <script type="text/javascript">
   function open1() {
-    window.open("/tweet", "hoge", "width=600, height=600 , location=no");
+    window.open("/tweet", "hoge", "width=600, height=500 , location=no");
   }
 </script>
 <script type="text/javascript">

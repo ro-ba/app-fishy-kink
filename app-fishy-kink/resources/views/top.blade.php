@@ -18,7 +18,8 @@
   <div id="wrap">
     <div class="content">
 
-      <div class="image"></div>
+      <div class="image-m"></div>
+      <div class="image-ini"></div>
 
       <div class="title" id="welcome area">
           <h1>ようこそ　<span class="app-name">Fishy Kink</span>　へ</h1>
