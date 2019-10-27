@@ -115,26 +115,25 @@ $(function(){ // 遅延処理
 });
 </script>   
 
-
 </head>
 <body>
 @isset($userData)
   <div class = "userBar">
       <div class="userData">
           <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-          <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
+          <p id="usenName">{{ $userData["userName"] }}</p>
           <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
       </div>
       @isset ($userData["follow"])
-          <button type="button" onclick="location.href='/following'" class="follow">フォロー<span></span>{{ count($userData["follow"]) }} 人</button>
+          <button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '" class="follow">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/following'">フォロー<span class="follow"></span>0人</button>
+          <button type="button" onclick="location.href='/following?user={{$userData['userID'] }}'">フォロー<span class="follow"></span>0人</button>
       @endisset
       
       @isset ($userData["follower"]) 
-          <button type="button" onclick="location.href='/followers'" class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</button>
+          <button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'" class="follower">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button>
       @else
-          <button type="button" onclick="location.href='/followers'">フォロー<span class="follower"></span>0人</button>
+          <button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロー<span class="follower"></span>0人</button>
           <p class="follower">フォロワー<span></span>0人</p>
       @endisset
 

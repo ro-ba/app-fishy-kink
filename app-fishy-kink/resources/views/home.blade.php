@@ -77,6 +77,7 @@
       });
     });
 
+
     /******************************************************************* 1秒ごとにツイートの数を取得し数に変動があった場合にアラート表示 *******************************************************************/
     $(function() { // 遅延処理
       setInterval((function update() { //1000ミリ秒ごとに実行
@@ -110,7 +111,7 @@
     /******************************************************************* ファボ *******************************************************************/
     $(function() {
       $("#centerContents").on('click', ".fab", function() {
-        var tweetid = $("#centerContents > #tweetID").val();
+        tweetid = $(this).parents().siblings("#tweetID").val();
         var push_button = this;
         $.ajax({
           type: 'POST',
@@ -123,14 +124,15 @@
           },
           cache: false
         }).done(function(results) {
-          // console.log(results);
-          // if (results["message"] == "add") {
-          //   $(push_button).css("color", "red");
-          //   $(push_button).children().css("color", "red");
-          // } else {
-          //   $(push_button).css("color", "gray");
-          //   $(push_button).children().css("color", "gray");
-          // }
+          if (results["message"] == "add") {
+            $(push_button).css("color", "red");
+            $(push_button).children().css("color", "red");
+          } else if (results["message"] == "delete") {
+            $(push_button).css("color", "gray");
+            $(push_button).children().css("color", "gray");
+          } else{
+            alert("お気に入りに追加できませんでした");
+          }
         });
       });
     });
@@ -139,7 +141,7 @@
     $(function() {
       $("#centerContents").on('click', ".normalReTweet", function() {
         // var tweetid = $("#centerContents > #tweetID").val();
-        var tweetid = $(this).parents(".accordion").prevAll("#tweetID").val();
+        var tweetid = $(this).parents("").siblings("#tweetID").val();
         var push_button = this;
         $.ajax({
           type: 'POST',
@@ -152,16 +154,17 @@
           },
           cache: false
         }).done(function(results) {
-
           //アコーディオンを閉じる処理
           $(push_button).parents(".inner").slideToggle();
 
           if (results["message"] == "add") {
             $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
             $(push_button).text("リツイートを取り消す");
-          } else {
+          } else if (result["message"] == "delete") {
             $(push_button).parents().prevAll(".reTweet").children().css("color", "gray");
             $(push_button).text("リツイート");
+          }else{
+            alert("リツイートできませんでした。");
           }
         });
       });
@@ -171,66 +174,71 @@
     function dispTweets(results) {
       $('#centerContents').empty();
 
-      let tweetType = "";
+      let tweetType;
+      let userIcon;
+      let tweetDocument;
+      let countImg;
+      let iconColor;
+      let reTweetText;
 
       results.forEach(function(tweet) {
 
-        // $('#centerContents').append('<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />')
-        // $('#centerContents').append('<div class="tweet card">');
-
-        // リツイート 
+        tweetDocument = "";
+        
+        tweetDocument += '<div class="tweet card">';
+        
         if (tweet["type"] == "retweet") {
-          $('#centerContents').append('<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />')
-          $('#centerContents').append('<div class="tweet card">');
+          tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
           tweetType = '<div class="retweet-user">' + tweet["userID"] + 'さんがリツイートしました</div>';
           tweet = getTweet(tweet);
         } else {
-          $('#centerContents').append('<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />')
-          $('#centerContents').append('<div class="tweet card">');
+          tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
           tweetType = "";
         }
-        let userIcon;
+
         if (typeof tweet["userImg"] !== "undefined"){
           userIcon = tweet["userImg"];
         }else{
           userIcon = "";
         }
-        $('#centerContents').append(
-          '<div class="tweetTop card-header">' +
-          tweetType +
-          '<div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">' +
-          '<img src="' + userIcon + '"width="50px" height="50px" />' + 
-          '</div> <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">' +
-          '<div class="tweet-user">' +
-          '<a href=/profile?user=' + tweet["userID"] + '>' +
-          tweet["userID"] +
-          '</a> ' +
-          '</div>' +
-          '<div class="time">' +
-          tweet["time"] +
-          '</div> ' +
-          '</div>' +
-          '</div>');
-        $('#centerContents').append('<div class="tweetMain card-body">' + tweet["text"] + '</div>');
 
-        // 画像表示
-        $('#centerContents').append('<div style=float:left>');
-        if (tweet["type"] == "tweet") {
-          countImg = tweet["img"].length;
-        } else {
-          countImg = 0;
+        tweetDocument +=`
+        <div class="tweetTop card-header">
+          ${tweetType}
+          <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
+            <img src="${userIcon}" width="50px" height="50px" />
+          </div>
+          <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
+            <div class="tweet-user">
+              <a href=/profile?user=' + ${tweet["userID"]} + '>
+                ${tweet["userID"]}
+              </a>
+            </div>
+            <div class="time">
+              ${tweet["time"]}
+            </div>
+          </div>
+        </div>
+        <div class="tweetMain card-body">${tweet["text"]}</div>
+        <div class="imagePlaces" style=float:left>
+        `;
+
+        //画像表示
+        countImg = tweet["img"].length;
+        for (var i = 0; i < countImg; i++) {
+          tweetDocument += `<img src=" ${tweet["img"][i]}"width="200" height="150" />`;
         }
-        for (let i = 0; i < countImg; i++) {
-          $('#centerContents').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
-        }
-        $('#centerContents').append('</div><p>');
 
-        $('#centerContents').append('<div class="tweetBottom d-inline">');
+        tweetDocument += `
+        </div>
+        <div class="tweetBottom d-inline">`;
 
-        $('#centerContents').append('<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button></div>');
+        //リプライ
+        tweetDocument += '<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
-        var iconColor = "";
-        var reTweetText = "";
+        //リツイート
+        iconColor = "";
+        reTweetText = "";
 
         if (tweet["type"] == "tweet") {
           if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1) {
@@ -245,29 +253,30 @@
           iconColor = "pink";
           reTweetText = "これはリツイートです";
         }
+        tweetDocument += `
+        <div class="accordion">
+          <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
 
-        $('#centerContents').append('<div class="accordion">' +
-          '<button class=reTweet type=button><span class="oi oi-loop" style="color:' + iconColor + ';"></span> </button>' +
+          <div class="inner">
+            <button class=normalReTweet type=button> ${reTweetText}</button>
+            <a href=javascript:open2()>🖊コメントつけてリツイート</a>
+          </div>
+        </div>
+        `;
 
-          '<div class="inner">' +
-          '<a class=normalReTweet type=button>' + reTweetText + '</a>' +
-          '<a href=javascript:open2()>🖊コメントつけてリツイート</a>' +
-          '</div>' +
-          '</div>');
-
-
-        var tweet_json = JSON.stringify(tweet["_id"])
-
-        if (tweet["type"] == "tweet") {
-          if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1) {
+        //ファボ
+        if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1) {
             iconColor = "gray";
           } else {
             iconColor = "red";
-          }
-        } else {
-          iconColor = "pink";
         }
-        $('#centerContents').append('<button class=fab type=button><span class="oi oi-heart" style="color:' + iconColor + ';"></span> </button></div>');
+
+        tweetDocument += `<button class=fab type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+        
+        tweetDocument += '</div>';
+        tweetDocument += '</div>';
+
+        $('#centerContents').append(tweetDocument);
       });
     }
 
@@ -301,25 +310,13 @@
       });
     });
 
+
     /******************************************************************* アコーディオンの閉じたり開いたり *******************************************************************/
 
-
-    $(document).on("click", ".reTweet", function() {
-
-      //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-      $(this).next('.accordion2 .inner').slideToggle();
-
-      //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-      $('.accordion2').not($(this)).next('.accordion2 .inner').slideUp();
-    });
-    //訂正案
     $(function() {
       $("#centerContents").on("click", ".reTweet", function() {
         //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
         $(this).next('.inner').slideToggle();
-
-        //クリックされた.accordion2の中のp要素以外の.accordion2の中のp要素に隣接する.accordion2の中の.innerを閉じる
-        $('.accordion').not($(this)).next('.inner').slideUp();
       });
     });
 
