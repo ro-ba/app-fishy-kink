@@ -9,35 +9,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/Follow.css">
 
+    <script>
+     $(document).on('click','.tabs',function()){
+        $.ajax({
+        type: 'POST',
+        url: '/api/getFollowing',
+        dataType: 'json',
+        async: false,
+        data: {
+            userID: getParam('user'),
+            _token: '{{ csrf_token() }}'
+        },
+        cache: false
+        }).done(function(result) {
+            
+        });
+        return tweet;
+
+     }
+
+    </script>
+
+
 </head>
 <body>
-    <!-- <div class="search-main">
-        <div class="search">
-            <form action="">
-                <input type="text" value="" class="">
-                <input type=submit value="検索">
-            </form>
-        </div> -->
-
         <div class="tabs">
+        <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follow">フォロー中</label>
+
         <input id="follower" type="radio" name="tab_item" checked>
         <label class="tab_item" for="follower">フォロワー</label>
 
-        <!-- <input id="follow" type="radio" name="tab_item" checked>
-        <label class="tab_item" for="follow">フォロー</label> -->
-
-    <div class="tab_content" id="follower_content">
+    <div class="tab_content" id="followerS_content">
        @isset($followerData)
             @isset($followerData["follower"][0])
                 @if(count($userProfile["follower"]) == 1)
                          <ul class ="list_none">
                             <li>
-                            <a onclick="location.href='/profile?user={{$followerID}}'"><img src='{{$followerImg}}'/></a>
-                                    {{$followerName}}    
-                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$followerID}}'">
-                                    <span>@</span>{{$followerID}}
+                            <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
+                                    {{$follower["userName"]}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
+                                    <span>@</span>{{$follower["userID"]}}
                                 </button>
-                                <div class="profilePro">{{$followerPro}}</div>
+                                <div class="profilePro">{{$follower["profile"]}}</div>
                             </li>
                         </ul>
                 @elseif(count($userProfile["follower"]) > 1)     
@@ -64,9 +78,14 @@
         @endisset
     </div>
 
-        <div>
-            <button class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
-        </div>
+        <!-- フォロー中表示 -->
+    <div class="tab_content" id="follow_content">
+        
+    </div>
+
+    <div>
+        <button  class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
+    </div>  
 
 </body>
 </html>
