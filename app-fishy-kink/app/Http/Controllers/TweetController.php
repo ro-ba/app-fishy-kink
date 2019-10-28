@@ -15,7 +15,10 @@ class TweetController extends Controller
      */
     public function index()
     {
-        return view("tweet");
+
+        $data = connect_mongo();
+        $userData = $data["userDB"]->findOne(["userID" => session("userID")]);
+        return view("tweet",compact("userData"));
         //
     }
 

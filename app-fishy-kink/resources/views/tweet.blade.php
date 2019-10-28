@@ -16,10 +16,9 @@
 <body>
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data" onclick="this.form.submit();window.close()">
     @csrf
-
         <div id="wrap">
             <div class="myTweet">
-                <img class="myIcon" src="<%= icon %>" alt="myIcon" />
+                <img class="myIcon" src='{{$userData["userImg"]}}' alt="myIcon" />
                 <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
@@ -35,8 +34,8 @@
                 </div>
             </div>
 
-            <div class="tweet-image">
-                                <p id="preview"></p>
+            <div class="tweet-image">              
+                <p id="preview"></p>
             </div>
         </div>
 
@@ -56,6 +55,7 @@
             fileReader.readAsDataURL(obj.files[i]);
         }
     }
+
 </script>
 
 
