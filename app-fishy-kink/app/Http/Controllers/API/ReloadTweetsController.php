@@ -9,7 +9,6 @@ require "/vagrant/source/func/FKMongo.php";
 
 class ReloadTweetsController extends Controller
 {
-    static $JS_ENABLE;
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +25,7 @@ class ReloadTweetsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public static function store(Request $request)
+    public function store(Request $request)
     {
         $db = connect_mongo();
         $userID = $request->input("userID");

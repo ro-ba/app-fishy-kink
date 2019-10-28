@@ -11,33 +11,26 @@
 
 </head>
 <body>
-    <!-- <div class="search-main">
-        <div class="search">
-            <form action="">
-                <input type="text" value="" >
-                <input type=submit value="検索">
-            </form>
-        </div> -->
-
         <div class="tabs">
-        <!-- <input id="follower" type="radio" name="tab_item" checked>
-        <label class="tab_item" for="follower">フォロワー</label> -->
-
         <input id="follow" type="radio" name="tab_item" checked>
         <label class="tab_item" for="follow">フォロー中</label>
 
+        <input id="follower" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follower">フォロワー</label>
+      
+<!-- フォロー中表示 -->
     <div class="tab_content" id="follow_content">
         @isset($followingData)
             @isset($followingData["follow"][0])
                 @if(count($userProfile["follow"]) == 1)
                             <ul class ="list_none">
                                 <li>
-                                <a onclick="location.href='/profile?user={{$followingID}}'"><img src='{{$followingImg}}'/></a>
-                                        {{$followingName}}    
-                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$followingID}}'">
-                                        <span>@</span>{{$followingID}}
+                                <a onclick="location.href='/profile?user={{$following['userID']}}'"><img src='{{$following["userImg"]}}'/></a>
+                                        {{$following["userName"]}}    
+                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$following['userID']}}'">
+                                        <span>@</span>{{$following["userID"]}}
                                     </button>
-                                    <div class="profilePro">{{$followingPro}}</div>
+                                    <div class="profilePro">{{$following["profile"]}}</div>
                                 </li>
                             </ul>
                 @elseif(count($userProfile["follow"]) > 1)     
@@ -49,12 +42,8 @@
                                 <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $following }}'">
                                 <span>@</span>{{ $following }}
                                 </button>
-                                    
                                 <div class="profilePro">
-                                    {{
-                                        $followingPro[$key]
-                                        ,$key = $key + 1   
-                                    }} 
+                                    {{ $followingPro[$key] ,$key = $key + 1 }} 
                                 </div>
                             </li>
                         </ul>
@@ -64,13 +53,49 @@
         @endisset
                     
     </div>
+
+    <!-- フォロワー表示 -->
+    <div class="tab_content" id="followerS_content">
+        @isset($followingData)
+                @isset($followingData["follower"][0])
+                    @if(count($userProfile["follower"]) == 1)
+                            <ul class ="list_none">
+                                <li>
+                                <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
+                                        {{$follower["userName"]}}    
+                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
+                                        <span>@</span>{{$follower["userID"]}}
+                                    </button>
+                                    <div class="profilePro">{{$follower["profile"]}}</div>
+                                </li>
+                            </ul>
+                    @elseif(count($userProfile["follower"]) > 1)     
+                        @foreach ($followingData["follower"] as $key => $followers)
+                            <ul class ="list_none">
+                                <li>
+                                <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key] }}'/></a>
+                                        {{$followerName[$key]}}    
+                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                                        <span>@</span>{{ $followers }}
+                                    </button>
+
+                                    <div class="profilePro">
+                                    {{
+                                        $followerPro[$key]
+                                        ,$key = $key + 1   
+                                    }}  
+                                    </div>
+                                </li>
+                            </ul>
+                        @endforeach
+                    @endif
+                @endisset
+            @endisset
+    </div>
+
     <div>
         <button  class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
     </div>  
-
-    <!-- <div class="tab_content" id="followerS_content">
-           
-    </div> -->
 
 </body>
 </html>
