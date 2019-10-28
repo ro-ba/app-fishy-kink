@@ -51,7 +51,6 @@ class TweetController extends Controller
                 }
             }
             $time = date("Y/m/d H:i:s");
-            // var_dump($tweetImg);
             $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
@@ -61,7 +60,8 @@ class TweetController extends Controller
             "retweetUser"   => [],
             "fabUser"       => [],
             "originTweetID" => "",
-            "parentTweetID" => ""
+            "parentTweetID" => "",
+            "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
             ]); 
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);

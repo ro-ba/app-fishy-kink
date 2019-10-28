@@ -18,19 +18,19 @@
     function closeSelf(){
         self.close();
         return true;
-}
+    }
 </script>
 <script>
     var myWindow;
     function openWin() {
-        myWindow = window.open("", "myWindow", "width=400,height=400");
-        myWindow.document.write("<HTML><HEAD>");
-        myWindow.document.write("<TITLE>Double Check!</Title>");
-        myWindow.document.write("<BODY>");
-        myWindow.document.write("<form action='/setting' enctype='multipart/form-data' onsubmit='closeSelf()' method='post'>");
-        myWindow.document.write("<p>本当にいいですか？</p><br></br><input name='check' type='checkbox'/>");
-        myWindow.document.write("<input type='submit' onClick='window.close()'/></form>");
-        myWindow.document.write("</BODY></HTML>");
+        myWindow = window.open("/doubleCheck", "myWindow", "width=400,height=400");
+        // myWindow.document.write("<HTML><HEAD>");
+        // myWindow.document.write("<TITLE>Double Check!</Title>");
+        // myWindow.document.write("<BODY>");
+        // myWindow.document.write("<form action='/setting' enctype='multipart/form-data' onsubmit='closeSelf()' method='post'>");
+        // myWindow.document.write("<p>本当にいいですか？</p><br></br><input name='check' type='checkbox'/>");
+        // myWindow.document.write("<input type='submit'/></form>");
+        // myWindow.document.write("</BODY></HTML>");
     }
     // function popupUploadForm(){
     //     var newWindow = window.open('/cert.html', 'name', 'height=500,width=600');

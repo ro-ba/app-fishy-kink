@@ -21,6 +21,7 @@ Route::resources([
     "signUp" => "SignUpController",
     "home" => "HomeController",
     "tweet" => "TweetController",
+    "doubleCheck" => "DoubleCheckController",
     "notify" => "NotifyController",
     "DM" => "DMController",
     "profile" => "ProfileController",
@@ -30,9 +31,10 @@ Route::resources([
     "test" => "TestController",
     "followers" => "FollowersController",
     "following" => "FollowingController",
-    "/api/reloadTweet" => "API\ReloadTweetController",
+    "/api/reloadTweets" => "API\ReloadTweetsController",
     "/api/fabChange" => "API\FabChangeController",
-    "/api/reTweetChange"=> "API\ReTweetChangeController"
+    "/api/reTweetChange"=> "API\ReTweetChangeController",
+    "/api/getTweet" =>  "API\GetTweetController"
     ]);
 
 // Route::resource("/","TopController");

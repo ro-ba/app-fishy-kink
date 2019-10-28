@@ -3,44 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require "/vagrant/source/pigHuman/myPage.php";
-
+require "/vagrant/source/pigHuman/myPageSetting.php";
+require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
-class FollowersController extends Controller
+class DoubleCheckController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id = session("userID");
-        $FishyKink = connect_mongo();
-        $followerData = dbUser($FishyKink,$id);
-        // dd($userId);
-        $userId = $request -> input("user");
-       
-        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
-        // dd($userProfile["follower"][0]);
-       if(count($userProfile["follower"]) == 1){
-            $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);
-            $followerID = $follower["userID"];
-            $followerPro = $follower["profile"];      
-            $followerName = $follower["userName"]; 
-            $followerImg = $follower["userImg"];     
-            return view("followers",compact("followerData","followerPro","followerName","followerImg","followerID","userProfile")); 
-       }else{
-        foreach($userProfile["follower"] as $followerid){
-
-            $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
-            $followerPro[] = $follower["profile"];      
-            $followerName[] = $follower["userName"]; 
-            $followerImg[] = $follower["userImg"];     
-        }
-        return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
-       }
+        return view("doubleCheck");
+        //
     }
 
     /**
@@ -61,7 +38,14 @@ class FollowersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $FishyKink = connect_mongo();
+        $id = session('userID');
+        $check = $request->input("check");
+
+        if($check=="on"){
+            accountDel($id,$FishyKink);
+            // session(["userID" => NULL]);
+        }
     }
 
     /**
