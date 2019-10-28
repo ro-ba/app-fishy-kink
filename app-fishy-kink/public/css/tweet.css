@@ -62,27 +62,22 @@ input[type="submit"]:hover {
     margin-bottom: 20px; 
 }
 
-.content .file-image {
-    display: inline-block;
-    margin: 0 0 0 140px;
-    /* padding: 8px 10px;
-    border: 1px solid #000; */
-    border-radius: 3px; 
-    float: left;
-    /* cursor: pointer; */
+
+.filelabel {
+    margin-left: 340px; 
 }
 
-/* .content .file-image input {
+.filelabel:hover {
+    cursor: pointer;
+}
+
+#file {
     display: none;
 }
 
-.label {
-    cursor: pointer;
-} */
-
 .content .t-submit {
     float: right;
-    margin: 0 60px 0 0;
+    margin: 12px 60px 0 0;
 }
 
 .tweet-image {
