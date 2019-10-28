@@ -16,26 +16,26 @@
 <body>
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
-
         <div id="wrap">
             <div class="myTweet">
-                <!-- <img class="myIcon" src="<%= icon %>" alt="myIcon" /> -->
-                <img class="myIcon" src="images/default-icon.jpg" alt="myIcon" />
+                <img class="myIcon" src="<%= icon %>" alt="myIcon" />
                 <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
-                <div class="file-image">
+                <label>
+                    <span class="filelabel">
+                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                    </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-                </div>
+                </label>
                 <div class="t-submit">
                     <input class="newTweet" method="POST" type="submit" value="tweet" />   
                 </div>
             </div>
 
             <div class="tweet-image">
-                <!-- <img src="<%= image %>" alt="ツイート画像" /> -->
-                <p id="preview"></p>
+                                <p id="preview"></p>
             </div>
         </div>
 
@@ -56,6 +56,7 @@
         }
     }
 </script>
+
 
 
 <!-- <!DOCTYPE html>
