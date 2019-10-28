@@ -14,9 +14,8 @@
 </head>
 
 <body>
-    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data" onclick="this.form.submit();window.close()">
+    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
-
         <div id="wrap">
             <div class="myTweet">
                 <!-- <img class="myIcon" src="<%= icon %>" alt="myIcon" /> -->
