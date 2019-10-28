@@ -67,7 +67,6 @@ class TweetController extends Controller
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
         return view("test");
-        // return '<input type="button" onclick="window.close();" value="閉じる">';
     }
 
     /**
