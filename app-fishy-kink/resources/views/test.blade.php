@@ -17,7 +17,7 @@ $(function() {
       $(document).on("click", ".follower", function() {
         $.ajax({
           type: 'POST',
-          url: '/api/getFollower', // url: は読み込むURLを表す
+          url: '/api/getFollowing', // url: は読み込むURLを表す
           dataType: 'json', // 読み込むデータの種類を記入
           data: {
             userID: 'tamano',
@@ -25,7 +25,7 @@ $(function() {
           },
           cache: false
         }).done(function(results) {
-            console.log(results["followers"]);
+            console.log(results["follow"]);
         });
       });
     });

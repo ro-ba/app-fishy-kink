@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+require "/vagrant/source/func/FKMongo.php";
+
 class GetFollowingController extends Controller
 {
     /**
