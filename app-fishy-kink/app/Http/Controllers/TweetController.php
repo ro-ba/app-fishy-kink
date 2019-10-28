@@ -66,6 +66,7 @@ class TweetController extends Controller
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
+        return view("test");
     }
 
     /**

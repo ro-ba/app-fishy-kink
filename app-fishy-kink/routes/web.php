@@ -27,7 +27,7 @@ Route::resources([
     "settings" => "SettingsController",
     "FFlist" => "FFlistController",
     "search" => "SearchController",
-    "test" => "TestController",
+    // "test" => "TestController",
     "followers" => "FollowersController",
     "following" => "FollowingController",
     "/api/reloadTweets" => "API\ReloadTweetsController",
