@@ -6,10 +6,6 @@
 
 require('./bootstrap');
 
-//追加した行
-require('./assets/test');
-//ここまで
-
 window.Vue = require('vue');
 
 /**
