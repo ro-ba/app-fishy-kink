@@ -8,9 +8,11 @@ function getTweet(tweet) {
         url: '/api/getTweet',
         dataType: 'json',
         async: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         data: {
             tweetID: tweet["originTweetID"],
-            _token: '{{ csrf_token() }}'
         },
         cache: false
     }).done(function (originTweet) {
@@ -63,7 +65,6 @@ $(function () { // 遅延処理
             },
             cache: false
         }).done(function (results) {
-
             if (tweetCount != results.length) {
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
@@ -89,10 +90,12 @@ $(function () {
             type: 'POST',
             url: '/api/fabChange',
             dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 userID: "{{ session('userID') }}",
                 tweetID: tweetid,
-                _token: '{{ csrf_token() }}'
             },
             cache: false
         }).done(function (results) {
@@ -119,10 +122,12 @@ $(function () {
             type: 'POST',
             url: '/api/reTweetChange',
             dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data: {
                 userID: "{{ session('userID') }}",
                 tweetID: tweetid,
-                _token: '{{ csrf_token() }}'
             },
             cache: false
         }).done(function (results) {
