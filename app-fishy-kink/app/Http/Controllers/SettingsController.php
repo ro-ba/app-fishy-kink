@@ -10,7 +10,7 @@ require "/vagrant/source/komaduki/GetTweet.php";
 require "/vagrant/source/func/FKMongo.php";
 
 
-class SettingsController extends Controller
+class SettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class SettingsController extends Controller
         $id = session('userID');
         $FishyKink = connect_mongo();
         $userData = $FishyKink["userDB"]->findOne(["userID"=>$id]);
-        return view("settings",compact("userData"));
+        return view("setting",compact("userData"));
     }
 
     /**
@@ -45,19 +45,8 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         $result = myPageSetting($id, $request,$FishyKink);
-=======
-=======
-
->>>>>>> 824700c268d3fa7f0aba41639f1f8ebec0e707fc
-=======
->>>>>>> 98bfcb3f59bf607807ef011c74a6c55e7e4feef4
-        $name = $request->input("userName");
-        myPageSetting($id,$request,$FishyKink);
-        return redirect("profile");
+        return $result;
     }
 
     /**
@@ -105,3 +94,4 @@ class SettingsController extends Controller
         //
     }
 }
+
