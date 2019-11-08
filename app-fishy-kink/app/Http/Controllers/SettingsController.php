@@ -45,6 +45,16 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        $result = myPageSetting($id, $request,$FishyKink);
+=======
+=======
+
+>>>>>>> 824700c268d3fa7f0aba41639f1f8ebec0e707fc
+=======
+>>>>>>> 98bfcb3f59bf607807ef011c74a6c55e7e4feef4
         $name = $request->input("userName");
         myPageSetting($id,$request,$FishyKink);
         return redirect("profile");
