@@ -4,7 +4,7 @@
 function myPageSetting($id, $request,$FishyKink){
     $name = $request->input("userName");
     $profile = $request->input("profileText");
-    ( empty($name) ) ?  print_r("ユーザーネームを入力してください") : $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);  
+
     $userImg = $request->userImg;
     if(empty($name)){ //userNameが空だったら
         return "変更できませんでした。";
@@ -15,13 +15,18 @@ function myPageSetting($id, $request,$FishyKink){
             //画像fileを取得してバイナリにエンコード
             $encode_img = base64_encode(file_get_contents($userImg));
             $userImage = 'data:image/' . $ext . ';base64,' . $encode_img;
+            //ユーザーデータベースを更新
             $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile , "userImg" => $userImage]]);
+            
+            //ツイートデータベースを一括更新
+            $FishyKink["tweetDB"] -> updateMany(["userID" => $id], ['$set' => ["userImg" => $userImage]]);
         }else{
             $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile]]);
         }
        
         return "変更しました。";
     };
+
 }
 ?>
 

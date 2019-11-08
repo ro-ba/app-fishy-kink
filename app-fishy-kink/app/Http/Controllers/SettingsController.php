@@ -1,15 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 // require "/vagrant/source/pigHuman/myPage.php";
 require "/vagrant/source/pigHuman/myPageSetting.php";
 require "/vagrant/source/komaduki/GetTweet.php";
 // require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
-
-
 class SettingsController extends Controller
 {
     /**
@@ -24,7 +20,6 @@ class SettingsController extends Controller
         $userData = $FishyKink["userDB"]->findOne(["userID"=>$id]);
         return view("settings",compact("userData"));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +29,6 @@ class SettingsController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -46,9 +40,10 @@ class SettingsController extends Controller
         $FishyKink = connect_mongo();
         $id = session('userID');
         $result = myPageSetting($id, $request,$FishyKink);
-        return $result;
+        $name = $request->input("userName");
+        myPageSetting($id,$request,$FishyKink);
+        return redirect("profile");
     }
-
     /**
      * Display the specified resource.
      *
@@ -59,7 +54,6 @@ class SettingsController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -70,7 +64,6 @@ class SettingsController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -80,9 +73,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
     }
-
     /**
      * Remove the specified resource from storage.
      *
