@@ -31,7 +31,7 @@ $(function () { // 遅延処理
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: {
-            userID: ''
+            userID: userID
         },
         cache: false
     }).done(function (results) {
@@ -61,7 +61,7 @@ $(function () { // 遅延処理
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                userID: ''
+                userID: userID
             },
             cache: false
         }).done(function (results) {
@@ -272,7 +272,7 @@ $(function () { // 遅延処理
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                userID: ''
+                userID: userID
             },
             cache: false
         }).done(function (results) {

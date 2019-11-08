@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/myPage.css">
+
+<script type="text/javascript">
+  let userID = "{{ $userData["userID"] }}";
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+
 </head>
 <body>
 @isset($userData)
@@ -39,49 +45,13 @@
         <p>プロフィール</p>
            <p>{{ $userData["profile"] }}</p>
     </div>
-    <div class="tweet">
-        <p >ツイート</p>
-        <div style="height:400px; width:900px; overflow-y:scroll;">
-            <table height="100" width="600">
-                @isset($tweetData)
-
-                @foreach ( $tweetData as $tweet)
-                <div class="tweetTop card-header">
-                    @if ($tweet["type"] == "retweet")
-                        <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
-
-                    @endif
-                    <div class="tweet-user"> {{ $tweet["userID"] }} </div>
-                        <div class="time"> {{ $tweet["time"] }}</div>
-                                <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
-                                <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
-                        </div>
-                        <div class="tweetMain card-body">
-                            {{ $tweet["text"] }}
-                        </div>
-                        <div class="tweetBottom d-inline">
-                            <div class="reply d-inline-block">
-                                <image src="images/reply.jpg"/>
-                            </div>
-                            <div class="retweet d-inline-block">
-                                <image src="images/retweet.png"/>
-                            </div>
-                            <div class="fab d-inline-block">
-                                <image src="images/fabo.jpg"/>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach           
-                @else
-                    <p id=error_tweet >ツイートがありません</p>
-                @endisset
-            </table>
-        </div>
-    </div>
-    <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
-    @else
-    <p id="error">エラー</p>
-    @endisset
+    <div id="alertContents"></div>
+  <div class="loader">Loading...</div>
+  <div class="row">
+    <div id="leftContents" class="col-sm-3"></div>
+    <div id="centerContents" class="col-sm-6"></div>
+    <div id="rightContents" class="col-sm-3"></div>
+  </div>
 </body>
 
 </html>

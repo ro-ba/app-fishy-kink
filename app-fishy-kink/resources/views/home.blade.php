@@ -103,7 +103,7 @@
 
 </style>
 <script type="text/javascript">
-  let user = "";
+  let userID = "";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <script>
@@ -142,7 +142,7 @@
   </div>
   <div id="alertContents"></div>
   <div class="loader">Loading...</div>
-  <div class="row">
+  <div class="row tweets">
     <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
     <div id="rightContents" class="col-sm-3"></div>
