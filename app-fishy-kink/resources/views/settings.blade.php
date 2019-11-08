@@ -10,10 +10,8 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/setting.css"> -->
-<!-- <script type="text/javascript" src="{{ URL::asset('js/prev-image.js') }}"></script> -->
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" src="js/prev-image.js"></script>
+<script type="text/javascript" src="js/assets/prev-image.js"></script>
 </head>
 <body>
 @isset($userData)

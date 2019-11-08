@@ -73,12 +73,12 @@ button {
   cursor: pointer;
 }
 
-#openModal {
+/* #openModal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform:translate(-50%,-50%);
-}
+} */
 </style>
 
 
@@ -87,7 +87,6 @@ button {
 </head>
 <body>
     <form>
-    <button id="openModa">Open modal</button>
         <div>ダイレクトメッセージ</div>
         <div>現在トークはありません</div>
         <div>トークしようぜ！！</div>
@@ -117,7 +116,7 @@ button {
 <!-- モーダルエリアここまで -->
 
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </body>
 </html>
 
