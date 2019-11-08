@@ -12,6 +12,7 @@ function search($search){
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
+    $img = ["img" => ['$regex' => "data"]];
 
     for($i = 0; $i < $count; $i++){
         array_push($search_han,mb_convert_kana($search[$i], 'rn'));
@@ -31,24 +32,24 @@ function search($search){
                 ["userName" => ['$regex' => $search_word, '$options' => 'i']],
                 ["userID" => ['$regex' => $search_word, '$options' => 'i']],
                 ["profile" => ['$regex' => $search_word, '$options' => 'i']]]];
-            $img = ['$and' => [
-                    ["text" => ['$regex' => $search_word, '$options' => 'i']],
-                   ["img" => ['$in' => ['$regex' => "data"]]]]];
-            #print_r($img);
+
             array_push($find_tweet,$tweet);
             array_push($find_user,$user);
-            #array_push($find_img,$img);
+            array_push($find_img,$tweet);
         }
+        array_push($find_img,$img);
+        array_push($find_img1,array('$and' => $find_img));
+        print_r($find_img);
+        $find_img = [];
         array_push($find_tweet1,array('$and' => $find_tweet));
         $find_tweet = [];
         array_push($find_user1,array('$and' => $find_user));
         $find_user = [];
-        array_push($find_img1,array('$and' => $find_img));
-        $find_img = [];
+
     }
     $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1]);//ツイート検索
     $user_result = $db ["userDB"] -> find(['$or' => $find_user1]);
-    #$img_result = $db ["userDB"] -> find(['$or' => $find_img1]);
+    $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
 
     print_r("ツイート"."<br>");
     foreach($tweet_result as $obj){
@@ -60,10 +61,10 @@ function search($search){
         print_r($obj);
     }
     print_r("<br>");
-    #print_r("画像"."<br>");
-    #foreach($img_result as $obj){
-    #    print_r($obj);
-    #}
+    print_r("画像"."<br>");
+    foreach($img_result as $obj){
+        print_r($obj);
+    }
     
     return true;
 }
