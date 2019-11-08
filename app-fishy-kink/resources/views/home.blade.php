@@ -26,9 +26,78 @@
     .accordion {
       display: inline;
     }
+
+    /* モーダルCSS */
+{
+  box-sizing: border-box;
+}
+body {
+  font-family:'Avenir','Helvetica, Neue','Helvetica','Arial';
+}
+
+
+/* モーダルCSSここから */
+.modalArea {
+  visibility: hidden; /* displayではなくvisibility */
+  opacity : 0;
+  position: fixed;
+  z-index: 10; /* サイトによってここの数値は調整 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: .4s;
+}
+
+.modalBg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30,30,30,0.9);
+}
+
+.modalWrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+  width: 70%;
+  max-width: 500px;
+  padding: 10px 30px;
+  background-color: #fff;
+}
+
+.closeModal {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.is-show { /* モーダル表示用クラス */
+  visibility: visible;
+  opacity : 1;
+}
+/* モーダルCSSここまで */
+
+
+/* 以下ボタンスタイル */
+button {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #282828;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* #openModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+} */
   </style>
 
-  <script>
+    <script>
 
     var result;
     var tweetCount;
@@ -69,7 +138,7 @@
 
             dispTweets(result);
             tweetCount = results.length;
-            console.log("初期のツイートの数　" + result.length);
+            // console.log("初期のツイートの数　" + result.length);
 
         }).fail(function(err) {
           // 通信失敗時の処理
@@ -97,8 +166,8 @@
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                                                                     '<a href="#" class="alert-link">新しいツイート</a>' +
                                                                   '</div>';
-            console.log("本家のツイートの数　" + results.length);
-            console.log("保持しているツイートの数　" + tweetCount);
+            // console.log("本家のツイートの数　" + results.length);
+            // console.log("保持しているツイートの数　" + tweetCount);
           }
         }).fail(function(err) {
           // 通信失敗時の処理
@@ -234,7 +303,7 @@
         <div class="tweetBottom d-inline">`;
 
         //リプライ
-        tweetDocument += '<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+        tweetDocument += '<button id="modalReply" class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
         //リツイート
         iconColor = "";
@@ -300,8 +369,8 @@
           $("#alert").remove();
           tweetCount = results.length;
 
-          console.log("本家のツイートの数　" + results.length);
-          console.log("保持しているツイートの数　" + tweetCount);
+          // console.log("本家のツイートの数　" + results.length);
+          // console.log("保持しているツイートの数　" + tweetCount);
 
         }).fail(function(err) {
           // 通信失敗時の処理
@@ -320,13 +389,27 @@
       });
     });
 
-    /******************************************************************* 別タブで表示 *******************************************************************/
-    function open1() {
+    /******************************************************************* ツイートのサブウィンドウ表示 *******************************************************************/
+    function openTweet() {
       var w = (screen.width - 600) / 2;
       var h = (screen.height - 600) / 2;
       window.open("/tweet", "hoge", "width=600, height=500" + ",left=" + w + ",top=" + h + ",directions=0 , location=0  , menubar=0 , scrollbars=0 , status=0 , toolbar=0 , resizable=0");      
     }
 
+    /******************************************************************* リプライのサブウィンドウ表示 *******************************************************************/
+    $(function () {
+  const modalArea = document.getElementById('modalArea');
+  const openModal = document.getElementById('openModal');
+  const closeModal = document.getElementById('closeModal');
+  const modalBg = document.getElementById('modalBg');
+  const toggle = [openModal,closeModal,modalBg];
+  
+  for(let i=0, len=toggle.length ; i<len ; i++){
+    toggle[i].addEventListener('click',function(){
+      modalArea.classList.toggle('is-show');
+    },false);
+  }
+}());
     /******************************************************************* 別タブで表示２（仮） *******************************************************************/
     function open2() {
       window.open("/tweet", "hoge", "width=600, height=600 , location=no");
@@ -335,7 +418,29 @@
 </head>
 
 <body>
+
+
+
+<!-- モーダルエリアここから -->
+<section id="modalArea" class="modalArea">
+  <div id="modalBg" class="modalBg"></div>
+  <div class="modalWrapper">
+    <div class="modalContents">
+      <h1>Here are modal without jQuery!</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+    </div>
+    <div id="closeModal" class="closeModal">
+      ×
+    </div>
+  </div>
+</section>
+<!-- モーダルエリアここまで -->
+
+<!-- ↓body閉じタグ直前でjQueryを読み込む -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
   <div id="menu row d-inline col-md-12">
+  <button id="openModal">Open modal</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
@@ -349,7 +454,7 @@
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='open1();'">ツイート</button>
+    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block" target=”_blank” onclick='openTweet();'>ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>

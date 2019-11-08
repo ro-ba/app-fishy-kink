@@ -14,9 +14,9 @@
 </head>
 
 <body>
+    <div id="tweets">
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
-
         <div id="wrap">
             <div class="myTweet">
                 <!-- <img class="myIcon" src="<%= icon %>" alt="myIcon" /> -->
@@ -38,6 +38,7 @@
                 <p id="preview"></p>
             </div>
         </div>
+        </div>
 
     </form>
 </body>
@@ -48,7 +49,8 @@
     {
         document.getElementById('preview').innerHTML = '<p class="pre">プレビュー</p>';
         for (i = 0; i < 4; i++) {
-            var fileReader = new FileReader();
+            var fileReader = new FileReader();+
+
             fileReader.onload = (function (e) {
                 document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
             });
