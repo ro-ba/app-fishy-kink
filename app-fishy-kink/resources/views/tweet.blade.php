@@ -25,7 +25,7 @@
             <div class="content">
                 <label>
                     <span class="filelabel">
-                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
@@ -46,7 +46,7 @@
 <script>
     function loadImage(obj)
     {
-        document.getElementById('preview').innerHTML = '<p class="pre">プレビュー</p>';
+        document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
         for (i = 0; i < 4; i++) {
             var fileReader = new FileReader();
             fileReader.onload = (function (e) {
@@ -55,7 +55,6 @@
             fileReader.readAsDataURL(obj.files[i]);
         }
     }
-
 </script>
 
 

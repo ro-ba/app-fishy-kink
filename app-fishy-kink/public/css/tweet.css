@@ -32,21 +32,19 @@ input[type="file"] {
 }
 
 input[type="submit"] {
-    padding: 10px 15px;
+    padding: 15px 40px;
     cursor: pointer;
     border: 2px solid #83ccd2;
     color: #83ccd2;
     font-size: 15px;
     border-radius: 3px;
     transition: all .2s;
+    font-size: 15px;
 }
 
 input[type="submit"]:hover {
     background-color: #83ccd2;
     color: #fff;
-}
-
-input[type="submit"]:hover {
     opacity: 0.6;
 }
 
@@ -62,8 +60,8 @@ input[type="submit"]:hover {
 }
 
 .myIcon {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px; 
     margin:0 10px 25px 0;
     border-radius: 100%;
     text-align: left;
@@ -75,7 +73,7 @@ input[type="submit"]:hover {
 
 .filelabel {
     margin-left: 300px;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 .filelabel:hover {
@@ -89,7 +87,7 @@ input[type="submit"]:hover {
 
 .content .t-submit {
     float: right;
-    margin: 15px 60px 0 0;
+    margin: 4px 25px 0 0;
 }
 
 .tweet-image {
