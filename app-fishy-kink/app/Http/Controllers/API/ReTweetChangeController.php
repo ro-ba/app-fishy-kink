@@ -31,7 +31,7 @@ class ReTweetChangeController extends Controller
         $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = $request->input("userID");
-        $originalTweetID = $db["tweetDB"] -> findOne(["_id" => $tweetID])["originTweetID"];]
+        $originalTweetID = $db["tweetDB"] -> findOne(["_id" => $tweetID])["originTweetID"];
         //リツイート削除時の挙動がおかしい
         if (empty($originalTweetID)){
             $return = "error";

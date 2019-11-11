@@ -34,7 +34,10 @@ Route::resources([
     "/api/reloadTweets" => "API\ReloadTweetsController",
     "/api/fabChange" => "API\FabChangeController",
     "/api/reTweetChange"=> "API\ReTweetChangeController",
-    "/api/getTweet" =>  "API\GetTweetController"
+    "/api/getTweet" =>  "API\GetTweetController",
+    "/api/getOriginTweet" =>  "API\GetOriginTweetController",
+    "/api/getFollowing" => "API\GetFollowingController",
+    "/api/getFollower" => "API\GetFollowerController"
     ]);
 
 // Route::resource("/","TopController");

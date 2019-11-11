@@ -4,6 +4,7 @@ function myPageSetting($id, $request,$FishyKink){
     $profile = $request->input("profileText");
 
     $userImg = $request->userImg;
+
     if(empty($name)){ //userNameが空だったら
         return "変更できませんでした。";
     }else{ //空じゃなかったら変更
@@ -30,9 +31,14 @@ function myPageSetting($id, $request,$FishyKink){
 function accountDel($id,$FishyKink){
     // $fablist = (array) $FishyKink["tweetDB"]->findOne(["userID" => $id])["fabUser"];
 
+    $retweet = $FishyKink["tweetDB"]->find(["userID" => $id]);
+    foreach($retweet as $i){
+        $FishyKink["tweetDB"]->deleteMany(["originTweetID" => $i["_id"]]);
+    }
+
     $FishyKink["userDB"]->deleteOne(["userID" => $id]);
     $FishyKink["tweetDB"]->deleteMany(["userID" => $id]);
-    $FishyKink["tweetDB"]->deleteMany(["originTweetID" => $id]);
+    // $FishyKink["tweetDB"]->deleteMany(["originTweetID" => $id]);
     $fablist = (array) $FishyKink["tweetDB"]->find(["fabUser" => $id ]);
 
     if (empty($FishyKink["tweetDB"]->findOne(["fabUser" => $id ]))){
@@ -51,7 +57,7 @@ function accountDel($id,$FishyKink){
     //     $FishyKink["tweetDB"]->updateOne([ "_id" => $i["_id"] ],[$set=>[$delete]]);
     // };
     session()->flush();
-    redirect("profile");
+    // redirect("profile");
     return "削除しました";
 };
 ?>

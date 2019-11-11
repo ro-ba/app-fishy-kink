@@ -10,9 +10,9 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/setting.css"> -->
-<!-- <script type="text/javascript" src="{{ URL::asset('js/prev-image.js') }}"></script> -->
+<link rel="stylesheet" href="css/setting.css">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
 <script type="text/javascript" src="js/prev-image.js"></script>
 <script type="text/javascript">
     function closeSelf(){
@@ -36,6 +36,19 @@
     //     var newWindow = window.open('/cert.html', 'name', 'height=500,width=600');
     // }
 </script>
+
+<script>
+    $(function(){
+        $('.js-modal-open').on('click',function(){
+            $('.js-modal').fadeIn();
+            return false;
+        });
+        $('.js-modal-close').on('click',function(){
+            $('.js-modal').fadeOut();
+            return false;
+        });
+    });
+</script>
 </head>
 <body>
 @isset($userData)
@@ -58,10 +71,27 @@
                     <textarea name="profileText" rows="4" cols="80">{{ $userData["profile"] }}</textarea>
                 </div>
             </div>
-            
-            <input class="btn btn-primary" type="submit" value="適用">
-            <input class="btn btn-default" type="button" onclick="location.href='/profile'" value="戻る">
-            <input class="btn btn-sec" type="button" onclick="openWin()" value="アカウント削除">
+            <div class="content">
+                <input class="btn btn-primary" type="submit" value="適用">
+                <input class="btn btn-default" type="button" onclick="location.href='/profile'" value="戻る">
+                <!-- <input class="btn btn-sec" type="button" onclick="openWin()" value="アカウント削除"> -->
+                <a class="js-modal-open" href="">アカウント削除</a>
+            </div>
+            <div class="modal js-modal">
+                <div class="modal__bg js-modal-close"></div>
+                <div class="modal__content">
+                <form action='doubleCheck' class='doubleCheck' enctype='multipart/form-data' method='post'>
+                    @csrf
+                        <div>
+                            <p>本当にいいですか？</p>
+                            <tr></tr>
+                            <input name='check' type='checkbox'/>
+                            <input type='submit' value='削除'/>
+                            <a class="js-modal-close" href="">閉じる</a>
+                        </div>
+                    </form>
+                </div><!--modal__inner-->
+            </div><!--modal-->
         </form>
 @else
     <p id="error">エラー</p>

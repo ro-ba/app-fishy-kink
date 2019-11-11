@@ -47,7 +47,14 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
+        $result = myPageSetting($id, $request,$FishyKink);
         $name = $request->input("userName");
+        $check = $request->input("check");
+
+        if($check=="on"){
+            accountDel($id,$FishyKink);
+            // session(["userID" => NULL]);
+        }
 
         // $profile = $request->input("profileText");
         if(empty($name)){ //userNameが空だったら
