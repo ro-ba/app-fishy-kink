@@ -104,7 +104,7 @@ $(function () { // 遅延処理
 
 /******************************************************************* ファボ *******************************************************************/
 $(function () {
-    $("#centerContents").on('click', ".fab", function () {
+    $("#centerContents").on('click', ".favo", function () {
         tweetid = $(this).parents().siblings("#tweetID").val();
         var push_button = this;
         $.ajax({
@@ -263,13 +263,13 @@ function dispTweets(results) {
     `;
 
         //ファボ
-        if (tweet["fabUser"].indexOf("{{ session('userID') }}") == -1) {
+        if (tweet["favoUser"].indexOf("{{ session('userID') }}") == -1) {
             iconColor = "gray";
         } else {
             iconColor = "red";
         }
 
-        tweetDocument += `<button class=fab type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+        tweetDocument += `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
 
         tweetDocument += '</div>';
         tweetDocument += '</div>';
