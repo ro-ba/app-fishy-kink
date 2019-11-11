@@ -1,32 +1,11 @@
 var result;
 var tweetCount;
 
-/******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
-function getTweet(tweetID) {
+/******************************************************************************ツイートをID指定で一件取得する************************************************************************/
+function getTweet(tweet) {
     $.ajax({
         type: 'POST',
         url: '/api/getTweet',
-        dataType: 'json',
-        async: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            tweetID: tweetID,
-        },
-        cache: false
-    }).done(function (originTweet) {
-        tweet = originTweet["tweet"];
-    });
-    return tweet;
-};
-
-
-/******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
-function getOriginTweet(tweet) {
-    $.ajax({
-        type: 'POST',
-        url: '/api/getOriginTweet',
         dataType: 'json',
         async: false,
         headers: {
@@ -190,7 +169,7 @@ function dispTweets(results) {
         if (tweet["type"] == "retweet") {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
             tweetType = '<div class="retweet-user">' + tweet["userID"] + 'さんがリツイートしました</div>';
-            tweet = getOriginTweet(tweet);
+            tweet = getTweet(tweet);
         } else {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
             tweetType = "";
@@ -321,20 +300,6 @@ $(function () {
     });
 });
 
-
-$(function () {
-    const modalArea = document.getElementById('modalArea1');
-    const openModal = document.getElementById('replay');
-    const closeModal = document.getElementById('closeModal1');
-    const modalBg = document.getElementById('modalBg1');
-    const toggle = [openModal,closeModal,modalBg];
-    
-    for(let i=0, len=toggle.length ; i<len ; i++){
-      toggle[i].addEventListener('click',function(){
-        modalArea.classList.toggle('is-show1');
-      },false);
-    }
-  }());
 
 // /******************************************************************* 別タブで表示 *******************************************************************/
 // function open1() {

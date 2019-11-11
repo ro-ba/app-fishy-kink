@@ -10,6 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" href="">
+
+  <link rel="stylesheet" href="css/tweet.css">
+
   <link rel="shortcut icon" href="">
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -29,6 +32,8 @@
       display: inline;
     }
 
+
+/** 駒月が追加 **/
     /* モーダルCSS */
 {
   box-sizing: border-box;
@@ -140,6 +145,8 @@ button {
   left: 50%;
   transform:translate(-50%,-50%);
 } */
+
+/** ここまで **/
   </style>
 
 <script type="text/javascript">
@@ -197,7 +204,7 @@ button {
 </body>
 </html>
 
-<!-- モーダルエリアここから -->
+<!-- モーダルエリアここから (駒月が追加) -->
 <section id="modalArea" class="modalArea">
   <div id="modalBg" class="modalBg"></div>
   <div class="modalWrapper">
@@ -237,7 +244,7 @@ button {
 </section>
 <!-- モーダルエリアここまで -->
 
-
+<!-- モーダルエリアここから (駒月が追加) -->
 <section id="modalArea1" class="modalArea1">
   <div id="modalBg1" class="modalBg1"></div>
   <div class="modalWrapper1">
@@ -248,11 +255,12 @@ button {
     </div>
   </div>
 </section>
-
-
+<!-- モーダルエリアここから (駒月が追加) -->
 
 <script>
+/******************************************************************* ツイート画面の表示 *******************************************************************/
 $(function () {
+
       const modalArea = document.getElementById('modalArea');
       const openModal = document.getElementById('qqqq');
       const closeModal = document.getElementById('closeModal');
@@ -268,7 +276,7 @@ $(function () {
 </script>
 
 <script>
-$(function () {
+  $(function () {
   const modalArea = document.getElementById('modalArea1');
   const openModal = document.getElementById('openModal');
   const closeModal = document.getElementById('closeModal1');
