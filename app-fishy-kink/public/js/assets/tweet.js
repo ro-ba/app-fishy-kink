@@ -248,7 +248,7 @@ function dispTweets(results) {
             iconColor = "red";
         }
 
-        tweetDocument += `<button class=fab type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+        tweetDocument += '<button class=fab type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>';
 
         tweetDocument += '</div>';
         tweetDocument += '</div>';
@@ -310,4 +310,5 @@ $(function () {
 // function open2() {
 //     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
 // }
+
 
