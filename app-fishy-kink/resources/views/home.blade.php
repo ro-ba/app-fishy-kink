@@ -213,7 +213,7 @@ button {
     @csrf
         <div id="wrap">
             <div class="myTweet">
-                <img class="myIcon" src="<%= icon %>" alt="myIcon" />
+                <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
                 <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
@@ -230,7 +230,7 @@ button {
             </div>
 
             <div class="tweet-image">
-                                <p id="preview"></p>
+               <p id="preview"></p>
             </div>
         </div>
         </div>
