@@ -8,6 +8,8 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/Follow.css">
+
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
     <script>
@@ -46,6 +48,7 @@
 
     </script>
 
+
 </head>
 
 <body>
@@ -54,20 +57,38 @@
         <label class="tab_item1" for="follow">フォロー中</label>
 
         <input id="follower" type="radio" name="tab_item" checked>
+
+        <label class="tab_item" for="follower">フォロワー</label>
+
+        <!-- <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item" for="follow">フォロー</label> -->
+
+    <div class="tab_content" id="follower_content">
+
         <label class="tab_item2" for="follower">フォロワー</label>
 
     <div class="tab_content1" id="followerS_content">
+
        @isset($followerData)
             @isset($followerData["follower"][0])
                 @if(count($userProfile["follower"]) == 1)
                          <ul class ="list_none">
                             <li>
+
+                            <a onclick="location.href='/profile?user={{$followerID}}'"><img src='{{$followerImg}}'/></a>
+                                    {{$followerName}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$followerID}}'">
+                                    <span>@</span>{{$followerID}}
+                                </button>
+                                <div class="profilePro">{{$followerPro}}</div>
+
                             <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
                                     {{$follower["userName"]}}    
                                 <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
                                     <span>@</span>{{$follower["userID"]}}
                                 </button>
                                 <div class="profilePro">{{$follower["profile"]}}</div>
+
                             </li>
                         </ul>
                 @elseif(count($userProfile["follower"]) > 1)     

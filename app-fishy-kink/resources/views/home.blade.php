@@ -156,9 +156,8 @@ button {
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-
-    /******************************************************************* ツイートのサブウィンドウ表示 *******************************************************************/
-    function openTweet() {
+    /******************************************************************* 別タブで表示 *******************************************************************/
+    function open1() {
       var w = (screen.width - 600) / 2;
       var h = (screen.height - 600) / 2;
       window.open("/tweet", "hoge", "width=600, height=500" + ",left=" + w + ",top=" + h + ",directions=0 , location=0  , menubar=0 , scrollbars=0 , status=0 , toolbar=0 , resizable=0");      
