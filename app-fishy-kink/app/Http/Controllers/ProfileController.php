@@ -16,6 +16,9 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
+        if(empty(session("userID"))){
+            return redirect("home");
+        }
         $FishyKink = connect_mongo();
         $id = $request->input("user");
         $isShowSettings = False;
