@@ -213,7 +213,7 @@ function dispTweets(results) {
     <div class="tweetBottom d-inline">`;
 
         //リプライ
-        tweetDocument += '<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+        tweetDocument += '<button id=reply class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
         //リツイート
         iconColor = "";
@@ -299,6 +299,21 @@ $(function () {
         $(this).next('.inner').slideToggle();
     });
 });
+
+
+$(function () {
+    const modalArea = document.getElementById('modalArea1');
+    const openModal = document.getElementById('replay');
+    const closeModal = document.getElementById('closeModal1');
+    const modalBg = document.getElementById('modalBg1');
+    const toggle = [openModal,closeModal,modalBg];
+    
+    for(let i=0, len=toggle.length ; i<len ; i++){
+      toggle[i].addEventListener('click',function(){
+        modalArea.classList.toggle('is-show1');
+      },false);
+    }
+  }());
 
 // /******************************************************************* 別タブで表示 *******************************************************************/
 // function open1() {
