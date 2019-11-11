@@ -1,11 +1,32 @@
 var result;
 var tweetCount;
 
-/******************************************************************************ツイートをID指定で一件取得する************************************************************************/
-function getTweet(tweet) {
+/******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
+function getTweet(tweetID) {
     $.ajax({
         type: 'POST',
         url: '/api/getTweet',
+        dataType: 'json',
+        async: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            tweetID: tweetID,
+        },
+        cache: false
+    }).done(function (originTweet) {
+        tweet = originTweet["tweet"];
+    });
+    return tweet;
+};
+
+
+/******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
+function getOriginTweet(tweet) {
+    $.ajax({
+        type: 'POST',
+        url: '/api/getOriginTweet',
         dataType: 'json',
         async: false,
         headers: {
@@ -167,7 +188,7 @@ function dispTweets(results) {
         if (tweet["type"] == "retweet") {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
             tweetType = '<div class="retweet-user">' + tweet["userID"] + 'さんがリツイートしました</div>';
-            tweet = getTweet(tweet);
+            tweet = getOriginTweet(tweet);
         } else {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
             tweetType = "";
@@ -211,7 +232,7 @@ function dispTweets(results) {
     <div class="tweetBottom d-inline">`;
 
         //リプライ
-        tweetDocument += '<button id=reply class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+        tweetDocument += '<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
         //リツイート
         iconColor = "";
@@ -297,7 +318,6 @@ $(function () {
         $(this).next('.inner').slideToggle();
     });
 });
-
 
 // /******************************************************************* 別タブで表示 *******************************************************************/
 // function open1() {
