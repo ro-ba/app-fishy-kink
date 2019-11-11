@@ -27,8 +27,8 @@ class GetOriginTweetController extends Controller
      */
     public function store(Request $request)
     {
-       $db = connect_mongo();
-        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
+        $db = connect_mongo();
+        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID")['$oid']);
         $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
         return ["tweet"=> $tweet];
     }

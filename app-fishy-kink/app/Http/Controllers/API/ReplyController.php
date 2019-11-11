@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class FabChangeController extends Controller
+class ReplyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,28 +28,33 @@ class FabChangeController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
-        $userID = $request->input("userID");
-        $return = "";
-        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
-        if (empty($db["tweetDB"]->findOne(["_id" => $tweetID]))){
-            $return = "error";
-        }else{
-            if (in_array($userID, $fablist)) {    //もし、すでにファボしていればリストから削除する
-                //削除
-                $fablist = array_diff($fablist, (array) $userID);
-                //indexを詰める
-                $fablist = array_values($fablist);
-                $return = "delete";
-            } else {
-                //追加
-                array_push($fablist, $userID);
-                $return = "add";
-            };
-            //更新
-            $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["fabUser" => $fablist]]);
+        $text = $request->input('text');
+        $target = $request->input("Target");
+        $tweetImg = [];
+        if($request->hasfile("tweetImage")){
+            foreach($request->tweetImage as $image){
+                //拡張子取得
+                $ext = explode("/",$image->getMimeType())[1];
+                //画像fileを取得してバイナリにエンコード
+                $encode_img = base64_encode(file_get_contents($image));
+                
+                $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+            }
         }
-        return ["message" => $return];
+        $time = date("Y/m/d H:i:s");
+        $db["tweetDB"] -> insertOne([
+            "type"          => "reply",
+            "text"          => $text,
+            "userID"        => session('userID'),
+            "time"          => $time,
+            "img"           => $tweetImg,
+            "retweetUser"   => [],
+            "fabUser"       => [],
+            "originTweetID" => $target,
+            "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
+        ]); 
+        return ["message" => ]
+
     }
 
     /**

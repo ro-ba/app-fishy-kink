@@ -109,13 +109,12 @@ $(function () {
         var push_button = this;
         $.ajax({
             type: 'POST',
-            url: '/api/fabChange',
+            url: '/api/favorite',
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                userID: "{{ session('userID') }}",
                 tweetID: tweetid,
             },
             cache: false
@@ -141,13 +140,12 @@ $(function () {
         var push_button = this;
         $.ajax({
             type: 'POST',
-            url: '/api/reTweetChange',
+            url: '/api/reTweet',
             dataType: 'json',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
-                userID: "{{ session('userID') }}",
                 tweetID: tweetid,
             },
             cache: false
