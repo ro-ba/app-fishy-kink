@@ -21,6 +21,7 @@ Route::resources([
     "signUp" => "SignUpController",
     "home" => "HomeController",
     "tweet" => "TweetController",
+    "doubleCheck" => "DoubleCheckController",
     "notify" => "NotifyController",
     "DM" => "DMController",
     "profile" => "ProfileController",

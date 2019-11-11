@@ -3,16 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 require "/vagrant/source/pigHuman/myPageSetting.php";
-require "/vagrant/source/komaduki/GetTweet.php";
-// require "/vagrant/source/pigHuman/accountDel.php";
-
 require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
-
-class SettingsController extends Controller
+class DoubleCheckController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +16,8 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $id = session('userID');
-        $FishyKink = connect_mongo();
-        $userData = $FishyKink["userDB"]->findOne(["userID"=>$id]);
-        return view("settings",compact("userData"));
+        return view("doubleCheck");
+        //
     }
 
     /**
@@ -47,22 +40,11 @@ class SettingsController extends Controller
     {
         $FishyKink = connect_mongo();
         $id = session('userID');
-        $result = myPageSetting($id, $request,$FishyKink);
-        $name = $request->input("userName");
         $check = $request->input("check");
 
         if($check=="on"){
             accountDel($id,$FishyKink);
             // session(["userID" => NULL]);
-        }
-
-        // $profile = $request->input("profileText");
-        if(empty($name)){ //userNameが空だったら
-            return "変更できませんでした。";
-        }else{ //空じゃなかったら変更
-            //$FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile , "userImg" => $img]]);           
-            myPageSetting($id,$request,$FishyKink);
-            return redirect("profile");
         }
     }
 
@@ -97,7 +79,7 @@ class SettingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
     }
 
     /**
