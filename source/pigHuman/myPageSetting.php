@@ -61,3 +61,4 @@ function accountDel($id,$FishyKink){
     return "削除しました";
 };
 ?>
+
