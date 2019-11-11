@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class GetTweetController extends Controller
+class GetOriginTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class GetTweetController extends Controller
      */
     public function store(Request $request)
     {
-        $db = connect_mongo();
+       $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
         return ["tweet"=> $tweet];

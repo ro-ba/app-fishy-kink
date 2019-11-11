@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/profile.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="css/loader.css">
 
 <style>
   .accordion .inner {
@@ -28,20 +28,18 @@
   }
 </style>
 
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
+
+<script type="text/javascript">
+  let userID = "{{ $userData['userID'] }}";
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+
 </head>
 <body>
     <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
 
     <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
-    
-
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
-
-<script type="text/javascript">
-  let userID = "{{$userData['userID'] }}";
-</script>
-<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
-
 
 </head>
 <body>
@@ -87,6 +85,7 @@
     <p>プロフィール</p>
         <p>{{ $userData["profile"] }}</p>    
   </div>      
+  <div class="loader">Loading...</div>
   <div class="row tweets">
     <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
