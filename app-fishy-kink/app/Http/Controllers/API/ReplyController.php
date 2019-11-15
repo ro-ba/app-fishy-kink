@@ -31,6 +31,8 @@ class ReplyController extends Controller
         $text = $request->input('text');
         $target = $request->input("Target");
         $tweetImg = [];
+        $userID = session("userID");
+        $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
         if($request->hasfile("tweetImage")){
             foreach($request->tweetImage as $image){
                 //拡張子取得
@@ -53,7 +55,13 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-        return ["message" => ]
+        $db["notifyDB"] -> insert([
+            "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
+            "tweetID" => $tweetID,
+            "text" => $name .= "さんがリプライしました。",
+            "time" => $time
+        ]);
+        return ["message" => ];
 
     }
 
