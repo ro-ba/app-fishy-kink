@@ -26,7 +26,7 @@ class FollowersController extends Controller
         // dd($userProfile["follower"][0]);
        if(count($userProfile["follower"]) == 1){
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);               
-            return view("followers",compact("followerData","userProfile")); 
+            return view("followers",compact("followerData","userProfile","follower")); 
        }else{
             foreach($userProfile["follower"] as $followerid){
                 $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
