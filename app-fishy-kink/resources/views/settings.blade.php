@@ -86,6 +86,7 @@
                             <p>本当にいいですか？</p>
                             <tr></tr>
                             <input name='check' type='checkbox'/>
+                            <tr></tr>
                             <input type='submit' value='削除'/>
                             <a class="js-modal-close" href="">閉じる</a>
                         </div>

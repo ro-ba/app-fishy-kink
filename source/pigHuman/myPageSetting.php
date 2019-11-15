@@ -40,6 +40,7 @@ function accountDel($id,$FishyKink){
     $FishyKink["tweetDB"]->deleteMany(["userID" => $id]);
     // $FishyKink["tweetDB"]->deleteMany(["originTweetID" => $id]);
     $fablist = (array) $FishyKink["tweetDB"]->find(["fabUser" => $id ]);
+    $FishyKink["notifyDB"]->deleteMany(["userID" => $id]);
 
     if (empty($FishyKink["tweetDB"]->findOne(["fabUser" => $id ]))){
         $return = "error";
