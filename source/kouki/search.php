@@ -39,7 +39,6 @@ function search($search){
         }
         array_push($find_img,$img);
         array_push($find_img1,array('$and' => $find_img));
-        print_r($find_img);
         $find_img = [];
         array_push($find_tweet1,array('$and' => $find_tweet));
         $find_tweet = [];
