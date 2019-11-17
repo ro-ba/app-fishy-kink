@@ -151,6 +151,7 @@ button {
 
 <script type="text/javascript">
   let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
@@ -289,3 +290,4 @@ $(function () {
   }
 }());
 </script>
+

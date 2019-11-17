@@ -187,8 +187,14 @@ function dispTweets(results) {
 
         if (tweet["type"] == "retweet") {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
-            tweetType = '<div class="retweet-user">' + tweet["userID"] + 'さんがリツイートしました</div>';
+            retweetUser = tweet["userID"];
             tweet = getOriginTweet(tweet);
+            if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+                tweetType = '<div class="retweet-user">' + retweetUser + 'さんがリツイートしました</div>';
+            } else {
+                tweetType = '<div class="retweet-user">リツイート済み</div>';
+            }
+            tweet["type"] = "retweet";
         } else {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
             tweetType = "";
@@ -197,7 +203,7 @@ function dispTweets(results) {
         if (typeof tweet["userImg"] !== "undefined") {
             userIcon = tweet["userImg"];
         } else {
-            userIcon = "";
+            userIcon = "{{ asset('images/default-icon.jpg') }}";
         }
 
         tweetDocument += `
@@ -238,19 +244,14 @@ function dispTweets(results) {
         iconColor = "";
         reTweetText = "";
 
-        if (tweet["type"] == "tweet") {
-            if (tweet["retweetUser"].indexOf("{{ session('userID') }}") == -1) {
-                iconColor = "gray";
-                reTweetText = "リツイート";
-            } else {
-                iconColor = "green";
-                reTweetText = "リツイートを取り消す";
-            }
+        if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+            iconColor = "gray";
+            reTweetText = "リツイート";
         } else {
-            //とりあえず
-            iconColor = "pink";
-            reTweetText = "これはリツイートです";
+            iconColor = "green";
+            reTweetText = "リツイートを取り消す";
         }
+
         tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
@@ -263,7 +264,7 @@ function dispTweets(results) {
     `;
 
         //ファボ
-        if (tweet["favoUser"].indexOf("{{ session('userID') }}") == -1) {
+        if (tweet["favoUser"].indexOf(session["userID"]) == -1) {
             iconColor = "gray";
         } else {
             iconColor = "red";

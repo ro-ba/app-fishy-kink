@@ -49,6 +49,6 @@ class ValidateUserID implements Rule
      */
     public function message()
     {
-        return 'IDは英数字しか使用できません';
+        return 'IDは英数字しか使用できません。';
     }
 }

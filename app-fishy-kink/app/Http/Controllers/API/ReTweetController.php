@@ -32,6 +32,9 @@ class ReTweetController extends Controller
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = session('userID');
         $originalTweetID = $db["tweetDB"] -> findOne(["_id" => $tweetID])["originTweetID"];
+        $targetUser =  $db["tweetDB"] -> findOne(["_id" => $originalTweetID])["userID"];
+        $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
+        $time = date("Y/m/d H:i:s");
         //リツイート削除時の挙動がおかしい
         if (empty($originalTweetID)){
             $return = "error";
@@ -62,7 +65,12 @@ class ReTweetController extends Controller
                     "originTweetID" => $originalTweetID,
                     "parentTweetID" => ""
                     ]); 
-
+                $db["notifyDB"] -> insertOne([
+                    "userID" => $targetUser,
+                    "tweetID" => $tweetID,
+                    "text" => $name .= "さんがリツイートしました。",
+                    "time" => $time
+                ]);
                 $return = "add";
             };
             //更新
