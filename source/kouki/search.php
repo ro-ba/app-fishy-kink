@@ -50,21 +50,26 @@ function search($search){
     $user_result = $db ["userDB"] -> find(['$or' => $find_user1]);
     $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
 
-    print_r("ツイート"."<br>");
-    foreach($tweet_result as $obj){
-        print_r($obj);
-    }
-    print_r("<br>");
-    print_r("ユーザー"."<br>");
-    foreach($user_result as $obj){
-        print_r($obj);
-    }
-    print_r("<br>");
-    print_r("画像"."<br>");
-    foreach($img_result as $obj){
-        print_r($obj);
-    }
+    // print_r("ツイート"."<br>");
+    // foreach($tweet_result as $obj){
+    //     print_r($obj);
+    // }
+    // print_r("<br>");
+    // print_r("ユーザー"."<br>");
+    // foreach($user_result as $obj){
+    //     print_r($obj);
+    // }
+    // print_r("<br>");
+    // print_r("画像"."<br>");
+    // foreach($img_result as $obj){
+    //     print_r($obj);
+    // }
     
-    return true;
+    $result = [
+        "tweet_result"=> $tweet_result->toArray(),
+        "user_result" => $user_result->toArray(),
+        "img_result"=>$img_result->toArray()
+    ];
+    return $result;
 }
 ?>
