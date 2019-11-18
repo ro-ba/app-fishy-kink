@@ -45,6 +45,7 @@
     <div class="profile">
       <div id=wrap>
 
+
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
         </div>
@@ -57,7 +58,7 @@
         </ul>
 
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
-          
+             
         <ul class="follows">
             @isset ($userData["follow"])
                 <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
