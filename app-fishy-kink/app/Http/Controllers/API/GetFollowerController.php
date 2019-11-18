@@ -31,7 +31,7 @@ class GetFollowerController extends Controller
         $userID = $request->input("userID");
         $users = [];
         $followerList = $db["userDB"]->findOne(["userID" => $userID]);
-        foreach($followList["follower"] as $follower){
+        foreach($followerList["follower"] as $follower){
             $users[] = $db["userDB"]->findOne(["userID" => $follower]);
             // $users = $db["userDB"]->findOne(["userID" => $follow]);
         }

@@ -24,10 +24,10 @@
                 },
                 cache: false
                 }).done(function(results) {
-                    var follow = results["follower"];
+                    var follower = results["follower"];
                     // console.log(follow[0]["userID"]);
                     $('#list').empty();
-                    for(var i=0;i<follow.length;i++){
+                    for(var i=0;i<follower.length;i++){
                         followDocument =    `<ul class=list_none>`   
                                         +    `<li>`
                                         +   `<a onclick="location.href='/profile?user=${follower[i]["userID"]}'">
