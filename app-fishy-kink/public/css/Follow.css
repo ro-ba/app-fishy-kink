@@ -1,11 +1,11 @@
 /*タブ切り替え全体のスタイル*/
 .tabs {
-  margin-top: 50px;
-  padding-bottom: 40px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: 700px;
-  margin: 0 auto;}
+    margin-top: 40px; 
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    margin: 0 auto;
+  }
 
 /*タブのスタイル*/
 .tab_item1 {
@@ -40,12 +40,14 @@
   font-weight: bold;
   transition: all 0.2s ease;
 }
+
 /* ラジオボタン削除 */
   input[name="tab_item"] {
     display: none;
   }
 
   /*タブ切り替えの中身のスタイル*/
+
 .tab_content1 {
     display: none;
     padding-top: 10px;
@@ -67,27 +69,32 @@
   }
 
   /*選択されているタブのコンテンツのみを表示*/
+
+#follower:checked ~ #follower_content,
 #follower:checked ~ #followerS_content,
 #follow:checked ~ #follow_content {
   display: block;
 }
 
 /*選択されているタブのスタイルを変える*/
+
 .tabs input:checked + .tab_item1 {
     background-color: #5ab4bd;
     color: #fff;
-  }
+}
 
-  .tabs input:checked + .tab_item2 {
-    background-color: #5ab4bd;
-    color: #fff;
-  }
+.tabs input:checked + .tab_item2 {
+
+  background-color: #5ab4bd;
+  color: #fff;
+}
 
 /* リストのアイコン削除 */
 .list_none{
     list-style:  none; 
-    border-bottom: 1px solid black;
-   
+    /* display: inline-block; */
+    /* border-bottom: 1px solid black; */
+     
 }
 
 /* ユーザID */
@@ -122,6 +129,7 @@ img {
   margin-right: 5px;
 }
 
+
 .btn-square {
   display: inline-block;
   padding: 0.5em 1em;
@@ -138,15 +146,22 @@ img {
   border-bottom: none;/*線を消す*/
 }
 
-.search{
-  text-align: center;
-  font-size: 1.4em;
-  padding: 10px 30px;
 
-}
 
 .uName{
   position: relative ; 
   left : 40px;
   bottom  : 22px;
+}
+
+.profile{
+  position: relative ; 
+  left : 43px;
+  bottom  : 42px;
+}
+
+.Img{
+  position: relative ; 
+  left : 0px;
+ 
 }

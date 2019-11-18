@@ -20,6 +20,7 @@
 
       <div class="image-m"></div>
       <div class="image-ini"></div>
+      <div class="image-peni"></div>
 
       <div class="title" id="welcome area">
           <h1>ようこそ　<span class="app-name">Fishy Kink</span>　へ</h1>

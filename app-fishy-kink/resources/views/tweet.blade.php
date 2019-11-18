@@ -14,18 +14,20 @@
 </head>
 
 <body>
+
+    <div id="tweets">
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
         <div id="wrap">
             <div class="myTweet">
-                <img class="myIcon" src="<%= icon %>" alt="myIcon" />
+                <img class="myIcon" src='{{$userData["userImg"]}}' alt="myIcon" />
                 <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
                 <label>
                     <span class="filelabel">
-                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
@@ -34,9 +36,10 @@
                 </div>
             </div>
 
-            <div class="tweet-image">
-                                <p id="preview"></p>
+            <div class="tweet-image">              
+                <p id="preview"></p>
             </div>
+        </div>
         </div>
 
     </form>
@@ -46,9 +49,10 @@
 <script>
     function loadImage(obj)
     {
-        document.getElementById('preview').innerHTML = '<p class="pre">プレビュー</p>';
+        document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
         for (i = 0; i < 4; i++) {
-            var fileReader = new FileReader();
+            var fileReader = new FileReader();+
+
             fileReader.onload = (function (e) {
                 document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
             });
@@ -92,4 +96,4 @@
     </form>
 </body>
 
-</html> -->
+</html>

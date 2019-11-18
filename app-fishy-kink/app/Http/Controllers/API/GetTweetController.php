@@ -28,7 +28,7 @@ class GetTweetController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID")['$oid']);
+        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
         return ["tweet"=> $tweet];
     }

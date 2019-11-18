@@ -38,6 +38,6 @@ class ValidatePassword implements Rule
      */
     public function message()
     {
-        return 'パスワードは半角の英字・数字の両方を含む必要があります';
+        return 'パスワードは半角の英字・数字の両方を含む必要があります。';
     }
 }

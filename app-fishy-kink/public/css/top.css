@@ -74,6 +74,17 @@ body {
     background-image: url("/images/ini.jpg"); 
 }
 
+.image-peni {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+.image-peni:hover {
+    opacity: 0.5;
+    background-image: url("/images/penis.jpg");
+}
+
 .title {
    color: #fff;
    font-size: 18px;
