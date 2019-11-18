@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/Follow.css">
 
-
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
     <script>
@@ -30,14 +29,16 @@
                     // console.log(follow[0]["userID"]);
                     $('#list').empty();
                     for(var i=0;i<follow.length;i++){
-                        followDocument =    `<li>`
+                        followDocument =    `<ul class=list_none>`   
+                                        +    `<li>`
                                         +   `<a onclick="location.href='/profile?user=${follow[i]["userID"]}'">
                                                 <img src="${follow[i]['userImg']}"/></a>`
                                         +   `<div class="uName">${follow[i]["userName"]}</div>`
                                         +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follow[i]["userID"]}'">
                                                 <div class=""><span>@</span>${follow[i]["userID"]}</div></button>`
                                         +   `<div class="profile">${follow[i]["profile"]}</div>`
-                                        +   `</li>`;
+                                        +   `</li>`
+                                        +   `</ul>`;
                         $('#list').append(followDocument);
                     }
                 });
@@ -63,33 +64,15 @@
         <div class="tabs">
         <input id="follow" type="radio" name="tab_item" checked>
         <label class="tab_item1" for="follow">フォロー中</label>
-
         <input id="follower" type="radio" name="tab_item" checked>
-
-        <label class="tab_item" for="follower">フォロワー</label>
-
-        <!-- <input id="follow" type="radio" name="tab_item" checked>
-        <label class="tab_item" for="follow">フォロー</label> -->
-
-    <div class="tab_content" id="follower_content">
-
         <label class="tab_item2" for="follower">フォロワー</label>
 
     <div class="tab_content1" id="followerS_content">
-
        @isset($followerData)
             @isset($followerData["follower"][0])
                 @if(count($userProfile["follower"]) == 1)
                          <ul class ="list_none">
                             <li>
-
-                            <a onclick="location.href='/profile?user={{$followerID}}'"><img src='{{$followerImg}}'/></a>
-                                    {{$followerName}}    
-                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$followerID}}'">
-                                    <span>@</span>{{$followerID}}
-                                </button>
-                                <div class="profilePro">{{$followerPro}}</div>
-
                             <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
                                     {{$follower["userName"]}}    
                                 <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
@@ -99,6 +82,7 @@
 
                             </li>
                         </ul>
+    
                 @elseif(count($userProfile["follower"]) > 1)     
                     @foreach ($followerData["follower"] as $key => $followers)
                         <ul class ="list_none">
@@ -110,10 +94,7 @@
                                 </button>
 
                                 <div class="profilePro">
-                                {{
-                                    $followerPro[$key]
-                                    ,$key = $key + 1   
-                                }}  
+                                {{$followerPro[$key],$key = $key + 1}}  
                                 </div>
                             </li>
                         </ul>
@@ -121,18 +102,18 @@
                 @endif
             @endisset
         @endisset
-    </div>
+        </div>
 
         <!-- フォロー中表示 -->
     
     <div class="tab_content2" id="follow_content">
-        <ul class =list_none id="list">
-
+        <ul  class="list_none" id="list">
+        </ul>
     </div>
         
     <div>
-        <button  class="btn-square" type="button" onclick="location.href='/profile'">戻る</button>
-    </div>  
+        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
+    </div>
     
 </body>
 </html>
