@@ -36,6 +36,7 @@
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <script>
 
+
     /******************************************************************* 別タブで表示 *******************************************************************/
     function open1() {
       var w = (screen.width - 600) / 2;

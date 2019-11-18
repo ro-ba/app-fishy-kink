@@ -1,3 +1,73 @@
-{"_id":{"$oid":"5d15adfc763834624de38f22"},"type":"tweet","text":"おなかがへったよ～","userID":"tamano","time":"2019/06/28 13:34:20","img":[],"retweetUser":["shibuya","komaduki"],"fabUser":["nishibayashi"],"originTweetID":"","parentTweetID":""}
-{"_id":{"$oid":"5d15ae0d763834624de38f23"},"type":"tweet","text":"おにぎり食べる？","userID":"ino","time":"2019/06/28 13:40:00","img":[],"retweetUser":["tamano"],"fabUser":["tamano"],"originTweetID":"","parentTweetID":{"$oid":"5d15adfc763834624de38f22"}}
-{"_id":{"$oid":"5d15ae1c763834624de38f24"},"type":"retweet","text":"おにぎりたべたい","userID":"tamano","time":"2019/06/28 13:40:59","img":[],"retweetUser":[],"fabUser":["tamano"],"originTweetID":{"$oid":"5d15ae0d763834624de38f23"},"parentTweetID":""}
+{
+    "_id": {
+        "$oid": "5d15adfc763834624de38f22"
+    },
+    "type": "tweet",
+    "text": "おなかがへったよ～",
+    "userID": "tamano",
+    "time": "2019/06/28 13:34:20",
+    "img": [],
+    "retweetUser": [
+        "shibuya",
+        "komaduki"
+    ],
+    "fabUser": [
+        "nishibayashi"
+    ],
+    "originTweetID": "",
+    "parentTweetID": ""
+}
+{
+    "_id": {
+        "$oid": "5d15ae0d763834624de38f23"
+    },
+    "type": "tweet",
+    "text": "おにぎり食べる？",
+    "userID": "ino",
+    "time": "2019/06/28 13:40:00",
+    "img": [],
+    "retweetUser": [
+        "tamano"
+    ],
+    "fabUser": [
+        "tamano"
+    ],
+    "originTweetID": "",
+    "parentTweetID": {
+        "$oid": "5d15adfc763834624de38f22"
+    }
+}
+{
+    "_id": {
+        "$oid": "5d15ae1c763834624de38f24"
+    },
+    "type": "retweet",
+    "text": "おにぎりたべたい",
+    "userID": "tamano",
+    "time": "2019/06/28 13:40:59",
+    "img": [],
+    "retweetUser": [],
+    "fabUser": [
+        "tamano"
+    ],
+    "originTweetID": {
+        "$oid": "5d15ae0d763834624de38f23"
+    },
+    "parentTweetID": ""
+}
+{
+    "type": "retweet",
+    "text": "おにぎりたべたい",
+    "userID": "tamano",
+    "time": "2019/06/28 13:40:59",
+    "img": [],
+    "retweetUser": [],
+    "fabUser": [
+        "ino",
+        "tamano"
+    ],
+    "originTweetID": {
+        "$oid": "5d15ae0d763834624de38f23"
+    },
+    "parentTweetID": ""
+}

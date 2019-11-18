@@ -7,10 +7,18 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<script>
+// 自ウインドウを警告（確認ダイアログ）なしに閉じる
+function winClose(){
+    open('about:blank', '_self').close();    //一度再表示してからClose
+}
+
 <script type="text/javascript" src="js/assets/test.js"></script>
 <script>
 
@@ -32,8 +40,36 @@ $(function() {
     });
 </script>
 
+
+<script>
+$(function(){
+  $(document).on("click",".tweet",function(){
+    $.ajax({
+      type:'POST',
+      url:  '/api/getTweet',
+      dataType: 'json',
+       headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+        tweetID: '5dc4f7134836b77d5b5be053'
+      },
+      cache: false
+    }).done(function(results){
+        console.log(results["tweet"]);
+    });
+  });
+});
+
+
+</script>
 <body>
+
+
+
 <button class=follower>フォロワー</button>
+<button class=tweet>ツイート</button>
+
 </body>
 
 </html> 

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
+    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data" onclick="this.form.submit();window.close()">
     @csrf
         <div id="wrap">
             <div class="myTweet">
