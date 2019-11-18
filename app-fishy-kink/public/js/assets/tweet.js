@@ -203,7 +203,7 @@ function dispTweets(results) {
         if (typeof tweet["userImg"] !== "undefined") {
             userIcon = tweet["userImg"];
         } else {
-            userIcon = "{{ asset('images/default-icon.jpg') }}";
+            userIcon = defaultIcon;
         }
 
         tweetDocument += `

@@ -152,6 +152,7 @@ button {
 <script type="text/javascript">
   let userID = "";
   let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
@@ -201,6 +202,7 @@ button {
     <div id="centerContents" class="col-sm-6"></div>
     <div id="rightContents" class="col-sm-3"></div>
   </div>
+  
 </body>
 </html>
 
