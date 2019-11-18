@@ -26,10 +26,19 @@
                 },
                 cache: false
                 }).done(function(results) {
-                    // console.log(results["follow"];
                     var follow = results["follow"];
-                    for(i=0;i<follow.length;i++){
-                        document.write(results["follow"][i])
+                    // console.log(follow[0]["userID"]);
+                    $('#list').empty();
+                    for(var i=0;i<follow.length;i++){
+                        followDocument =    `<li>`
+                                        +   `<a onclick="location.href='/profile?user=${follow[i]["userID"]}'">
+                                                <img src="${follow[i]['userImg']}"/></a>`
+                                        +   `<div class="uName">${follow[i]["userName"]}</div>`
+                                        +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follow[i]["userID"]}'">
+                                                <div class=""><span>@</span>${follow[i]["userID"]}</div></button>`
+                                        +   `<div class="profile">${follow[i]["profile"]}</div>`
+                                        +   `</li>`;
+                        $('#list').append(followDocument);
                     }
                 });
             });
@@ -44,7 +53,6 @@
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
-
 
     </script>
 
@@ -116,8 +124,10 @@
     </div>
 
         <!-- フォロー中表示 -->
+    
     <div class="tab_content2" id="follow_content">
-        
+        <ul class =list_none id="list">
+
     </div>
         
     <div>

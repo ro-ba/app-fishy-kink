@@ -141,6 +141,19 @@
   border: 0;
 }
 
+/* ユーザID */
+.btn {
+	/* display: block; */
+  position: relative; 
+  left : 80px;
+  bottom  : 45px;
+	text-align: center;
+	text-decoration: none;
+  color: #347ff0;
+  background: none;
+  border: 0;
+}
+
 /* ユーザ画像円形 */
 img {
   border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
@@ -170,4 +183,10 @@ img {
   font-size: 1.4em;
   padding: 10px 30px;
 
+}
+
+.uName{
+  position: relative ; 
+  left : 40px;
+  bottom  : 22px;
 }

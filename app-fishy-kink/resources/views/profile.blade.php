@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>profile</title>
+<title>myPage</title>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -30,22 +30,15 @@
     display: inline;
   }
 </style>
-
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
 
 <script type="text/javascript">
   let userID = "{{ $userData['userID'] }}";
+  let session = { "userID" :"{{ session('userID') }}"};
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
-
-
 </head>
-<body>
-    <!-- <div id="tweet" class="tweet" style="overflow-y:scroll;"></div> -->
 
-    <!-- <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> -->
-
-</head>
 <body>
 @isset($userData)
 
@@ -101,7 +94,8 @@
     <b>ユーザーが存在しません。</b>
     <button onclick="location.href='/'">戻る</button>
   @endisset
-  </div>
+  </div>               
+</body>
 
 </body>
 </html>

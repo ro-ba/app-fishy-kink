@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="">
     <link rel="shortcut icon" href="">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/signUp.css">
     <link href="https://fonts.googleapis.com/css?family=Caveat|Josefin+Sans|Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Dosis|Inconsolata|Josefin+Sans|Turret+Road&display=swap" rel="stylesheet">
@@ -52,17 +52,25 @@
                         </div>
 
                         <div class="form-group">
-                            @if ($errors->has("password"))
+                            @if ($errors->has("password") or $errors->has("password-again"))
                                 <input class="form-control is-invalid" type="password" name="password" placeholder="password" >
+                                <input class="form-control" type="password" name="password-again" placeholder="Please input your password again."/>
                                 <div class="err-msg">
                                     <ul>
+                                    @if ($errors->has("password"))
                                         @foreach ($errors->get("password") as $error)
-                                        <li> {{ $error }} </li>
+                                            <li> {{ $error }} </li>
                                         @endforeach
+                                    @else
+                                        @foreach ($errors->get("password-again") as $error)
+                                            <li> {{ $error }} </li>
+                                        @endforeach
+                                    @endif
                                     </ul>
                                 </div>
                             @else
-                                <input class="form-control" type="password" name="password" placeholder="password" >
+                                <input class="form-control" type="password" name="password" placeholder="password" />
+                                <input class="form-control" type="password" name="password-again" placeholder="Please input your password again."/>
                                 <small class="form-text text-muted">
                                     <div class="pass-msg">パスワードは4～20文字で英字・数字を両方含む必要があります。</div>
                                 </small>
@@ -70,7 +78,7 @@
                         </div>
                     </div>
 
-                    <input class="signup-submit" type="submit" value="新規登録">
+                    <input class="signup-submit" type="submit" value="新規登録"/>
                 </form>
             </div>
 
