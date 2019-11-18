@@ -2,45 +2,121 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>profile</title>
+<title>myPage</title>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/profile.css">
-<link rel="stylesheet" href="css/loader.css">
+</head>
+<body>
 
-<style>
-  .accordion .inner {
-    display: none;
-  }
 
-  .accordion p {
-    cursor: pointer;
-  }
+        <!-- <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
+    <hr class="bar1">
 
-  .accordion {
-    display: inline;
-  }
-</style>
+    </div>
+    <div class="profile">
+        <p>プロフィール</p>
+           <p>{{ $userData["profile"] }}</p> -->
 
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
-
-<script type="text/javascript">
-  let userID = "{{ $userData['userID'] }}";
-</script>
-<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 
 
 </head>
 <body>
+
     <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
+    
+    
 
     <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
+    
+
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script>
+$(function(){ // 遅延処理
+  setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
+    $.ajax({
+      type: 'POST',
+      url: '/api/reloadTweets',    // url: は読み込むURLを表す
+      dataType: 'json',           // 読み込むデータの種類を記入
+      data: {userID:'{{ $userData["userID"] }}',
+            _token: '{{ csrf_token() }}'
+            },
+      cache: false
+      }).done(function (results) {
+        // 通信成功時の処理          
+        $('#tweet').empty();
+        let tweetType = "";
+
+        results.forEach(function(tweet){
+
+
+          // リツイート 
+          if (tweet["type"] == "retweet") {
+            tweetType = '<div class="retweet-user">リツイート済み</div>';
+          } 
+
+          else {
+            tweetType = ""
+          }        
+          $('#tweet').append(
+                '<div class="tweetTop card-header">'+
+                    '<div class="tweet-user">' +
+                    '</div>' +
+                    tweetType + 
+                    '<a href=/profile?user=' + tweet["userID"] +'>'+
+                        tweet["userID"] +
+                    '</a> '+
+                   '<div class="time">'
+                        + tweet["time"] + 
+                    '</div> '+
+                '</div></div>');
+                $('#tweet').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
+
+          // 画像表示
+          $('#tweet').append('<div style=float:left>');
+          for(var i=0;i<tweet["img"].length;i++){
+            $('#tweet').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
+          }
+          $('#tweet').append('</div><p>');
+          
+          $('#tweet').append('<div class="tweetBottom d-inline">');
+          $('#tweet').append('<button type="button" class="reply">リプライ</button>');             
+          $('#tweet').append('<button type="button" class="retweet">リツーイト</button>');
+          $('#tweet').append('<button type="button" class="good">いいね</button>');
+
+          // $('#centerContents').append('<div class="tweetBottom d-inline">');
+          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
+          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
+          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
+          
+          $('#tweet').append(
+            '<div class="tweetBottom d-inline"> '+
+                '<div class="reply d-inline-block"> '+
+                '<image src="images/reply.jpg"/> '+
+                '</div> '+
+                '<div class="retweet d-inline-block"> '+
+                    '<image src="images/retweet.png"/> '+
+                '</div> '+
+                '<div class="fab d-inline-block"> '+
+                    '<image src="images/fabo.jpg"/> '+
+                '</div> '+
+            '</div>'
+          );                       
+      });
+      // $('#main-contents').text(results);
+      }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+      });
+      return update;
+    }()),1000);
+});
+</script>   
 
 </head>
 <body>
@@ -83,18 +159,16 @@
 
   </div>
   <div class="profile">
-    <p>プロフィール</p>
-        <p>{{ $userData["profile"] }}</p>    
-  </div>      
-  <div class="loader">Loading...</div>
-  <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
-    <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
-  </div>       
+      <p>プロフィール</p>
+          <p>{{ $userData["profile"] }}</p>          
+  <div id="tweet" class="tweet" style=""></div>        
 @else
   <b>ユーザーが存在しません。</b>
   <button onclick="location.href='/'">戻る</button>
+
+  <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> 
+         
+
 @endisset
 </body>
 

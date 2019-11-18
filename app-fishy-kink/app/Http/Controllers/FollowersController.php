@@ -43,7 +43,7 @@ class FollowersController extends Controller
         return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
 
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);               
-            return view("followers",compact("followerData","userProfile")); 
+            return view("followers",compact("followerData","userProfile","follower")); 
        }else{
             foreach($userProfile["follower"] as $followerid){
                 $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
