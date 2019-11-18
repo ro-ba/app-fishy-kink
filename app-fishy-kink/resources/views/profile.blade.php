@@ -23,8 +23,11 @@
         <p>プロフィール</p>
            <p>{{ $userData["profile"] }}</p> -->
 
-           
-    <!-- <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> -->
+
+
+</head>
+<body>
+
     <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
     
     

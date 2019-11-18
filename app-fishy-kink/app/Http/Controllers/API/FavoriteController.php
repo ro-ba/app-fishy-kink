@@ -7,8 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-
-class ReTweetChangeController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,43 +29,34 @@ class ReTweetChangeController extends Controller
     {
         $db = connect_mongo();
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
-        $userID = $request->input("userID");
-        $originalTweetID = $db["tweetDB"] -> findOne(["_id" => $tweetID])["originTweetID"];
-        //リツイート削除時の挙動がおかしい
-        if (empty($originalTweetID)){
+        $userID = session('userID');
+        $return = "";
+        $time = date("Y/m/d H:i:s");
+        $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
+        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["favoUser"];
+        if (empty($db["tweetDB"]->findOne(["_id" => $tweetID]))){
             $return = "error";
         }else{
-            $reTweetlist = (array)$db["tweetDB"] ->findOne(["_id" => $originalTweetID])["retweetUser"];
-            $return = "";
-            if (in_array($userID,$reTweetlist)){    //もし、すでにリツイートしていればリストから削除する
+            if (in_array($userID, $fablist)) {    //もし、すでにファボしていればリストから削除する
                 //削除
-                $reTweetlist = array_diff($reTweetlist,(array)$userID);
+                $fablist = array_diff($fablist, (array) $userID);
                 //indexを詰める
-                $reTweetlist = array_values($reTweetlist);
-
-                $db["tweetDB"] ->deleteOne([
-                    "type"          => "retweet",
-                    "userID"        => session("userID"),
-                    "originTweetID" => $originalTweetID
-                    ]);
-
+                $fablist = array_values($fablist);
+                $db["notifyDB"]->deleteMany(["tweetID" => $tweetID]);
                 $return = "delete";
             } else {
                 //追加
-                array_push($reTweetlist,$userID);
-
-                $db["tweetDB"] -> insertOne([
-                    "type"          => "retweet",
-                    "userID"        => session('userID'),
-                    "time"          => date("Y/m/d H:i:s"),
-                    "originTweetID" => $originalTweetID,
-                    "parentTweetID" => ""
-                    ]); 
-
+                array_push($fablist, $userID);
+                $db["notifyDB"] -> insertOne([
+                    "userID" => $db["tweetDB"] -> findOne(["_id" => $tweetID])["userID"],
+                    "tweetID" => $tweetID,
+                    "text" => $name .= "さんがいいね！しました。",
+                    "time" => $time
+                ]);
                 $return = "add";
             };
             //更新
-            $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["retweetUser" => $reTweetlist]]);
+            $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["favoUser" => $fablist]]);
         }
         return ["message" => $return];
     }

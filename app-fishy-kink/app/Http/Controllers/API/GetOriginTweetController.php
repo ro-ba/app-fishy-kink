@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class FabChangeController extends Controller
+class GetOriginTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,28 +28,9 @@ class FabChangeController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
-        $userID = $request->input("userID");
-        $return = "";
-        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
-        if (empty($db["tweetDB"]->findOne(["_id" => $tweetID]))){
-            $return = "error";
-        }else{
-            if (in_array($userID, $fablist)) {    //もし、すでにファボしていればリストから削除する
-                //削除
-                $fablist = array_diff($fablist, (array) $userID);
-                //indexを詰める
-                $fablist = array_values($fablist);
-                $return = "delete";
-            } else {
-                //追加
-                array_push($fablist, $userID);
-                $return = "add";
-            };
-            //更新
-            $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["fabUser" => $fablist]]);
-        }
-        return ["message" => $return];
+        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID")['$oid']);
+        $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+        return ["tweet"=> $tweet];
     }
 
     /**

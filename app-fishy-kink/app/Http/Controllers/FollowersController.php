@@ -25,6 +25,23 @@ class FollowersController extends Controller
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
         // dd($userProfile["follower"][0]);
        if(count($userProfile["follower"]) == 1){
+
+            $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);
+            $followerID = $follower["userID"];
+            $followerPro = $follower["profile"];      
+            $followerName = $follower["userName"]; 
+            $followerImg = $follower["userImg"];     
+            return view("followers",compact("followerData","followerPro","followerName","followerImg","followerID","userProfile")); 
+       }else{
+        foreach($userProfile["follower"] as $followerid){
+
+            $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
+            $followerPro[] = $follower["profile"];      
+            $followerName[] = $follower["userName"]; 
+            $followerImg[] = $follower["userImg"];     
+        }
+        return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
+
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);               
             return view("followers",compact("followerData","userProfile","follower")); 
        }else{
@@ -35,6 +52,7 @@ class FollowersController extends Controller
                 $followerImg[] = $follower["userImg"];     
         }
             return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
+
        }
     }
 
