@@ -7,164 +7,96 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/profile.css"> -->
 <link rel="stylesheet" type="text/css" href="css/profile.css">
+<link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+<link rel="stylesheet" href="css/loader.css">
+
+<style>
+  .accordion .inner {
+    display: none;
+  }
+
+  .accordion p {
+    cursor: pointer;
+  }
+
+  .accordion {
+    display: inline;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
+
+<script type="text/javascript">
+  let userID = "{{ $userData['userID'] }}";
+  let session = { "userID" :"{{ session('userID') }}"};
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 </head>
-<body>
 
-
-        <!-- <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
-    <hr class="bar1">
-
-    </div>
-    <div class="profile">
-        <p>プロフィール</p>
-           <p>{{ $userData["profile"] }}</p> -->
-
-</head>
-<body>
-
-    <div id="tweet" class="tweet" style="overflow-y:scroll;"></div>
-    <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div>
-    
-
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-<script>
-$(function(){ // 遅延処理
-  setInterval((function update(){ //1000ミリ秒ごとにupdateという関数を実行する
-    $.ajax({
-      type: 'POST',
-      url: '/api/reloadTweets',    // url: は読み込むURLを表す
-      dataType: 'json',           // 読み込むデータの種類を記入
-      data: {userID:'{{ $userData["userID"] }}',
-            _token: '{{ csrf_token() }}'
-            },
-      cache: false
-      }).done(function (results) {
-        // 通信成功時の処理          
-        $('#tweet').empty();
-        let tweetType = "";
-
-        results.forEach(function(tweet){
-
-
-          // リツイート 
-          if (tweet["type"] == "retweet") {
-            tweetType = '<div class="retweet-user">リツイート済み</div>';
-          } 
-
-          else {
-            tweetType = ""
-          }        
-          $('#tweet').append(
-                '<div class="tweetTop card-header">'+
-                    '<div class="tweet-user">' +
-                    '</div>' +
-                    tweetType + 
-                    '<a href=/profile?user=' + tweet["userID"] +'>'+
-                        tweet["userID"] +
-                    '</a> '+
-                   '<div class="time">'
-                        + tweet["time"] + 
-                    '</div> '+
-                '</div></div>');
-                $('#tweet').append('<div class="tweetMain card-body">'+ tweet["text"] + '</div>');
-
-          // 画像表示
-          $('#tweet').append('<div style=float:left>');
-          for(var i=0;i<tweet["img"].length;i++){
-            $('#tweet').append('<img src="' + tweet["img"][i] + '"width="200" height="150" />');
-          }
-          $('#tweet').append('</div><p>');
-          
-          $('#tweet').append('<div class="tweetBottom d-inline">');
-          $('#tweet').append('<button type="button" class="reply">リプライ</button>');             
-          $('#tweet').append('<button type="button" class="retweet">リツーイト</button>');
-          $('#tweet').append('<button type="button" class="good">いいね</button>');
-
-          // $('#centerContents').append('<div class="tweetBottom d-inline">');
-          // $('#centerContents').append('<div class="reply d-inline-block"><image src="images/reply.jpg"/></div>');                          
-          // $('#centerContents').append('<div class="retweet d-inline-block"><image src="images/retweet.png"/></div>');
-          // $('#centerContents').append('<div class="fab d-inline-block"><image src="images/fabo.jpg"/></div></div>');
-          
-          $('#tweet').append(
-            '<div class="tweetBottom d-inline"> '+
-                '<div class="reply d-inline-block"> '+
-                '<image src="images/reply.jpg"/> '+
-                '</div> '+
-                '<div class="retweet d-inline-block"> '+
-                    '<image src="images/retweet.png"/> '+
-                '</div> '+
-                '<div class="fab d-inline-block"> '+
-                    '<image src="images/fabo.jpg"/> '+
-                '</div> '+
-            '</div>'
-          );                       
-      });
-      // $('#main-contents').text(results);
-      }).fail(function (err) {
-        // 通信失敗時の処理
-        alert('ファイルの取得に失敗しました。');
-      });
-      return update;
-    }()),1000);
-});
-</script>   
-
-</head>
 <body>
 @isset($userData)
-  <div class = "userBar">
-      <div class="userData">
-          <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-          <p id="usenName">{{ $userData["userName"] }}</p>
-          <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
+
+    <div class="profile">
+      <div id=wrap>
+
+
+        <div class="image">
+          <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+        </div>
+
+        <ul class="user">
+              <li class="user-name">{{ $userData["userName"] }}</li>
+            @if($isShowSettings)
+              <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
+            @endif
+        </ul>
+
+        <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
+             
+        <ul class="follows">
+            @isset ($userData["follow"])
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
+            @else
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+            @endisset
+            
+            @isset ($userData["follower"]) 
+                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
+            @else
+                <li class="follow"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+                <li class="follower">フォロワー<span></span>0人</li>
+            @endisset
+
+            <li><button class="btn-real-dent" onclick="location.href='/'">戻る</button></li>
+        <ul>
+
       </div>
-      @isset ($userData["follow"])
-          <button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '" class="follow">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button>
-      @else
-          <button type="button" onclick="location.href='/following?user={{$userData['userID'] }}'">フォロー<span class="follow"></span>0人</button>
-      @endisset
-      
-      @isset ($userData["follower"]) 
-          <button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'" class="follower">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button>
-      @else
-          <button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロー<span class="follower"></span>0人</button>
-          <p class="follower">フォロワー<span></span>0人</p>
-      @endisset
 
-      @if($isShowSettings)
-        <input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" />
-      @endif
+    <div class="my-profile"> 
+      <p class="pro-content">{{ $userData["profile"] }}</p>    
+    </div>
 
-  <hr class="bar1"/>
-  <hr class="bar2"/>
-  <!-- <hr class="bar3"/>
-  <hr class="h1">  -->
+    <hr />
 
-    <button class="btn-real-dent" onclick="location.href='/'">戻る
-    <i class="fa fa=home"></i>
-    </button>
+    <div class="loader"></div>
 
-     
-</a>
-
-
-  </div>
-  <div class="profile">
-      <p>プロフィール</p>
-          <p>{{ $userData["profile"] }}</p>          
-  <div id="tweet" class="tweet" style=""></div>        
-@else
-  <b>ユーザーが存在しません。</b>
-  <button onclick="location.href='/'">戻る</button>
-
-  <div id="tweet" class="tweet" style="height:600px; width:100%; overflow-y:scroll;"></div> 
-         
-
-@endisset
+    <div class="row tweets">
+      <div id="leftContents" class="col-sm-3"></div>
+      <div id="centerContents" class="col-sm-6"></div>
+      <div id="rightContents" class="col-sm-3"></div>
+    </div>       
+  @else
+    <b>ユーザーが存在しません。</b>
+    <button onclick="location.href='/'">戻る</button>
+  @endisset
+  </div>               
 </body>
 
+</body>
 </html>
