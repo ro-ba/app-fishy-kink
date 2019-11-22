@@ -52,6 +52,11 @@
 
         <ul class="user">
               <li class="user-name">{{ $userData["userName"] }}</li>
+            @if($nowFollow == False)
+              <input type="button" class="nowFollow"><button type="button"  onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォローする</button></li>
+            @else
+              <input type="button" class="nowFollow"><button type="button"  onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロー中</button></li>
+            @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
             @endif
@@ -61,15 +66,15 @@
              
         <ul class="follows">
             @isset ($userData["follow"])
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData[`userID`] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData[`userID`] }}'">フォロー<span></span>0人</button></li>
             @endisset
             
             @isset ($userData["follower"]) 
-                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
+                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロー<span></span>0人</button></li>
                 <li class="follower">フォロワー<span></span>0人</li>
             @endisset
 
@@ -92,7 +97,7 @@
       <div id="rightContents" class="col-sm-3"></div>
     </div>       
   @else
-    <b>ユーザーが存在しません。</b>
+    <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
   </div>               

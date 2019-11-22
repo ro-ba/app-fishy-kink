@@ -21,14 +21,19 @@ class ProfileController extends Controller
         }
         $FishyKink = connect_mongo();
         $id = $request->input("user");
+        $sessionUser = session("userID");
         $isShowSettings = False;
-        if (is_null($id) or $id == session("userID") ){
-            $id = session("userID");
+        if (is_null($id) or $id == $sessionUser ){
+            $id =  $sessionUser;
             $isShowSettings = True;
         }
         $userData = $FishyKink["userDB"]->findOne(["userID" =>  $id]);
+        $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id]);
+        if(empty($nowFollow)){
+            $nowFollow = False;
+        }
         $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
-        return view("profile",compact("userData","tweetData","isShowSettings"));
+        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow"));
     }
 
     /**
@@ -49,7 +54,16 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id = $request->input("user");
+        $sessionUser = session("userID");
+        $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id]);
+        if(empty($nowFollow)){
+           $FishyKink["userDB"]->updateOne(["userID"=>$sessionUser],['$set' => ["follow" => $id]]);
+           $FishyKink["userDB"]->updateOne(["userID"=>$id],['$set' => ["follower" => $sessionUser]]);
+        }else{
+            
+        }
+        
     }
 
     /**
