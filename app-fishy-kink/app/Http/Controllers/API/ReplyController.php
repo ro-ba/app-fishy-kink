@@ -59,7 +59,8 @@ class ReplyController extends Controller
             "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
             "tweetID" => $tweetID,
             "text" => $name .= "さんがリプライしました。",
-            "time" => $time
+            "time" => $time,
+            "readFlag" => False
         ]);
         return ["message" => ];
 

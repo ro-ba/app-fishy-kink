@@ -19,11 +19,13 @@ class HomeController extends Controller
     public function index()
     {
         if(session('userID')){
+            $id = session("userID");
             $data = connect_mongo();
             $userData = $data["userDB"]->findOne(["userID" =>  session('userID')]);
             $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
             $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            return view("home",compact("tweets","userIcon"));
+            $count = $data["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
+            return view("home",compact("tweets","userIcon","count"));
         }else{
             return redirect("login");
         };

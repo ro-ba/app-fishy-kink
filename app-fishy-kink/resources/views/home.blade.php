@@ -32,6 +32,17 @@
       display: inline;
     }
 
+    .readCount{
+      z-index: 3;
+      position: absolute;
+      color: red;/*文字は白に*/
+      font-weight: bold; /*太字に*/
+      font-size: 0.7em;/*サイズ2倍*/
+      font-family :Quicksand, sans-serif;/*Google Font*/
+      top: 60%;
+      left: 80%;
+    }
+
 
 /** 駒月が追加 **/
     /* モーダルCSS */
@@ -179,7 +190,7 @@ button {
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知</button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount">{{ $count }}</p></button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
