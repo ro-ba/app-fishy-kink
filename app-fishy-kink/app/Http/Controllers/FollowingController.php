@@ -20,7 +20,6 @@ class FollowingController extends Controller
         $FishyKink = connect_mongo();
         $followingData = dbUser($FishyKink,$id);
         $userId = $request -> input("user");
-        // dd($userId);
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
 
         if(count($userProfile["follow"])==1){
