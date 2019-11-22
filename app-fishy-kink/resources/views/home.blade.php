@@ -44,6 +44,10 @@ body {
 
 
 /* モーダルCSSここから */
+/* .modalContents{
+  visibility: hidden;
+} */
+
 .modalArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -172,11 +176,6 @@ button {
 </head>
 
 <body>
-
-
-<button id="openModal">Open modal</button>
-
-
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -192,10 +191,31 @@ button {
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
+
+
   <div id="alertContents"></div>
+
+
+<!-- りぷらい -->
+<div id="modalContents"></div>
+  <section id="modalArea1" class="modalArea1">
+    <div id="modalBg1" class="modalBg1"></div>
+    <div class="modalWrapper1">
+      <div class="modalContents1">
+        <div id="parentTweet"></div>
+        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <button id="replySend">送信</button>
+        <div id="closeModal1" class="closeModal1">
+          × 
+        </div>
+    </div>
+  </section>
+<div>
+
+
   <div class="loader">Loading...</div>
   <div class="row tweets">
     <div id="leftContents" class="col-sm-3"></div>
@@ -205,6 +225,7 @@ button {
   
 </body>
 </html>
+
 
 <!-- モーダルエリアここから (駒月が追加) -->
 <section id="modalArea" class="modalArea">
@@ -228,7 +249,8 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <input class="newTweet" method="POST" type="submit" value="tweet" />   
+                    <!-- <input class="newTweet" method="POST" type="submit" value="tweet" />    -->
+                    <button class="newTweer" id="newTweet">tweet</button>
                 </div>
             </div>
 
@@ -245,29 +267,15 @@ button {
   </div>
 </section>
 <!-- モーダルエリアここまで -->
-
-<!-- モーダルエリアここから (駒月が追加) -->
-<section id="modalArea1" class="modalArea1">
-  <div id="modalBg1" class="modalBg1"></div>
-  <div class="modalWrapper1">
-    <div class="modalContents1">
-    <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
-    <div id="closeModal1" class="closeModal1">
-      ×
-    </div>
-  </div>
-</section>
-<!-- モーダルエリアここから (駒月が追加) -->
-
 <script>
 /******************************************************************* ツイート画面の表示 *******************************************************************/
-$(function () {
-
+(function () {
       const modalArea = document.getElementById('modalArea');
-      const openModal = document.getElementById('qqqq');
+      const openModal = document.getElementById('tweet');
       const closeModal = document.getElementById('closeModal');
       const modalBg = document.getElementById('modalBg');
-      const toggle = [openModal,closeModal,modalBg];
+      const sendButton = document.getElementById('newTweet');
+      const toggle = [openModal,closeModal,modalBg , sendButton];
   
       for(let i=0, len=toggle.length ; i<len ; i++){
         toggle[i].addEventListener('click',function(){
@@ -276,20 +284,18 @@ $(function () {
       }
     }());
 </script>
-
+/******************************************************************* ツイート時に選択した画像表示 *******************************************************************/
 <script>
-  $(function () {
-  const modalArea = document.getElementById('modalArea1');
-  const openModal = document.getElementById('openModal');
-  const closeModal = document.getElementById('closeModal1');
-  const modalBg = document.getElementById('modalBg1');
-  const toggle = [openModal,closeModal,modalBg];
-  
-  for(let i=0, len=toggle.length ; i<len ; i++){
-    toggle[i].addEventListener('click',function(){
-      modalArea.classList.toggle('is-show1');
-    },false);
-  }
-}());
+    function loadImage(obj){
+        document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
+        for (i = 0; i < 4; i++) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = (function (e) {
+                document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
+            });
+            fileReader.readAsDataURL(obj.files[i]);
+        }
+    }
 </script>
 

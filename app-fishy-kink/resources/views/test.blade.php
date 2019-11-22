@@ -18,6 +18,7 @@
 function winClose(){
     open('about:blank', '_self').close();    //一度再表示してからClose
 }
+</script>
 
 <script type="text/javascript" src="js/assets/test.js"></script>
 <script>
@@ -39,7 +40,6 @@ $(function() {
       });
     });
 </script>
-
 
 <script>
 $(function(){
@@ -64,8 +64,6 @@ $(function(){
 
 </script>
 <body>
-
-
 
 <button class=follower>フォロワー</button>
 <button class=tweet>ツイート</button>
