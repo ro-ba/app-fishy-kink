@@ -62,7 +62,6 @@ $(function () { // 遅延処理
 
         dispTweets(result);
         tweetCount = results.length;
-        console.log("初期のツイートの数　" + result.length);
 
     }).fail(function (err) {
         // 通信失敗時の処理
@@ -91,8 +90,6 @@ $(function () { // 遅延処理
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                     '<a href="#" class="alert-link">新しいツイート</a>' +
                     '</div>';
-                console.log("本家のツイートの数　" + results.length);
-                console.log("保持しているツイートの数　" + tweetCount);
             }
         }).fail(function (err) {
             // 通信失敗時の処理
@@ -214,7 +211,7 @@ function dispTweets(results) {
         </div>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
-            <a href=/profile?user=' + ${tweet["userID"]} + '>
+            <a href=/profile?user=${tweet["userID"]}>
             ${tweet["userID"]}
             </a>
         </div>
@@ -302,8 +299,7 @@ $(function () { // 遅延処理
             $("#alert").remove();
             tweetCount = results.length;
 
-            console.log("本家のツイートの数　" + results.length);
-            console.log("保持しているツイートの数　" + tweetCount);
+
 
         }).fail(function (err) {
             // 通信失敗時の処理
