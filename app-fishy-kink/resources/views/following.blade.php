@@ -26,18 +26,20 @@
                 }).done(function(results) {
                     var follower = results["follower"];
                     $('#list').empty();
-                    for(var i=0;i<follower.length;i++){
-                        followDocument =    `<ul class=list_none>`   
-                                        +    `<li>`
-                                        +   `<a onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                <img src="${follower[i]['userImg']}"/></a>`
-                                        +   `<div class="uName">${follower[i]["userName"]}</div>`
-                                        +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                <div class=""><span>@</span>${follower[i]["userID"]}</div></button>`
-                                        +   `<div class="profile">${follower[i]["profile"]}</div>`
-                                        +   `</li>`
-                                        +   `</ul>`;
-                        $('#list').append(followDocument);
+                    if(follower != ""){
+                        for(var i=0;i<follower.length;i++){
+                            followDocument =    `<ul class=list_none>`   
+                                            +    `<li>`
+                                            +   `<a onclick="location.href='/profile?user=${follower[i]["userID"]}'">
+                                                    <img src="${follower[i]['userImg']}"/></a>`
+                                            +   `<div class="uName">${follower[i]["userName"]}</div>`
+                                            +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follower[i]["userID"]}'">
+                                                    <div class=""><span>@</span>${follower[i]["userID"]}</div></button>`
+                                            +   `<div class="profile">${follower[i]["profile"]}</div>`
+                                            +   `</li>`
+                                            +   `</ul>`;
+                            $('#list').append(followDocument);
+                        }
                     }
                 });
             });
@@ -58,7 +60,7 @@
 <body>
         <div class="tabs">
         <input id="follower" type="radio" name="tab_item" checked>
-        <label class="tab_item1" for="follower">フォロー</label>
+        <label class="tab_item1" for="follower">フォロワー</label>
 
         <input id="follow" type="radio" name="tab_item" checked>
         <label class="tab_item2" for="follow">フォロー中</label>

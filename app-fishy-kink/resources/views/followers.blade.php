@@ -27,18 +27,20 @@
                 }).done(function(results) {
                     var follow = results["follow"];
                     $('#list').empty();
-                    for(var i=0;i<follow.length;i++){
-                        followDocument =    `<ul class=list_none>`   
-                                        +    `<li>`
-                                        +   `<a onclick="location.href='/profile?user=${follow[i]["userID"]}'">
-                                                <img src="${follow[i]['userImg']}"/></a>`
-                                        +   `<div class="uName">${follow[i]["userName"]}</div>`
-                                        +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follow[i]["userID"]}'">
-                                                <div class=""><span>@</span>${follow[i]["userID"]}</div></button>`
-                                        +   `<div class="profile">${follow[i]["profile"]}</div>`
-                                        +   `</li>`
-                                        +   `</ul>`;
-                        $('#list').append(followDocument);
+                    if(follow != ""){
+                        for(var i=0;i<follow.length;i++){
+                            followDocument =    `<ul class=list_none>`   
+                                            +    `<li>`
+                                            +   `<a onclick="location.href='/profile?user=${follow[i]["userID"]}'">
+                                                    <img src="${follow[i]['userImg']}"/></a>`
+                                            +   `<div class="uName">${follow[i]["userName"]}</div>`
+                                            +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follow[i]["userID"]}'">
+                                                    <div class=""><span>@</span>${follow[i]["userID"]}</div></button>`
+                                            +   `<div class="profile">${follow[i]["profile"]}</div>`
+                                            +   `</li>`
+                                            +   `</ul>`;
+                            $('#list').append(followDocument);
+                        }
                     }
                 });
             });
