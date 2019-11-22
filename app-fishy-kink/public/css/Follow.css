@@ -68,11 +68,10 @@
     
   }
 
-  /*選択されているタブのコンテンツのみを表示*/
-
-#follower:checked ~ #follower_content,
-#follower:checked ~ #followerS_content,
-#follow:checked ~ #follow_content {
+/*選択されているタブのコンテンツのみを表示*/
+#follow:checked ~ #follow_content,
+#follow:checked ~ #follow_content,
+#follower:checked ~ #followerS_content {
   display: block;
 }
 
@@ -160,8 +159,3 @@ img {
   bottom  : 42px;
 }
 
-.Img{
-  position: relative ; 
-  left : 0px;
- 
-}
