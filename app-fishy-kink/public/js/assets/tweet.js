@@ -60,6 +60,7 @@ $(function () { // 遅延処理
         // 通信成功時の処理
 
         result = results;
+        console.log("えええええええ");
 
         dispTweets(result);
         replyButton = document.getElementById('reply');
@@ -368,7 +369,9 @@ $(function () {
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 (function () {
     setTimeout(function () {
+        console.log("rrrrrrrr");
         const modalArea = document.getElementById('modalArea1');
+        
         const closeModal = document.getElementById('closeModal1');
         const modalBg = document.getElementById('modalBg1');
         const sendButton = document.getElementById('replySend');
@@ -380,4 +383,17 @@ $(function () {
         }
     }, 1000);
 }());
+
+/******************************************************************* ツイート時の画像表示 *******************************************************************/
+function loadImage(obj){
+    document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
+    for (i = 0; i < 4; i++) {
+        var fileReader = new FileReader();
+
+        fileReader.onload = (function (e) {
+            document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
+        });
+        fileReader.readAsDataURL(obj.files[i]);
+    }
+}
 
