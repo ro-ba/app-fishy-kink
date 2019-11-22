@@ -69,7 +69,8 @@ class ReTweetController extends Controller
                     "userID" => $targetUser,
                     "tweetID" => $tweetID,
                     "text" => $name .= "さんがリツイートしました。",
-                    "time" => $time
+                    "time" => $time,
+                    "readFlag" => False
                 ]);
                 $return = "add";
             };

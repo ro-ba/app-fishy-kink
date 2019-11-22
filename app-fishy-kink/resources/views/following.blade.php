@@ -12,7 +12,7 @@
 
     <script>
         window.onload = function(){
-            $(document).on('click','.tab_item2',function(){
+            $(document).on('click','.tab_item1',function(){
                 $.ajax({
                 type: 'POST',
                 url: '/api/getFollower',
@@ -25,7 +25,6 @@
                 cache: false
                 }).done(function(results) {
                     var follower = results["follower"];
-                    // console.log(follow[0]["userID"]);
                     $('#list').empty();
                     for(var i=0;i<follower.length;i++){
                         followDocument =    `<ul class=list_none>`   
@@ -58,11 +57,11 @@
 </head>
 <body>
         <div class="tabs">
-        <input id="follow" type="radio" name="tab_item" checked>
-        <label class="tab_item1" for="follow">フォロー中</label>
-
         <input id="follower" type="radio" name="tab_item" checked>
-        <label class="tab_item2" for="follower">フォロワー</label>
+        <label class="tab_item1" for="follower">フォロー</label>
+
+        <input id="follow" type="radio" name="tab_item" checked>
+        <label class="tab_item2" for="follow">フォロー中</label>
       
 <!-- フォロー中表示 -->
     <div class="tab_content2" id="follow_content">
@@ -106,10 +105,9 @@
         </ul>
     </div>
 
-
     <div>
         <button  class="btn-square" type="button" onclick="location.href='/profile?user{{$_GET['user']}}'">戻る</button>
     </div>  
-
+    
 </body>
 </html>

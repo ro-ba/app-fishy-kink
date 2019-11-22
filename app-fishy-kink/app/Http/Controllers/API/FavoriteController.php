@@ -51,7 +51,8 @@ class FavoriteController extends Controller
                     "userID" => $db["tweetDB"] -> findOne(["_id" => $tweetID])["userID"],
                     "tweetID" => $tweetID,
                     "text" => $name .= "さんがいいね！しました。",
-                    "time" => $time
+                    "time" => $time,
+                    "readFlag" => False
                 ]);
                 $return = "add";
             };

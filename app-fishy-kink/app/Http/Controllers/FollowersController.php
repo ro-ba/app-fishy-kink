@@ -19,19 +19,10 @@ class FollowersController extends Controller
         $id = session("userID");
         $FishyKink = connect_mongo();
         $followerData = dbUser($FishyKink,$id);
-        // dd($userId);
         $userId = $request -> input("user");
        
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
-        // dd($userProfile["follower"][0]);
-    //    if(count($userProfile["follower"]) == 1){
-    //         $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);
-    //         $followerID = $follower["userID"];
-    //         $followerPro = $follower["profile"];      
-    //         $followerName = $follower["userName"]; 
-    //         $followerImg = $follower["userImg"];     
-    //         return view("followers",compact("followerData","followerPro","followerName","followerImg","followerID","userProfile")); 
-    //    }else
+       
         if(count($userProfile["follower"])==1){
             $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);               
             return view("followers",compact("followerData","userProfile","follower")); 
