@@ -29,8 +29,13 @@ class GetFollowerController extends Controller
     {
         $db = connect_mongo();
         $userID = $request->input("userID");
-        $followerList = $db["userDB"]->findOne(["userID" => $userID])["follower"];
-        return ["follower"=> $followerList];
+        $users = [];
+        $followerList = $db["userDB"]->findOne(["userID" => $userID]);
+        foreach($followerList["follower"] as $follower){
+            $users[] = $db["userDB"]->findOne(["userID" => $follower]);
+            // $users = $db["userDB"]->findOne(["userID" => $follow]);
+        }
+        return ["follower"=> $users];
     }
 
     /**

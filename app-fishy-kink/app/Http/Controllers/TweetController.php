@@ -61,7 +61,7 @@ class TweetController extends Controller
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
-            "fabUser"       => [],
+            "favoUser"       => [],
             "originTweetID" => "",
             "parentTweetID" => "",
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]

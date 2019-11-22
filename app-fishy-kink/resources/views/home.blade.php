@@ -155,6 +155,8 @@ button {
 
 <script type="text/javascript">
   let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
@@ -220,6 +222,7 @@ button {
     <div id="centerContents" class="col-sm-6"></div>
     <div id="rightContents" class="col-sm-3"></div>
   </div>
+  
 </body>
 </html>
 
@@ -281,10 +284,9 @@ button {
       }
     }());
 </script>
-
+/******************************************************************* ツイート時に選択した画像表示 *******************************************************************/
 <script>
-    function loadImage(obj)
-    {
+    function loadImage(obj){
         document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
         for (i = 0; i < 4; i++) {
             var fileReader = new FileReader();
@@ -296,6 +298,4 @@ button {
         }
     }
 </script>
-
-
 

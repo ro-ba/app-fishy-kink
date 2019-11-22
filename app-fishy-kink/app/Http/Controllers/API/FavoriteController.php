@@ -31,7 +31,9 @@ class FavoriteController extends Controller
         $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID"));
         $userID = session('userID');
         $return = "";
-        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["fabUser"];
+        $time = date("Y/m/d H:i:s");
+        $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
+        $fablist = (array) $db["tweetDB"]->findOne(["_id" => $tweetID])["favoUser"];
         if (empty($db["tweetDB"]->findOne(["_id" => $tweetID]))){
             $return = "error";
         }else{
@@ -40,14 +42,21 @@ class FavoriteController extends Controller
                 $fablist = array_diff($fablist, (array) $userID);
                 //indexを詰める
                 $fablist = array_values($fablist);
+                $db["notifyDB"]->deleteMany(["tweetID" => $tweetID]);
                 $return = "delete";
             } else {
                 //追加
                 array_push($fablist, $userID);
+                $db["notifyDB"] -> insertOne([
+                    "userID" => $db["tweetDB"] -> findOne(["_id" => $tweetID])["userID"],
+                    "tweetID" => $tweetID,
+                    "text" => $name .= "さんがいいね！しました。",
+                    "time" => $time
+                ]);
                 $return = "add";
             };
             //更新
-            $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["fabUser" => $fablist]]);
+            $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["favoUser" => $fablist]]);
         }
         return ["message" => $return];
     }

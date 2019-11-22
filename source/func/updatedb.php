@@ -20,6 +20,7 @@ function main (){
         if ( $tweet["type"] == "tweet" && $tweet["originTweetID"] == ""){
             $db["tweetDB"] -> updateOne(["_id" => $tweet["_id"]],['$set'=>["originTweetID" => $tweet["_id"]]]);
         }
+        $db["tweetDB"] -> updateMany([],['$rename' =>["fabUser" => "favoUser"]]);
     }
 }
 

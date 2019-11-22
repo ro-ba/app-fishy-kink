@@ -1,25 +1,19 @@
 <?php
-/*
-    入力されたuserIDをDBと照合して、既に存在していればFalse,存在しなければTrueを返す
-*/
 
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class UserExists implements Rule
+class IsEqualToString implements Rule
 {
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-
-    protected $data = [];
-
-    public function __construct(array &$data)
+    public function __construct(String $value)
     {
-        $this->data = $data;
+        $this->str = $value;
     }
 
     /**
@@ -31,10 +25,11 @@ class UserExists implements Rule
      */
     public function passes($attribute, $value)
     {
-        if($this -> data["userDB"]->findOne(["userID" => $value])){
+        if ($this->str == $value){
+            return true;
+        }else{
             return false;
         }
-        return true;
     }
 
     /**
@@ -44,6 +39,6 @@ class UserExists implements Rule
      */
     public function message()
     {
-        return 'このIDは使われています。';
+        return 'パスワードが一致していません。';
     }
 }
