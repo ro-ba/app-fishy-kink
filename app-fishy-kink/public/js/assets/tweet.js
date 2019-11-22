@@ -1,5 +1,6 @@
 var result;
 var tweetCount;
+var replyButton;
 
 /******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
 function getTweet(tweetID) {
@@ -61,8 +62,9 @@ $(function () { // 遅延処理
         result = results;
 
         dispTweets(result);
+        replyButton = document.getElementById('reply');
         tweetCount = results.length;
-        console.log("初期のツイートの数　" + result.length);
+
 
     }).fail(function (err) {
         // 通信失敗時の処理
@@ -137,6 +139,8 @@ $(function () {
     $("#centerContents").on('click', ".normalReTweet", function () {
         // var tweetid = $("#centerContents > #tweetID").val();
         var tweetid = $(this).parents("").siblings("#tweetID").val();
+        console.log(tweetid);
+        console.log(this);
         var push_button = this;
         $.ajax({
             type: 'POST',
@@ -152,6 +156,7 @@ $(function () {
         }).done(function (results) {
             //アコーディオンを閉じる処理
             $(push_button).parents(".inner").slideToggle();
+            console.log(push_button);
 
             if (results["message"] == "add") {
                 $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
@@ -183,7 +188,7 @@ function dispTweets(results) {
 
         tweetDocument = "";
 
-        tweetDocument += '<div class="tweet card">';
+        tweetDocument += '<div class="tweet card" id="tweet">';
 
         if (tweet["type"] == "retweet") {
             tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
@@ -232,7 +237,7 @@ function dispTweets(results) {
     <div class="tweetBottom d-inline">`;
 
         //リプライ
-        tweetDocument += '<button class=reply type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+        tweetDocument += '<button class="reply" id="reply" type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
         //リツイート
         iconColor = "";
@@ -275,6 +280,21 @@ function dispTweets(results) {
         tweetDocument += '</div>';
 
         $('#centerContents').append(tweetDocument);
+
+        // let modalReplyDocument;
+        // modalReplyDocument = '<section id="modalArea1" class="modalArea1"> ' +
+        // '<div id="modalBg1" class="modalBg1"></div>' +
+        // '<div class="modalWrapper1">' +
+        // '<div class="modalContents1">' + 
+        //     '<textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>' +
+        //     '<div id="closeModal1" class="closeModal1">' + 
+        //     ' × ' +
+        //     '</div>'
+        //     '</div>'
+        // '</section>';
+
+        // document.getElementById('modalContents').innerHTML = modalReplyDocument;
+
         $('.loader').fadeOut();
     });
 }
@@ -319,16 +339,63 @@ $(function () {
     });
 });
 
-// /******************************************************************* 別タブで表示 *******************************************************************/
-// function open1() {
-//     var w = (screen.width - 600) / 2;
-//     var h = (screen.height - 600) / 2;
-//     window.open("/tweet", "hoge", "width=600, height=500" + ",left=" + w + ",top=" + h + ",directions=0 , location=0  , menubar=0 , scrollbars=0 , status=0 , toolbar=0 , resizable=0");
+
+$(function(){
+    $("#centerContents").on("click",".reply",function(){
+        var tweetid = $(this).parents().siblings("#tweetID").val();
+        replyButton = this;
+        // console.log(replyButton);
+        $.ajax({
+            type:'POST',
+            url:  '/api/getTweet',
+            dataType: 'json',
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{
+            tweetID: tweetid,
+        },
+            cache: false
+      }).done(function(results){
+            var selectTweet = results["tweet"]
+            document.getElementById('parentTweet').innerHTML =  '<div>' + selectTweet["userID"] + '</div>' +
+                                                                '<div>' + selectTweet["time"] + '</div>' +
+                                                                '<div>' + selectTweet["text"] + '</div>';
+            // reply(replyButton);
+      });
+  });
+});
+
+
+// function reply(replyButton){
+//     (function () {
+//         setTimeout(function(){
+//             const modalArea = document.getElementById('modalArea1');
+//             const closeModal = document.getElementById('closeModal1');
+//             const modalBg = document.getElementById('modalBg1');
+//             const sendButton = document.getElementById('replySend');
+//             var toggle = [replyButton,closeModal,modalBg,sendButton];
+//                 for(let i=0, len=toggle.length ; i<len ; i++){
+//                     toggle[i].addEventListener('click',function(){
+//                         modalArea.classList.toggle('is-show1');
+//                     },false);
+//                 }
+//         },1000);
+//     }());                                              
 // }
 
-// /******************************************************************* 別タブで表示２（仮） *******************************************************************/
-// function open2() {
-//     window.open("/tweet", "hoge", "width=600, height=600 , location=no");
-// }
-
+(function () {
+    setTimeout(function(){
+            const modalArea = document.getElementById('modalArea1');
+            const closeModal = document.getElementById('closeModal1');
+            const modalBg = document.getElementById('modalBg1');
+            const sendButton = document.getElementById('replySend');
+            var toggle = [replyButton,closeModal,modalBg,sendButton];
+                for(let i=0, len=toggle.length ; i<len ; i++){
+                    toggle[i].addEventListener('click',function(){
+                        modalArea.classList.toggle('is-show1');
+                    },false);
+                }
+    },1000);
+}());                                                     
 

@@ -70,9 +70,11 @@ class TweetController extends Controller
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
 
-        return view("test");
+        // return view("test");
 
-        return view("close");
+        // return view("home");
+
+        return redirect("home");
 
     }
 
