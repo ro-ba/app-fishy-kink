@@ -237,7 +237,6 @@ button {
 </body>
 </html>
 
-
 <!-- モーダルエリアここから (駒月が追加) -->
 <section id="modalArea" class="modalArea">
   <div id="modalBg" class="modalBg"></div>
@@ -278,37 +277,27 @@ button {
   </div>
 </section>
 <!-- モーダルエリアここまで -->
+
 <script>
-/******************************************************************* ツイート画面の表示 *******************************************************************/
 (function () {
-      const modalArea = document.getElementById('modalArea');
-      const openModal = document.getElementById('tweet');
-      const closeModal = document.getElementById('closeModal');
-      const modalBg = document.getElementById('modalBg');
-      const sendButton = document.getElementById('newTweet');
-      const toggle = [openModal,closeModal,modalBg , sendButton];
-  
-      for(let i=0, len=toggle.length ; i<len ; i++){
-        toggle[i].addEventListener('click',function(){
-        modalArea.classList.toggle('is-show');
-        },false);
-      }
-    }());
-</script>
-
-
-<script>
-/******************************************************************* ツイート時の *******************************************************************/
-    function loadImage(obj){
-        document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
-        for (i = 0; i < 4; i++) {
-            var fileReader = new FileReader();
-
-            fileReader.onload = (function (e) {
-                document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
-            });
-            fileReader.readAsDataURL(obj.files[i]);
+    setTimeout(function () {
+        const modalArea = document.getElementById('modalArea');
+        const openModal = document.getElementById('tweet');
+        const closeModal = document.getElementById('closeModal');
+        const modalBg = document.getElementById('modalBg');
+        const sendButton = document.getElementById('newTweet');
+        const toggle = [openModal,closeModal,modalBg , sendButton];
+    
+        for(let i=0, len=toggle.length ; i<len ; i++){
+          toggle[i].addEventListener('click',function(){
+          modalArea.classList.toggle('is-show');
+          },false);
         }
-    }
+    }, 1);
+  }());
+
 </script>
+
+
+
 

@@ -1,8 +1,13 @@
 <?php
+require "/vagrant/source/func/FKMongo.php";
 
-$forrowUser = ["tamano"];
+function test($request){
 
-foreach($forrowUser as $key => $fu){
-    print_r($fu);
+    $db = connect_mongo();
+    $tweetID = new \MongoDB\BSON\ObjectId($request["tweetID"]);
+    $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+    print_r($tweet);
 }
+
+test(["tweetID" =>"5d15adfc763834624de38f22"]);
 ?>

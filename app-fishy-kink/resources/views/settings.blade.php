@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="css/setting.css">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
-<script type="text/javascript" src="js/prev-image.js"></script>
+<script type="text/javascript" src="{{ asset('js/assets/prev-image.js') }}"></script>
 <script type="text/javascript">
     function closeSelf(){
         self.close();
