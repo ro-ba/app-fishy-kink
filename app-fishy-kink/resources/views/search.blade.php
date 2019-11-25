@@ -19,6 +19,7 @@
     <div class="main">
 
         <div class="search">
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
             <form method='get' action="/search" class="form-inline d-inline">
                 <input type="text" name="searchString" class="form-control" value="">
                 <input type="submit" class="form-control" value="検索">
