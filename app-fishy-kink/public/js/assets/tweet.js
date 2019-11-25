@@ -1,6 +1,6 @@
 var result;
 var tweetCount;
-var replyButton = new Array();
+var replyButton;
 
 /******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
 function getTweet(tweetID) {
@@ -22,6 +22,28 @@ function getTweet(tweetID) {
     return tweet;
 };
 
+
+/******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
+//replyのツリー作成で後で使うかも
+// function getOriginTweet(tweet) {
+//     $.ajax({
+//         type: 'POST',
+//         url: '/api/getOriginTweet',
+//         dataType: 'json',
+//         async: false,
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//         data: {
+//             tweetID: tweet["originTweetID"],
+//         },
+//         cache: false
+//     }).done(function (originTweet) {
+//         tweet = originTweet["tweet"];
+//     });
+//     return tweet;
+// };
+
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
     $.ajax({
@@ -42,8 +64,9 @@ $(function () { // 遅延処理
         console.log("えええええええ");
 
         dispTweets(result);
-
-        
+        console.log("まえ" + replyButton);
+        replyButton = document.getElementById('reply');
+        console.log("あと" + replyButton);
         tweetCount = results.length;
 
     }).fail(function (err) {
@@ -229,8 +252,6 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id="reply" type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-    
-
 
     //リツイート
     iconColor = "";
@@ -270,7 +291,6 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
 
     $('#centerContents').append(tweetDocument);
-    replyButton.push(document.getElementById('reply'));
 
 }
 
@@ -319,6 +339,8 @@ $(function () {
 $(function () {
     $("#centerContents").on("click", ".reply", function () {
         var tweetid = $(this).parents().siblings("#tweetID").val();
+        replyButton = this;
+        // console.log(replyButton);
         $.ajax({
             type: 'POST',
             url: '/api/getTweet',
@@ -341,24 +363,18 @@ $(function () {
 });
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
-
-(function ()
-{
-    setTimeout(function (){
-
+(function () {
+    setTimeout(function () {
+        console.log("rrrrrrrr");
         const modalArea = document.getElementById('modalArea1');
+
         const closeModal = document.getElementById('closeModal1');
         const modalBg = document.getElementById('modalBg1');
         const sendButton = document.getElementById('replySend');
-        var toggle = [closeModal, modalBg, sendButton];
-        replyButton.forEach(function(val){
-            toggle.push(val);
-          });
+        var toggle = [replyButton, closeModal, modalBg, sendButton];
         console.log(toggle);
-
         for (let i = 0, len = toggle.length; i < len; i++) {
             toggle[i].addEventListener('click', function () {
-
                 modalArea.classList.toggle('is-show1');
             }, false);
         }
@@ -370,11 +386,10 @@ function loadImage(obj) {
     document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
-
+        fileReader.readAsDataURL(obj.files[i]);
         fileReader.onload = (function (e) {
             document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
         });
-        fileReader.readAsDataURL(obj.files[i]);
     }
 }
 
