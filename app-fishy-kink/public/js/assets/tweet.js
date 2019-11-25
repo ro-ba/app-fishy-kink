@@ -22,27 +22,6 @@ function getTweet(tweetID) {
     return tweet;
 };
 
-
-/******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
-function getOriginTweet(tweet) {
-    $.ajax({
-        type: 'POST',
-        url: '/api/getOriginTweet',
-        dataType: 'json',
-        async: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            tweetID: tweet["originTweetID"],
-        },
-        cache: false
-    }).done(function (originTweet) {
-        tweet = originTweet["tweet"];
-    });
-    return tweet;
-};
-
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
     $.ajax({
