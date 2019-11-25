@@ -63,6 +63,7 @@ $(function () { // 遅延処理
 
         dispTweets(result);
         replyButton = document.getElementById('reply');
+   
         tweetCount = results.length;
 
     }).fail(function (err) {
@@ -373,6 +374,7 @@ $(function () {
         const modalBg = document.getElementById('modalBg1');
         const sendButton = document.getElementById('replySend');
         var toggle = [replyButton, closeModal, modalBg, sendButton];
+        console.log(toggle);
         for (let i = 0, len = toggle.length; i < len; i++) {
             toggle[i].addEventListener('click', function () {
                 modalArea.classList.toggle('is-show1');
