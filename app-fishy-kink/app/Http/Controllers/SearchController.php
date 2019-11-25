@@ -18,9 +18,8 @@ class SearchController extends Controller
     {
         $search = $request->input("searchString");
         if(empty($search)){
-            print_r("文字を入力してください");
+            return redirect("home");
         }else{
-            
             $data = connect_mongo();
             $result = search($search);
             return view("search",compact("result"));    
