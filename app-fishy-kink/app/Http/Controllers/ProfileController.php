@@ -28,8 +28,8 @@ class ProfileController extends Controller
             $isShowSettings = True;
         }
         $userData = $FishyKink["userDB"]->findOne(["userID" =>  $id]);
-        $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id]);
-        if(empty($nowFollow)){
+        $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id ]);
+        if(!isset($nowFollow)){
             $nowFollow = False;
         }
         $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
@@ -54,16 +54,41 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $FishyKink = connect_mongo();
         $id = $request->input("user");
         $sessionUser = session("userID");
-        $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id]);
-        if(empty($nowFollow)){
-           $FishyKink["userDB"]->updateOne(["userID"=>$sessionUser],['$set' => ["follow" => $id]]);
-           $FishyKink["userDB"]->updateOne(["userID"=>$id],['$set' => ["follower" => $sessionUser]]);
+        $time = date("Y/m/d H:i:s");
+        $name = $FishyKink["userDB"] -> findOne(["userID" => $sessionUser])["userName"];
+        $nowFollow = (array) $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser])["follow"];
+        $nowFollower = (array) $FishyKink["userDB"]->findOne(["userID" =>  $id])["follower"];
+        // if(!isset($nowFollow)){
+        //    $FishyKink["userDB"]->updateOne(["userID"=>$sessionUser, ['$set' => ["follow" => $id]]);
+        //    $FishyKink["userDB"]->updateOne(["userID"=>$id],['$set' => ["follower" => $sessionUser]]);
+        if(in_array($id, $nowFollow)){    //もし、すでにフォローしていればリストから削除する
+            // 削除
+            $nowFollow = array_diff($nowFollow, (array) $id);
+            $nowFollower = array_diff($nowFollower, (array) $sessionUser);
+            //indexを詰める
+            $nowFollow = array_values($nowFollow);
+            $nowFollower = array_values($nowFollower);
         }else{
-            
+            //追加
+            array_push($nowFollow, $id);
+            array_push($nowFollower, $sessionUser);
+            $FishyKink["notifyDB"] -> insertOne([
+                "userID" => $FishyKink["userDB"] -> findOne(["userID" => $id])["userID"],
+                "tweetID" => "",
+                "text" => $name .= "さんにフォローされました。",
+                "time" => $time,
+                "readFlag" => False
+            ]);
         }
-        
+
+        $FishyKink["userDB"]->updateOne(["userID" => $sessionUser], ['$set' => ["follow" => $nowFollow]]);
+        $FishyKink["userDB"]->updateOne(["userID" => $id], ['$set' => ["follower" => $nowFollower]]);
+
+        $url = "profile?user=${id}";
+        return redirect($url);      
     }
 
     /**

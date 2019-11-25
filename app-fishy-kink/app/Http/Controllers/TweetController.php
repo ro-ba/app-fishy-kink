@@ -15,10 +15,6 @@ class TweetController extends Controller
      */
     public function index()
     {
-
-        $data = connect_mongo();
-        $userData = $data["userDB"]->findOne(["userID" => session("userID")]);
-        return view("tweet",compact("userData"));
         //
     }
 
@@ -69,10 +65,6 @@ class TweetController extends Controller
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
-
-        // return view("test");
-
-        // return view("home");
 
         return redirect("home");
 

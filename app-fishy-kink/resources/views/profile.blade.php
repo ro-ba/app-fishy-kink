@@ -41,7 +41,6 @@
 
 <body>
 @isset($userData)
-
     <div class="profile">
       <div id=wrap>
 
@@ -51,11 +50,16 @@
         </div>
 
         <ul class="user">
-              <li class="user-name">{{ $userData["userName"] }}</li>
-            @if($nowFollow == False)
-              <input type="button" class="nowFollow"><button type="button"  onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォローする</button></li>
-            @else
-              <input type="button" class="nowFollow"><button type="button"  onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロー中</button></li>
+            <li class="user-name">{{ $userData["userName"] }}</li>
+            @if(!$isShowSettings)
+              <form method=POST>
+              @csrf
+                @if($nowFollow == False)
+                  <input type="submit" class="nowFollow" value="フォローする"/>
+                @else
+                  <input type="submit" class="nowFollow" value="フォロー中"/>
+                @endif
+              </form>
             @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
@@ -65,16 +69,16 @@
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
              
         <ul class="follows">
-            @isset ($userData["follow"])
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData[`userID`] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
+            @isset($userData["follow"])
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData[`userID`] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
             @endisset
             
-            @isset ($userData["follower"]) 
-                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
+            @isset($userData["follower"]) 
+                <li class="follower"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/followers?user={{$userData[`userID`] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
                 <li class="follower">フォロワー<span></span>0人</li>
             @endisset
 

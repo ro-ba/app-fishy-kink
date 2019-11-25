@@ -13,7 +13,7 @@
 
   <link rel="stylesheet" href="css/tweet.css">
 
-  <link rel="shortcut icon" href="">
+  <link rel="shortcut icon" href="images/FKicon.png">
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
@@ -258,50 +258,26 @@ button {
 </section>
 <!-- モーダルエリアここまで -->
 
-<!-- モーダルエリアここから (駒月が追加) -->
-<section id="modalArea1" class="modalArea1">
-  <div id="modalBg1" class="modalBg1"></div>
-  <div class="modalWrapper1">
-    <div class="modalContents1">
-    <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
-    <div id="closeModal1" class="closeModal1">
-      ×
-    </div>
-  </div>
-</section>
-<!-- モーダルエリアここから (駒月が追加) -->
-
 <script>
-/******************************************************************* ツイート画面の表示 *******************************************************************/
-$(function () {
+(function () {
+    setTimeout(function () {
+        const modalArea = document.getElementById('modalArea');
+        const openModal = document.getElementById('tweet');
+        const closeModal = document.getElementById('closeModal');
+        const modalBg = document.getElementById('modalBg');
+        const sendButton = document.getElementById('newTweet');
+        const toggle = [openModal,closeModal,modalBg , sendButton];
+    
+        for(let i=0, len=toggle.length ; i<len ; i++){
+          toggle[i].addEventListener('click',function(){
+          modalArea.classList.toggle('is-show');
+          },false);
+        }
+    }, 1);
+  }());
 
-      const modalArea = document.getElementById('modalArea');
-      const openModal = document.getElementById('qqqq');
-      const closeModal = document.getElementById('closeModal');
-      const modalBg = document.getElementById('modalBg');
-      const toggle = [openModal,closeModal,modalBg];
-  
-      for(let i=0, len=toggle.length ; i<len ; i++){
-        toggle[i].addEventListener('click',function(){
-        modalArea.classList.toggle('is-show');
-        },false);
-      }
-    }());
 </script>
 
-<script>
-  $(function () {
-  const modalArea = document.getElementById('modalArea1');
-  const openModal = document.getElementById('openModal');
-  const closeModal = document.getElementById('closeModal1');
-  const modalBg = document.getElementById('modalBg1');
-  const toggle = [openModal,closeModal,modalBg];
-  
-  for(let i=0, len=toggle.length ; i<len ; i++){
-    toggle[i].addEventListener('click',function(){
-      modalArea.classList.toggle('is-show1');
-    },false);
-  }
-}());
-</script>
+
+
 

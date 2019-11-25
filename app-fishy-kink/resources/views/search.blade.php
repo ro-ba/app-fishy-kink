@@ -11,16 +11,19 @@
 <link rel="stylesheet" href="css/search.css" >
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 </head>
 
 <body>
     <div class="main">
 
         <div class="search">
-            <form action="" class="form-inline d-inline">
-                <input type="text" class="form-control" value="">
+            <form method='get' action="../source/kouki/search.php" class="form-inline d-inline">
+                <input type="text" name="serchString" class="form-control" value="">
                 <input type="submit" class="form-control" value="検索">
             </form>
+        </form>
         </div>
 
         <div class="content">
@@ -28,29 +31,66 @@
                 <li class="tab is-active">ツイート</li>
                 <li class="tab">ユーザー</li>
                 <li class="tab">画像</li>
-                <li class="tab">イニエスタ</li>
-                <li class="tab">ブッフォン</li>
             </ul>
 
             <div class="panel-tab">
                 <div class="panel is-show">
                     ツイート内容
+                        @foreach($result["tweet_result"] as $tweet)
+                        <div class="tweet">
+                            
+                            <div class="userID">
+                                {{ $tweet["userID"] }}
+                            </div>
+                            <div class="time">
+                                {{ $tweet["time"] }}
+                            </div>
+                            <div class="text">
+                                {{ $tweet["text"] }}
+                            </div>
+                        </div>
+                        @endforeach
                 </div>
                 <div class="panel">
                     ユーザー
+                    @foreach($result["user_result"] as $user)
+                        <div class="user">
+                            <div class="userimg">
+                                {{ $user["userImg"] }}
+                            </div>
+                            <div class="name">
+                                {{ $user["userName"] }}
+                            </div>
+                            <div class="userID">
+                                {{ $user["userID"] }}
+                            </div>
+                            <div class="profile">
+                                {{ $user["profile"] }}
+                            </div>
+                        </div>
+                        @endforeach
                 </div>
                 <div class="panel">
                     画像
-                </div>
-                <div class="panel">
-                    イニエスタ
-                </div>
-                <div class="panel">
-                    ブッフォン
+                    @foreach($result["img_result"] as $img)
+                        <div class="image">
+                            <div class="userimg">
+                                {{ $img["userImg"] }}
+                            </div>
+                            <div class="userID">
+                                {{ $img["userID"] }}
+                            </div>
+                            <div class="time">
+                                {{ $img["time"] }}
+                            </div>
+                            <div class="text">
+                                {{ $img["text"] }}
+                            </div>
+                        </div>
+                        @endforeach
                 </div>
             </div>
         </div>
-
     </div>
 </body>
 </html>

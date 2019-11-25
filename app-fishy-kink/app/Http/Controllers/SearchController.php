@@ -17,7 +17,14 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $search = $request->input("searchString");
-        ( empty($search) ) ?  print_r("文字を入力してください") : search($search); 
+        if(empty($search)){
+            print_r("文字を入力してください");
+        }else{
+            
+            $data = connect_mongo();
+            $result = search($search);
+            return view("search",compact("result"));    
+        }
         
     }
 
