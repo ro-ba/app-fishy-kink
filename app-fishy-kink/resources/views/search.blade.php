@@ -19,11 +19,11 @@
     <div class="main">
 
         <div class="search">
-            <form method='get' action="../source/kouki/search.php" class="form-inline d-inline">
-                <input type="text" name="serchString" class="form-control" value="">
+            <form method='get' action="/search" class="form-inline d-inline">
+                <input type="text" name="searchString" class="form-control" value="">
                 <input type="submit" class="form-control" value="検索">
             </form>
-        </form>
+        
         </div>
 
         <div class="content">
@@ -38,7 +38,9 @@
                     ツイート内容
                         @foreach($result["tweet_result"] as $tweet)
                         <div class="tweet">
-                            
+                            <div class="userimg">
+                                {{ $tweet["userImg"] }}
+                            </div>
                             <div class="userID">
                                 {{ $tweet["userID"] }}
                             </div>
@@ -48,6 +50,16 @@
                             <div class="text">
                                 {{ $tweet["text"] }}
                             </div>
+                            @if(count($tweet["img"]) > 0)
+                            <?php 
+                            $count = count($tweet["img"]);
+                            ?>
+                                @for($i = 0; $i < $count; $i++)
+                                    <div class="img">
+                                        {{ $tweet["img"][$i] }}
+                                    </div>
+                                @endfor
+                            @endif
                         </div>
                         @endforeach
                 </div>
@@ -86,6 +98,14 @@
                             <div class="text">
                                 {{ $img["text"] }}
                             </div>
+                            <?php 
+                            $count = count($tweet["img"]);
+                            ?>
+                            @for($i = 0; $i < $count; $i++)
+                                <div class="img">
+                                    {{ $tweet["img"][$i] }}
+                                </div>
+                            @endfor
                         </div>
                         @endforeach
                 </div>
