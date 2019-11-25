@@ -103,21 +103,7 @@ button {
 
 <body>
 
-<!-- りぷらい -->
-<div id="modalContents"></div>
-  <section id="modalArea1" class="modalArea1">
-    <div id="modalBg1" class="modalBg1"></div>
-    <div class="modalWrapper1">
-      <div class="modalContents1">
-        <div id="parentTweet"></div>
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
-        <button id="replySend">送信</button>
-        <div id="closeModal1" class="closeModal1">
-          × 
-        </div>
-    </div>
-  </section>
-<div>
+
 
 
 @isset($userData)
@@ -157,6 +143,12 @@ button {
         <ul>
 
       </div>
+
+
+
+
+
+      
 
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
