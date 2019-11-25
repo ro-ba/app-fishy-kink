@@ -62,7 +62,9 @@ $(function () { // 遅延処理
         result = results;
 
         dispTweets(result);
+        console.log("まえ" + replyButton);
         replyButton = document.getElementById('reply');
+        console.log("あと" + replyButton);
         tweetCount = results.length;
 
     }).fail(function (err) {
