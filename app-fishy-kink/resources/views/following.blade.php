@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>followers</title>
+<title>following</title>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -24,23 +24,7 @@
                 },
                 cache: false
                 }).done(function(results) {
-                    var follower = results["follower"];
-                    $('#list').empty();
-                    if(follower != ""){
-                        for(var i=0;i<follower.length;i++){
-                            followDocument =    `<ul class=list_none>`   
-                                            +    `<li>`
-                                            +   `<a onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                    <img src="${follower[i]['userImg']}"/></a>`
-                                            +   `<div class="uName">${follower[i]["userName"]}</div>`
-                                            +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                    <div class=""><span>@</span>${follower[i]["userID"]}</div></button>`
-                                            +   `<div class="profile">${follower[i]["profile"]}</div>`
-                                            +   `</li>`
-                                            +   `</ul>`;
-                            $('#list').append(followDocument);
-                        }
-                    }
+                    location.href='/followers?user={{$_GET['user']}}';
                 });
             });
         };
@@ -59,11 +43,13 @@
 </head>
 <body>
         <div class="tabs">
-        <input id="follower" type="radio" name="tab_item" checked>
-        <label class="tab_item1" for="follower">フォロワー</label>
-
         <input id="follow" type="radio" name="tab_item" checked>
         <label class="tab_item2" for="follow">フォロー中</label>
+
+        <input id="follower" type="radio" name="tab_item">
+        <label class="tab_item1" for="follower">フォロワー</label>
+
+        
       
 <!-- フォロー中表示 -->
     <div class="tab_content2" id="follow_content">
