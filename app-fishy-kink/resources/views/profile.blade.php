@@ -29,68 +29,6 @@
   .accordion {
     display: inline;
   }
-
-  /* モーダルCSSここから */
-.modalArea1 {
-  visibility: hidden; /* displayではなくvisibility */
-  opacity : 0;
-  position: fixed;
-  z-index: 10; /* サイトによってここの数値は調整 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .4s;
-}
-
-.modalBg1 {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.modalWrapper1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  max-width: 500px;
-  padding: 10px 30px;
-  background-color: #fff;
-}
-
-.closeModal1 {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.is-show1 { /* モーダル表示用クラス */
-  visibility: visible;
-  opacity : 1;
-}
-/* モーダルCSSここまで */
-
-
-/* 以下ボタンスタイル */
-button {
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #282828;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-/* #openModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-} */
-
-/** ここまで **/
 </style>
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
 
@@ -103,11 +41,7 @@ button {
 
 <body>
 
-
-
-
 @isset($userData)
-
     <div class="profile">
       <div id=wrap>
 
@@ -117,7 +51,17 @@ button {
         </div>
 
         <ul class="user">
-              <li class="user-name">{{ $userData["userName"] }}</li>
+            <li class="user-name">{{ $userData["userName"] }}</li>
+            @if(!$isShowSettings)
+              <form method=POST>
+              @csrf
+                @if($nowFollow == False)
+                  <input type="submit" class="nowFollow" value="フォローする"/>
+                @else
+                  <input type="submit" class="nowFollow" value="フォロー中"/>
+                @endif
+              </form>
+            @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
             @endif
@@ -126,16 +70,16 @@ button {
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
              
         <ul class="follows">
-            @isset ($userData["follow"])
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中　<span></span>{{ count($userData["follow"]) }} 人</button></li>
+            @isset($userData["follow"])
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
             @endisset
             
-            @isset ($userData["follower"]) 
-                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
+            @isset($userData["follower"]) 
+                <li class="follower"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
             @else
-                <li class="follow"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }}'">フォロー<span></span>0人</button></li>
+                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
                 <li class="follower">フォロワー<span></span>0人</li>
             @endisset
 
@@ -164,7 +108,7 @@ button {
       <div id="rightContents" class="col-sm-3"></div>
     </div>       
   @else
-    <b>ユーザーが存在しません。</b>
+    <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
   </div>               
