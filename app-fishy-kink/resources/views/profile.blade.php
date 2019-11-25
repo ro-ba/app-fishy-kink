@@ -40,6 +40,7 @@
 </head>
 
 <body>
+
 @isset($userData)
     <div class="profile">
       <div id=wrap>
@@ -86,6 +87,12 @@
         <ul>
 
       </div>
+
+
+
+
+
+      
 
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    

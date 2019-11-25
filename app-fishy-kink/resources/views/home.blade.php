@@ -269,8 +269,8 @@ button {
         const toggle = [openModal,closeModal,modalBg , sendButton];
     
         for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){
-          modalArea.classList.toggle('is-show');
+          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
+          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
