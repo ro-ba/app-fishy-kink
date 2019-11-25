@@ -63,12 +63,6 @@ $(function () { // 遅延処理
         console.log("えええええええ");
 
         dispTweets(result);
-<<<<<<< HEAD
-=======
-        console.log("まえ" + replyButton);
-        replyButton = document.getElementById('reply');
-        console.log("あと" + replyButton);
->>>>>>> dd94d0d8007f7d6d66e7374205040d435c19f526
         tweetCount = results.length;
 
     }).fail(function (err) {
@@ -366,15 +360,9 @@ $(function () {
 });
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
-<<<<<<< HEAD
 (function ()
 {
     setTimeout(function (){
-=======
-(function () {
-    setTimeout(function () {
-        console.log("rrrrrrrr");
->>>>>>> dd94d0d8007f7d6d66e7374205040d435c19f526
         const modalArea = document.getElementById('modalArea1');
         const closeModal = document.getElementById('closeModal1');
         const modalBg = document.getElementById('modalBg1');
@@ -384,13 +372,8 @@ $(function () {
             toggle.push(val);
           });
         console.log(toggle);
-<<<<<<< HEAD
         for (let i = 0, len = toggle.length; i < len; i++){
             toggle[i].addEventListener('click', function (){
-=======
-        for (let i = 0, len = toggle.length; i < len; i++) {
-            toggle[i].addEventListener('click', function () {
->>>>>>> dd94d0d8007f7d6d66e7374205040d435c19f526
                 modalArea.classList.toggle('is-show1');
             }, false);
         }
