@@ -35,7 +35,8 @@ Route::resources([
     "/api/getTweet" =>  "API\GetTweetController",
     "/api/getOriginTweet" =>  "API\GetOriginTweetController",
     "/api/getFollowing" => "API\GetFollowingController",
-    "/api/getFollower" => "API\GetFollowerController"
+    "/api/getFollower" => "API\GetFollowerController",
+    "/api/notifyCount" => "API\NotifyCountController"
     ]);
 
 // Route::resource("/","TopController");

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+require "/vagrant/source/func/FKMongo.php";
+
 class NotifyCountController extends Controller
 {
     /**
@@ -28,7 +30,7 @@ class NotifyCountController extends Controller
         $userID = session('userID');
         $db = connect_mongo();
         $return = $db["notifyDB"] -> count(["userID" => $userID , "readFlag" => false]);
-        
+
         return ["message" => $return];
     }
 

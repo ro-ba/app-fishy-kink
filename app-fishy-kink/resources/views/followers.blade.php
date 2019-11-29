@@ -11,45 +11,15 @@
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
-    <script>
-        window.onload = function(){
-            $(document).on('click','.tab_item1',function(){
-                $.ajax({
-                type: 'POST',
-                url: '/api/getFollowing',
-                dataType: 'json',
-                async: false,
-                data: {
-                    userID: getParam('user'),
-                    _token: '{{ csrf_token() }}'
-                },
-                cache: false
-                }).done(function(results) {
-                    location.href='/following?user={{$_GET['user']}}';
-                });
-            });
-        };
-
-        function getParam(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-    </script>
-
-
 </head>
 
 <body>
         <div class="tabs">
-        <input id="follow" type="radio" name="tab_item" >
+
+        <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" >
         <label class="tab_item1" for="follow">フォロー中</label>
-        <input id="follower" type="radio" name="tab_item" checked>
+
+        <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" class="checked">
         <label class="tab_item2" for="follower">フォロワー</label>
 
     <div class="tab_content1" id="followerS_content">

@@ -35,6 +35,7 @@ class ReloadTweetsController extends Controller
             $data = $db["tweetDB"]->find([],['sort' => ['time' => -1]]);
         };
         $tweets = iterator_to_array($data);
+        //origintweetのデータを挿入
         foreach ($tweets as $i => $tweet){
             if ($tweet["type"] == "retweet"){
                 $tweetID = new \MongoDB\BSON\ObjectId($tweet["originTweetID"]);

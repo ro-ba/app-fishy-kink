@@ -2,8 +2,6 @@ var result;
 var tweetCount;
 var count = 1;
 
-var toggle = new Array();
-
 /******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
 function getTweet(tweetID) {
     $.ajax({
@@ -26,24 +24,25 @@ function getTweet(tweetID) {
 
 
 /******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
-function getOriginTweet(tweet) {
-    $.ajax({
-        type: 'POST',
-        url: '/api/getOriginTweet',
-        dataType: 'json',
-        async: false,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            tweetID: tweet["originTweetID"],
-        },
-        cache: false
-    }).done(function (originTweet) {
-        tweet = originTweet["tweet"];
-    });
-    return tweet;
-};
+//replyのツリー作成で後で使うかも
+// function getOriginTweet(tweet) {
+//     $.ajax({
+//         type: 'POST',
+//         url: '/api/getOriginTweet',
+//         dataType: 'json',
+//         async: false,
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//         data: {
+//             tweetID: tweet["originTweetID"],
+//         },
+//         cache: false
+//     }).done(function (originTweet) {
+//         tweet = originTweet["tweet"];
+//     });
+//     return tweet;
+// };
 
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
@@ -248,8 +247,7 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-    
-    
+   
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -288,6 +286,7 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
 
     $('#centerContents').append(tweetDocument);        
+
 
 }
 
@@ -332,6 +331,8 @@ $(function () {
 $(function () {
     $("#centerContents").on("click", ".reply", function () {
         var tweetid = $(this).parents().siblings("#tweetID").val();
+        replyButton = this;
+        // console.log(replyButton);
         $.ajax({
             type: 'POST',
             url: '/api/getTweet',
@@ -354,8 +355,8 @@ $(function () {
 });
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
+
 function replyWindow (){
-    // setTimeout(function (){
         const modalArea = document.getElementById('modalArea1');
         const closeModal = document.getElementById('closeModal1');
         const modalBg = document.getElementById('modalBg1');
@@ -364,14 +365,11 @@ function replyWindow (){
         for(let i=1;i<count;i++){
             toggle.push(document.getElementById('reply' + i));
         }
-        console.log(count);
-        console.log(toggle);
         for (let i = 0, len = toggle.length; i < len; i++){
             toggle[i].addEventListener('click', function (){
                 modalArea.classList.toggle('is-show1');
             }, false);
         }
-    // }, 1000);
 }
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
@@ -379,11 +377,10 @@ function loadImage(obj) {
     document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
-
+        fileReader.readAsDataURL(obj.files[i]);
         fileReader.onload = (function (e) {
             document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
         });
-        fileReader.readAsDataURL(obj.files[i]);
     }
 }
 
