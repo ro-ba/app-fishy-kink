@@ -399,3 +399,16 @@ function textCheck() {
         tweetButton.disabled = false;
     }
 }
+
+function replyCheck() {
+    var replyValue = document.getElementById('replyText').value;
+    var replyButton = document.getElementById('replySend');
+    console.log(replyValue);
+    if (replyValue == "" || replyValue == null) {
+        replyButton.disabled = true;
+        // else -if (replyValue == "" || replyValue == null) {
+        //     tweetButton.disabled = true;
+    } else {
+        replyButton.disabled = false;
+    }
+}
