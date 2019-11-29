@@ -171,10 +171,10 @@ function dispTweets(results) {
     $('#centerContents').empty();
     $('.loader').fadeIn();
 
-    results.forEach(function (tweet) {
+    results.forEach(function (tweet) {        
         createTweetElement(tweet);
         count++;
-
+ 
     });
     $('.loader').fadeOut();
 }
@@ -246,7 +246,7 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-
+   
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -280,7 +280,7 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('#centerContents').append(tweetDocument);
+    $('#centerContents').append(tweetDocument);        
 
 
 }
@@ -408,31 +408,3 @@ function loadImage(obj) {
     }
 }
 
-
-/****************************nullでのツイート防止********************************* */
-function textCheck() {
-    var textValue = document.getElementById('tweetText').value;
-    var replyValue = document.getElementById('replyText').value;
-    var tweetButton = document.getElementById('newTweet');
-    console.log(textValue);
-    if (textValue == "" || textValue == null) {
-        tweetButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
-    } else {
-        tweetButton.disabled = false;
-    }
-}
-
-function replyCheck() {
-    var replyValue = document.getElementById('replyText').value;
-    var replyButton = document.getElementById('replySend');
-    console.log(replyValue);
-    if (replyValue == "" || replyValue == null) {
-        replyButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
-    } else {
-        replyButton.disabled = false;
-    }
-}
