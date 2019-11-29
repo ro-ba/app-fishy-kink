@@ -224,14 +224,14 @@ button {
       <div id="parentTweet"></div>
       <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
       @csrf
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <textarea class="tweetText" id="replyText" cols="50" rows="7" maxlength="200" onkeyup="replyCheck();" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
             <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
-        <button id="replySend">送信</button>
+        <button id="replySend" disabled=true>送信</button>
         <div class="tweet-image">
           <p id="preview"></p>
         </div>
@@ -254,7 +254,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea class="tweetText" id="tweetText" cols="50" rows="7" maxlength="200" onkeyup="textCheck();" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
@@ -265,7 +265,7 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <button id = newTweet class="newTweet"> tweet </button>
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
 
@@ -305,7 +305,3 @@ button {
   }());
 
 </script>
-
-
-
-
