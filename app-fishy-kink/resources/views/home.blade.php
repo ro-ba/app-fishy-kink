@@ -186,9 +186,6 @@ button {
 <body>
 
 
-<button id="openModal">Open modal</button>
-
-
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -204,8 +201,8 @@ button {
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-    <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
+    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+        <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>
 
@@ -227,7 +224,7 @@ button {
       <div id="parentTweet"></div>
       <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
       @csrf
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <textarea class="tweetText" id="replyText" cols="50" rows="7" maxlength="200" onchange="textCheck()" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
             <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
@@ -257,7 +254,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea id="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea class="tweetText" id="tweetText" cols="50" rows="7" maxlength="200" onkeyup="textCheck();" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
@@ -268,7 +265,7 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <input id="newTweet" disabled="True" method="POST" type="submit" value="tweet" />   
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
 
@@ -294,6 +291,10 @@ button {
         const modalBg = document.getElementById('modalBg');
         const sendButton = document.getElementById('newTweet');
         const toggle = [openModal,closeModal,modalBg , sendButton];
+
+        for(let i = 0; i<toggle.length;i++){
+          console.log(toggle);
+        }
     
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
@@ -304,19 +305,3 @@ button {
   }());
 
 </script>
-
-<script>
-  function textCheck(){
-    const textCheck = document.getElementById('tweetText');
-    const tweetButton = document.getElementById('newTweet');
-    if(textCheck == null){
-      tweetButton.disabled = "disabled";
-    }else{
-      tweetButton.disabled = "";
-    }
-  }
-</script>
-
-
-
-

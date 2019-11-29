@@ -171,10 +171,10 @@ function dispTweets(results) {
     $('#centerContents').empty();
     $('.loader').fadeIn();
 
-    results.forEach(function (tweet) {        
+    results.forEach(function (tweet) {
         createTweetElement(tweet);
         count++;
- 
+
     });
     $('.loader').fadeOut();
 }
@@ -247,7 +247,7 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-   
+
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -285,7 +285,7 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('#centerContents').append(tweetDocument);        
+    $('#centerContents').append(tweetDocument);
 
 
 }
@@ -356,20 +356,20 @@ $(function () {
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
-function replyWindow (){
-        const modalArea = document.getElementById('modalArea1');
-        const closeModal = document.getElementById('closeModal1');
-        const modalBg = document.getElementById('modalBg1');
-        const sendButton = document.getElementById('replySend');
-        toggle = [closeModal, modalBg, sendButton];
-        for(let i=1;i<count;i++){
-            toggle.push(document.getElementById('reply' + i));
-        }
-        for (let i = 0, len = toggle.length; i < len; i++){
-            toggle[i].addEventListener('click', function (){
-                modalArea.classList.toggle('is-show1');
-            }, false);
-        }
+function replyWindow() {
+    const modalArea = document.getElementById('modalArea1');
+    const closeModal = document.getElementById('closeModal1');
+    const modalBg = document.getElementById('modalBg1');
+    const sendButton = document.getElementById('replySend');
+    toggle = [closeModal, modalBg, sendButton];
+    for (let i = 1; i < count; i++) {
+        toggle.push(document.getElementById('reply' + i));
+    }
+    for (let i = 0, len = toggle.length; i < len; i++) {
+        toggle[i].addEventListener('click', function () {
+            modalArea.classList.toggle('is-show1');
+        }, false);
+    }
 }
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
@@ -384,3 +384,18 @@ function loadImage(obj) {
     }
 }
 
+
+/****************************nullでのツイート防止********************************* */
+function textCheck() {
+    var textValue = document.getElementById('tweetText').value;
+    var replyValue = document.getElementById('replyText').value;
+    var tweetButton = document.getElementById('newTweet');
+    console.log(textValue);
+    if (textValue == "" || textValue == null) {
+        tweetButton.disabled = true;
+        // else -if (replyValue == "" || replyValue == null) {
+        //     tweetButton.disabled = true;
+    } else {
+        tweetButton.disabled = false;
+    }
+}
