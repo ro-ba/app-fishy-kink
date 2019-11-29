@@ -92,7 +92,7 @@ $(function () { // 遅延処理
             if (tweetCount != results.length) {
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                    '<a href="#" class="alert-link">新しいツイート</a>' +
+                    '<a href="" class="alert-link">新しいツイート</a>' +
                     '</div>';
             }
         }).fail(function (err) {
@@ -173,14 +173,13 @@ function dispTweets(results) {
     $('#centerContents').empty();
     $('.loader').fadeIn();
 
-    results.forEach(function (tweet) {
+    results.forEach(function (tweet) {        
         createTweetElement(tweet);
         count++;
-
+ 
     });
     $('.loader').fadeOut();
 }
-
 
 /******************************************************************* tweet一件分のJSONからエレメントを生成してcenterContentsに追加*******************************************************************/
 function createTweetElement(tweet) {
@@ -249,7 +248,7 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-
+   
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -279,15 +278,11 @@ function createTweetElement(tweet) {
     } else {
         iconColor = "red";
     }
-
-
     tweetDocument += `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
-
-
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('#centerContents').append(tweetDocument);
+    $('#centerContents').append(tweetDocument);        
 
 
 }
@@ -351,29 +346,58 @@ $(function () {
             document.getElementById('parentTweet').innerHTML = '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
-            // reply(replyButton);
         });
     });
 });
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
-function replyWindow() {
-    const modalArea = document.getElementById('modalArea1');
-    const closeModal = document.getElementById('closeModal1');
-    const modalBg = document.getElementById('modalBg1');
-    const sendButton = document.getElementById('replySend');
-    toggle = [closeModal, modalBg, sendButton];
-    for (let i = 1; i < count; i++) {
-        toggle.push(document.getElementById('reply' + i));
-    }
-    for (let i = 0, len = toggle.length; i < len; i++) {
-        toggle[i].addEventListener('click', function () {
-            modalArea.classList.toggle('is-show1');
-        }, false);
-    }
+function replyWindow (){
+        const modalArea = document.getElementById('modalArea1');
+        const closeModal = document.getElementById('closeModal1');
+        const modalBg = document.getElementById('modalBg1');
+        const sendButton = document.getElementById('replySend');
+        var toggle = [];
+        toggle.push(closeModal);
+        toggle.push(modalBg);
+        toggle.push(sendButton);
+        //toggle = [closeModal, modalBg, sendButton];
+        for(let i=1;i<count;i++){
+            toggle.push(document.getElementById('reply' + i));
+        }
+        console.log(count -1);
+        console.log(toggle);
+
+        for (let i = 0, len = toggle.length; i < len; i++){
+            toggle[i].addEventListener('click', function (){
+                modalArea.classList.toggle('is-show1');
+            }, false);
+        }
 }
 
+
+
+// $(function () {
+//     $('replySend').click(function () {
+//         $.ajax({
+//             type: 'POST',
+//             url: '/api/reply',
+//             dataType: 'json',
+//             headers: {
+//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//             },
+//             data: {
+//                 tweetID: tweetid,
+//             },
+//             cache: false
+//         }).done(function (results) {
+//             // アラートの追加
+//             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
+//             '<a href="" class="alert-link">新しいツイート</a>' +
+//             '</div>';
+//         });
+//     });
+// });
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj) {
     document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
@@ -386,31 +410,3 @@ function loadImage(obj) {
     }
 }
 
-
-/****************************nullでのツイート防止********************************* */
-function textCheck() {
-    var textValue = document.getElementById('tweetText').value;
-    var replyValue = document.getElementById('replyText').value;
-    var tweetButton = document.getElementById('newTweet');
-    console.log(textValue);
-    if (textValue == "" || textValue == null) {
-        tweetButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
-    } else {
-        tweetButton.disabled = false;
-    }
-}
-
-function replyCheck() {
-    var replyValue = document.getElementById('replyText').value;
-    var replyButton = document.getElementById('replySend');
-    console.log(replyValue);
-    if (replyValue == "" || replyValue == null) {
-        replyButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
-    } else {
-        replyButton.disabled = false;
-    }
-}
