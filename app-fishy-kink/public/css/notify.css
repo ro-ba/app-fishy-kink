@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+.myData {
+    text-align: center;
+    margin: 30px 0 40px 0;
+    color: #708090;/*文字色*/
+  }
+
+.myData a{
+    font-weight: bold;
+    font-size: 190%;    
+}
+
+
+.notifyItem {
+    padding: 1em 1em;/*枠の中の幅*/
+    margin: 1.5em 0;/*枠の外の幅*/
+    text-align: center;
+    font-weight: bold;
+    color: #708090;/*文字色*/
+    background: #FFF;/*背景色*/
+    border: solid 1.2px rgb(8, 16, 56);/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.notifyItem a {
+    margin: 0; 
+    padding: 0;
+}

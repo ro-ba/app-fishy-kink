@@ -25,11 +25,13 @@
       
     <!-- すべてタブ表示 -->
     @isset($userData)
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
         <div class = myData>
             <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;" />
             <a>通知</a>
             <a>{{ $count }}件の未読</a>
-            <input class="btn btn-default" type="button" onclick="location.href='/home'" value="戻る">
+            <!-- <input class="btn btn-default" type="button" onclick="location.href='/home'" value="戻る"> -->
+            
         </div>
         <div class="tab_content" id="all_content">
             @isset($notifyList)
