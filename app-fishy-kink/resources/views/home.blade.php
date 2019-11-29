@@ -55,10 +55,6 @@ body {
 
 
 /* モーダルCSSここから */
-/* .modalContents{
-  visibility: hidden;
-} */
-
 .modalArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -170,6 +166,7 @@ button {
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/notifyCount.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -187,10 +184,15 @@ button {
 </head>
 
 <body>
+
+
+<button id="openModal">Open modal</button>
+
+
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount">{{ $count }}</p></button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount" id = "readCount">{{ $count }}</p></button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
@@ -202,31 +204,10 @@ button {
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
-
-
   <div id="alertContents"></div>
-
-
-<!-- りぷらい -->
-<div id="modalContents"></div>
-  <section id="modalArea1" class="modalArea1">
-    <div id="modalBg1" class="modalBg1"></div>
-    <div class="modalWrapper1">
-      <div class="modalContents1">
-        <div id="parentTweet"></div>
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
-        <button id="replySend">送信</button>
-        <div id="closeModal1" class="closeModal1">
-          × 
-        </div>
-    </div>
-  </section>
-<div>
-
-
   <div class="loader">Loading...</div>
   <div class="row tweets">
     <div id="leftContents" class="col-sm-3"></div>
@@ -259,8 +240,7 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <!-- <input class="newTweet" method="POST" type="submit" value="tweet" />    -->
-                    <button class="newTweer" id="newTweet">tweet</button>
+                    <input class="newTweet" method="POST" type="submit" value="tweet" />   
                 </div>
             </div>
 
@@ -289,8 +269,8 @@ button {
         const toggle = [openModal,closeModal,modalBg , sendButton];
     
         for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){
-          modalArea.classList.toggle('is-show');
+          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
+          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
