@@ -222,7 +222,7 @@ button {
     <div id="modalBg1" class="modalBg1"></div>
     <div class="modalWrapper1">
       <div id="parentTweet"></div>
-      <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
+      <form action="reply" class="reply"  method="POST" enctype="multipart/form-data">
       @csrf
         <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
@@ -292,10 +292,6 @@ button {
         const sendButton = document.getElementById('newTweet');
         const toggle = [openModal,closeModal,modalBg , sendButton];
 
-        for(let i = 0; i<toggle.length;i++){
-          console.log(toggle);
-        }
-    
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
           modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
