@@ -70,18 +70,8 @@
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
              
         <ul class="follows">
-            @isset($userData["follow"])
                 <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
-            @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
-            @endisset
-            
-            @isset($userData["follower"]) 
-                <li class="follower"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
-            @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
-                <li class="follower">フォロワー<span></span>0人</li>
-            @endisset
+                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
 
             <li><button class="btn-real-dent" onclick="location.href='/'">戻る</button></li>
         <ul>

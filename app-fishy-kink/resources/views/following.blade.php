@@ -10,16 +10,22 @@
 <link rel="stylesheet" href="css/Follow.css">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
+   
 </head>
 <body>
+        @isset($_GET['user'])
         <div class="tabs">
-
-        <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" class="checked">
-        <label class="tab_item2" for="follow">フォロー中</label>
-
-        <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item">
-        <label class="tab_item1" for="follower">フォロワー</label>
-
+            <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" class="checked">
+            <label class="tab_item1" for="follow">フォロー中</label>
+            <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" >
+            <label class="tab_item2" for="follower">フォロワー</label>
+        @else
+        <div class="tabs">  
+            <input id="follow" onclick="location.href='/following?user={{session('userID')}}'" type="button" name="tab_item" class="checked">
+            <label class="tab_item1" for="follow">フォロー中</label>
+            <input id="follower" onclick="location.href='/followers?user={{session('userID')}}'"  type="button" name="tab_item" >
+            <label class="tab_item2" for="follower">フォロワー</label>
+        @endisset
         
       
 <!-- フォロー中表示 -->
@@ -65,8 +71,12 @@
     </div>
 
     <div>
-        <button  class="btn-square" type="button" onclick="location.href='/profile?user{{$_GET['user']}}'">戻る</button>
-    </div>  
+    @isset($_GET['user'])
+        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
+    @else
+        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{session('userID')}}'">戻る</button>
+    @endisset
+    </div>
     
 </body>
 </html>
