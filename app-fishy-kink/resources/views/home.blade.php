@@ -205,7 +205,7 @@ button {
       <!-- </div> -->
     </form>
     <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-        <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
+    <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>
   <div class="loader">Loading...</div>
@@ -229,7 +229,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea id="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
@@ -240,7 +240,7 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <input class="newTweet" method="POST" type="submit" value="tweet" />   
+                    <input id="newTweet" disabled="True" method="POST" type="submit" value="tweet" />   
                 </div>
             </div>
 
@@ -276,6 +276,18 @@ button {
     }, 1);
   }());
 
+</script>
+
+<script>
+  function textCheck(){
+    const textCheck = document.getElementById('tweetText');
+    const tweetButton = document.getElementById('newTweet');
+    if(textCheck == null){
+      tweetButton.disabled = "disabled";
+    }else{
+      tweetButton.disabled = "";
+    }
+  }
 </script>
 
 
