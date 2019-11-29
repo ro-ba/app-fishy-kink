@@ -69,20 +69,20 @@
   }
 
 /*選択されているタブのコンテンツのみを表示*/
-#follow:checked ~ #follow_content,
-#follow:checked ~ #follow_content,
-#follower:checked ~ #followerS_content {
+#follow.checked ~ #follow_content,
+#follow.checked ~ #follow_content,
+#follower.checked ~ #followerS_content {
   display: block;
 }
 
 /*選択されているタブのスタイルを変える*/
 
-.tabs input:checked + .tab_item1 {
+.tabs input.checked + .tab_item1 {
     background-color: #5ab4bd;
     color: #fff;
 }
 
-.tabs input:checked + .tab_item2 {
+.tabs input.checked + .tab_item2 {
 
   background-color: #5ab4bd;
   color: #fff;

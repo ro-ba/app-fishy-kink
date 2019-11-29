@@ -11,61 +11,15 @@
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
-    <script>
-        window.onload = function(){
-            $(document).on('click','.tab_item1',function(){
-                $.ajax({
-                type: 'POST',
-                url: '/api/getFollowing',
-                dataType: 'json',
-                async: false,
-                data: {
-                    userID: getParam('user'),
-                    _token: '{{ csrf_token() }}'
-                },
-                cache: false
-                }).done(function(results) {
-                    var follow = results["follow"];
-                    $('#list').empty();
-                    if(follow != ""){
-                        for(var i=0;i<follow.length;i++){
-                            followDocument =    `<ul class=list_none>`   
-                                            +    `<li>`
-                                            +   `<a onclick="location.href='/profile?user=${follow[i]["userID"]}'">
-                                                    <img src="${follow[i]['userImg']}"/></a>`
-                                            +   `<div class="uName">${follow[i]["userName"]}</div>`
-                                            +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follow[i]["userID"]}'">
-                                                    <div class=""><span>@</span>${follow[i]["userID"]}</div></button>`
-                                            +   `<div class="profile">${follow[i]["profile"]}</div>`
-                                            +   `</li>`
-                                            +   `</ul>`;
-                            $('#list').append(followDocument);
-                        }
-                    }
-                });
-            });
-        };
-
-        function getParam(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-    </script>
-
-
 </head>
 
 <body>
         <div class="tabs">
-        <input id="follow" type="radio" name="tab_item" checked>
+
+        <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" >
         <label class="tab_item1" for="follow">フォロー中</label>
-        <input id="follower" type="radio" name="tab_item" checked>
+
+        <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" class="checked">
         <label class="tab_item2" for="follower">フォロワー</label>
 
     <div class="tab_content1" id="followerS_content">
