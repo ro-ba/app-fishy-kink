@@ -61,9 +61,9 @@ $(function () { // 遅延処理
         // 通信成功時の処理
         result = results;
         dispTweets(result);
-        replyWindow();
-        tweetCount = results.length;
+        tweetCount = result.length;
         count = 1;
+        replyWindow();
 
     }).fail(function (err) {
         // 通信失敗時の処理
@@ -87,6 +87,8 @@ $(function () { // 遅延処理
             },
             cache: false
         }).done(function (results) {
+            // console.log("ページ読み込んだ瞬間"+tweetCount);
+
             if (tweetCount != results.length) {
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
