@@ -17,7 +17,8 @@
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/loader.css">  
+  <link rel="stylesheet" href="css/home.css">
 
   <style>
     .accordion .inner {
@@ -55,6 +56,10 @@ body {
 
 
 /* モーダルCSSここから */
+/* .modalContents{
+  visibility: hidden;
+} */
+
 .modalArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -166,7 +171,6 @@ button {
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/assets/notifyCount.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -184,12 +188,13 @@ button {
 </head>
 
 <body>
-
-
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount" id = "readCount">{{ $count }}</p></button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+    @if($count!=0)
+    <p class = "readCount" data-badge='{{ $count }}'></p></button>
+    @endif
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
@@ -204,23 +209,17 @@ button {
     <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
+
+
   <div id="alertContents"></div>
 
-  <div class="loader">Loading...</div>
-  <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
-    <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
-  </div>
-  
-</body>
-</html>
 
 <!-- りぷらい -->
 <div id="modalContents"></div>
   <section id="modalArea1" class="modalArea1">
     <div id="modalBg1" class="modalBg1"></div>
     <div class="modalWrapper1">
+
       <div id="parentTweet"></div>
       <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
       @csrf
@@ -234,16 +233,24 @@ button {
         <button id="replySend" disabled=true>送信</button>
         <div class="tweet-image">
           <p id="preview"></p>
+
         </div>
-      </form>
-      <div id="closeModal1" class="closeModal1">
-        × 
-      </div>
     </div>
   </section>
 <div>
 
-<!-- ツイート -->
+  <div class="loader">Loading...</div>
+  <div class="row tweets">
+    <div id="leftContents" class="col-sm-3"></div>
+    <div id="centerContents" class="col-sm-6"></div>
+    <div id="rightContents" class="col-sm-3"></div>
+  </div>
+  
+</body>
+</html>
+
+
+<!-- モーダルエリアここから (駒月が追加) -->
 <section id="modalArea" class="modalArea">
   <div id="modalBg" class="modalBg"></div>
   <div class="modalWrapper">
@@ -265,7 +272,9 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
+
                     <button id = newTweet class="newTweet" disabled=true> tweet </button>
+
                 </div>
             </div>
 
@@ -281,27 +290,40 @@ button {
     </div>
   </div>
 </section>
+<!-- モーダルエリアここまで -->
+<script>
+/******************************************************************* ツイート画面の表示 *******************************************************************/
+(function () {
+      const modalArea = document.getElementById('modalArea');
+      const openModal = document.getElementById('tweet');
+      const closeModal = document.getElementById('closeModal');
+      const modalBg = document.getElementById('modalBg');
+      const sendButton = document.getElementById('newTweet');
+      const toggle = [openModal,closeModal,modalBg , sendButton];
+  
+      for(let i=0, len=toggle.length ; i<len ; i++){
+        toggle[i].addEventListener('click',function(){
+        modalArea.classList.toggle('is-show');
+        },false);
+      }
+    }());
+</script>
+
+
 
 <script>
-(function () {
-    setTimeout(function () {
-        const modalArea = document.getElementById('modalArea');
-        const openModal = document.getElementById('tweet');
-        const closeModal = document.getElementById('closeModal');
-        const modalBg = document.getElementById('modalBg');
-        const sendButton = document.getElementById('newTweet');
-        const toggle = [openModal,closeModal,modalBg , sendButton];
+/******************************************************************* ツイート時の *******************************************************************/
+    function loadImage(obj){
+        document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
+        for (i = 0; i < 4; i++) {
+            var fileReader = new FileReader();
 
-        for(let i = 0; i<toggle.length;i++){
-          console.log(toggle);
+            fileReader.onload = (function (e) {
+                document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
+            });
+            fileReader.readAsDataURL(obj.files[i]);
         }
-    
-        for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
-          },false);
-        }
-    }, 1);
-  }());
-
+    }
 </script>
+
+
