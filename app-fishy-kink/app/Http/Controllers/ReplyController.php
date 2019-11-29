@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,7 +28,7 @@ class ReplyController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $text = $request->input('text');
+        $text = $request->input('tweetText');
         $target = $request->input("Target");
         $tweetImg = [];
         $userID = session("userID");
@@ -51,18 +51,19 @@ class ReplyController extends Controller
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
-            "fabUser"       => [],
+            "favoUser"       => [],
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-        $db["notifyDB"] -> insert([
-            "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
-            "tweetID" => $tweetID,
-            "text" => $name .= "さんがリプライしました。",
-            "time" => $time,
-            "readFlag" => False
-        ]);
-        return ["message" => ];
+        // $db["notifyDB"] -> insert([
+        //     "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
+        //     "tweetID" => $tweetID,
+        //     "text" => $name .= "さんがリプライしました。",
+        //     "time" => $time,
+        //     "readFlag" => False
+        // ]);
+        // return ["message" => ];
+        return redirect("home");
 
     }
 

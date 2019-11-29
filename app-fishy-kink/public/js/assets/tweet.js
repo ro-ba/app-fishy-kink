@@ -1,6 +1,8 @@
 var result;
 var tweetCount;
-var replyButton = new Array();
+var count = 1;
+
+var toggle = new Array();
 
 /******************************************************************************ツイートIDからツイートデータを取得する************************************************************************/
 function getTweet(tweetID) {
@@ -58,12 +60,11 @@ $(function () { // 遅延処理
         cache: false
     }).done(function (results) {
         // 通信成功時の処理
-
         result = results;
-        console.log("えええええええ");
-
         dispTweets(result);
+        replyWindow();
         tweetCount = results.length;
+        count = 1;
 
     }).fail(function (err) {
         // 通信失敗時の処理
@@ -136,8 +137,6 @@ $(function () {
     $("#centerContents").on('click', ".normalReTweet", function () {
         // var tweetid = $("#centerContents > #tweetID").val();
         var tweetid = $(this).parents("").siblings("#tweetID").val();
-        console.log(tweetid);
-        console.log(this);
         var push_button = this;
         $.ajax({
             type: 'POST',
@@ -153,7 +152,6 @@ $(function () {
         }).done(function (results) {
             //アコーディオンを閉じる処理
             $(push_button).parents(".inner").slideToggle();
-            console.log(push_button);
 
             if (results["message"] == "add") {
                 $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
@@ -174,8 +172,10 @@ function dispTweets(results) {
     $('#centerContents').empty();
     $('.loader').fadeIn();
 
-    results.forEach(function (tweet) {
+    results.forEach(function (tweet) {        
         createTweetElement(tweet);
+        count++;
+ 
     });
     $('.loader').fadeOut();
 }
@@ -247,10 +247,9 @@ function createTweetElement(tweet) {
     <div class="tweetBottom d-inline">`;
 
     //リプライ
-    tweetDocument += '<button class="reply" id="reply" type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+    tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
     
-
-
+    
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -288,12 +287,9 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('#centerContents').append(tweetDocument);
-    replyButton.push(document.getElementById('reply'));
+    $('#centerContents').append(tweetDocument);        
 
 }
-
-
 
 /******************************************************************* 新しいツイートの表示 *******************************************************************/
 
@@ -311,14 +307,12 @@ $(function () { // 遅延処理
             },
             cache: false
         }).done(function (results) {
-
             dispTweets(results);
+            replyWindow();
+            count = 1;
 
             $("#alert").remove();
             tweetCount = results.length;
-
-
-
         }).fail(function (err) {
             // 通信失敗時の処理
             alert('ファイルの取得に失敗しました。');
@@ -360,25 +354,25 @@ $(function () {
 });
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
-(function ()
-{
-    setTimeout(function (){
+function replyWindow (){
+    // setTimeout(function (){
         const modalArea = document.getElementById('modalArea1');
         const closeModal = document.getElementById('closeModal1');
         const modalBg = document.getElementById('modalBg1');
         const sendButton = document.getElementById('replySend');
-        var toggle = [closeModal, modalBg, sendButton];
-        replyButton.forEach(function(val){
-            toggle.push(val);
-          });
+        toggle = [closeModal, modalBg, sendButton];
+        for(let i=1;i<count;i++){
+            toggle.push(document.getElementById('reply' + i));
+        }
+        console.log(count);
         console.log(toggle);
         for (let i = 0, len = toggle.length; i < len; i++){
             toggle[i].addEventListener('click', function (){
                 modalArea.classList.toggle('is-show1');
             }, false);
         }
-    }, 1000);
-}());
+    // }, 1000);
+}
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj) {
