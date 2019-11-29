@@ -208,9 +208,12 @@ button {
 
   <div class="loader">Loading...</div>
   <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
+    <!-- <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
+    <div id="rightContents" class="col-sm-3"></div> -->
+    <div class="leftContents col-sm-3"></div>
+    <div class="centerContents col-sm-6"></div>
+    <div class="rightContents col-sm-3"></div>
   </div>
   
 </body>

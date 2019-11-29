@@ -36,6 +36,11 @@
 
             <div class="panel-tab">
                 <div class="panel is-show">
+                <div class="row tweets">
+                    <div class="leftContents col-sm-3"></div>
+                    <div class="centerContents col-sm-6"></div>
+                    <div class="rightContents col-sm-3"></div>
+                </div>
                     ツイート内容
                         @foreach($result["tweet_result"] as $tweet)
                         <div class="tweet">
@@ -65,6 +70,11 @@
                         @endforeach
                 </div>
                 <div class="panel">
+                    <div class="row tweets">
+                        <div class="leftContents col-sm-3"></div>
+                        <div class="centerContents col-sm-6"></div>
+                        <div class="rightContents col-sm-3"></div>
+                    </div>
                     ユーザー
                     @foreach($result["user_result"] as $user)
                         <div class="user">
@@ -84,6 +94,11 @@
                         @endforeach
                 </div>
                 <div class="panel">
+                    <div class="row tweets">
+                        <div class="leftContents col-sm-3"></div>
+                        <div class="centerContents col-sm-6"></div>
+                        <div class="rightContents col-sm-3"></div>
+                    </div>
                     画像
                     @foreach($result["img_result"] as $img)
                         <div class="image">
