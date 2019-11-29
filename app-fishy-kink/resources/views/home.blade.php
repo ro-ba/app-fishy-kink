@@ -221,7 +221,7 @@ button {
     <div class="modalWrapper1">
 
       <div id="parentTweet"></div>
-      <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
+      <form action="reply" class="reply"  method="POST" enctype="multipart/form-data">
       @csrf
         <textarea class="tweetText" id="replyText" cols="50" rows="7" maxlength="200" onkeyup="replyCheck();" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
@@ -294,23 +294,22 @@ button {
 <script>
 /******************************************************************* ツイート画面の表示 *******************************************************************/
 (function () {
-      const modalArea = document.getElementById('modalArea');
-      const openModal = document.getElementById('tweet');
-      const closeModal = document.getElementById('closeModal');
-      const modalBg = document.getElementById('modalBg');
-      const sendButton = document.getElementById('newTweet');
-      const toggle = [openModal,closeModal,modalBg , sendButton];
-  
-      for(let i=0, len=toggle.length ; i<len ; i++){
-        toggle[i].addEventListener('click',function(){
-        modalArea.classList.toggle('is-show');
-        },false);
-      }
-    }());
+    setTimeout(function () {
+        const modalArea = document.getElementById('modalArea');
+        const openModal = document.getElementById('tweet');
+        const closeModal = document.getElementById('closeModal');
+        const modalBg = document.getElementById('modalBg');
+        const sendButton = document.getElementById('newTweet');
+        const toggle = [openModal,closeModal,modalBg , sendButton];
+
+        for(let i=0, len=toggle.length ; i<len ; i++){
+          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
+          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
+          },false);
+        }
+    }, 1);
+  }());
 </script>
-
-
-
 <script>
 /******************************************************************* ツイート時の *******************************************************************/
     function loadImage(obj){
