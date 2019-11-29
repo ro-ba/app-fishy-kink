@@ -208,6 +208,7 @@ button {
     <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>
+
   <div class="loader">Loading...</div>
   <div class="row tweets">
     <div id="leftContents" class="col-sm-3"></div>
@@ -218,7 +219,34 @@ button {
 </body>
 </html>
 
-<!-- モーダルエリアここから (駒月が追加) -->
+<!-- りぷらい -->
+<div id="modalContents"></div>
+  <section id="modalArea1" class="modalArea1">
+    <div id="modalBg1" class="modalBg1"></div>
+    <div class="modalWrapper1">
+      <div id="parentTweet"></div>
+      <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
+      @csrf
+        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <label>
+          <span class="filelabel">
+            <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+          </span>
+          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+        </label>
+        <button id="replySend">送信</button>
+        <div class="tweet-image">
+          <p id="preview"></p>
+        </div>
+      </form>
+      <div id="closeModal1" class="closeModal1">
+        × 
+      </div>
+    </div>
+  </section>
+<div>
+
+<!-- ツイート -->
 <section id="modalArea" class="modalArea">
   <div id="modalBg" class="modalBg"></div>
   <div class="modalWrapper">
@@ -256,7 +284,6 @@ button {
     </div>
   </div>
 </section>
-<!-- モーダルエリアここまで -->
 
 <script>
 (function () {
