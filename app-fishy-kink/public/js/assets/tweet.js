@@ -150,10 +150,10 @@ function dispTweets(results) {
     $('#centerContents').empty();
     $('.loader').fadeIn();
 
-    results.forEach(function (tweet) {        
+    results.forEach(function (tweet) {
         createTweetElement(tweet);
         count++;
- 
+
     });
     $('.loader').fadeOut();
 }
@@ -225,7 +225,7 @@ function createTweetElement(tweet) {
 
     //リプライ
     tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-   
+
     //リツイート
     iconColor = "";
     reTweetText = "";
@@ -259,7 +259,7 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('#centerContents').append(tweetDocument);        
+    $('#centerContents').append(tweetDocument);
 
 
 }
@@ -329,27 +329,27 @@ $(function () {
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
-function replyWindow (){
-        const modalArea = document.getElementById('modalArea1');
-        const closeModal = document.getElementById('closeModal1');
-        const modalBg = document.getElementById('modalBg1');
-        const sendButton = document.getElementById('replySend');
-        var toggle = [];
-        toggle.push(closeModal);
-        toggle.push(modalBg);
-        toggle.push(sendButton);
-        //toggle = [closeModal, modalBg, sendButton];
-        for(let i=1;i<count;i++){
-            toggle.push(document.getElementById('reply' + i));
-        }
-        console.log(count -1);
-        console.log(toggle);
+function replyWindow() {
+    const modalArea = document.getElementById('modalArea1');
+    const closeModal = document.getElementById('closeModal1');
+    const modalBg = document.getElementById('modalBg1');
+    const sendButton = document.getElementById('replySend');
+    var toggle = [];
+    toggle.push(closeModal);
+    toggle.push(modalBg);
+    toggle.push(sendButton);
+    //toggle = [closeModal, modalBg, sendButton];
+    for (let i = 1; i < count; i++) {
+        toggle.push(document.getElementById('reply' + i));
+    }
+    console.log(count - 1);
+    console.log(toggle);
 
-        for (let i = 0, len = toggle.length; i < len; i++){
-            toggle[i].addEventListener('click', function (){
-                modalArea.classList.toggle('is-show1');
-            }, false);
-        }
+    for (let i = 0, len = toggle.length; i < len; i++) {
+        toggle[i].addEventListener('click', function () {
+            modalArea.classList.toggle('is-show1');
+        }, false);
+    }
 }
 
 
@@ -377,12 +377,12 @@ function replyWindow (){
 // });
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj) {
-    document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';
+    $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(obj.files[i]);
         fileReader.onload = (function (e) {
-            document.getElementById('preview').innerHTML += '<img src="' + e.target.result + '">';
+            $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
 }

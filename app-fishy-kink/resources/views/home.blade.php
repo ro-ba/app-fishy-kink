@@ -233,7 +233,7 @@ button {
         </label>
         <button id="replySend">送信</button>
         <div class="tweet-image">
-          <p id="preview"></p>
+          <p class="preview-image"></p>
         </div>
       </form>
       <div id="closeModal1" class="closeModal1">
@@ -270,7 +270,7 @@ button {
             </div>
 
             <div class="tweet-image">
-               <p id="preview"></p>
+               <p class="preview-image"></p>
                
             </div>
         </div>
@@ -295,7 +295,10 @@ button {
 
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            
+            modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
