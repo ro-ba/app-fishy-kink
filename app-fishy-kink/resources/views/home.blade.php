@@ -208,9 +208,12 @@ button {
 
   <div class="loader">Loading...</div>
   <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
+    <!-- <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
+    <div id="rightContents" class="col-sm-3"></div> -->
+    <div class="leftContents col-sm-3"></div>
+    <div class="centerContents col-sm-6"></div>
+    <div class="rightContents col-sm-3"></div>
   </div>
   
 </body>
@@ -224,16 +227,16 @@ button {
       <div id="parentTweet"></div>
       <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
       @csrf
-        <textarea class="tweetText" id="replyText" cols="50" rows="7" maxlength="200" onkeyup="replyCheck();" name="tweetText" placeholder="りぷらい"></textarea>
+        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
             <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
-        <button id="replySend" disabled=true>送信</button>
+        <button id="replySend">送信</button>
         <div class="tweet-image">
-          <p id="preview"></p>
+          <p class="preview-image"></p>
         </div>
       </form>
       <div id="closeModal1" class="closeModal1">
@@ -254,7 +257,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" id="tweetText" cols="50" rows="7" maxlength="200" onkeyup="textCheck();" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
@@ -265,12 +268,13 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
+                    <button id = newTweet class="newTweet"> tweet </button>
                 </div>
             </div>
 
             <div class="tweet-image">
-               <p id="preview"></p>
+               <p class="preview-image"></p>
+               
             </div>
         </div>
         </div>
@@ -292,16 +296,19 @@ button {
         const sendButton = document.getElementById('newTweet');
         const toggle = [openModal,closeModal,modalBg , sendButton];
 
-        for(let i = 0; i<toggle.length;i++){
-          console.log(toggle);
-        }
-    
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            
+            modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
   }());
 
 </script>
+
+
+
+
