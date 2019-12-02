@@ -261,7 +261,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck()" placeholder="いまどうしてる？"></textarea>
+                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
