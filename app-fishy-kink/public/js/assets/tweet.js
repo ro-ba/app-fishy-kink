@@ -447,7 +447,6 @@ function loadImage(obj)
 /****************************nullでのツイート防止********************************* */
 function textCheck() {
     var textValue = document.getElementById('tweetText').value;
-    var replyValue = document.getElementById('replyText').value;
     var tweetButton = document.getElementById('newTweet');
     console.log(textValue);
     if (textValue == "" || textValue == null) {
