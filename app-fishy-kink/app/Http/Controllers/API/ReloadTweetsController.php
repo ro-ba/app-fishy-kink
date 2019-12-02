@@ -30,11 +30,21 @@ class ReloadTweetsController extends Controller
         $db = connect_mongo();
         $userID = $request->input("userID");
         if ($userID){
-            $tweets = $db["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
+            $data = $db["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
         }else{
-            $tweets = $db["tweetDB"]->find([],['sort' => ['time' => -1]]);
+            $data = $db["tweetDB"]->find([],['sort' => ['time' => -1]]);
         };
-        return json_encode(iterator_to_array($tweets));
+        $tweets = iterator_to_array($data);
+        //origintweetのデータを挿入
+        foreach ($tweets as $i => $tweet){
+            if ($tweet["type"] == "retweet"){
+                $tweetID = new \MongoDB\BSON\ObjectId($tweet["originTweetID"]);
+                $tweet["originTweet"] = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+            };
+        };
+        // return json_encode(iterator_to_array($tweets));
+        return json_encode($tweets);
+        // return ($tweets);
     }
 
     /**

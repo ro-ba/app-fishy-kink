@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>followers</title>
+<title>following</title>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -10,58 +10,23 @@
 <link rel="stylesheet" href="css/Follow.css">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
-    <script>
-        window.onload = function(){
-            $(document).on('click','.tab_item1',function(){
-                $.ajax({
-                type: 'POST',
-                url: '/api/getFollower',
-                dataType: 'json',
-                async: false,
-                data: {
-                    userID: getParam('user'),
-                    _token: '{{ csrf_token() }}'
-                },
-                cache: false
-                }).done(function(results) {
-                    var follower = results["follower"];
-                    $('#list').empty();
-                    for(var i=0;i<follower.length;i++){
-                        followDocument =    `<ul class=list_none>`   
-                                        +    `<li>`
-                                        +   `<a onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                <img src="${follower[i]['userImg']}"/></a>`
-                                        +   `<div class="uName">${follower[i]["userName"]}</div>`
-                                        +   `<button class="btn" type="button" onclick="location.href='/profile?user=${follower[i]["userID"]}'">
-                                                <div class=""><span>@</span>${follower[i]["userID"]}</div></button>`
-                                        +   `<div class="profile">${follower[i]["profile"]}</div>`
-                                        +   `</li>`
-                                        +   `</ul>`;
-                        $('#list').append(followDocument);
-                    }
-                });
-            });
-        };
-
-        function getParam(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
-    </script>
+   
 </head>
 <body>
+        @isset($_GET['user'])
         <div class="tabs">
-        <input id="follower" type="radio" name="tab_item" checked>
-        <label class="tab_item1" for="follower">フォロー</label>
-
-        <input id="follow" type="radio" name="tab_item" checked>
-        <label class="tab_item2" for="follow">フォロー中</label>
+            <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" class="checked">
+            <label class="tab_item1" for="follow">フォロー中</label>
+            <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" >
+            <label class="tab_item2" for="follower">フォロワー</label>
+        @else
+        <div class="tabs">  
+            <input id="follow" onclick="location.href='/following?user={{session('userID')}}'" type="button" name="tab_item" class="checked">
+            <label class="tab_item1" for="follow">フォロー中</label>
+            <input id="follower" onclick="location.href='/followers?user={{session('userID')}}'"  type="button" name="tab_item" >
+            <label class="tab_item2" for="follower">フォロワー</label>
+        @endisset
+        
       
 <!-- フォロー中表示 -->
     <div class="tab_content2" id="follow_content">
@@ -106,8 +71,12 @@
     </div>
 
     <div>
-        <button  class="btn-square" type="button" onclick="location.href='/profile?user{{$_GET['user']}}'">戻る</button>
-    </div>  
+    @isset($_GET['user'])
+        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
+    @else
+        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{session('userID')}}'">戻る</button>
+    @endisset
+    </div>
     
 </body>
 </html>

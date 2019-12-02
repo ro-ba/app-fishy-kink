@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+require "/vagrant/source/func/FKMongo.php";
 
 class ReplyController extends Controller
 {
@@ -61,8 +63,8 @@ class ReplyController extends Controller
         //     "readFlag" => False
         // ]);
         // return ["message" => ];
-        // return redirect("home");
-        //
+        return redirect("home");
+
     }
 
     /**

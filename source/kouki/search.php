@@ -49,21 +49,6 @@ function search($search){
     $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1]);//ツイート検索
     $user_result = $db ["userDB"] -> find(['$or' => $find_user1]);
     $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
-
-    // print_r("ツイート"."<br>");
-    // foreach($tweet_result as $obj){
-    //     print_r($obj);
-    // }
-    // print_r("<br>");
-    // print_r("ユーザー"."<br>");
-    // foreach($user_result as $obj){
-    //     print_r($obj);
-    // }
-    // print_r("<br>");
-    // print_r("画像"."<br>");
-    // foreach($img_result as $obj){
-    //     print_r($obj);
-    // }
     
     $result = [
         "tweet_result"=> $tweet_result->toArray(),

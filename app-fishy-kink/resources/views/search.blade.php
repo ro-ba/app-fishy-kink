@@ -19,11 +19,12 @@
     <div class="main">
 
         <div class="search">
-            <form method='get' action="../source/kouki/search.php" class="form-inline d-inline">
-                <input type="text" name="serchString" class="form-control" value="">
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
+            <form method='get' action="/search" class="form-inline d-inline">
+                <input type="text" name="searchString" class="form-control" value="">
                 <input type="submit" class="form-control" value="検索">
             </form>
-        </form>
+        
         </div>
 
         <div class="content">
@@ -35,10 +36,17 @@
 
             <div class="panel-tab">
                 <div class="panel is-show">
+                <div class="row tweets">
+                    <div class="leftContents col-sm-3"></div>
+                    <div class="centerContents col-sm-6"></div>
+                    <div class="rightContents col-sm-3"></div>
+                </div>
                     ツイート内容
                         @foreach($result["tweet_result"] as $tweet)
                         <div class="tweet">
-                            
+                            <div class="userimg">
+                                {{ $tweet["userImg"] }}
+                            </div>
                             <div class="userID">
                                 {{ $tweet["userID"] }}
                             </div>
@@ -48,10 +56,25 @@
                             <div class="text">
                                 {{ $tweet["text"] }}
                             </div>
+                            @if(count($tweet["img"]) > 0)
+                            <?php 
+                            $count = count($tweet["img"]);
+                            ?>
+                                @for($i = 0; $i < $count; $i++)
+                                    <div class="img">
+                                        {{ $tweet["img"][$i] }}
+                                    </div>
+                                @endfor
+                            @endif
                         </div>
                         @endforeach
                 </div>
                 <div class="panel">
+                    <div class="row tweets">
+                        <div class="leftContents col-sm-3"></div>
+                        <div class="centerContents col-sm-6"></div>
+                        <div class="rightContents col-sm-3"></div>
+                    </div>
                     ユーザー
                     @foreach($result["user_result"] as $user)
                         <div class="user">
@@ -71,6 +94,11 @@
                         @endforeach
                 </div>
                 <div class="panel">
+                    <div class="row tweets">
+                        <div class="leftContents col-sm-3"></div>
+                        <div class="centerContents col-sm-6"></div>
+                        <div class="rightContents col-sm-3"></div>
+                    </div>
                     画像
                     @foreach($result["img_result"] as $img)
                         <div class="image">
@@ -86,6 +114,14 @@
                             <div class="text">
                                 {{ $img["text"] }}
                             </div>
+                            <?php 
+                            $count = count($tweet["img"]);
+                            ?>
+                            @for($i = 0; $i < $count; $i++)
+                                <div class="img">
+                                    {{ $tweet["img"][$i] }}
+                                </div>
+                            @endfor
                         </div>
                         @endforeach
                 </div>
@@ -108,19 +144,3 @@
     });
   });
 </script>
-
-<!-- <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Search</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
-<body>
-    <input type="text"/>
-</body>
-
-</html> -->
