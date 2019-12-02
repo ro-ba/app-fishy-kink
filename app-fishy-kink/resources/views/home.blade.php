@@ -186,9 +186,6 @@ button {
 <body>
 
 
-<button id="openModal">Open modal</button>
-
-
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
@@ -204,16 +201,19 @@ button {
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>
 
   <div class="loader">Loading...</div>
   <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
+    <!-- <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
+    <div id="rightContents" class="col-sm-3"></div> -->
+    <div class="leftContents col-sm-3"></div>
+    <div class="centerContents col-sm-6"></div>
+    <div class="rightContents col-sm-3"></div>
   </div>
   
 </body>
@@ -236,7 +236,7 @@ button {
         </label>
         <button id="replySend">送信</button>
         <div class="tweet-image">
-          <p id="preview"></p>
+          <p class="preview-image"></p>
         </div>
       </form>
       <div id="closeModal1" class="closeModal1">
@@ -268,12 +268,13 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <input class="newTweet" method="POST" type="submit" value="tweet" />   
+                    <button id = newTweet class="newTweet"> tweet </button>
                 </div>
             </div>
 
             <div class="tweet-image">
-               <p id="preview"></p>
+               <p class="preview-image"></p>
+               
             </div>
         </div>
         </div>
@@ -294,10 +295,13 @@ button {
         const modalBg = document.getElementById('modalBg');
         const sendButton = document.getElementById('newTweet');
         const toggle = [openModal,closeModal,modalBg , sendButton];
-    
+
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            
+            modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
