@@ -41,10 +41,12 @@ $(function () { // 遅延処理
         result = results;
         dispTweets(result);
         replyWindow();
-        tweetCount = results.length;
+        tweetCount = result.length;
         count = 1;
 
+
     }).fail(function (err) {
+
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
     });
@@ -65,8 +67,10 @@ $(function () { // 遅延処理
                 userID: userID
             },
             cache: false
+
         }).done(function (results) {
             if (tweetCount != results.length) {
+
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                     '<a href="" class="alert-link">新しいツイート</a>' +
@@ -390,7 +394,6 @@ function loadImage(obj) {
 /****************************nullでのツイート防止********************************* */
 function textCheck() {
     var textValue = document.getElementById('tweetText').value;
-    var replyValue = document.getElementById('replyText').value;
     var tweetButton = document.getElementById('newTweet');
     console.log(textValue);
     if (textValue == "" || textValue == null) {
