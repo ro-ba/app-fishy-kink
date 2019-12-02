@@ -61,9 +61,10 @@ $(function () { // 遅延処理
         // 通信成功時の処理
         result = results;
         dispTweets(result);
-        tweetCount = result.length;
-        count = 1;
         replyWindow();
+        tweetCount = result.length;        
+        count = 1;
+
 
     }).fail(function (err) {
         // 通信失敗時の処理

@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/home.css">
 
   <style>
     .accordion .inner {
@@ -189,7 +190,10 @@ button {
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount" id = "readCount">{{ $count }}</p></button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+    @if($count != 0)
+      <p class = "readCount"  data-badge="{{ $count }}"></p></button>
+    @endif
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
