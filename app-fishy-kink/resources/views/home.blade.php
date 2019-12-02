@@ -16,6 +16,7 @@
   <link rel="shortcut icon" href="images/FKicon.png">
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
   <link rel="stylesheet" href="css/home.css">
@@ -267,7 +268,7 @@ button {
             <div class="content">
                 <label>
                     <span class="filelabel">
-                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>

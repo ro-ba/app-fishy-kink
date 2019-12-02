@@ -168,12 +168,12 @@ $(function ()
     });
 });
 
-
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results)
 {
     $('.centerContents').empty();
     $('.loader').fadeIn();
+    
 
     results.forEach(function (tweet)
     {
@@ -376,6 +376,7 @@ $(function ()
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
+
 function replyWindow()
 {
     const modalArea = document.getElementById('modalArea1');
@@ -440,4 +441,5 @@ function loadImage(obj)
         });
     }
 }
+
 
