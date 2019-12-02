@@ -72,11 +72,14 @@ $(function ()
                 userID: userID
             },
             cache: false
-     
+
+
+
         }).done(function (results)
         {
             if (tweetCount != results.length)
             {
+
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                     '<a href="" class="alert-link">新しいツイート</a>' +
@@ -167,12 +170,12 @@ $(function ()
     });
 });
 
-
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results)
 {
     $('.centerContents').empty();
     $('.loader').fadeIn();
+    
 
     results.forEach(function (tweet)
     {
@@ -375,6 +378,7 @@ $(function ()
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
+
 function replyWindow()
 {
     const modalArea = document.getElementById('modalArea1');
@@ -439,4 +443,5 @@ function loadImage(obj)
         });
     }
 }
+
 
