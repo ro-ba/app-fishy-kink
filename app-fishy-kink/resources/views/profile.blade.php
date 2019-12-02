@@ -11,7 +11,6 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/profile.css"> -->
 <link rel="stylesheet" type="text/css" href="css/profile.css">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
@@ -44,7 +43,6 @@
 
     <div class="profile">
       <div id=wrap>
-
 
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
@@ -85,6 +83,19 @@
     <hr />
 
     <div class="loader"></div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
 
     <div class="row tweets">
       <div id="leftContents" class="col-sm-3"></div>

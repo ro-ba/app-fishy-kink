@@ -52,51 +52,79 @@
 </head>
 <body>
 @isset($userData)
-    <div>
+    <div class="userEdit">
         <form method="post" enctype="multipart/form-data">
         @csrf
             <div class="userData">
-                <div class="userImage">
-                    <img class="myIcon preview" src='{{ $userData["userImg"] }}' alt="myIcon" style="width:200px; height:200px;"/>
-                    <input type="file" name="userImg"  accept="image/*"/>
+                <label>
+                    <span class="filelabel">
+                        <img id="preview" class="myIcon preview" src='{{ $userData["userImg"] }}' alt="myIcon" style="width:180px; height:180px;"/>
+                    </span>
+                    <input type="file" id="file" name="userImg" accept="image/*" />
+                </label>
+
+                <div class="userInfo">
+                    <div class="userId">
+                        ユーザーID： {{ $userData["userID"] }}
+                    </div>
+
+                    <div class="userName">
+                        ユーザー名：
+                        <input type="text" name="userName" class="usenName" value='{{ $userData["userName"] }}'>
+                    </div>
                 </div>
-                <div class="userID">
-                    ユーザーID： {{ $userData["userID"] }}
-                </div>
-                <div class="userName">
-                ユーザー名：
-                <input type="text" name="userName" class="usenName" value='{{ $userData["userName"] }}'>
+
+                <a class="js-modal-open remove" href="">アカウント削除</a>
+
                 <div class="profile">
-                    <p>プロフィール</p>
+                    <h6>プロフィール</h6>
                     <textarea name="profileText" rows="4" cols="80">{{ $userData["profile"] }}</textarea>
+                </div>            
+
+                <div class="content">
+                    <input class="" type="submit" value="適用">
+                    <input class="" type="button" onclick="location.href='/profile'" value="戻る">
+                    <!-- <input class="btn btn-sec" type="button" onclick="openWin()" value="アカウント削除"> -->
                 </div>
             </div>
-            <div class="content">
-                <input class="btn btn-primary" type="submit" value="適用">
-                <input class="btn btn-default" type="button" onclick="location.href='/profile'" value="戻る">
-                <!-- <input class="btn btn-sec" type="button" onclick="openWin()" value="アカウント削除"> -->
-                <a class="js-modal-open" href="">アカウント削除</a>
-            </div>
+            
             <div class="modal js-modal">
                 <div class="modal__bg js-modal-close"></div>
                 <div class="modal__content">
-                <form action='doubleCheck' class='doubleCheck' enctype='multipart/form-data' method='post'>
-                    @csrf
-                        <div>
-                            <p>本当にいいですか？</p>
-                            <tr></tr>
-                            <input name='check' type='checkbox'/>
-                            <tr></tr>
-                            <input type='submit' value='削除'/>
-                            <a class="js-modal-close" href="">閉じる</a>
-                        </div>
+                    <form action='doubleCheck' class='doubleCheck' enctype='multipart/form-data' method='post'>
+                        @csrf
+                            <div>
+                                <p>本当にいいですか？</p>
+                                <tr></tr>
+                                <input name='check' type='checkbox'/>
+                                <tr></tr>
+                                <input type='submit' value='削除'/>
+                                <a class="js-modal-close" href="">閉じる</a>
+                            </div>
                     </form>
                 </div><!--modal__inner-->
             </div><!--modal-->
+
         </form>
+    </div>
 @else
     <p id="error">エラー</p>
 @endisset
 </body>
 
 </html>
+
+<script>
+    $('#file').on('change', function (e) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $("#preview").attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+});
+</script>
+
+                <!-- <div class="userImage">
+                    <img class="myIcon preview" src='{{ $userData["userImg"] }}' alt="myIcon" style="width:200px; height:200px;"/>
+                    <input type="file" name="userImg"  accept="image/*"/>
+                </div> -->

@@ -44,6 +44,7 @@ a {
     margin: 20px 50px 30px 100px;
     object-fit: cover;
     border-radius: 50%;
+    border: 1px solid #eee;
     float: left;
 }
 
@@ -71,6 +72,10 @@ a {
     opacity: 0.5;
 }
 
+.user .user-edit:active {
+    opacity: 1;
+}
+
 .follows {
     margin-top: 70px;
 }
@@ -85,6 +90,10 @@ a {
 
 .follows li:hover {
     opacity: 0.5;
+}
+
+.follows li:active {
+    opacity: 1;
 }
 
 .follows .follow {
@@ -106,7 +115,7 @@ a {
 
 .my-profile {
     clear: both;
-    width: 880px;
+    width: 740px;
     height: auto;
     padding: 20px;
     margin: 40px auto 40px auto;
@@ -114,7 +123,10 @@ a {
     /* border-radius: 3em .5em 2em .5em/.4em 2em .5em 3em; */
     border-radius: 5px; 
     font-size: 18px;
-    font-family: "Kokoro";
+    font-family:  "游ゴシック", "YuGothic", "メイリオ", meiryo, sans-serif;
+}
+
+.pro-content {    
 }
 
 hr {
