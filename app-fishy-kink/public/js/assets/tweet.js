@@ -148,11 +148,11 @@ $(function () {
     });
 });
 
-
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results) {
     $('.centerContents').empty();
     $('.loader').fadeIn();
+    
 
     results.forEach(function (tweet) {
         createTweetElement(tweet);
@@ -333,7 +333,9 @@ $(function () {
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
-function replyWindow() {
+
+function replyWindow()
+{
     const modalArea = document.getElementById('modalArea1');
     const closeModal = document.getElementById('closeModal1');
     const modalBg = document.getElementById('modalBg1');
@@ -417,3 +419,4 @@ function replyCheck() {
         replyButton.disabled = false;
     }
 }
+
