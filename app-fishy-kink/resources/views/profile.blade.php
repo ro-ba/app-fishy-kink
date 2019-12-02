@@ -56,9 +56,21 @@
               <form method=POST>
               @csrf
                 @if($nowFollow == False)
-                  <input type="submit" class="nowFollow" value="フォローする"/>
+                  <!-- <button type="submit" class="nowFollow">フォローする</button> -->
+                  <button type="submit" class="noFollow" style="color:#696969;" 
+                  onmouseover="this.style.color='#696969',
+                  this.innerHTML='フォローする'" 
+                  onmouseout="this.style.color='#696969',
+                  this.innerHTML='フォローしていません'">
+                  フォローしていません</button>
                 @else
-                  <input type="submit" class="nowFollow" value="フォロー中"/>
+                  <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
+                  <button type="submit" class="nowFollow" style="color:#696969;" 
+                  onmouseover="this.style.color='#696969',
+                  this.innerHTML='フォローを外す'" 
+                  onmouseout="this.style.color='#696969',
+                  this.innerHTML='フォロー中'">
+                  フォロー中</button>
                 @endif
               </form>
             @endif
