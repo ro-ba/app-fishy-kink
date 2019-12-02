@@ -148,11 +148,11 @@ $(function () {
     });
 });
 
-
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results) {
     $('.centerContents').empty();
     $('.loader').fadeIn();
+
 
     results.forEach(function (tweet) {
         createTweetElement(tweet);
@@ -333,6 +333,7 @@ $(function () {
 
 /******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
 
+
 function replyWindow() {
     const modalArea = document.getElementById('modalArea1');
     const closeModal = document.getElementById('closeModal1');
@@ -403,15 +404,16 @@ function textCheck() {
     }
 }
 
-// function replyCheck() {
-//     var replyValue = document.getElementById('replyText').value;
-//     var replyButton = document.getElementById('replySend');
-//     console.log(replyValue);
-//     if (replyValue == "" || replyValue == null) {
-//         replyButton.disabled = true;
-//         // else -if (replyValue == "" || replyValue == null) {
-//         //     tweetButton.disabled = true;
-//     } else {
-//         replyButton.disabled = false;
-//     }
-// }
+function replyCheck() {
+    var replyValue = document.getElementById('replyText').value;
+    var replyButton = document.getElementById('replySend');
+    console.log(replyValue);
+    if (replyValue == "" || replyValue == null) {
+        replyButton.disabled = true;
+        // else -if (replyValue == "" || replyValue == null) {
+        //     tweetButton.disabled = true;
+    } else {
+        replyButton.disabled = false;
+    }
+}
+
