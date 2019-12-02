@@ -262,7 +262,7 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck()" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
@@ -273,7 +273,7 @@ button {
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <button id = newTweet class="newTweet"> tweet </button>
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
 
