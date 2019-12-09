@@ -284,7 +284,7 @@ button {
 </section>
 
 <script>
-/******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
     $.ajax({
         type: 'POST',
@@ -300,36 +300,12 @@ $(function () { // 遅延処理
     }).done(function (results) {
         // 通信成功時の処理
         result = results;
-        init(result);
         dispTweets(result);
-        
     }).fail(function (err) {
-
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
     });
 });
-</script>
-
-<script>
-(function () {
-    setTimeout(function () {
-        const modalArea = document.getElementById('tweetArea');
-        const openModal = document.getElementById('tweet');
-        const closeModal = document.getElementById('closeTweet');
-        const modalBg = document.getElementById('tweetBg');
-        const sendButton = document.getElementById('newTweet');
-        const toggle = [openModal,closeModal,modalBg , sendButton];
-
-        for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-            //tweetのpreview-imageを初期化
-            $(".preview-image").html('<p class="pre">PREVIEW</p>');
-            modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
-          },false);
-        }
-    }, 1);
-  }());
 </script>
 
 

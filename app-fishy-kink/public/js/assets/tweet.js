@@ -23,34 +23,10 @@ var count = 1;
 //     return tweet;
 // };
 
-// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
-// $(function () { // 遅延処理
-//     $.ajax({
-//         type: 'POST',
-//         url: '/api/reloadTweets', // url: は読み込むURLを表す
-//         dataType: 'json', // 読み込むデータの種類を記入
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         },
-//         data: {
-//             userID: userID
-//         },
-//         cache: false
-//     }).done(function (results) {
-//         // 通信成功時の処理
-//         result = results;
-//         init(result);
-//         dispTweets(result);
-
-//     }).fail(function (err) {
-
-//         // 通信失敗時の処理
-//         alert('ファイルの取得に失敗しました。');
-//     });
-// });
-
+/******************************************************************* 変数の初期化等 *******************************************************************/
 function init(result) {
     replyWindow();
+    tweetWindow();
     tweetCount = result.length;
     count = 1;
 };
@@ -152,6 +128,7 @@ $(function () {
 
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results, searchType = "") {
+    console.log(results);
     if (searchType) {
         doc = $(`.centerContents .${searchType}`);
     } else {
@@ -166,7 +143,7 @@ function dispTweets(results, searchType = "") {
     });
     $('.loader').fadeOut();
     startTweetAlert();
-
+    init(result);
 }
 
 /******************************************************************* tweet一件分のJSONからエレメントを生成してcenterContentsに追加*******************************************************************/
@@ -350,9 +327,28 @@ function replyWindow() {
     for (let i = 1; i < count; i++) {
         toggle.push(document.getElementById('reply' + i));
     }
+    console.log(toggle);
     for (let i = 0, len = toggle.length; i < len; i++) {
         toggle[i].addEventListener('click', function () {
             modalArea.classList.toggle('reply-show');
+        }, false);
+    }
+}
+
+/******************************************************************* ツイート用のウインドウ *******************************************************************/
+function tweetWindow() {
+    const modalArea = document.getElementById('tweetArea');
+    const openModal = document.getElementById('tweet');
+    const closeModal = document.getElementById('closeTweet');
+    const modalBg = document.getElementById('tweetBg');
+    const sendButton = document.getElementById('newTweet');
+    const toggle = [openModal, closeModal, modalBg, sendButton];
+
+    for (let i = 0, len = toggle.length; i < len; i++) {
+        toggle[i].addEventListener('click', function () {    // イベント処理(クリック時)
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
         }, false);
     }
 }

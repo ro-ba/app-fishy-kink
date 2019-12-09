@@ -12,7 +12,17 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
+<script type="text/javascript">
+  let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+<script>
+dispTweets('{{ $result["tweet_result"] }}',"search-result-tweet");
+dispTweets('{{ $result["user_result"] }}',"search-result-user");
+dispTweets('{{ $result["img_result"] }}',"search-result-img");
+</script>
 </head>
 
 <body>
@@ -39,92 +49,9 @@
                     </ul>
 
                     <div class="panel-tab">
-                        <div class="panel is-show">
-
-                            ツイート内容
-                                @foreach($result["tweet_result"] as $tweet)
-                                <div class="tweet">
-                                    <div class="userimg">
-                                        {{ $tweet["userImg"] }}
-                                    </div>
-                                    <div class="userID">
-                                        {{ $tweet["userID"] }}
-                                    </div>
-                                    <div class="time">
-                                        {{ $tweet["time"] }}
-                                    </div>
-                                    <div class="text">
-                                        {{ $tweet["text"] }}
-                                    </div>
-                                    @if(count($tweet["img"]) > 0)
-                                    <?php 
-                                    $count = count($tweet["img"]);
-                                    ?>
-                                        @for($i = 0; $i < $count; $i++)
-                                            <div class="img">
-                                                {{ $tweet["img"][$i] }}
-                                            </div>
-                                        @endfor
-                                    @endif
-                                </div>
-                                @endforeach
-                        </div>
-                        <div class="panel">
-                            <div class="row tweets">
-                                <div class="leftContents col-sm-3"></div>
-                                <div class="centerContents col-sm-6"></div>
-                                <div class="rightContents col-sm-3"></div>
-                            </div>
-                            ユーザー
-                            @foreach($result["user_result"] as $user)
-                                <div class="user">
-                                    <div class="userimg">
-                                        {{ $user["userImg"] }}
-                                    </div>
-                                    <div class="name">
-                                        {{ $user["userName"] }}
-                                    </div>
-                                    <div class="userID">
-                                        {{ $user["userID"] }}
-                                    </div>
-                                    <div class="profile">
-                                        {{ $user["profile"] }}
-                                    </div>
-                                </div>
-                                @endforeach
-                        </div>
-                        <div class="panel">
-                            <div class="row tweets">
-                                <div class="leftContents col-sm-3"></div>
-                                <div class="centerContents col-sm-6"></div>
-                                <div class="rightContents col-sm-3"></div>
-                            </div>
-                            画像
-                            @foreach($result["img_result"] as $img)
-                                <div class="image">
-                                    <div class="userimg">
-                                        {{ $img["userImg"] }}
-                                    </div>
-                                    <div class="userID">
-                                        {{ $img["userID"] }}
-                                    </div>
-                                    <div class="time">
-                                        {{ $img["time"] }}
-                                    </div>
-                                    <div class="text">
-                                        {{ $img["text"] }}
-                                    </div>
-                                    <?php 
-                                    $count = count($tweet["img"]);
-                                    ?>
-                                    @for($i = 0; $i < $count; $i++)
-                                        <div class="img">
-                                            {{ $tweet["img"][$i] }}
-                                        </div>
-                                    @endfor
-                                </div>
-                                @endforeach
-                        </div>
+                        <div class="panel search-result-tweet is-show "></div>
+                        <div class="panel search-result-user"></div>
+                        <div class="panel search-result-img"></div>
                     </div>
                 </div>
             </div>
