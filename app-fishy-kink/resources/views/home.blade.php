@@ -235,7 +235,7 @@ button {
         <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
-            <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+            <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
