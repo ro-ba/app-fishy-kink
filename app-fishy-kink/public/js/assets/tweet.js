@@ -74,11 +74,11 @@ $(function () { // 遅延処理
 
 /******************************************************************* 1秒ごとにツイートの数を取得し数に変動があった場合にアラート表示 *******************************************************************/
 $(function () { // 遅延処理
-    setInterval((function update() { //1000ミリ秒ごとに実行
+    setInterval((function update() {    //1000ミリ秒ごとに実行
         $.ajax({
             type: 'POST',
-            url: '/api/reloadTweets', // url: は読み込むURLを表す
-            dataType: 'json', // 読み込むデータの種類を記入
+            url: '/api/reloadTweets',   // url: は読み込むURLを表す
+            dataType: 'json',           // 読み込むデータの種類を記入
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -327,7 +327,6 @@ $(function () {
     $("#centerContents").on("click", ".reply", function () {
         var tweetid = $(this).parents().siblings("#tweetID").val();
         replyButton = this;
-        // console.log(replyButton);
         $.ajax({
             type: 'POST',
             url: '/api/getTweet',
@@ -348,18 +347,17 @@ $(function () {
     });
 });
 
-/******************************************************************* リプライ用のウインドウ（仮） *******************************************************************/
+/******************************************************************* リプライ用のウインドウ *******************************************************************/
 
 function replyWindow (){
-        const modalArea = document.getElementById('modalArea1');
-        const closeModal = document.getElementById('closeModal1');
-        const modalBg = document.getElementById('modalBg1');
+        const modalArea = document.getElementById('replyArea');
+        const closeModal = document.getElementById('closeReply');
+        const modalBg = document.getElementById('replyBg');
         const sendButton = document.getElementById('replySend');
         var toggle = [];
         toggle.push(closeModal);
         toggle.push(modalBg);
         toggle.push(sendButton);
-        //toggle = [closeModal, modalBg, sendButton];
         for(let i=1;i<count;i++){
             toggle.push(document.getElementById('reply' + i));
         }
@@ -368,34 +366,36 @@ function replyWindow (){
 
         for (let i = 0, len = toggle.length; i < len; i++){
             toggle[i].addEventListener('click', function (){
-                modalArea.classList.toggle('is-show1');
+                modalArea.classList.toggle('reply-show');
             }, false);
         }
 }
 
+/******************************************************************* リプライ送信 *******************************************************************/
 
+$(function () {
+    $('#replySend').click(function () {                                 // リプライの送信ボタンが押されたら
+        var tweetid = $(this).parents().siblings("#tweetID").val();
+        $.ajax({
+            type: 'POST',
+            url: '/api/reply',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                tweetID: tweetid,
+            },
+            cache: false
+        }).done(function (results) {
+            // アラートの追加
+            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
+            '<a href="" class="alert-link">新しいツイート</a>' +
+            '</div>';
+        });
+    });
+});
 
-// $(function () {
-//     $('replySend').click(function () {
-//         $.ajax({
-//             type: 'POST',
-//             url: '/api/reply',
-//             dataType: 'json',
-//             headers: {
-//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//             },
-//             data: {
-//                 tweetID: tweetid,
-//             },
-//             cache: false
-//         }).done(function (results) {
-//             // アラートの追加
-//             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-//             '<a href="" class="alert-link">新しいツイート</a>' +
-//             '</div>';
-//         });
-//     });
-// });
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj) {
     document.getElementById('preview').innerHTML = '<p class="pre">PREVIEW</p>';

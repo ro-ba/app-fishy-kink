@@ -55,7 +55,7 @@ body {
 
 
 /* モーダルCSSここから */
-.modalArea {
+.tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -67,13 +67,13 @@ body {
   transition: .4s;
 }
 
-.modalBg {
+.tweetBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper {
+.tweetWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -84,21 +84,21 @@ body {
   background-color: #fff;
 }
 
-.closeModal {
+.closeTweet {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show { /* モーダル表示用クラス */
+.tweet-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
 /* モーダルCSSここまで */
 
 /* モーダルCSSここから */
-.modalArea1 {
+.replyArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -110,13 +110,13 @@ body {
   transition: .4s;
 }
 
-.modalBg1 {
+.replyBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper1 {
+.replyWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -127,14 +127,14 @@ body {
   background-color: #fff;
 }
 
-.closeModal1 {
+.closeReply {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show1 { /* モーダル表示用クラス */
+.reply-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
@@ -149,15 +149,6 @@ button {
   border-radius: 2px;
   cursor: pointer;
 }
-
-/* #openModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-} */
-
-/** ここまで **/
   </style>
 
 <script type="text/javascript">
@@ -217,12 +208,12 @@ button {
 </html>
 
 <!-- りぷらい -->
-<div id="modalContents"></div>
-  <section id="modalArea1" class="modalArea1">
-    <div id="modalBg1" class="modalBg1"></div>
-    <div class="modalWrapper1">
+<div id="replyContents">
+  <section id="replyArea" class="replyArea">
+    <div id="replyBg" class="replyBg"></div>
+    <div class="replyWrapper">
       <div id="parentTweet"></div>
-      <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
+      <!-- <form action="reply" class="reply" method="POST" enctype="multipart/form-data"> -->
       @csrf
         <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
         <label>
@@ -231,23 +222,23 @@ button {
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
-        <button id="replySend">送信</button>
+        <button id="replySend" value="test">送信</button>
         <div class="tweet-image">
           <p id="preview"></p>
         </div>
-      </form>
-      <div id="closeModal1" class="closeModal1">
+      <!-- </form> -->
+      <div id="closeReply" class="closeReply">
         × 
       </div>
     </div>
   </section>
-<div>
+</div>
 
 <!-- ツイート -->
-<section id="modalArea" class="modalArea">
-  <div id="modalBg" class="modalBg"></div>
-  <div class="modalWrapper">
-    <div class="modalContents">
+<section id="tweetArea" class="tweetArea">
+  <div id="tweetBg" class="tweetBg"></div>
+  <div class="tweetWrapper">
+    <div class="tweetContents">
     <div id="tweets">
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
@@ -276,7 +267,7 @@ button {
         </div>
 
     </form>
-    <div id="closeModal" class="closeModal">
+    <div id="closeTweet" class="closeTweet">
       ×
     </div>
   </div>
@@ -285,16 +276,16 @@ button {
 <script>
 (function () {
     setTimeout(function () {
-        const modalArea = document.getElementById('modalArea');
+        const modalArea = document.getElementById('tweetArea');
         const openModal = document.getElementById('tweet');
-        const closeModal = document.getElementById('closeModal');
-        const modalBg = document.getElementById('modalBg');
+        const closeModal = document.getElementById('closeTweet');
+        const modalBg = document.getElementById('tweetBg');
         const sendButton = document.getElementById('newTweet');
         const toggle = [openModal,closeModal,modalBg , sendButton];
 
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
+          modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
