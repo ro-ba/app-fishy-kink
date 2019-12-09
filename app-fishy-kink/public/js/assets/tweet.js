@@ -4,24 +4,24 @@ var count = 1;
 
 /******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
 //replyのツリー作成で後で使うかも
-// function getOriginTweet(tweet) {
-//     $.ajax({
-//         type: 'POST',
-//         url: '/api/getOriginTweet',
-//         dataType: 'json',
-//         async: false,
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         },
-//         data: {
-//             tweetID: tweet["originTweetID"],
-//         },
-//         cache: false
-//     }).done(function (originTweet) {
-//         tweet = originTweet["tweet"];
-//     });
-//     return tweet;
-// };
+function getOriginTweet(tweet) {
+    $.ajax({
+        type: 'POST',
+        url: '/api/getOriginTweet',
+        dataType: 'json',
+        async: false,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            tweetID: tweet["originTweetID"],
+        },
+        cache: false
+    }).done(function (originTweet) {
+        tweet = originTweet["tweet"];
+    });
+    return tweet;
+};
 
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
@@ -177,7 +177,8 @@ function createTweetElement(tweet) {
     if (tweet["type"] == "retweet") {
         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
         retweetUser = tweet["userID"];
-        // tweet = getOriginTweet(tweet);
+        // originTweet = getOriginTweet(tweet);
+        // print(originTweet);
         tweet = tweet["originTweet"];
         if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
             tweetType = '<div class="retweet-user">' + retweetUser + 'さんがリツイートしました</div>';
@@ -197,11 +198,10 @@ function createTweetElement(tweet) {
     }
 
     tweetDocument += `
-    <div class="tweetTop card-header">
+    <div class="tweetTop card-header" onclick="location.href='/replyTree?tweetId=${tweet["_id"]}'">
         ${tweetType}
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
         <img src="${userIcon}" width="50px" height="50px" />
-        </div>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
             <a href=/profile?user=${tweet["userID"]}>
@@ -264,8 +264,6 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
 
     $('.centerContents').append(tweetDocument);
-
-
 }
 
 /******************************************************************* 新しいツイートの表示 *******************************************************************/
@@ -340,6 +338,7 @@ function replyWindow() {
     const modalBg = document.getElementById('modalBg1');
     const sendButton = document.getElementById('replySend');
     var toggle = [];
+    // console.log(modalArea);
     toggle.push(closeModal);
     toggle.push(modalBg);
     toggle.push(sendButton);
@@ -416,4 +415,3 @@ function replyCheck() {
         replyButton.disabled = false;
     }
 }
-

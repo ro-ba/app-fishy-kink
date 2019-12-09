@@ -232,14 +232,14 @@ button {
       <div id="parentTweet"></div>
       <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
       @csrf
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <textarea id ="replyText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
             <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
-        <button id="replySend">送信</button>
+        <button id="replySend" disabled=true>送信</button>
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>

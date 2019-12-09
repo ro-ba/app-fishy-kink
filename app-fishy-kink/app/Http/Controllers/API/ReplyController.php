@@ -53,13 +53,13 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-        // $db["notifyDB"] -> insert([
-        //     "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
-        //     "tweetID" => $tweetID,
-        //     "text" => $name .= "さんがリプライしました。",
-        //     "time" => $time,
-        //     "readFlag" => False
-        // ]);
+        $db["notifyDB"] -> insertOne([
+            "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
+            "tweetID" => $tweetID,
+            "text" => $name .= "さんがリプライしました。",
+            "time" => $time,
+            "readFlag" => False
+        ]);
         // return ["message" => ];
         // return redirect("home");
         //

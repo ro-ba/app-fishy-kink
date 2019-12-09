@@ -64,7 +64,7 @@
                 @else
                   <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
                   <button type="submit" class="nowFollow" style="color:#696969;" 
-                  onmouseover="this.style.color='#696969',
+                  onmouseover="this.style.color='red',
                   this.innerHTML='フォローを外す'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォロー中'">

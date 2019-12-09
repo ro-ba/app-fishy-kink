@@ -29,6 +29,7 @@ Route::resources([
     "test" => "TestController",
     "followers" => "FollowersController",
     "following" => "FollowingController",
+    "replyTree" => "ReplyTreeController",
     "/api/reloadTweets" => "API\ReloadTweetsController",
     "/api/favorite" => "API\FavoriteController",
     "/api/reTweet"=> "API\ReTweetController",
