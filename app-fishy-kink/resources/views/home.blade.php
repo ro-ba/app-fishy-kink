@@ -16,8 +16,10 @@
   <link rel="shortcut icon" href="images/FKicon.png">
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/home.css">
 
   <style>
     .accordion .inner {
@@ -180,7 +182,10 @@ button {
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount" id = "readCount">{{ $count }}</p></button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+    @if($count != 0)
+      <p class = "readCount"  data-badge="{{ $count }}"></p></button>
+    @endif
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
@@ -199,9 +204,12 @@ button {
 
   <div class="loader">Loading...</div>
   <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
+    <!-- <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
+    <div id="rightContents" class="col-sm-3"></div> -->
+    <div class="leftContents col-sm-3"></div>
+    <div class="centerContents col-sm-6"></div>
+    <div class="rightContents col-sm-3"></div>
   </div>
   
 </body>
@@ -224,7 +232,7 @@ button {
         </label>
         <button id="replySend" value="test">送信</button>
         <div class="tweet-image">
-          <p id="preview"></p>
+          <p class="preview-image"></p>
         </div>
       <!-- </form> -->
       <div id="closeReply" class="closeReply">
@@ -245,23 +253,24 @@ button {
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
                 <label>
                     <span class="filelabel">
-                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <button id = newTweet class="newTweet"> tweet </button>
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
 
             <div class="tweet-image">
-               <p id="preview"></p>
+               <p class="preview-image"></p>
+               
             </div>
         </div>
         </div>
@@ -285,12 +294,13 @@ button {
 
         for(let i=0, len=toggle.length ; i<len ; i++){
           toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
           },false);
         }
     }, 1);
   }());
-
 </script>
 
 
