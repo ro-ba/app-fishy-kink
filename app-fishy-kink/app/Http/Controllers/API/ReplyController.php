@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+require "/vagrant/source/func/FKMongo.php";
+
 class ReplyController extends Controller
 {
     /**
@@ -53,6 +55,7 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
+
         // $db["notifyDB"] -> insert([
         //     "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
         //     "tweetID" => $tweetID,
