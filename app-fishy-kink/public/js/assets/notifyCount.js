@@ -20,9 +20,6 @@ $(function () { // 遅延処理
                 //     '</p>';
                 $("#readCount").html(`<p class="readCount"> ${results["message"]}</p >`);
             }
-        }).fail(function (err) {
-            // 通信失敗時の処理
-            alert('ファイルの取得に失敗しました。');
         });
         return update;
     }()), 30000);

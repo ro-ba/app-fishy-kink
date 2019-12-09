@@ -9,11 +9,12 @@
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+   <link rel="shortcut icon" href="images/FKicon.png">
   <link rel="stylesheet" href="">
 
   <link rel="stylesheet" href="css/tweet.css">
 
-  <link rel="shortcut icon" href="images/FKicon.png">
+ 
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/home.css">
@@ -290,6 +291,34 @@ button {
     </div>
   </div>
 </section>
+
+<script>
+/******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        init(result);
+        dispTweets(result);
+        
+    }).fail(function (err) {
+
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
+</script>
 
 <script>
 (function () {

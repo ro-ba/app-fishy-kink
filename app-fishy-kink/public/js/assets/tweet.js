@@ -23,38 +23,40 @@ var count = 1;
 //     return tweet;
 // };
 
-/******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
-$(function () { // 遅延処理
-    $.ajax({
-        type: 'POST',
-        url: '/api/reloadTweets', // url: は読み込むURLを表す
-        dataType: 'json', // 読み込むデータの種類を記入
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: {
-            userID: userID
-        },
-        cache: false
-    }).done(function (results) {
-        // 通信成功時の処理
-        result = results;
-        dispTweets(result);
-        replyWindow();
-        tweetCount = result.length;
-        count = 1;
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+// $(function () { // 遅延処理
+//     $.ajax({
+//         type: 'POST',
+//         url: '/api/reloadTweets', // url: は読み込むURLを表す
+//         dataType: 'json', // 読み込むデータの種類を記入
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         },
+//         data: {
+//             userID: userID
+//         },
+//         cache: false
+//     }).done(function (results) {
+//         // 通信成功時の処理
+//         result = results;
+//         init(result);
+//         dispTweets(result);
 
+//     }).fail(function (err) {
 
-    }).fail(function (err) {
+//         // 通信失敗時の処理
+//         alert('ファイルの取得に失敗しました。');
+//     });
+// });
 
-        // 通信失敗時の処理
-        alert('ファイルの取得に失敗しました。');
-    });
-});
-
+function init(result) {
+    replyWindow();
+    tweetCount = result.length;
+    count = 1;
+};
 
 /******************************************************************* 1秒ごとにツイートの数を取得し数に変動があった場合にアラート表示 *******************************************************************/
-$(function () { // 遅延処理
+function startTweetAlert() { // 遅延処理
     setInterval((function update() { //1000ミリ秒ごとに実行
         $.ajax({
             type: 'POST',
@@ -82,7 +84,7 @@ $(function () { // 遅延処理
         });
         return update;
     }()), 10000);
-});
+};
 
 /******************************************************************* ファボ *******************************************************************/
 $(function () {
@@ -134,7 +136,7 @@ $(function () {
         }).done(function (results) {
             //アコーディオンを閉じる処理
             $(push_button).parents(".inner").slideToggle();
-
+            console.log(results["message"]);
             if (results["message"] == "add") {
                 $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
                 $(push_button).text("リツイートを取り消す");
@@ -149,17 +151,22 @@ $(function () {
 });
 
 /******************************************************************* ツイート表示 *******************************************************************/
-function dispTweets(results) {
-    $('.centerContents').empty();
+function dispTweets(results, searchType = "") {
+    if (searchType) {
+        doc = $(`.centerContents .${searchType}`);
+    } else {
+        doc = $('.centerContents');
+    }
+    $(doc).empty();
     $('.loader').fadeIn();
 
-
     results.forEach(function (tweet) {
-        createTweetElement(tweet);
+        $(doc).append(createTweetElement(tweet));
         count++;
-
     });
     $('.loader').fadeOut();
+    startTweetAlert();
+
 }
 
 /******************************************************************* tweet一件分のJSONからエレメントを生成してcenterContentsに追加*******************************************************************/
@@ -263,7 +270,7 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    $('.centerContents').append(tweetDocument);
+    return tweetDocument;
 
 
 }
