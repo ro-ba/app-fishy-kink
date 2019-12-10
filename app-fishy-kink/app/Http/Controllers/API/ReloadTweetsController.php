@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
+require "/vagrant/source/func/insertOriginTweet.php";
 
 class ReloadTweetsController extends Controller
 {
@@ -36,13 +37,13 @@ class ReloadTweetsController extends Controller
         };
         $tweets = iterator_to_array($data);
         //origintweetのデータを挿入
-        foreach ($tweets as $i => $tweet){
-            if ($tweet["type"] == "retweet"){
-                $tweetID = new \MongoDB\BSON\ObjectId($tweet["originTweetID"]);
-                $tweet["originTweet"] = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
-            };
-        };
-        // return json_encode(iterator_to_array($tweets));
+        insert_origin_tweet($db,$tweets);
+        // foreach ($tweets as $i => $tweet){
+        //     if ($tweet["type"] == "retweet"){
+        //         $tweetID = new \MongoDB\BSON\ObjectId($tweet["originTweetID"]);
+        //         $tweet["originTweet"] = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+        //     };
+        // };
         return json_encode($tweets);
         // return ($tweets);
     }

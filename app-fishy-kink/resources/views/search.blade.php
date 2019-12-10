@@ -7,6 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="css/search.css" >
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,13 +20,16 @@
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <script>
-dispTweets('{{ $result["tweet_result"] }}',"search-result-tweet");
-dispTweets('{{ $result["user_result"] }}',"search-result-user");
-dispTweets('{{ $result["img_result"] }}',"search-result-img");
+
+let tweet_result = @json($results["tweet_result"]);
+console.log(tweet_result);
+dispTweets(tweet_result,"search-result-tweet");
+
 </script>
 </head>
 
 <body>
+<div id="alertContents"></div>
     <div class="main">
 
         <div class="search">

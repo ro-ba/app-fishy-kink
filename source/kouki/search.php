@@ -1,5 +1,5 @@
 <?php
-function search($search){
+function search($db,$search){
     $find_tweet = [];
     $find_user = [];
     $find_img = [];
@@ -8,7 +8,6 @@ function search($search){
     $find_tweet1 = [];
     $find_user1 = [];
     $find_img1 = [];
-    $db = connect_mongo();
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
