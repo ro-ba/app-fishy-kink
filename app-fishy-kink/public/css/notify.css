@@ -1,13 +1,16 @@
 @charset "utf-8";
 
 .top {
-    padding: 1em;
+    padding: 4em;
     margin: 2em auto;
-    max-width: 900px;
+    max-width: 800px;
     min-width: 400px;
-    background-color: #fff; /* 背景色 */
-    box-shadow: 0 0 20px 20px #c7dffc, 0 0 20px 20px #c7dffc inset; /* 影 */
-    border-radius: 10px; /*角の丸み*/
+    /*background-color: #fff; /* 背景色 */
+    /*box-shadow: 0 0 20px 20px #c7dffc, 0 0 20px 20px #c7dffc inset; /* 影 */
+    /*border-radius: 10px; /*角の丸み*/
+    border-top: 6px solid;
+    border-image: linear-gradient(to right, #c7dffc 0%, #81b8fc 100%);
+    border-image-slice: 1;
 }
 
 .myData {
@@ -35,7 +38,7 @@
 .notifyItem {
     display: block;
     width: 380px;
-    padding: 0.5em 0.5em;/*枠の中の幅*/
+    padding: 0.7em 0.7em;/*枠の中の幅*/
     margin: -1em 0em -0.4em 0.5em;/*枠の外の幅*/
     margin-left: auto;
     margin-right: auto;
