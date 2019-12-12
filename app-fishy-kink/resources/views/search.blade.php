@@ -209,8 +209,8 @@
 <script>
 
 let tweet_result = @json($results["tweet_result"]);
-dispTweets(tweet_result,"search-result-tweet");
+// dispTweets(tweet_result,"search-result-tweet");
 dispTweets(tweet_result,"search-result-user");
-dispTweets(tweet_result,"search-result-img");
+// dispTweets(tweet_result,"search-result-img");
 
 </script>

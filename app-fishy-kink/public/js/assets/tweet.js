@@ -148,6 +148,7 @@ $(function ()
 function dispTweets(results, searchType = "")
 {
     console.log(results);
+    console.log("何回目？");
     if (searchType)
     {
         doc = $(`.centerContents .${searchType}`);
