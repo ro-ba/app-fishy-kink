@@ -22,18 +22,31 @@ class FollowingController extends Controller
         $userId = $request -> input("user");
         $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
 
-        if(count($userProfile["follow"])==1){
-            $follow = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follow"][0]]);               
-            return view("following",compact("followingData","userProfile","follow")); 
+        if($userProfile != null){
+            if(count($userProfile["follow"])==1){
+                $follow = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follow"][0]]);               
+                return view("following",compact("followingData","userProfile","follow")); 
+            }else{
+                foreach($userProfile["follow"] as $followid){
+                    $follow = $FishyKink["userDB"] -> findOne(["userID" => $followid]);
+                    $followingPro[] = $follow["profile"];      
+                    $followingName[] = $follow["userName"]; 
+                    $followingImg[] = $follow["userImg"];  
+                }   
+                return view("following",compact("followingData","followingPro","followingName","followingImg","userProfile"));
+            }
         }else{
+            $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
+            $follow = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follow"][0]]);
             foreach($userProfile["follow"] as $followid){
-                $follow = $FishyKink["userDB"] -> findOne(["userID" => $followid]);
-                $followingPro[] = $follow["profile"];      
-                $followingName[] = $follow["userName"]; 
-                $followingImg[] = $follow["userImg"];  
+                $follows = $FishyKink["userDB"] -> findOne(["userID" => $followid]);
+                $followingPro[] = $follows["profile"];      
+                $followingName[] = $follows["userName"]; 
+                $followingImg[] = $follows["userImg"];  
             }   
-            return view("following",compact("followingData","followingPro","followingName","followingImg","userProfile"));
-       }
+            return view("following",compact("followingData","followingPro","followingName","followingImg","userProfile","follow")); 
+        }
+
     }
 
     /**

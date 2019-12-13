@@ -9,15 +9,18 @@
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+   <link rel="shortcut icon" href="images/FKicon.png">
   <link rel="stylesheet" href="">
 
   <link rel="stylesheet" href="css/tweet.css">
 
-  <link rel="shortcut icon" href="images/FKicon.png">
+ 
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/home.css">
 
   <style>
     .accordion .inner {
@@ -55,7 +58,7 @@ body {
 
 
 /* モーダルCSSここから */
-.modalArea {
+.tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -67,13 +70,13 @@ body {
   transition: .4s;
 }
 
-.modalBg {
+.tweetBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper {
+.tweetWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -84,21 +87,21 @@ body {
   background-color: #fff;
 }
 
-.closeModal {
+.closeTweet {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show { /* モーダル表示用クラス */
+.tweet-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
 /* モーダルCSSここまで */
 
 /* モーダルCSSここから */
-.modalArea1 {
+.replyArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -110,13 +113,13 @@ body {
   transition: .4s;
 }
 
-.modalBg1 {
+.replyBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper1 {
+.replyWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -127,14 +130,14 @@ body {
   background-color: #fff;
 }
 
-.closeModal1 {
+.closeReply {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show1 { /* モーダル表示用クラス */
+.reply-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
@@ -149,15 +152,6 @@ button {
   border-radius: 2px;
   cursor: pointer;
 }
-
-/* #openModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-} */
-
-/** ここまで **/
   </style>
 
 <script type="text/javascript">
@@ -186,13 +180,13 @@ button {
 <body>
 
 
-<button id="openModal">Open modal</button>
-
-
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知<p class = "readCount" id = "readCount">{{ $count }}</p></button>
+    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+    @if($count != 0)
+      <p class = "readCount"  data-badge="{{ $count }}"></p></button>
+    @endif
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
     <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
@@ -204,78 +198,114 @@ button {
       <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
       <!-- </div> -->
     </form>
-    <button type="button" id="qqqq" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
   </div>
   <div id="alertContents"></div>
+
   <div class="loader">Loading...</div>
   <div class="row tweets">
-    <div id="leftContents" class="col-sm-3"></div>
+    <!-- <div id="leftContents" class="col-sm-3"></div>
     <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div>
+    <div id="rightContents" class="col-sm-3"></div> -->
+    <div class="leftContents col-sm-3"></div>
+    <div class="centerContents col-sm-6"></div>
+    <div class="rightContents col-sm-3"></div>
   </div>
   
 </body>
 </html>
 
-<!-- モーダルエリアここから (駒月が追加) -->
-<section id="modalArea" class="modalArea">
-  <div id="modalBg" class="modalBg"></div>
-  <div class="modalWrapper">
-    <div class="modalContents">
+<!-- りぷらい -->
+<div id="replyContents">
+  <section id="replyArea" class="replyArea">
+    <div id="replyBg" class="replyBg"></div>
+    <div class="replyWrapper">
+      <div id="parentTweet"></div>
+      <!-- <form action="reply" class="reply" method="POST" enctype="multipart/form-data"> -->
+      @csrf
+        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <label>
+          <span class="filelabel">
+            <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+          </span>
+          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+        </label>
+        <button id="replySend" value="test">送信</button>
+        <div class="tweet-image">
+          <p class="preview-image"></p>
+        </div>
+      <!-- </form> -->
+      <div id="closeReply" class="closeReply">
+        × 
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ツイート -->
+<section id="tweetArea" class="tweetArea">
+  <div id="tweetBg" class="tweetBg"></div>
+  <div class="tweetWrapper">
+    <div class="tweetContents">
     <div id="tweets">
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
-                <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="いまどうしてる？"></textarea>
+                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
             </div>
 
             <div class="content">
                 <label>
                     <span class="filelabel">
-                        <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
                     <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
-                    <input class="newTweet" method="POST" type="submit" value="tweet" />   
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
 
             <div class="tweet-image">
-               <p id="preview"></p>
+               <p class="preview-image"></p>
+               
             </div>
         </div>
         </div>
 
     </form>
-    <div id="closeModal" class="closeModal">
+    <div id="closeTweet" class="closeTweet">
       ×
     </div>
   </div>
 </section>
-<!-- モーダルエリアここまで -->
 
 <script>
-(function () {
-    setTimeout(function () {
-        const modalArea = document.getElementById('modalArea');
-        const openModal = document.getElementById('tweet');
-        const closeModal = document.getElementById('closeModal');
-        const modalBg = document.getElementById('modalBg');
-        const sendButton = document.getElementById('newTweet');
-        const toggle = [openModal,closeModal,modalBg , sendButton];
-    
-        for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-          modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
-          },false);
-        }
-    }, 1);
-  }());
-
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        dispTweets(result);
+    }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
 </script>
 
 

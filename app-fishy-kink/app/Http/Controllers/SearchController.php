@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 require "/vagrant/source/kouki/search.php";
+require "/vagrant/source/func/insertOriginTweet.php";
 require "/vagrant/source/func/FKMongo.php";
 
 class SearchController extends Controller
@@ -18,12 +19,14 @@ class SearchController extends Controller
     {
         $search = $request->input("searchString");
         if(empty($search)){
-            print_r("文字を入力してください");
+            return redirect("home");
         }else{
-            
-            $data = connect_mongo();
-            $result = search($search);
-            return view("search",compact("result"));    
+            $db = connect_mongo();
+            $results = search($db,$search);
+            foreach($results as $result){
+                insert_origin_tweet($db,$result);
+            }
+            return view("search",compact("results"));    
         }
         
     }

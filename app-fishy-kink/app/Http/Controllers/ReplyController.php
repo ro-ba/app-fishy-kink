@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -55,7 +55,6 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-
         // $db["notifyDB"] -> insert([
         //     "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
         //     "tweetID" => $tweetID,
@@ -64,8 +63,8 @@ class ReplyController extends Controller
         //     "readFlag" => False
         // ]);
         // return ["message" => ];
-        // return redirect("home");
-        //
+        return redirect("home");
+
     }
 
     /**

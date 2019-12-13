@@ -11,7 +11,6 @@
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<!-- <link rel="stylesheet" type="text/css" href="css/profile.css"> -->
 <link rel="stylesheet" type="text/css" href="css/profile.css">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
@@ -45,7 +44,6 @@
     <div class="profile">
       <div id=wrap>
 
-
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
         </div>
@@ -56,9 +54,21 @@
               <form method=POST>
               @csrf
                 @if($nowFollow == False)
-                  <input type="submit" class="nowFollow" value="フォローする"/>
+                  <!-- <button type="submit" class="nowFollow">フォローする</button> -->
+                  <button type="submit" class="noFollow" style="color:#696969;" 
+                  onmouseover="this.style.color='#696969',
+                  this.innerHTML='フォローする'" 
+                  onmouseout="this.style.color='#696969',
+                  this.innerHTML='フォローしていません'">
+                  フォローしていません</button>
                 @else
-                  <input type="submit" class="nowFollow" value="フォロー中"/>
+                  <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
+                  <button type="submit" class="nowFollow" style="color:#696969;" 
+                  onmouseover="this.style.color='#696969',
+                  this.innerHTML='フォローを外す'" 
+                  onmouseout="this.style.color='#696969',
+                  this.innerHTML='フォロー中'">
+                  フォロー中</button>
                 @endif
               </form>
             @endif
@@ -70,18 +80,8 @@
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
              
         <ul class="follows">
-            @isset($userData["follow"])
                 <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
-            @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
-            @endisset
-            
-            @isset($userData["follower"]) 
-                <li class="follower"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
-            @else
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー<span></span>0人</button></li>
-                <li class="follower">フォロワー<span></span>0人</li>
-            @endisset
+                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
 
             <li><button class="btn-real-dent" onclick="location.href='/'">戻る</button></li>
         <ul>
@@ -101,6 +101,19 @@
     <hr />
 
     <div class="loader"></div>
+
+
+
+
+
+
+
+
+
+
+
+    
+
 
     <div class="row tweets">
       <div id="leftContents" class="col-sm-3"></div>

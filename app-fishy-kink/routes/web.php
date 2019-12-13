@@ -18,6 +18,7 @@ Route::resources([
     "signUp" => "SignUpController",
     "home" => "HomeController",
     "tweet" => "TweetController",
+    "/reply"=> "ReplyController",
     "doubleCheck" => "DoubleCheckController",
     "notify" => "NotifyController",
     "DM" => "DMController",
@@ -29,14 +30,15 @@ Route::resources([
     "followers" => "FollowersController",
     "following" => "FollowingController",
     "/api/reloadTweets" => "API\ReloadTweetsController",
-    "/api/reply"=> "API\ReplyController",
     "/api/favorite" => "API\FavoriteController",
     "/api/reTweet"=> "API\ReTweetController",
     "/api/getTweet" =>  "API\GetTweetController",
     "/api/getOriginTweet" =>  "API\GetOriginTweetController",
     "/api/getFollowing" => "API\GetFollowingController",
     "/api/getFollower" => "API\GetFollowerController",
-    "/api/notifyCount" => "API\NotifyCountController"
+    "/api/notifyCount" => "API\NotifyCountController",
+    "/api/reply" => "API\ReplyController"
+
     ]);
 
 // Route::resource("/","TopController");
