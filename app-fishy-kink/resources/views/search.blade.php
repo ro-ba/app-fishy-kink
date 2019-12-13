@@ -7,15 +7,150 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="css/search.css" >
+<!-- <link rel="stylesheet" href="css/tweet.css"> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<style>
+    .accordion .inner {
+      display: none;
+    }
+
+    .accordion p {
+      cursor: pointer;
+    }
+
+    .accordion {
+      display: inline;
+    }
+
+    .readCount{
+      z-index: 3;
+      position: absolute;
+      color: red;/*文字は白に*/
+      font-weight: bold; /*太字に*/
+      font-size: 0.7em;/*サイズ2倍*/
+      font-family :Quicksand, sans-serif;/*Google Font*/
+      top: 60%;
+      left: 80%;
+    }
+
+
+    /** 駒月が追加 **/
+    /* モーダルCSS */
+    {
+    box-sizing: border-box;
+    }
+    body {
+    font-family:'Avenir','Helvetica, Neue','Helvetica','Arial';
+    }
+
+
+    /* モーダルCSSここから */
+    .tweetArea {
+    visibility: hidden; /* displayではなくvisibility */
+    opacity : 0;
+    position: fixed;
+    z-index: 10; /* サイトによってここの数値は調整 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    }
+
+    .tweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+    }
+
+    .tweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+    }
+
+    .closeTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+    }
+
+    .tweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+    }
+    /* モーダルCSSここまで */
+
+    /* モーダルCSSここから */
+    .replyArea {
+    visibility: hidden; /* displayではなくvisibility */
+    opacity : 0;
+    position: fixed;
+    z-index: 10; /* サイトによってここの数値は調整 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    }
+
+    .replyBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+    }
+
+    .replyWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+    }
+
+    .closeReply {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+    }
+
+    .reply-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+    }
+    /* モーダルCSSここまで */
+
+
+    /* 以下ボタンスタイル */
+    button {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #282828;
+    border-radius: 2px;
+    cursor: pointer;
+    }
+</style>
 
 </head>
 
 <body>
+<div id="alertContents"></div>
     <div class="main">
 
         <div class="search">
@@ -27,105 +162,25 @@
         
         </div>
 
-        <div class="content">
-            <ul class="search-tab">
-                <li class="tab is-active">ツイート</li>
-                <li class="tab">ユーザー</li>
-                <li class="tab">画像</li>
-            </ul>
+        <div class="row tweets">
+            <div class="leftContents col-sm-3"></div>
+            <div class="centerContents col-sm-6">
 
-            <div class="panel-tab">
-                <div class="panel is-show">
-                <div class="row tweets">
-                    <div class="leftContents col-sm-3"></div>
-                    <div class="centerContents col-sm-6"></div>
-                    <div class="rightContents col-sm-3"></div>
-                </div>
-                    ツイート内容
-                        @foreach($result["tweet_result"] as $tweet)
-                        <div class="tweet">
-                            <div class="userimg">
-                                {{ $tweet["userImg"] }}
-                            </div>
-                            <div class="userID">
-                                {{ $tweet["userID"] }}
-                            </div>
-                            <div class="time">
-                                {{ $tweet["time"] }}
-                            </div>
-                            <div class="text">
-                                {{ $tweet["text"] }}
-                            </div>
-                            @if(count($tweet["img"]) > 0)
-                            <?php 
-                            $count = count($tweet["img"]);
-                            ?>
-                                @for($i = 0; $i < $count; $i++)
-                                    <div class="img">
-                                        {{ $tweet["img"][$i] }}
-                                    </div>
-                                @endfor
-                            @endif
-                        </div>
-                        @endforeach
-                </div>
-                <div class="panel">
-                    <div class="row tweets">
-                        <div class="leftContents col-sm-3"></div>
-                        <div class="centerContents col-sm-6"></div>
-                        <div class="rightContents col-sm-3"></div>
+                <div class="content">
+                    <ul class="search-tab">
+                        <li class="tab is-active">ツイート</li>
+                        <li class="tab">ユーザー</li>
+                        <li class="tab">画像</li>
+                    </ul>
+
+                    <div class="panel-tab">
+                        <div class="panel search-result-tweet is-show" value="test"></div>
+                        <div class="panel search-result-user"></div>
+                        <div class="panel search-result-img"></div>
                     </div>
-                    ユーザー
-                    @foreach($result["user_result"] as $user)
-                        <div class="user">
-                            <div class="userimg">
-                                {{ $user["userImg"] }}
-                            </div>
-                            <div class="name">
-                                {{ $user["userName"] }}
-                            </div>
-                            <div class="userID">
-                                {{ $user["userID"] }}
-                            </div>
-                            <div class="profile">
-                                {{ $user["profile"] }}
-                            </div>
-                        </div>
-                        @endforeach
-                </div>
-                <div class="panel">
-                    <div class="row tweets">
-                        <div class="leftContents col-sm-3"></div>
-                        <div class="centerContents col-sm-6"></div>
-                        <div class="rightContents col-sm-3"></div>
-                    </div>
-                    画像
-                    @foreach($result["img_result"] as $img)
-                        <div class="image">
-                            <div class="userimg">
-                                {{ $img["userImg"] }}
-                            </div>
-                            <div class="userID">
-                                {{ $img["userID"] }}
-                            </div>
-                            <div class="time">
-                                {{ $img["time"] }}
-                            </div>
-                            <div class="text">
-                                {{ $img["text"] }}
-                            </div>
-                            <?php 
-                            $count = count($tweet["img"]);
-                            ?>
-                            @for($i = 0; $i < $count; $i++)
-                                <div class="img">
-                                    {{ $tweet["img"][$i] }}
-                                </div>
-                            @endfor
-                        </div>
-                        @endforeach
                 </div>
             </div>
+            <div class="rightContents col-sm-3"></div>
         </div>
     </div>
 </body>
@@ -143,4 +198,19 @@
         $('.panel').eq(index).addClass('is-show');
     });
   });
+</script>
+
+<script type="text/javascript">
+  let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+<script>
+
+let tweet_result = @json($results["tweet_result"]);
+// dispTweets(tweet_result,"search-result-tweet");
+dispTweets(tweet_result,"search-result-user");
+// dispTweets(tweet_result,"search-result-img");
+
 </script>

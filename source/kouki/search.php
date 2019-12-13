@@ -1,5 +1,5 @@
 <?php
-function search($search){
+function search($db,$search){
     $find_tweet = [];
     $find_user = [];
     $find_img = [];
@@ -8,7 +8,6 @@ function search($search){
     $find_tweet1 = [];
     $find_user1 = [];
     $find_img1 = [];
-    $db = connect_mongo();
     $search = mb_convert_kana($search, 's');//全角スペースを半角にする
     $search = explode(" ", $search);
     $count = count($search);
@@ -47,7 +46,7 @@ function search($search){
 
     }
     $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1]);//ツイート検索
-    $user_result = $db ["userDB"] -> find(['$or' => $find_user1]);
+    $user_result = $db ["userDB"] -> find(['$or' => $find_user1], ["projection" => ["_id" => 0, "password" => 0 , "salt" => 0]]);
     $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
     
     $result = [
