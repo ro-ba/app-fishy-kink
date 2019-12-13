@@ -48,6 +48,7 @@ class ReplyController extends Controller
             "type"          => "reply",
             "text"          => $text,
             "userID"        => session('userID'),
+            "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
