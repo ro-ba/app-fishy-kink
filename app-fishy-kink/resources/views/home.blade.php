@@ -163,12 +163,6 @@ button {
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    /******************************************************************* 別タブで表示 *******************************************************************/
-    function open1() {
-      var w = (screen.width - 600) / 2;
-      var h = (screen.height - 600) / 2;
-      window.open("/tweet", "hoge", "width=600, height=500" + ",left=" + w + ",top=" + h + ",directions=0 , location=0  , menubar=0 , scrollbars=0 , status=0 , toolbar=0 , resizable=0");      
-    }
     /******************************************************************* 別タブで表示２（仮） *******************************************************************/
     function open2() {
       window.open("/tweet", "hoge", "width=600, height=600 , location=no");
@@ -215,47 +209,18 @@ button {
 </body>
 </html>
 
-<!-- りぷらい -->
-<div id="replyContents">
-  <section id="replyArea" class="replyArea">
-    <div id="replyBg" class="replyBg"></div>
-    <div class="replyWrapper">
-      <div id="parentTweet"></div>
-      <!-- <form action="reply" class="reply" method="POST" enctype="multipart/form-data"> -->
-      @csrf
-        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
-        <label>
-          <span class="filelabel">
-            <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
-          </span>
-          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-        </label>
-        <button id="replySend" value="test">送信</button>
-        <div class="tweet-image">
-          <p class="preview-image"></p>
-        </div>
-      <!-- </form> -->
-      <div id="closeReply" class="closeReply">
-        × 
-      </div>
-    </div>
-  </section>
-</div>
-
 <!-- ツイート -->
 <section id="tweetArea" class="tweetArea">
   <div id="tweetBg" class="tweetBg"></div>
   <div class="tweetWrapper">
     <div class="tweetContents">
     <div id="tweets">
-    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
         <div id="wrap">
             <div class="myTweet">
                 <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
                 <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
             </div>
-
             <div class="content">
                 <label>
                     <span class="filelabel">
@@ -267,20 +232,43 @@ button {
                     <button id = newTweet class="newTweet" disabled=true> tweet </button>
                 </div>
             </div>
-
             <div class="tweet-image">
                <p class="preview-image"></p>
-               
             </div>
         </div>
         </div>
-
-    </form>
     <div id="closeTweet" class="closeTweet">
       ×
     </div>
   </div>
+
+
 </section>
+
+<!-- りぷらい -->
+<div id="replyContents">
+  <section id="replyArea" class="replyArea">
+    <div id="replyBg" class="replyBg"></div>
+    <div class="replyWrapper">
+      <div id="parentTweet"></div>
+      @csrf
+        <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
+        <label>
+          <span class="filelabel">
+            <img src="/images/cicon.png" id="replyImg" width="60" height="60" alt="ファイル選択">
+          </span>
+          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+        </label>
+        <button id="replySend" value="test">送信</button>
+        <div class="tweet-image">
+          <p class="preview-image"></p>
+        </div>
+      <div id="closeReply" class="closeReply">
+        × 
+      </div>
+    </div>
+  </section>
+</div>
 
 <script>
 (function () {
