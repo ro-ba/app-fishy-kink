@@ -71,6 +71,11 @@ Vagrant.configure("2") do |config|
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "./playbook/lamp.yml" 
   end
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = "http://172.20.0.2:8080/"
+    config.proxy.https = "http://172.20.0.2:8080/"
+    config.proxy.no_proxy = "localhost,127.0.0.1"
+  end
 
 
 end

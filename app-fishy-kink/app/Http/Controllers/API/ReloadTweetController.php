@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
-require "/vagrant/source/func/insertOriginTweet.php";
 
-class ReloadTweetsController extends Controller
+class ReloadTweetController extends Controller
 {
+    static $JS_ENABLE;
     /**
      * Display a listing of the resource.
      *
@@ -26,20 +26,16 @@ class ReloadTweetsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public static function JS_store(Request $request)
     {
-        $db = connect_mongo();
+        $data = connect_mongo();
         $userID = $request->input("userID");
         if ($userID){
-            $data = $db["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
+            $tweets = $data["tweetDB"]->find(["userID"=> $userID],['sort' => ['time' => -1]]);
         }else{
-            $data = $db["tweetDB"]->find([],['sort' => ['time' => -1]]);
+            $tweets = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
         };
-        $tweets = iterator_to_array($data);
-        //origintweetのデータを挿入
-        insert_origin_tweet($db,$tweets);
-        return json_encode($tweets);
-        // return ($tweets);
+        return json_encode(iterator_to_array($tweets));
     }
 
     /**
