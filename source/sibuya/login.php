@@ -18,7 +18,7 @@
             
             if($userID== $ID && $data == $password){
                 
-                session(["userID" => $userID]);
+                session(["userID" => $userID,"userIcon" => $a["userImg"]]);
      
                 return null;
             }else if($userID != $ID ){
