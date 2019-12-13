@@ -39,7 +39,7 @@
 </head>
 
 <body>
-
+@include('content')
 @isset($userData)
     <div class="profile">
       <div id=wrap>
@@ -88,33 +88,11 @@
 
       </div>
 
-
-
-
-
-      
-
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
     </div>
-
     <hr />
-
     <div class="loader"></div>
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
     <div class="row tweets">
       <div id="leftContents" class="col-sm-3"></div>
       <div id="centerContents" class="col-sm-6"></div>

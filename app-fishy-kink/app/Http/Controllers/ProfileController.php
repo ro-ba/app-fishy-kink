@@ -32,9 +32,24 @@ class ProfileController extends Controller
         if(!isset($nowFollow)){
             $nowFollow = False;
         }
+        if(session('userID')){
+            $id = session("userID");
+            $data = connect_mongo();
+            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
+            $count = $data["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
+        };
+        //     return view("homeTemplate",compact("userIcon","count"));
+        // }else{
+        //     return redirect("login");
+        // };
         $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
-        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow"));
+        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow".'$count','$userIcon'));
+
+       
     }
+
+
+        
 
     /**
      * Show the form for creating a new resource.

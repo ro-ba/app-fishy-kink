@@ -357,29 +357,6 @@ function replyWindow() {
     }
 }
 
-
-
-// $(function () {
-//     $('replySend').click(function () {
-//         $.ajax({
-//             type: 'POST',
-//             url: '/api/reply',
-//             dataType: 'json',
-//             headers: {
-//                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//             },
-//             data: {
-//                 tweetID: tweetid,
-//             },
-//             cache: false
-//         }).done(function (results) {
-//             // アラートの追加
-//             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-//             '<a href="" class="alert-link">新しいツイート</a>' +
-//             '</div>';
-//         });
-//     });
-// });
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj) {
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
