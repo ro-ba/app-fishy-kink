@@ -160,7 +160,6 @@ button {
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/assets/notifyCount.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -183,13 +182,12 @@ button {
   <div id="menu row d-inline col-md-12">
 
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
-    @if($count != 0)
-      <p class = "readCount"  data-badge="{{ $count }}"></p></button>
-    @endif
+    <button type="button" class="link_button btn page-link text-dark d-inline-block NotifyButton" onclick="location.href='/notify'">通知
+    <div class="notifyCountBudge"></div>
+    </button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
     <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
-    <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
+    <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ Session::get('userIcon') }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
     </button>
 
     <form method='get' action="/search" class="form-inline d-inline">
@@ -253,7 +251,7 @@ button {
     @csrf
         <div id="wrap">
             <div class="myTweet">
-                <img class="myIcon" src="{{ $userIcon }}" alt="myIcon" />
+                <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
                 <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
             </div>
 
@@ -307,6 +305,7 @@ $(function () { // 遅延処理
     });
 });
 </script>
+<script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
 
 
 

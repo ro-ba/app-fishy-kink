@@ -31,7 +31,7 @@ class NotifyCountController extends Controller
         $db = connect_mongo();
         $return = $db["notifyDB"] -> count(["userID" => $userID , "readFlag" => false]);
 
-        return ["message" => $return];
+        return ["count" => $return];
     }
 
     /**

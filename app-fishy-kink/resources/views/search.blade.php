@@ -150,9 +150,31 @@
 </head>
 
 <body>
+
+<div id="menu row d-inline col-md-12">
+
+  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
+  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+  @if($count != 0)
+    <p class = "readCount"  data-badge="{{ $count }}"></p></button>
+  @endif
+  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
+  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
+  <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
+  </button>
+
+  <form method='get' action="/search" class="form-inline d-inline">
+    <!-- <div class="form-group"> -->
+    <input class="form-control" type=text name="searchString">
+    <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
+    <!-- </div> -->
+  </form>
+  <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+      <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
+</div>
+
 <div id="alertContents"></div>
     <div class="main">
-
         <div class="search">
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
             <form method='get' action="/search" class="form-inline d-inline">
@@ -183,6 +205,73 @@
             <div class="rightContents col-sm-3"></div>
         </div>
     </div>
+<!-- りぷらい -->
+<div id="replyContents">
+  <section id="replyArea" class="replyArea">
+    <div id="replyBg" class="replyBg"></div>
+    <div class="replyWrapper">
+      <div id="parentTweet"></div>
+      <!-- <form action="reply" class="reply" method="POST" enctype="multipart/form-data"> -->
+      @csrf
+        <textarea class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" placeholder="りぷらい"></textarea>
+        <label>
+          <span class="filelabel">
+            <img src="/images/cicon.png" width="60" height="60" alt="ファイル選択">
+          </span>
+          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+        </label>
+        <button id="replySend" value="test">送信</button>
+        <div class="tweet-image">
+          <p class="preview-image"></p>
+        </div>
+      <!-- </form> -->
+      <div id="closeReply" class="closeReply">
+        × 
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ツイート -->
+<section id="tweetArea" class="tweetArea">
+  <div id="tweetBg" class="tweetBg"></div>
+  <div class="tweetWrapper">
+    <div class="tweetContents">
+    <div id="tweets">
+    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
+    @csrf
+        <div id="wrap">
+            <div class="myTweet">
+                <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
+                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
+            </div>
+
+            <div class="content">
+                <label>
+                    <span class="filelabel">
+                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
+                    </span>
+                    <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                </label>
+                <div class="t-submit">
+                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
+                </div>
+            </div>
+
+            <div class="tweet-image">
+               <p class="preview-image"></p>
+               
+            </div>
+        </div>
+        </div>
+
+    </form>
+    <div id="closeTweet" class="closeTweet">
+      ×
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
 
@@ -209,8 +298,8 @@
 <script>
 
 let tweet_result = @json($results["tweet_result"]);
-// dispTweets(tweet_result,"search-result-tweet");
+dispTweets(tweet_result,"search-result-tweet");
 dispTweets(tweet_result,"search-result-user");
-// dispTweets(tweet_result,"search-result-img");
+dispTweets(tweet_result,"search-result-img");
 
 </script>
