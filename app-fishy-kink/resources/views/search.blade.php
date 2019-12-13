@@ -289,14 +289,20 @@
   let session = { "userID" :"{{ session('userID') }}"};
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
+@isset($_GET['user'])
+<script>
+  let getParam = {"user": "{{ $_GET['user'] }}" } 
+</script>
+@endisset
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/user.js') }}"></script>
 <script>
 
 let tweet_result = @json($results["tweet_result"]);
 let user_result = @json($results["user_result"]);
 let img_result = @json($results["img_result"]);
 dispTweets(tweet_result,"search-result-tweet");
-dispTweets(tweet_result,"search-result-user");
+dispUsers(tweet_result,"search-result-user");
 dispTweets(img_result,"search-result-img");
 
 </script>
