@@ -35,12 +35,12 @@
                 @if(count($userProfile["follow"]) == 1)
                             <ul class ="list_none">
                                 <li>
-                                <a onclick="location.href='/profile?user={{$following['userID']}}'"><img src='{{$following["userImg"]}}'/></a>
-                                        {{$following["userName"]}}    
-                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$following['userID']}}'">
-                                        <span>@</span>{{$following["userID"]}}
+                                <a onclick="location.href='/profile?user={{$follow['userID']}}'"><img src='{{$follow["userImg"]}}'/></a>
+                                        {{$follow["userName"]}}    
+                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follow['userID']}}'">
+                                        <span>@</span>{{$follow["userID"]}}
                                     </button>
-                                    <div class="profilePro">{{$following["profile"]}}</div>
+                                    <div class="profilePro">{{$follow["profile"]}}</div>
                                 </li>
                             </ul>
                 @elseif(count($userProfile["follow"]) > 1)     

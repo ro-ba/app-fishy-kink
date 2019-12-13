@@ -332,6 +332,7 @@ function replyWindow() {
     for (let i = 1; i < count; i++) {
         toggle.push(document.getElementById('reply' + i));
     }
+
     console.log(toggle);
     for (let i = 0, len = toggle.length; i < len; i++) {
         toggle[i].addEventListener('click', function () {
