@@ -185,12 +185,13 @@ function createTweetElement(tweet)
     if (tweet["type"] == "retweet")
     {
         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
-        retweetUser = tweet["userID"];
+        retweetUserName = tweet["userName"];
+        retweetUserID = tweet["userID"];
         // tweet = getOriginTweet(tweet);
         tweet = tweet["originTweet"];
         if (tweet["retweetUser"].indexOf(session["userID"]) == -1)
         {
-            tweetType = '<div class="retweet-user">' + retweetUser + 'さんがリツイートしました</div>';
+            tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
         } else
         {
             tweetType = '<div class="retweet-user">リツイート済み</div>';
@@ -209,6 +210,7 @@ function createTweetElement(tweet)
     {
         userIcon = defaultIcon;
     }
+    console.log(tweet)
 
     tweetDocument += `
     <div class="tweetTop card-header">
@@ -219,7 +221,7 @@ function createTweetElement(tweet)
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
             <a href=/profile?user=${tweet["userID"]}>
-            ${tweet["userID"]}
+            ${tweet["userName"]}@${tweet["userID"]}
             </a>
         </div>
         <div class="time">

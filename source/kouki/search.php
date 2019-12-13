@@ -46,7 +46,7 @@ function search($db,$search){
 
     }
     $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1]);//ツイート検索
-    $user_result = $db ["userDB"] -> find(['$or' => $find_user1]);
+    $user_result = $db ["userDB"] -> find(['$or' => $find_user1], ["projection" => ["_id" => 0, "password" => 0 , "salt" => 0]]);
     $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
     
     $result = [
