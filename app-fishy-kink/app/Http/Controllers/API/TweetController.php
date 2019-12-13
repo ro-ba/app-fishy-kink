@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class ReplyController extends Controller
+class TweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,38 +27,35 @@ class ReplyController extends Controller
      */
     public function store(Request $request)
     {
-        $db = connect_mongo();
-        $text = $request->input('replyText');
-        // return ["message" => $text];
-        $target = $request->input("target");
-        $tweetImg = [];
-        $userID = session("userID");
-        $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
-        if($request->hasfile("ReplyImage")){
-            foreach($request->tweetImage as $image){
-                //拡張子取得
-                $ext = explode("/",$image->getMimeType())[1];
-                //画像fileを取得してバイナリにエンコード
-                $encode_img = base64_encode(file_get_contents($image));
-                
-                $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+        if(session('userID')){ 
+            $db = connect_mongo();
+            $tweetImg = [];
+            if($request->hasfile("tweetImage")){
+                foreach($request->tweetImage as $image){
+                    //拡張子取得
+                    $ext = explode("/",$image->getMimeType())[1];
+                    //画像fileを取得してバイナリにエンコード
+                    $encode_img = base64_encode(file_get_contents($image));
+                    
+                    $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+                }
             }
-        }
-        $time = date("Y/m/d H:i:s");
-        $db["tweetDB"] -> insertOne([
-            "type"          => "reply",
-            "text"          => $text,
+            $time = date("Y/m/d H:i:s");
+            $db["tweetDB"] -> insertOne([
+            "type"          => "tweet",
+            "text"          => $request->input("tweetText"),
             "userID"        => session('userID'),
-            "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
             "favoUser"       => [],
-            "originTweetID" => $target,
+            "originTweetID" => "",
+            "parentTweetID" => "",
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
-        ]); 
-        return redirect("home");
-        
+            ]); 
+            $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
+            $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
+        }
     }
 
     /**
