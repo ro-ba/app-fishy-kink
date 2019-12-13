@@ -154,13 +154,12 @@
 <div id="menu row d-inline col-md-12">
 
   <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
-  @if($count != 0)
-    <p class = "readCount"  data-badge="{{ $count }}"></p></button>
-  @endif
+  <button type="button" class="link_button btn page-link text-dark d-inline-block NotifyButton" onclick="location.href='/notify'">通知
+  <div class="notifyCountBudge"></div>
+  </button>
   <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
   <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
-  <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
+  <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ Session::get('userIcon') }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
   </button>
 
   <form method='get' action="/search" class="form-inline d-inline">
@@ -236,36 +235,32 @@
 <section id="tweetArea" class="tweetArea">
   <div id="tweetBg" class="tweetBg"></div>
   <div class="tweetWrapper">
-    <div class="tweetContents">
-    <div id="tweets">
-    <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
-    @csrf
-        <div id="wrap">
-            <div class="myTweet">
-                <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
-                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
-            </div>
+  <div class="tweetContents">
+  <div id="tweets">
+      <div id="wrap">
+          <div class="myTweet">
+              <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
+              <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
+          </div>
 
-            <div class="content">
-                <label>
-                    <span class="filelabel">
-                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
-                    </span>
-                    <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-                </label>
-                <div class="t-submit">
-                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
-                </div>
-            </div>
+          <div class="content">
+              <label>
+                  <span class="filelabel">
+                      <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
+                  </span>
+                  <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+              </label>
+              <div class="t-submit">
+                  <button id = newTweet class="newTweet" disabled=true> tweet </button>
+              </div>
+          </div>
 
-            <div class="tweet-image">
-               <p class="preview-image"></p>
-               
-            </div>
-        </div>
-        </div>
-
-    </form>
+          <div class="tweet-image">
+              <p class="preview-image"></p>
+              
+          </div>
+      </div>
+      </div>
     <div id="closeTweet" class="closeTweet">
       ×
     </div>
@@ -298,8 +293,10 @@
 <script>
 
 let tweet_result = @json($results["tweet_result"]);
+let user_result = @json($results["user_result"]);
+let img_result = @json($results["img_result"]);
 dispTweets(tweet_result,"search-result-tweet");
 dispTweets(tweet_result,"search-result-user");
-dispTweets(tweet_result,"search-result-img");
+dispTweets(img_result,"search-result-img");
 
 </script>

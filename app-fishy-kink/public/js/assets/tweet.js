@@ -29,7 +29,6 @@ var tweetImg;
 function init(result) {
     replyWindow();
     tweetWindow();
-    console.log(result);
     tweetCount = result.length;
     count = 1;
 };
@@ -115,7 +114,6 @@ $(function () {
         }).done(function (results) {
             //アコーディオンを閉じる処理
             $(push_button).parents(".inner").slideToggle();
-            console.log(results["message"]);
             if (results["message"] == "add") {
                 $(push_button).parents().prevAll(".reTweet").children().css("color", "green");
                 $(push_button).text("リツイートを取り消す");
@@ -138,7 +136,7 @@ function dispTweets(results, searchType = "") {
     }
     $(doc).empty();
     $('.loader').fadeIn();
-
+    console.log(results);
     results.forEach(function (tweet) {
         $(doc).append(createTweetElement(tweet));
         count++;
@@ -182,7 +180,6 @@ function createTweetElement(tweet) {
     } else {
         userIcon = defaultIcon;
     }
-    console.log(tweet)
 
     tweetDocument += `
     <div class="tweetTop card-header">
@@ -332,7 +329,6 @@ function replyWindow() {
     for (let i = 1; i < count; i++) {
         toggle.push(document.getElementById('reply' + i));
     }
-    console.log(toggle);
     for (let i = 0, len = toggle.length; i < len; i++) {
         toggle[i].addEventListener('click', function () {
             modalArea.classList.toggle('reply-show');
@@ -379,7 +375,6 @@ $(function () {
             cache: false
         }).done(function (results) {
             // アラートの追加
-            console.log(results["message"]);
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                 '<a href="" class="alert-link">新しいツイート</a>' +
                 '</div>';
@@ -403,7 +398,6 @@ function loadImage(obj) {
 function textCheck() {
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
-    console.log(textValue);
     if (textValue == "" || textValue == null) {
         tweetButton.disabled = true;
     } else {
@@ -414,7 +408,6 @@ function textCheck() {
 function replyCheck() {
     var replyValue = document.getElementById('replyText').value;
     var replyButton = document.getElementById('replySend');
-    console.log(replyValue);
     if (replyValue == "" || replyValue == null) {
         replyButton.disabled = true;
         // else -if (replyValue == "" || replyValue == null) {
