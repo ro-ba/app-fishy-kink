@@ -8,22 +8,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-=======
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
    <link rel="shortcut icon" href="images/FKicon.png">
->>>>>>> f2af18a8b6e2b8c7ae16a5dab3774289f8de8b1f
   <link rel="stylesheet" href="">
   <link rel="stylesheet" href="css/tweet.css">
-
-<<<<<<< HEAD
-=======
- 
->>>>>>> f2af18a8b6e2b8c7ae16a5dab3774289f8de8b1f
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <!-- @yield('header') -->
-    <link rel="shortcut icon" href="images/FKicon.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
@@ -184,11 +174,18 @@ button {
     }
   </script>
 </head>
-
 <body>
 
-    @yield('content')
-    
+    @yield('content');
+
+    <div id="alertContents"></div>
+
+    <div class="loader">Loading...</div>
+    <div class="row tweets">
+        <div class="leftContents col-sm-3"></div>
+        <div class="centerContents col-sm-6"></div>
+        <div class="rightContents col-sm-3"></div>
+    </div>
 </body>
 </html>
 
