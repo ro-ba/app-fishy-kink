@@ -23,8 +23,10 @@ class SearchController extends Controller
         }else{
             $db = connect_mongo();
             $results = search($db,$search);
-            foreach($results as $result){
-                insert_origin_tweet($db,$result);
+            foreach($results as $key => $value){
+                if ($key != "user_result" ){
+                    insert_origin_tweet($db,$value);
+                }
             }
             return view("search",compact("results"));    
         }

@@ -23,18 +23,34 @@ class ProfileController extends Controller
         $id = $request->input("user");
         $sessionUser = session("userID");
         $isShowSettings = False;
+
         if (is_null($id) or $id == $sessionUser ){
             $id =  $sessionUser;
             $isShowSettings = True;
         }
         $userData = $FishyKink["userDB"]->findOne(["userID" =>  $id]);
         $nowFollow = $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser , "follow" => $id ]);
+
         if(!isset($nowFollow)){
             $nowFollow = False;
         }
-        $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
-        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow"));
+
+        if(session('userID')){
+            $id = session("userID");
+            $userIcon = $FishyKink["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
+            $count = $FishyKink["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
+        }
+            $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
+            // return view("homeTemplate",compact("userData","tweetData","isShowSettings","nowFollow","count","userIcon"));
+            // }
+        // $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
+        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow","count","userIcon"));
+
+       
     }
+
+
+        
 
     /**
      * Show the form for creating a new resource.
