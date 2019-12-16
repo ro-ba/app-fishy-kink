@@ -34,10 +34,10 @@ class ReplyController extends Controller
         $tweetImg = [];
         $userID = session("userID");
         $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
-        if($request->hasfile("ReplyImage")){
+        if($request->hasfile("ReplyImage")){            // hasfile : 画像があるかないかを判断
             foreach($request->tweetImage as $image){
                 //拡張子取得
-                $ext = explode("/",$image->getMimeType())[1];
+                $ext = explode(".",$image->getMimeType())[1];
                 //画像fileを取得してバイナリにエンコード
                 $encode_img = base64_encode(file_get_contents($image));
                 
@@ -57,7 +57,7 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-        return redirect("home");
+        // return redirect("home");
         
     }
 

@@ -227,7 +227,7 @@ button {
                     <span class="filelabel">
                         <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
                     </span>
-                    <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                    <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
                 </label>
                 <div class="t-submit">
                     <button id = newTweet class="newTweet" disabled=true> tweet </button>
