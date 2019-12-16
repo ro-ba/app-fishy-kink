@@ -25,33 +25,40 @@
       
     <!-- すべてタブ表示 -->
     @isset($userData)
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
-    <div class = myData>
-        <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon"/>
-        <!-- <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;" />-->
-        <a>通知</a>
-        <a>{{ $count }}件の未読</a>
-        <!-- <input class="btn btn-default" type="button" onclick="location.href='/home'" value="戻る"> -->
-    </div>
-    <div class = top>
-        <div class="tab_content" id="all_content">
-            @isset($notifyList)
-            <ul class ="list_none">
-                @foreach( $notifyList as $notifys )
-                    <div class = "notifyItem">
-                        <p>{{ $notifys["text"] }}</p>
-                        <p>{{ $notifys["time"] }}</p>
-                    </div>
-                    <br/>
-                @endforeach
-            </ul>
-            @else
-                <li>通知がありません</li>
-            @endisset          
+    <div class="col-xs-2">
+        <div class="top">
+            <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
         </div>
     </div>
-    <img class="Image" id="img" src='/images/notfiy.png' alt="img"/>
-
+    <div class="col-xs-10">
+        <div class = myData>
+            <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon"/>
+            <!-- <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;" />-->
+            <a>通知</a>
+            <a>{{ $count }}件の未読</a>
+        </div>
+        <div class = line>
+            <div class="tab_content" id="all_content">
+                @isset($notifyList)
+                <ul class ="list_none">
+                    @foreach( $notifyList as $notifys )
+                        <div class = "notifyItem">
+                            <p>{{ $notifys["text"] }}</p>
+                            <p>{{ $notifys["time"] }}</p>
+                        </div>
+                        <br/>
+                    @endforeach
+                </ul>
+                @else
+                    <li>通知がありません</li>
+                @endisset          
+            </div>
+        </div>
+    </div>
+    
+    <!--<div class="item">
+        <img class="Image" id="img" src='/images/notfiy2.png' alt="img"/>
+    </div>--> 
         <!-- ＠ツイート表示 -->
         <!-- <div class="tab_content" id="@tweet_content">
         

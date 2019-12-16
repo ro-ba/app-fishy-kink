@@ -1,13 +1,10 @@
 @charset "utf-8";
 
-.top {
-    padding: 4em;
+.line {
+    padding: 3.6em;
     margin: 2em auto;
-    max-width: 800px;
-    min-width: 400px;
-    /*background-color: #fff; /* 背景色 */
-    /*box-shadow: 0 0 20px 20px #c7dffc, 0 0 20px 20px #c7dffc inset; /* 影 */
-    /*border-radius: 10px; /*角の丸み*/
+    max-width: 900px;
+    min-width: 200px;
     border-top: 6px solid;
     border-image: linear-gradient(to right, #c7dffc 0%, #81b8fc 100%);
     border-image-slice: 1;
@@ -57,7 +54,8 @@
 }
 
 .Image {
-    width: 200px;
+    width: 240px;
     height: 200px;
-    padding:20px;
+    padding: 20px;
+    margin: 0em 0em 0em 6em;
 }
