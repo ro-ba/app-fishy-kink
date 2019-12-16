@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>home</title>
@@ -169,7 +168,7 @@ button {
 </head>
 <body>
 
-    @yield('content')
+    @include('homeTemplate')
 
     <div id="alertContents"></div>
     <div class="loader">Loading...</div>

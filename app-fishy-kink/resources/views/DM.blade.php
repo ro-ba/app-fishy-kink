@@ -86,6 +86,7 @@ button {
 
 </head>
 <body>
+@include('homeTemplate')
     <form>
         <div>ダイレクトメッセージ</div>
         <div>現在トークはありません</div>
