@@ -7,7 +7,7 @@ var count = 1;
 $(function () {
     $.ajax({
         type: 'POST',
-        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        url: '/api/replyTweets', // url: は読み込むURLを表す
         dataType: 'json', // 読み込むデータの種類を記入
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -24,7 +24,6 @@ $(function () {
         tweetCount = result.length;
         count = 1;
     }).fail(function (err) {
-
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
     });

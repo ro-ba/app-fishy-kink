@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+require "/vagrant/source/func/FKMongo.php";
+
 class ReplyController extends Controller
 {
     /**
@@ -46,6 +48,7 @@ class ReplyController extends Controller
             "type"          => "reply",
             "text"          => $text,
             "userID"        => session('userID'),
+            "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],

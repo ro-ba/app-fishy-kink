@@ -20,14 +20,15 @@ class ReplyTreeController extends Controller
     {
         if(session('userID')){
             $id = session("userID");
-            $tweetId = $request->input("tweetId");
             $data = connect_mongo();
-            $userData = $data["userDB"]->findOne(["userID" =>  session('userID')]);
+            $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetId"));
+            // $userData = $data["userDB"]->findOne(["userID" =>  session('userID')]);
+            $originTweets = $data["tweetDB"] -> findOne(["_id" => $tweetID]);
+            $originUser = $data["userDB"]->findOne(["userID" => $originTweets["userID"]])["userID"];
+            $replys = $data["tweetDB"]->find(["type" => "reply" , "originTweetID" => $tweetID]);
+            // $userIcon = $data["userDB"] ->findOne(["userID"=> $id])["userImg"];
 
-            $tweets   = $data["tweetDB"]->findOne(["_id" => $tweetId]);
-            $replys = $data["tweetDB"]->find(["originTweetID" => $tweetId]);
-            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            return view("replyTree",compact("tweets","replys","userIcon"));
+            return view("replyTree",compact("originTweets","originUser","replys"));
         }else{
             return redirect("login");
         };

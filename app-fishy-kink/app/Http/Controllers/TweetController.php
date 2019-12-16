@@ -49,11 +49,13 @@ class TweetController extends Controller
                     $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
                 }
             }
+            $name = $db["userDB"] -> findOne(["userID" => session("userID")])["userName"];
             $time = date("Y/m/d H:i:s");
             $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
             "userID"        => session('userID'),
+            "userName"      => $name
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],

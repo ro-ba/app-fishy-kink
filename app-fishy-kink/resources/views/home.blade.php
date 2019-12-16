@@ -9,11 +9,12 @@
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+   <link rel="shortcut icon" href="images/FKicon.png">
   <link rel="stylesheet" href="">
 
   <link rel="stylesheet" href="css/tweet.css">
 
-  <link rel="shortcut icon" href="images/FKicon.png">
+ 
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="css/home.css">
@@ -57,7 +58,7 @@ body {
 
 
 /* モーダルCSSここから */
-.modalArea {
+.tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -69,13 +70,13 @@ body {
   transition: .4s;
 }
 
-.modalBg {
+.tweetBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper {
+.tweetWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -86,21 +87,21 @@ body {
   background-color: #fff;
 }
 
-.closeModal {
+.closeTweet {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show { /* モーダル表示用クラス */
+.tweet-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
 /* モーダルCSSここまで */
 
 /* モーダルCSSここから */
-.modalArea1 {
+.replyArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
   position: fixed;
@@ -112,13 +113,13 @@ body {
   transition: .4s;
 }
 
-.modalBg1 {
+.replyBg {
   width: 100%;
   height: 100%;
   background-color: rgba(30,30,30,0.9);
 }
 
-.modalWrapper1 {
+.replyWrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -129,14 +130,14 @@ body {
   background-color: #fff;
 }
 
-.closeModal1 {
+.closeReply {
   position: absolute;
   top: 0.5rem;
   right: 1rem;
   cursor: pointer;
 }
 
-.is-show1 { /* モーダル表示用クラス */
+.reply-show { /* モーダル表示用クラス */
   visibility: visible;
   opacity : 1;
 }
@@ -151,15 +152,6 @@ button {
   border-radius: 2px;
   cursor: pointer;
 }
-
-/* #openModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-} */
-
-/** ここまで **/
   </style>
 
 <script type="text/javascript">
@@ -225,12 +217,12 @@ button {
 </html>
 
 <!-- りぷらい -->
-<div id="modalContents"></div>
-  <section id="modalArea1" class="modalArea1">
-    <div id="modalBg1" class="modalBg1"></div>
-    <div class="modalWrapper1">
+<div id="replyContents">
+  <section id="replyArea" class="replyArea">
+    <div id="replyBg" class="replyBg"></div>
+    <div class="replyWrapper">
       <div id="parentTweet"></div>
-      <form action="reply" class="reply" method="POST" enctype="multipart/form-data">
+      <!-- <form action="reply" class="reply" method="POST" enctype="multipart/form-data"> -->
       @csrf
         <textarea id ="replyText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
         <label>
@@ -243,19 +235,19 @@ button {
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>
-      </form>
-      <div id="closeModal1" class="closeModal1">
+      <!-- </form> -->
+      <div id="closeReply" class="closeReply">
         × 
       </div>
     </div>
   </section>
-<div>
+</div>
 
 <!-- ツイート -->
-<section id="modalArea" class="modalArea">
-  <div id="modalBg" class="modalBg"></div>
-  <div class="modalWrapper">
-    <div class="modalContents">
+<section id="tweetArea" class="tweetArea">
+  <div id="tweetBg" class="tweetBg"></div>
+  <div class="tweetWrapper">
+    <div class="tweetContents">
     <div id="tweets">
     <form action="tweet"  class="tweet" method="POST" enctype="multipart/form-data">
     @csrf
@@ -285,33 +277,35 @@ button {
         </div>
 
     </form>
-    <div id="closeModal" class="closeModal">
+    <div id="closeTweet" class="closeTweet">
       ×
     </div>
   </div>
 </section>
 
 <script>
-(function () {
-    setTimeout(function () {
-        const modalArea = document.getElementById('modalArea');
-        const openModal = document.getElementById('tweet');
-        const closeModal = document.getElementById('closeModal');
-        const modalBg = document.getElementById('modalBg');
-        const sendButton = document.getElementById('newTweet');
-        const toggle = [openModal,closeModal,modalBg , sendButton];
-
-        for(let i=0, len=toggle.length ; i<len ; i++){
-          toggle[i].addEventListener('click',function(){    // イベント処理(クリック時)
-            //tweetのpreview-imageを初期化
-            $(".preview-image").html('<p class="pre">PREVIEW</p>');
-            
-            modalArea.classList.toggle('is-show');            // modalAreaのクラスの値を切り替える 
-          },false);
-        }
-    }, 1);
-  }());
-
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        dispTweets(result);
+    }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
 </script>
 
 
