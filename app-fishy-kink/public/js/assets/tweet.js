@@ -181,10 +181,10 @@ function createTweetElement(tweet) {
         userIcon = defaultIcon;
     }
     tweetDocument += `
-    <div class="tweetTop card-header" onclick="location.href='/replyTree?tweetId=${tweet["_id"]["$oid"]}'">
+    <div class="tweetTop card-header">
         ${tweetType}
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="${userIcon}" width="50px" height="50px" />
+        <img src="${userIcon}" width="50px" height="50px" onclick="location.href='/replyTree?tweetId=${tweet["_id"]["$oid"]}'"/>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
             <a href=/profile?user=${tweet["userID"]}>

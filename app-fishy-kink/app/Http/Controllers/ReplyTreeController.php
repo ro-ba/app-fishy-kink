@@ -22,14 +22,35 @@ class ReplyTreeController extends Controller
             $id = session("userID");
             $data = connect_mongo();
             $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetId"));
-            // $userData = $data["userDB"]->findOne(["userID" =>  session('userID')]);
-            $originTweets = $data["tweetDB"] -> findOne(["_id" => $tweetID]);
-            $originUser = $data["userDB"]->findOne(["userID" => $originTweets["userID"]])["userID"];
-            $replys = $data["tweetDB"]->find(["type" => "reply" , "originTweetID" => $tweetID]);
-            // $userIcon = $data["userDB"] ->findOne(["userID"=> $id])["userImg"];
+
+            $Tweets = $data["tweetDB"] -> findOne(["_id" => $tweetID]);
+
+            if( isset($Tweets["originTweetID"]) ){
+                $originTweets = $data["tweetDB"] -> findOne(["_id" => $Tweets["originTweetID"]]);
+            }else{
+                $originTweets = $Tweets;
+            }
+
+            $replys = $data["tweetDB"]->find(["type"=>"reply"] , ["originTweetID" => $originTweets["_id"]]);
+
             $originTweets = iterator_to_array($originTweets);
             $replys = iterator_to_array($replys);
-            return view("replyTree",compact("originTweets","replys"));
+
+            // foreach($replys as $repCheck){
+            //     if(isset($repCheck["_id"])){
+            //         //入れ子じゃない
+            //         $replys = array($replys);
+            //         break;
+            //     }else{
+            //         //入れ子構造
+            //         break;
+            //     }
+            // }
+
+            print_r($replys);
+
+
+            // return view("replyTree",compact("originTweets","replys"));
         }else{
             return redirect("login");
         };
