@@ -29,15 +29,24 @@ class TweetController extends Controller
     {
         if(session('userID')){ 
             $db = connect_mongo();
-            $tweetImg = [];
-            if($request->hasfile("tweetImage")){
-                foreach($request->tweetImage as $image){
+            $userID = session("userID");
+            $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
+            // return(["message" => $request->input("tweetImage")]);
+            // return(["message" => json_encode($request)]);
+            $tweetImg = $request->input("tweetImage");
+            return(["message" => $tweetImg]);
+            $tweetImage = [];
+            if(isset($tweetImg)){
+                
+                foreach($tweetImg as $image){
                     //拡張子取得
                     $ext = explode("/",$image->getMimeType())[1];
+                    return ["img"=> $ext];
                     //画像fileを取得してバイナリにエンコード
                     $encode_img = base64_encode(file_get_contents($image));
                     
-                    $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+                    $tweetImage[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+                    
                 }
             }
             $time = date("Y/m/d H:i:s");
@@ -45,8 +54,9 @@ class TweetController extends Controller
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
             "userID"        => session('userID'),
+            "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
-            "img"           => $tweetImg,
+            "img"           => $tweetImage,
             "retweetUser"   => [],
             "favoUser"       => [],
             "originTweetID" => "",
@@ -56,6 +66,7 @@ class TweetController extends Controller
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
+        
     }
 
     /**

@@ -2,7 +2,7 @@ var result;
 var tweetCount;
 var count = 1;
 var target;
-var tweetImg;
+var tweetImage;
 
 /******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
 //replyのツリー作成で後で使うかも
@@ -310,6 +310,7 @@ $(function () {
 
         }).done(function (results) {
             var selectTweet = results["tweet"]
+            console.log(selectTweet);
             document.getElementById('parentTweet').innerHTML = '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
@@ -354,13 +355,51 @@ function tweetWindow() {
     }
 }
 
+/**************************** ツイート送信 ********************************* */
+$(function () {
+    $('#newTweet').click(function () {
+        var tweetText = document.getElementById('tweetText').value;
+        tweetImage = check();
+        console.log("これれええええええええ"+ JSON.stringify(tweetImage));
+        let fd = new FormData()
+        fd.append("tweetText",tweetText);
+        fd.append("tweetImage",tweetImage);
+        $.ajax({
+            type: 'POST',
+            url: '/api/tweet',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: fd,
+            // data: {
+            //     tweetText : tweetText,
+            //     tweetImage : tweetImage,
+            // },
+            cache: false
+        }).done(function (results) {
+            // results["message"].forEach(function(request){
+            //     console.log(request);
+            // });
+            console.log("これれええええええええ"+ JSON.stringify(results["message"]));
+            // アラートの追加
+            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
+            '<a href="" class="alert-link">新しいツイート</a>' +
+            '</div>';
+        }).fail(function (err) {
+            // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
+        });;
+    });
+});
+
 /******************************************************************* リプライ送信 *******************************************************************/
 
 $(function () {
     $('#replySend').click(function () {                                 // リプライの送信ボタンが押されたら
         var replyText = document.getElementById('replyText').value;
-        // console.log(replyText);
-        // check();
         $.ajax({
             type: 'POST',
             url: '/api/reply',
@@ -383,19 +422,21 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj) {
+function loadImage(obj){
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
-        fileReader.readAsDataURL(obj.files[i]);
-        fileReader.onload = (function (e) {
+        fileReader.readAsDataURL(obj.files[i].name);
+        fileReader.onload = (function (e)
+        {
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
 }
 
-/****************************nullでのツイート防止********************************* */
-function textCheck() {
+/******************************************************************* nullでのツイート防止 *******************************************************************/
+function textCheck()
+{
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
     if (textValue == "" || textValue == null) {
@@ -404,8 +445,9 @@ function textCheck() {
         tweetButton.disabled = false;
     }
 }
-
-function replyCheck() {
+/*******************************************************************  *******************************************************************/
+function replyCheck()
+{
     var replyValue = document.getElementById('replyText').value;
     var replyButton = document.getElementById('replySend');
     if (replyValue == "" || replyValue == null) {
@@ -417,42 +459,23 @@ function replyCheck() {
     }
 }
 
-/**************************** ツイート送信 ********************************* */
-$(function () {
-    $('#newTweet').click(function () {
-        var tweetText = document.getElementById('tweetText').value;
-        $.ajax({
-            type: 'POST',
-            url: '/api/tweet',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                tweetText: tweetText,
-            },
-            cache: false
-        }).done(function (results) {
-            // アラートの追加
-            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
-                '</div>';
-        });
-    });
-});
 
 
-// function check(){
-//     console.log("aaaa");
-//     var fileList = document.getElementById("file").files;
-//     var list = [];
-//     for(var i=0; i<fileList.length; i++){
-//     list += fileList[i].name + "<br>";
+function check(){
+    console.log("aaaa");
+    // var fileList = document.getElementById("tweetFile").files;
+    let fileList = $("#tweetFile").prop('files')[0];
+    console.log(fileList.name);
+    // fileList.forEach(function(file){
+    //     console.log(file);
+    // });
+    // var list = [];
+    // for(var i=0; i<fileList.length; i++){
+    //     list += fileList[i].name + "<br>";
 
-//     }    
-//     console.log(list);
-//     // return list;
-// }
+    // }    
+    return fileList;
+}
 
 
 
