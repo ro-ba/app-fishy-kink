@@ -81,9 +81,6 @@ button {
 } */
 </style>
 
-
-
-
 </head>
 <body>
 @include('homeTemplate')
@@ -93,10 +90,6 @@ button {
         <div>トークしようぜ！！</div>
         <div align="right"><a href="#.html">⊕追加ボタン</a></div>
         <!-- 　↑ のちにCSSで直す -->
-
-
-
-
     </form>        
 
     <button id="openModal">Open modal</button>

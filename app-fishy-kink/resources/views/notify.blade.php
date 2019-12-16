@@ -26,7 +26,7 @@
     <!-- すべてタブ表示 -->
     @include('homeTemplate')
     @isset($userData)
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
+    <!-- <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button> -->
     <div class = myData>
         <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon"/>
         <!-- <img class="Images" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;" />-->
