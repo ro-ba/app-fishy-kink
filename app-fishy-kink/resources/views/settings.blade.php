@@ -51,6 +51,7 @@
 </script>
 </head>
 <body>
+@include('homeTemplate')
 @isset($userData)
     <div class="userEdit">
         <form method="post" enctype="multipart/form-data">

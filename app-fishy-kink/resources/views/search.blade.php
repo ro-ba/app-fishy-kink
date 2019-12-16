@@ -150,8 +150,11 @@
 </head>
 
 <body>
-
+@include('homeTemplate')
 <div id="menu row d-inline col-md-12">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
   <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
   <button type="button" class="link_button btn page-link text-dark d-inline-block NotifyButton" onclick="location.href='/notify'">通知
@@ -183,6 +186,9 @@
         
         </div>
 
+>>>>>>> 6e0959afe6c62da4aae1f8adcbf45ce5dddff05d
+=======
+>>>>>>> d06f62f5481a229c3d9bbf2146ba4ecf64ae651c
         <div class="row tweets">
             <div class="leftContents col-sm-3"></div>
             <div class="centerContents col-sm-6">
