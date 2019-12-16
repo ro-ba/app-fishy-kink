@@ -150,40 +150,8 @@
 </head>
 
 <body>
-
+@include('homeTemplate')
 <div id="menu row d-inline col-md-12">
-
-  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
-  @if($count != 0)
-    <p class = "readCount"  data-badge="{{ $count }}"></p></button>
-  @endif
-  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
-  <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
-  <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
-  </button>
-
-  <form method='get' action="/search" class="form-inline d-inline">
-    <!-- <div class="form-group"> -->
-    <input class="form-control" type=text name="searchString">
-    <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
-    <!-- </div> -->
-  </form>
-  <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-      <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
-</div>
-
-<div id="alertContents"></div>
-    <div class="main">
-        <div class="search">
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
-            <form method='get' action="/search" class="form-inline d-inline">
-                <input type="text" name="searchString" class="form-control" value="">
-                <input type="submit" class="form-control" value="検索">
-            </form>
-        
-        </div>
-
         <div class="row tweets">
             <div class="leftContents col-sm-3"></div>
             <div class="centerContents col-sm-6">

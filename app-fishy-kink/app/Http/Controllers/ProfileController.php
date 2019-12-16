@@ -34,19 +34,8 @@ class ProfileController extends Controller
         if(!isset($nowFollow)){
             $nowFollow = False;
         }
-
-        if(session('userID')){
-            $id = session("userID");
-            $userIcon = $FishyKink["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            $count = $FishyKink["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
-        }
             $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
-            // return view("homeTemplate",compact("userData","tweetData","isShowSettings","nowFollow","count","userIcon"));
-            // }
-        // $tweetData = $FishyKink["tweetDB"]->find(["userID" =>  $id],['sort' => ['time' => -1]]);
-        return view("profile",compact("userData","tweetData","isShowSettings","nowFollow","count","userIcon"));
-
-       
+            return view("profile",compact("userData","tweetData","isShowSettings","nowFollow")); 
     }
 
 
