@@ -38,7 +38,8 @@ Route::resources([
     "/api/getFollowing" => "API\GetFollowingController",
     "/api/getFollower" => "API\GetFollowerController",
     "/api/notifyCount" => "API\NotifyCountController",
-    "/api/reply" => "API\ReplyController"
+    "/api/reply" => "API\ReplyController",
+    "/api/tweet" => "API\TweetController"
 
     ]);
 

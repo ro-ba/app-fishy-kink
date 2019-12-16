@@ -28,19 +28,23 @@
 </head>
 
 <body>
+<!-- <script>
+console.log("{{ $originTweets }}");
+</script> -->
 @if ( isset($originTweets) )
-  @foreach( $originTweets as tweets )
-    @if( isset($Origintweets->originTweetID) )
-      <div class="tweetTop card-header" onclick=`location.href="/replyTree?tweetId={{ $tweets->originTweetID }}"`>
+
+  @foreach( $originTweets as $tweets )
+    @if( isset($tweets["originTweetID"]) )
+      <div class="tweetTop card-header" onclick=`location.href="/replyTree?tweetId={{ $tweets['originTweetID'] }}"`>
     @else
-      <div class="tweetTop card-header" onclick=`location.href="/replyTree?tweetId={{ $tweets->_id }}"`>
-    @endif
+      <div class="tweetTop card-header" onclick=`location.href="/replyTree?tweetId={{ $tweets['_id'] }}"`>
+    @endif 
       <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="{{ $tweets['userIcon'] }}" width="50px" height="50px" />
+        <img src="{{ $tweets['userImg'] }}" width="50px" height="50px" />
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
           <div class="tweet-user">
               <a href="/profile?user={{ $tweets['userID'] }}">
-                <span>{{ $originUser }}</span><span>@</span><span>{{ $tweets->userID }}</span>
+                <span>{{ $tweets["userName"] }}</span><span>@</span><span>{{ $tweets["userID"] }}</span>
               </a>
           </div>
         </div>
@@ -48,26 +52,47 @@
       <div class="tweetMain card-body">{{ $tweets["text"] }}</div>
       <div class="imagePlaces" style=float:left>
       @if(isset($tweets["img"]))
-        @foreach( $tweets as $key => $img)
-          <img src=" {{ $value }}" width="200" height="150" />
+        @foreach( $tweets["img"] as $key => $img)
+          <img src=" {{ $img }}" width="200" height="150" />
         @endforeach
       @endif
     </div>
   @endforeach
 
-    <div class="row tweets">
-        <div class="leftContents col-sm-3"></div>
-        <div class="centerContents col-sm-6"></div>
-        <div class="rightContents col-sm-3"></div>
-    </div>
-  </div>
-@else
-  ツイートがありません
+  @if(isset($replys))
+    @foreach($replys as $reply)
+      @if( isset($Origintweets["originTweetID"]) )
+          <div class="tweetTop card-header" onclick=`location.href="/replyTree?tweetId={{ $reply['_id'] }}"`>
+          <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
+            <img src="{{ $reply['userIcon'] }}" width="50px" height="50px" />
+            <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
+              <div class="tweet-user">
+                  <a href="/profile?user={{ $reply['userID'] }}">
+                    <span>{{ $reply["userName"] }}</span><span>@</span><span>{{ $reply['userID'] }}</span>
+                  </a>
+              </div>
+            </div>
+          </div>
+          <div class="tweetMain card-body">{{ $reply["text"] }}</div>
+          <div class="imagePlaces" style=float:left>
+          @if(isset($reply["img"]))
+            @foreach( $reply["img"] as $key => $img)
+              <img src=" {{ $img }}" width="200" height="150" />
+            @endforeach
+          @endif
+        </div>
+      @else
+        <p></p>
+      @endif
+    @endforeach
+  @else
+    <p></p>
+  @endif
 @endif
 </body>
 </html>
 
-
+<!-- 
 <script>
   $(function () { // 遅延処理
       $.ajax({
@@ -90,4 +115,4 @@
           alert('ファイルの取得に失敗しました。');
       });
   });
-</script>
+</script> -->

@@ -27,8 +27,9 @@ class ReplyTreeController extends Controller
             $originUser = $data["userDB"]->findOne(["userID" => $originTweets["userID"]])["userID"];
             $replys = $data["tweetDB"]->find(["type" => "reply" , "originTweetID" => $tweetID]);
             // $userIcon = $data["userDB"] ->findOne(["userID"=> $id])["userImg"];
-
-            return view("replyTree",compact("originTweets","originUser","replys"));
+            $originTweets = iterator_to_array($originTweets);
+            $replys = iterator_to_array($replys);
+            return view("replyTree",compact("originTweets","replys"));
         }else{
             return redirect("login");
         };
