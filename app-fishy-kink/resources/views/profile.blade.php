@@ -39,31 +39,11 @@
 </head>
 
 <body>
-@yield('pcontent')
-<!-- <div id="menu row d-inline col-md-12">
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
-        @if($count != 0)
-        <p class = "readCount"  data-badge="{{ $count }}"></p></button>
-        @endif
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
-        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
-        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
-        </button>
-
-        <form method='get' action="/search" class="form-inline d-inline">
-
-        <input class="form-control" type=text name="searchString">
-        <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
-    
-        </form>
-        <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-            <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
-    </div> -->
+@include('homeTemplate')
+<div id="alertContents"></div>
 @isset($userData)
     <div class="profile">
       <div id=wrap>
-
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
         </div>
@@ -111,19 +91,52 @@
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
     </div>
-    <hr />
-    <div class="loader"></div>
+    <!-- <hr /> -->
+    <!-- <div class="loader"></div>
     <div class="row tweets">
       <div id="leftContents" class="col-sm-3"></div>
       <div id="centerContents" class="col-sm-6"></div>
       <div id="rightContents" class="col-sm-3"></div>
-    </div>       
+    </div>        -->
+  
+    <div class="loader">Loading...</div>
+    <div class="row tweets">
+        <div class="leftContents col-sm-3"></div>
+        <div class="centerContents col-sm-6"></div>
+        <div class="rightContents col-sm-3"></div>
+    </div>
+
   @else
     <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
-  </div>               
-</body>
+  </div>       
 
 </body>
+<script>
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        dispTweets(result);
+    }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+
 </html>
