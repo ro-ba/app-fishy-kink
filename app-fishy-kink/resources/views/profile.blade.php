@@ -60,6 +60,7 @@
         <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
             <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
     </div> -->
+    <div id="alertContents"></div>
 @isset($userData)
     <div class="profile">
       <div id=wrap>
@@ -114,9 +115,9 @@
     <hr />
     <div class="loader"></div>
     <div class="row tweets">
-      <div id="leftContents" class="col-sm-3"></div>
-      <div id="centerContents" class="col-sm-6"></div>
-      <div id="rightContents" class="col-sm-3"></div>
+      <div class="leftContents" class="col-sm-3"></div>
+      <div class="centerContents" class="col-sm-6"></div>
+      <div class="rightContents" class="col-sm-3"></div>
     </div>       
   @else
     <a>ユーザーが存在しません。</a>
@@ -126,4 +127,28 @@
 </body>
 
 </body>
+<script>
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        dispTweets(result);
+    }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
+</script>
 </html>
