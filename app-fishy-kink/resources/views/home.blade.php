@@ -186,27 +186,29 @@ button {
   <div class="tweetWrapper">
     <div class="tweetContents">
     <div id="tweets">
-    @csrf
-        <div id="wrap">
-            <div class="myTweet">
-                <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
-                <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
-            </div>
-            <div class="content">
-                <label>
-                    <span class="filelabel">
-                        <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
-                    </span>
-                    <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-                </label>
-                <div class="t-submit">
-                    <button id = newTweet class="newTweet" disabled=true> tweet </button>
-                </div>
-            </div>
-            <div class="tweet-image">
-               <p class="preview-image"></p>
-            </div>
-        </div>
+      <form id="tweet-form">
+      @csrf
+          <div id="wrap">
+              <div class="myTweet">
+                  <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
+                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
+              </div>
+              <div class="content">
+                  <label>
+                      <span class="filelabel">
+                          <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
+                      </span>
+                      <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                  </label>
+                  <div class="t-submit">
+                      <button type=button id = newTweet class="newTweet" disabled=true> tweet </button>
+                  </div>
+              </div>
+              <div class="tweet-image">
+                <p class="preview-image"></p>
+              </div>
+          </div>
+          </form>
         </div>
     <div id="closeTweet" class="closeTweet">
       ×

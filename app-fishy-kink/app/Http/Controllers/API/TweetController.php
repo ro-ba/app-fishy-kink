@@ -33,20 +33,17 @@ class TweetController extends Controller
             $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
             // return(["message" => $request->input("tweetImage")]);
             // return(["message" => json_encode($request)]);
-            $tweetImg = $request->input("tweetImage");
-            return(["message" => $tweetImg]);
+            // $tweetImg = $request->input("tweetImage");
+
+            $tweetImg = $request["tweetImage"]; //inputだとなぜか取れない
             $tweetImage = [];
             if(isset($tweetImg)){
-                
                 foreach($tweetImg as $image){
                     //拡張子取得
                     $ext = explode("/",$image->getMimeType())[1];
-                    return ["img"=> $ext];
                     //画像fileを取得してバイナリにエンコード
                     $encode_img = base64_encode(file_get_contents($image));
-                    
-                    $tweetImage[] = 'data:image/' . $ext . ';base64,' . $encode_img;
-                    
+                    $tweetImage[] = 'data:image/' . $ext . ';base64,' . $encode_img;   
                 }
             }
             $time = date("Y/m/d H:i:s");
@@ -65,6 +62,8 @@ class TweetController extends Controller
             ]); 
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
+
+            return [];  //何か返さないと怒られる
         }
         
     }

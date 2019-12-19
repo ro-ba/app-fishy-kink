@@ -358,12 +358,7 @@ function tweetWindow() {
 /**************************** ツイート送信 ********************************* */
 $(function () {
     $('#newTweet').click(function () {
-        var tweetText = document.getElementById('tweetText').value;
-        tweetImage = check();
-        console.log("これれええええええええ"+ JSON.stringify(tweetImage));
-        let fd = new FormData()
-        fd.append("tweetText",tweetText);
-        fd.append("tweetImage",tweetImage);
+        let fd = new FormData($("#tweet-form").get(0));
         $.ajax({
             type: 'POST',
             url: '/api/tweet',
@@ -374,16 +369,16 @@ $(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: fd,
-            // data: {
-            //     tweetText : tweetText,
-            //     tweetImage : tweetImage,
-            // },
             cache: false
-        }).done(function (results) {
+        }).done(function () {
+
+            //yamasaki追加　送信成功時に内容を削除
+            $("#tweetText").val("");
+            $("#tweetFile").val("");
+
             // results["message"].forEach(function(request){
             //     console.log(request);
             // });
-            console.log("これれええええええええ"+ JSON.stringify(results["message"]));
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
             '<a href="" class="alert-link">新しいツイート</a>' +
@@ -458,25 +453,6 @@ function replyCheck()
         replyButton.disabled = false;
     }
 }
-
-
-
-function check(){
-    console.log("aaaa");
-    // var fileList = document.getElementById("tweetFile").files;
-    let fileList = $("#tweetFile").prop('files')[0];
-    console.log(fileList.name);
-    // fileList.forEach(function(file){
-    //     console.log(file);
-    // });
-    // var list = [];
-    // for(var i=0; i<fileList.length; i++){
-    //     list += fileList[i].name + "<br>";
-
-    // }    
-    return fileList;
-}
-
 
 
 
