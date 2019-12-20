@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if(session('userID')){
-             return view("home");
+            return view("home");
         }else{
             return redirect("login");
         };
