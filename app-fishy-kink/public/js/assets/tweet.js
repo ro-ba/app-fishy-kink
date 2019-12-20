@@ -310,8 +310,8 @@ $(function () {
 
         }).done(function (results) {
             var selectTweet = results["tweet"]
-            console.log(selectTweet);
-            document.getElementById('parentTweet').innerHTML = '<div>' + selectTweet["userID"] + '</div>' +
+            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' + 
+                '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
         });
@@ -394,20 +394,24 @@ $(function () {
 
 $(function () {
     $('#replySend').click(function () {                                 // リプライの送信ボタンが押されたら
-        var replyText = document.getElementById('replyText').value;
+        let fd = new FormData($("#reply-form").get(0));
         $.ajax({
             type: 'POST',
             url: '/api/reply',
             dataType: 'json',
+            processData: false,
+            contentType: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data: {
-                replyText: replyText,
-                target: target,
-            },
+            data: fd,
             cache: false
         }).done(function (results) {
+
+            //yamasaki追加　送信成功時に内容を削除
+            $("#replyText").val("");
+            $("#replyFile").val("");
+
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                 '<a href="" class="alert-link">新しいツイート</a>' +
