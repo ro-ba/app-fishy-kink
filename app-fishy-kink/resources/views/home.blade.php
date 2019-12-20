@@ -55,6 +55,10 @@ body {
 
 
 /* モーダルCSSここから */
+textarea {
+  resize: none;
+}
+
 .tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -146,9 +150,33 @@ button {
   padding: 10px;
   background-color: #fff;
   border: 1px solid #282828;
-  border-radius: 2px;
+  color: #000;
   cursor: pointer;
 }
+
+#newTweet {
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#newTweet:hover {
+  color: #fff;
+  border: 1px solid #83ccd2;
+  background-color: #83ccd2;
+}
+
+#replySend {
+  margin: 2px 0 0 0;
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#replySend:hover {
+  color: #fff;
+  border: 1px solid #83ccd2;
+  background-color: #83ccd2;
+}
+
   </style>
 
 <script type="text/javascript">
@@ -228,7 +256,7 @@ button {
         <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
         <label>
           <span class="filelabel">
-            <img src="/images/cicon.png" id="replyImg" width="60" height="60" alt="ファイル選択">
+            <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
           </span>
           <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
