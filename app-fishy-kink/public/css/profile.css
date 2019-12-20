@@ -69,7 +69,7 @@ a {
 }
 
 .user .user-edit:hover {
-    opacity: 0.5;
+    background-color: #eee;
 }
 
 .user .user-edit:active {
@@ -89,7 +89,7 @@ a {
 }
 
 .follows li:hover {
-    opacity: 0.5;
+    background-color: #eee;
 }
 
 .follows li:active {
@@ -103,10 +103,6 @@ a {
 .follows .follower {
     margin-right: 100px;
 }   
-
-.btn-real-dent {
-    
-}
 
 .pro-txt {
     text-align: center;
