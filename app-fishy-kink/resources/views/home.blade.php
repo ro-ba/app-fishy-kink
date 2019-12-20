@@ -57,6 +57,10 @@ body {
 
 
 /* モーダルCSSここから */
+textarea {
+  resize: none;
+}
+
 .tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -148,9 +152,33 @@ button {
   padding: 10px;
   background-color: #fff;
   border: 1px solid #282828;
-  border-radius: 2px;
+  color: #000;
   cursor: pointer;
 }
+
+#newTweet {
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#newTweet:hover {
+  color: #fff;
+  border: 1px solid #83ccd2;
+  background-color: #83ccd2;
+}
+
+#replySend {
+  margin: 2px 0 0 0;
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#replySend:hover {
+  color: #fff;
+  border: 1px solid #83ccd2;
+  background-color: #83ccd2;
+}
+
   </style>
 
 <script type="text/javascript">
@@ -178,42 +206,50 @@ button {
 
 <body>
 
+  <div id="home">
 
-  <div id="menu row d-inline col-md-12">
+    <nav>  
+      <div id="menu row d-inline col-md-12">
 
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
-    @if($count != 0)
-      <p class = "readCount"  data-badge="{{ $count }}"></p></button>
-    @endif
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
-    <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
-    <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
-    </button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">home</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/notify'">通知
+        @if($count != 0)
+          <p class = "readCount"  data-badge="{{ $count }}"></p></button>
+        @endif
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/DM'">メッセージ</button>
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/story'">ストーリー</button>
+        <input type="image" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/profile'" src="{{ $userIcon }}" height="40" width="40" class="img-thumbnail" style="width: auto; padding:0; margin:0; background:none; border:0; font-size:0; line-height:0; overflow:visible; cursor:pointer;">
+        </button>
 
-    <form method='get' action="/search" class="form-inline d-inline">
-      <!-- <div class="form-group"> -->
-      <input class="form-control" type=text name="searchString">
-      <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
-      <!-- </div> -->
-    </form>
-    <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+        <form method='get' action="/search" class="form-inline d-inline">
+          <!-- <div class="form-group"> -->
+          <input class="form-control" type=text name="searchString">
+          <button class="form-control" type=input> <span class="oi oi-magnifying-glass"></span> 検索 </button>
+          <!-- </div> -->
+        </form>
+        <button type="button" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
         <button type=" button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
-  </div>
-  <div id="alertContents"></div>
+      
+      </div>
+    </nav>
 
-  <div class="loader">Loading...</div>
-  <div class="row tweets">
-    <!-- <div id="leftContents" class="col-sm-3"></div>
-    <div id="centerContents" class="col-sm-6"></div>
-    <div id="rightContents" class="col-sm-3"></div> -->
-    <div class="leftContents col-sm-3"></div>
-    <div class="centerContents col-sm-6"></div>
-    <div class="rightContents col-sm-3"></div>
-  </div>
+    <div id="alertContents"></div>
+
+    <div class="loader">Loading...</div>
+    <div class="row tweets">
+      <!-- <div id="leftContents" class="col-sm-3"></div>
+      <div id="centerContents" class="col-sm-6"></div>
+      <div id="rightContents" class="col-sm-3"></div> -->
+      <div class="leftContents col-sm-3"></div>
+      <div class="centerContents col-sm-6"></div>
+      <div class="rightContents col-sm-3"></div>
+    </div>
   
+  </div>
+
 </body>
 </html>
+
 
 <!-- りぷらい -->
 <div id="replyContents">
