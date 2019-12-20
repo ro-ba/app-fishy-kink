@@ -253,6 +253,7 @@ button {
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
     <div class="replyWrapper">
+    <form id="reply-form">
       <div id="parentTweet"></div>
       @csrf
         <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
@@ -260,12 +261,13 @@ button {
           <span class="filelabel">
             <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
           </span>
-          <input type="file" id="file" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+          <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
         </label>
-        <button id="replySend" value="test">送信</button>
+        <button type=button id="replySend">送信</button>
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>
+    </form>
       <div id="closeReply" class="closeReply">
         × 
       </div>
