@@ -2,7 +2,7 @@ var result;
 var tweetCount;
 var count = 1;
 var target;
-var tweetImg;
+var tweetImage;
 
 /******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
 //replyのツリー作成で後で使うかも
@@ -146,7 +146,7 @@ function dispTweets(results, searchType = "") {
     init(results);
 }
 
-/******************************************************************* tweet一件分のJSONからエレメントを生成してcenterContentsに追加*******************************************************************/
+/******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
 function createTweetElement(tweet) {
 
     let tweetType;
@@ -310,6 +310,7 @@ $(function () {
 
         }).done(function (results) {
             var selectTweet = results["tweet"]
+            console.log(selectTweet);
             document.getElementById('parentTweet').innerHTML = '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
@@ -354,13 +355,46 @@ function tweetWindow() {
     }
 }
 
+/**************************** ツイート送信 ********************************* */
+$(function () {
+    $('#newTweet').click(function () {
+        let fd = new FormData($("#tweet-form").get(0));
+        $.ajax({
+            type: 'POST',
+            url: '/api/tweet',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: fd,
+            cache: false
+        }).done(function () {
+
+            //yamasaki追加　送信成功時に内容を削除
+            $("#tweetText").val("");
+            $("#tweetFile").val("");
+
+            // results["message"].forEach(function(request){
+            //     console.log(request);
+            // });
+            // アラートの追加
+            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
+            '<a href="" class="alert-link">新しいツイート</a>' +
+            '</div>';
+        }).fail(function (err) {
+            // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
+        });;
+    });
+});
+
 /******************************************************************* リプライ送信 *******************************************************************/
 
 $(function () {
     $('#replySend').click(function () {                                 // リプライの送信ボタンが押されたら
         var replyText = document.getElementById('replyText').value;
-        // console.log(replyText);
-        // check();
         $.ajax({
             type: 'POST',
             url: '/api/reply',
@@ -383,19 +417,21 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj) {
+function loadImage(obj){
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
-        fileReader.readAsDataURL(obj.files[i]);
-        fileReader.onload = (function (e) {
+        fileReader.readAsDataURL(obj.files[i].name);
+        fileReader.onload = (function (e)
+        {
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
 }
 
-/****************************nullでのツイート防止********************************* */
-function textCheck() {
+/******************************************************************* nullでのツイート防止 *******************************************************************/
+function textCheck()
+{
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
     if (textValue == "" || textValue == null) {
@@ -404,8 +440,9 @@ function textCheck() {
         tweetButton.disabled = false;
     }
 }
-
-function replyCheck() {
+/*******************************************************************  *******************************************************************/
+function replyCheck()
+{
     var replyValue = document.getElementById('replyText').value;
     var replyButton = document.getElementById('replySend');
     if (replyValue == "" || replyValue == null) {
@@ -416,44 +453,6 @@ function replyCheck() {
         replyButton.disabled = false;
     }
 }
-
-/**************************** ツイート送信 ********************************* */
-$(function () {
-    $('#newTweet').click(function () {
-        var tweetText = document.getElementById('tweetText').value;
-        $.ajax({
-            type: 'POST',
-            url: '/api/tweet',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                tweetText: tweetText,
-            },
-            cache: false
-        }).done(function (results) {
-            // アラートの追加
-            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
-                '</div>';
-        });
-    });
-});
-
-
-// function check(){
-//     console.log("aaaa");
-//     var fileList = document.getElementById("file").files;
-//     var list = [];
-//     for(var i=0; i<fileList.length; i++){
-//     list += fileList[i].name + "<br>";
-
-//     }    
-//     console.log(list);
-//     // return list;
-// }
-
 
 
 
