@@ -56,6 +56,7 @@ body {
 
 /* モーダルCSSここから */
 textarea {
+  width: 90%;
   resize: none;
 }
 
@@ -142,6 +143,11 @@ textarea {
   visibility: visible;
   opacity : 1;
 }
+
+#tweetFile {
+  display: none;
+}
+
 /* モーダルCSSここまで */
 
 
@@ -160,9 +166,7 @@ button {
 }
 
 #newTweet:hover {
-  color: #fff;
-  border: 1px solid #83ccd2;
-  background-color: #83ccd2;
+  background-color: #eee;
 }
 
 #replySend {
@@ -172,9 +176,7 @@ button {
 }
 
 #replySend:hover {
-  color: #fff;
-  border: 1px solid #83ccd2;
-  background-color: #83ccd2;
+  background-color: #eee;
 }
 
   </style>
