@@ -28,15 +28,16 @@ class ReplyController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $text = $request->input('tweetText');
-        $target = $request->input("Target");
+        $text = $request->input('replyText');
+        // return ["message" => $text];
+        $target = $request->input("target");
         $tweetImg = [];
         $userID = session("userID");
         $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
-        if($request->hasfile("tweetImage")){
+        if($request->hasfile("ReplyImage")){            // hasfile : 画像があるかないかを判断
             foreach($request->tweetImage as $image){
                 //拡張子取得
-                $ext = explode("/",$image->getMimeType())[1];
+                $ext = explode(".",$image->getMimeType())[1];
                 //画像fileを取得してバイナリにエンコード
                 $encode_img = base64_encode(file_get_contents($image));
                 
@@ -48,6 +49,7 @@ class ReplyController extends Controller
             "type"          => "reply",
             "text"          => $text,
             "userID"        => session('userID'),
+            "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
@@ -55,17 +57,8 @@ class ReplyController extends Controller
             "originTweetID" => $target,
             "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
-
-        // $db["notifyDB"] -> insert([
-        //     "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
-        //     "tweetID" => $tweetID,
-        //     "text" => $name .= "さんがリプライしました。",
-        //     "time" => $time,
-        //     "readFlag" => False
-        // ]);
-        // return ["message" => ];
         // return redirect("home");
-        //
+        
     }
 
     /**

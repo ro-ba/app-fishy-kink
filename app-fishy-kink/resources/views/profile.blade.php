@@ -39,11 +39,11 @@
 </head>
 
 <body>
-
+@include('homeTemplate')
+<div id="alertContents"></div>
 @isset($userData)
     <div class="profile">
       <div id=wrap>
-
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
         </div>
@@ -88,44 +88,55 @@
 
       </div>
 
-
-
-
-
-      
-
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
     </div>
-
-    <hr />
-
-    <div class="loader"></div>
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
+    <!-- <hr /> -->
+    <!-- <div class="loader"></div>
     <div class="row tweets">
       <div id="leftContents" class="col-sm-3"></div>
       <div id="centerContents" class="col-sm-6"></div>
       <div id="rightContents" class="col-sm-3"></div>
-    </div>       
+    </div>        -->
+  
+    <div class="loader">Loading...</div>
+    <div class="row tweets">
+        <div class="leftContents col-sm-3"></div>
+        <div class="centerContents col-sm-6"></div>
+        <div class="rightContents col-sm-3"></div>
+    </div>
+
   @else
     <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
-  </div>               
-</body>
+  </div>       
 
 </body>
+<script>
+// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+$(function () { // 遅延処理
+    $.ajax({
+        type: 'POST',
+        url: '/api/reloadTweets', // url: は読み込むURLを表す
+        dataType: 'json', // 読み込むデータの種類を記入
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            userID: userID
+        },
+        cache: false
+    }).done(function (results) {
+        // 通信成功時の処理
+        result = results;
+        dispTweets(result);
+    }).fail(function (err) {
+        // 通信失敗時の処理
+        alert('ファイルの取得に失敗しました。');
+    });
+});
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+
 </html>

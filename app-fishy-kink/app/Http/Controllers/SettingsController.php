@@ -56,6 +56,7 @@ class SettingsController extends Controller
         }else{ //空じゃなかったら変更
             //$FishyKink["userDB"]->updateOne(["userID" => $id], ['$set'=> ["userName" => $name , "profile" => $profile , "userImg" => $img]]);           
             myPageSetting($id,$request,$FishyKink);
+
             return redirect("profile");
         }
     }
