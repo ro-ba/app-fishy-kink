@@ -31,15 +31,19 @@
             @foreach( $users as $user)
                 <ul class ="list_none">
                     <li>
-                    <a onclick="location.href='/profile?user={{ $user['userID'] }}'"><img src='{{ $user["userImg"] }}'/></a>
-                            {{$user["userName"]}}    
+                        <a onclick="location.href='/profile?user={{ $user['userID'] }}'">
+                            <img src='{{ $user["userImg"] }}'/>
+                        </a>
+                        {{$user["userName"]}}    
                         <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $user['userID'] }}'">
                             <span>@</span>{{ $user['userID'] }}
                         </button>
 
                         <div class="profilePro">
-                        {{ $user["profile"] }}  
+                            {{ $user['profile'] }}
                         </div>
+                        
+                        
                     </li>
                 </ul>
             @endforeach
