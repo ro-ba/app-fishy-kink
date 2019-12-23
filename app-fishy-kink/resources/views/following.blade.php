@@ -13,57 +13,38 @@
    
 </head>
 <body>
-            <div class="tabs">
-            <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" class="checked">
-            <label class="tab_item1" for="follow">フォロー中</label>
-            <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" >
-            <label class="tab_item2" for="follower">フォロワー</label>
-       
-        
-      
-<!-- フォロー中表示 -->
-    <div class="tab_content2" id="follow_content">
-        @isset($followingData)
-            @isset($followingData["follow"][0])
-                @if(count($userProfile["follow"]) == 1)
-                            <ul class ="list_none">
-                                <li>
-                                <a onclick="location.href='/profile?user={{$follow['userID']}}'"><img src='{{$follow["userImg"]}}'/></a>
-                                        {{$follow["userName"]}}    
-                                    <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follow['userID']}}'">
-                                        <span>@</span>{{$follow["userID"]}}
-                                    </button>
-                                    <div class="profilePro">{{$follow["profile"]}}</div>
-                                </li>
-                            </ul>
-                @elseif(count($userProfile["follow"]) > 1)     
-                    @foreach ($followingData["follow"] as $key => $following)
-                        <ul class ="list_none">
-                            <li>
-                            <a onclick="location.href='/profile?user={{ $following }}'"><img src='{{ $followingImg[$key]}}'/></a>
-                                    {{$followingName[$key]}}    
-                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $following }}'">
-                                <span>@</span>{{ $following }}
-                                </button>
-                                <div class="profilePro">
-                                    {{ $followingPro[$key] ,$key = $key + 1 }} 
-                                </div>
-                            </li>
-                        </ul>
-                    @endforeach
-                @endif
-            @endisset
-        @endisset
-                    
-    </div>
 
-    <!-- フォロワー表示 -->
-    <div class="tab_content1" id="followerS_content">
-        <ul class="list_none" id="list">
-        </ul>
-    </div>
+<?php
+        if (isset($_GET['user'])){
+            $target =   $_GET['user'];
+        }else{
+            $target =   session("userID");
+        }
+    ?>
+    <div class="tabs">
+        <input id="follow" onclick="location.href='/following?user={{$target}}'" type="button" name="tab_item" class="checked">
+        <label class="tab_item1" for="follow">フォロー中</label>
+        <input id="follower" onclick="location.href='/followers?user={{$target}}'"  type="button" name="tab_item">
+        <label class="tab_item2" for="follower">フォロワー</label>
 
-    <div>
+        <div class="tab_content" id="follow_content">
+            @foreach( $users as $user)
+                <ul class ="list_none">
+                    <li>
+                    <a onclick="location.href='/profile?user={{ $user['userID'] }}'"><img src='{{ $user["userImg"] }}'/></a>
+                            {{$user["userName"]}}    
+                        <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $user['userID'] }}'">
+                            <span>@</span>{{ $user['userID'] }}
+                        </button>
+
+                        <div class="profilePro">
+                        {{ $user["profile"] }}  
+                        </div>
+                    </li>
+                </ul>
+            @endforeach
+        </div>
+    
     @isset($_GET['user'])
         <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
     @else

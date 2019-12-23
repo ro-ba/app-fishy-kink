@@ -150,7 +150,22 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 @include('NaviMenu')
+=======
+@include('homeTemplate')
+
+<div id="alertContents"></div>
+    <div class="main">
+        <div class="search">
+        <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
+            <form method='get' action="/search" class="form-inline d-inline">
+                <input type="text" name="searchString" class="form-control" value="">
+                <input type="submit" class="form-control" value="検索">
+            </form>
+        
+        </div>
+>>>>>>> 28c342d9262f7faf61cc91a69693c8a654572f23
         <div class="row tweets">
             <div class="leftContents col-sm-3"></div>
             <div class="centerContents col-sm-6">

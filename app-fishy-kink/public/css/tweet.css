@@ -73,7 +73,7 @@ input[type="submit"]:hover {
 }
 
 .filelabel {
-    margin-left: 300px;
+    margin-left: 250px;
     opacity: 0.7;
 }
 
@@ -88,7 +88,7 @@ input[type="submit"]:hover {
 
 .content .t-submit {
     float: right;
-    margin: 4px 25px 0 0;
+    margin: 6px 25px 0 0;
 }
 
 .tweet-image {
@@ -103,7 +103,7 @@ input[type="submit"]:hover {
 .preview-image img {
     width: 200px;
     height: 200px;
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
     margin: 0 5px;
     object-fit: cover;
 }
