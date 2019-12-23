@@ -230,6 +230,7 @@ function createTweetElement(tweet) {
     tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        ${tweet["retweetUser"].length}
 
         <div class="inner">
         <button class=normalReTweet type=button> ${reTweetText}</button>
@@ -244,7 +245,10 @@ function createTweetElement(tweet) {
     } else {
         iconColor = "red";
     }
-    tweetDocument += `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+    tweetDocument +=
+        `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+        ${tweet["favoUser"].length}
+        `;
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
@@ -310,7 +314,7 @@ $(function () {
 
         }).done(function (results) {
             var selectTweet = results["tweet"]
-            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' + 
+            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
                 '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
@@ -381,8 +385,8 @@ $(function () {
             // });
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-            '<a href="" class="alert-link">新しいツイート</a>' +
-            '</div>';
+                '<a href="" class="alert-link">新しいツイート</a>' +
+                '</div>';
         }).fail(function (err) {
             // 通信失敗時の処理
             alert('ファイルの取得に失敗しました。');
@@ -421,21 +425,19 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj){
+function loadImage(obj) {
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(obj.files[i].name);
-        fileReader.onload = (function (e)
-        {
+        fileReader.onload = (function (e) {
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
 }
 
 /******************************************************************* nullでのツイート防止 *******************************************************************/
-function textCheck()
-{
+function textCheck() {
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
     if (textValue == "" || textValue == null) {
@@ -445,8 +447,7 @@ function textCheck()
     }
 }
 /*******************************************************************  *******************************************************************/
-function replyCheck()
-{
+function replyCheck() {
     var replyValue = document.getElementById('replyText').value;
     var replyButton = document.getElementById('replySend');
     if (replyValue == "" || replyValue == null) {
