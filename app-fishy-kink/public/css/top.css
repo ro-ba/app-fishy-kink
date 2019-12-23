@@ -26,7 +26,7 @@ button {
 
 body {
 
-    background-image: url("/images/toop.jpg");
+    background-image: url("/images/top.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -49,7 +49,7 @@ body {
 
 .image-m {
     position: absolute;
-    margin-top: 210px;
+    margin-top: 10px;
     margin-left: 750px;
     width: 210px;
     height: 200px;

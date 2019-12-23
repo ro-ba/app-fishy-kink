@@ -48,15 +48,15 @@
 
   /*タブ切り替えの中身のスタイル*/
 
-.tab_content1 {
-    display: none;
+.tab_content {
+    /* display: none; */
     padding-top: 10px;
     clear: both;
     overflow: hidden;
   }
 
-  .tab_content2 {
-    display: none;
+  .tab_content {
+    /* display: none; */
     padding-top: 10px;
     clear: both;
     overflow: hidden;
@@ -91,9 +91,8 @@
 /* リストのアイコン削除 */
 .list_none{
     list-style:  none; 
-    /* display: inline-block; */
-    /* border-bottom: 1px solid black; */
-     
+    /* display: inline-block;  */
+    /* border-bottom: 1px solid black;*/
 }
 
 /* ユーザID */

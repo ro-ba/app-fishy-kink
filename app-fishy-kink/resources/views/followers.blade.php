@@ -14,64 +14,36 @@
 </head>
 
 <body>
-        
-        @isset($_GET['user'])
-        <div class="tabs">
-            <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" >
-            <label class="tab_item1" for="follow">フォロー中</label>
-            <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" class="checked">
-            <label class="tab_item2" for="follower">フォロワー</label>
-        @else
-        <div class="tabs">  
-            <input id="follow" onclick="location.href='/following?user={{session('userID')}}'" type="button" name="tab_item" >
-            <label class="tab_item1" for="follow">フォロー中</label>
-            <input id="follower" onclick="location.href='/followers?user={{session('userID')}}'"  type="button" name="tab_item" class="checked">
-            <label class="tab_item2" for="follower">フォロワー</label>
-        @endisset
+    <?php
+        if (isset($_GET['user'])){
+            $target =   $_GET['user'];
+        }else{
+            $target =   session("userID");
+        }
+    ?>
+    <div class="tabs">
+        <input id="follow" onclick="location.href='/following?user={{$target}}'" type="button" name="tab_item" >
+        <label class="tab_item1" for="follow">フォロー中</label>
+        <input id="follower" onclick="location.href='/followers?user={{$target}}'"  type="button" name="tab_item" class="checked">
+        <label class="tab_item2" for="follower">フォロワー</label>
 
-    <div class="tab_content1" id="followerS_content">
-       @isset($followerData)
-            @isset($followerData["follower"][0])
-                @if(count($userProfile["follower"]) == 1)
-                         <ul class ="list_none">
-                            <li>
-                            <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
-                                    {{$follower["userName"]}}    
-                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
-                                    <span>@</span>{{$follower["userID"]}}
-                                </button>
-                                <div class="profilePro">{{$follower["profile"]}}</div>
+        <div class="tab_content" id="followerS_content">
+            @foreach( $users as $user)
+                <ul class ="list_none">
+                    <li>
+                    <a onclick="location.href='/profile?user={{ $user['userID'] }}'"><img src='{{ $user["userImg"] }}'/></a>
+                            {{$user["userName"]}}    
+                        <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $user['userID'] }}'">
+                            <span>@</span>{{ $user['userID'] }}
+                        </button>
 
-                            </li>
-                        </ul>
-    
-                @elseif(count($userProfile["follower"]) > 1)     
-                    @foreach ($followerData["follower"] as $key => $followers)
-                        <ul class ="list_none">
-                            <li>
-                            <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key] }}'/></a>
-                                    {{$followerName[$key]}}    
-                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
-                                    <span>@</span>{{ $followers }}
-                                </button>
-
-                                <div class="profilePro">
-                                {{$followerPro[$key],$key = $key + 1}}  
-                                </div>
-                            </li>
-                        </ul>
-                    @endforeach
-                @endif
-            @endisset
-        @endisset
+                        <div class="profilePro">
+                        {{ $user["profile"] }}  
+                        </div>
+                    </li>
+                </ul>
+            @endforeach
         </div>
-
-        <!-- フォロー中表示 -->
-    
-    <div class="tab_content2" id="follow_content">
-        <ul  class="list_none" id="list">
-        </ul>
-    </div>
         
     <div>
     @isset($_GET['user'])
