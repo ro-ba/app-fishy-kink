@@ -157,6 +157,8 @@ button {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
 
 #newTweet {
   padding: 10px 20px;
@@ -167,6 +169,7 @@ button {
   background-color: #eee;
 }
 
+>>>>>>> af972ca469409e79daa8e477e988cc61ae6e5fae
 #replySend {
   margin: 2px 0 0 0;
   padding: 10px 20px;
@@ -255,7 +258,7 @@ button {
       <div id="parentTweet"></div>
       @csrf
         <div class="myTweet">
-          <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
+          <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
         </div>
 
         <div class="contentReply">
@@ -265,7 +268,7 @@ button {
               <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
 
             </label>
-            <li><button type=button id="replySend">送信</button></li>
+            <li><button type=button id="replySend" disabled=true>送信</button></li>
           </ul>
         </div>
         <div class="tweet-image">
@@ -275,11 +278,10 @@ button {
       <div id="closeReply" class="closeReply">
         × 
       </div>
-        <div id="replyFileAlert"></div> 
-    </div
+        <div id="replyFileAlert"></div>
+  </div>
   </section>
   
-
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
