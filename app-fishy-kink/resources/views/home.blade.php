@@ -55,6 +55,12 @@ body {
 
 
 /* モーダルCSSここから */
+
+textarea {
+  width: 90%;
+  resize: none;
+}
+
 .tweetArea {
   visibility: hidden; /* displayではなくvisibility */
   opacity : 0;
@@ -138,6 +144,7 @@ body {
   visibility: visible;
   opacity : 1;
 }
+
 /* モーダルCSSここまで */
 
 
@@ -149,6 +156,17 @@ button {
   border-radius: 2px;
   cursor: pointer;
 }
+
+#replySend {
+  margin: 2px 0 0 0;
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#replySend:hover {
+  background-color: #eee;
+}
+
   </style>
 
 <script type="text/javascript">
@@ -198,6 +216,7 @@ button {
                       <label>
                           <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
                           <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this , 'tweet');" multiple/>
+
                       </label>
                       <div class="t-submit">
                           <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
@@ -226,7 +245,7 @@ button {
       <div id="parentTweet"></div>
       @csrf
         <div class="myTweet">
-          <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
+          <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
         </div>
 
         <div class="contentReply">
@@ -234,11 +253,11 @@ button {
             <label>
               <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
               <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
+
             </label>
-            <li><button type=button id="replySend">送信</button></li>
+            <li><button type=button id="replySend" disabled=true>送信</button></li>
           </ul>
         </div>
-        
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>
@@ -247,8 +266,7 @@ button {
         × 
       </div>
         <div id="replyFileAlert"></div> 
-    </div>
-    
+  </div>
   </section>
   
 
