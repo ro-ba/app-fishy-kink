@@ -14,6 +14,7 @@
 </head>
 
 <body>
+        
     <?php
         if (isset($_GET['user'])){
             $target =   $_GET['user'];
@@ -44,7 +45,6 @@
                 </ul>
             @endforeach
         </div>
-        
     <div>
     @isset($_GET['user'])
         <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>

@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
-  <link rel="stylesheet" href="css/home.css">
+
 
   <style>
     .accordion .inner {
@@ -196,7 +196,7 @@ button {
 </head>
 <body>
 
-    @include('homeTemplate')
+    @include('NaviMenu')
 
     <div id="alertContents"></div>
     <div class="loader">Loading...</div>
