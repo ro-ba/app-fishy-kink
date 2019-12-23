@@ -156,15 +156,6 @@ button {
   cursor: pointer;
 }
 
-#newTweet {
-  padding: 10px 20px;
-  transition: .1s;
-}
-
-#newTweet:hover {
-  background-color: #eee;
-}
-
 #replySend {
   margin: 2px 0 0 0;
   padding: 10px 20px;
