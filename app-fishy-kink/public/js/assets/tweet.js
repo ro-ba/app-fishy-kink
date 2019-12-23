@@ -421,7 +421,10 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj){
+function loadImage(obj , type){
+    
+    FileCheck(type);
+
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
@@ -431,6 +434,7 @@ function loadImage(obj){
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
+    
 }
 
 /******************************************************************* nullでのツイート防止 *******************************************************************/
@@ -444,19 +448,59 @@ function textCheck()
         tweetButton.disabled = false;
     }
 }
-/*******************************************************************  *******************************************************************/
+
+
+/******************************************************************* nullでのリプライ防止 *******************************************************************/
 function replyCheck()
 {
-    var replyValue = document.getElementById('replyText').value;
-    var replyButton = document.getElementById('replySend');
-    if (replyValue == "" || replyValue == null) {
-        replyButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
+    var textValue = document.getElementById('replyText').value;
+    var tweetButton = document.getElementById('replySend');
+    if (textValue == "" || textValue == null) {
+        tweetButton.disabled = true;
     } else {
-        replyButton.disabled = false;
+        tweetButton.disabled = false;
     }
 }
+/*******************************************************************  *******************************************************************/
+var timerId;
+
+function FileCheck(type){
+    if(type == 'tweet'){
+        var fileList = document.getElementById("tweetFile").files;
+        if(fileList.length > 4){    
+            document.getElementById('tweetFileAlert').innerHTML = '<div id="tweetAlert" class="alert alert-danger" role="alert">' +
+            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
+                '</div>';
+            $("#tweetFile").val("");
+            timerId = setTimeout( closeTweetFileAlert, 2000 );
+        }
+
+    }
+    else{
+        var fileList = document.getElementById("replyFile").files;
+        if(fileList.length > 4){    
+            document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
+                '<a href="" class="replyFileAlert">画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</a>' +
+                '</div>';
+            $("#replyFile").val("");
+            timerId = setTimeout( closeReplyFileAlert, 2000 );
+            }  
+    }
+    
+}
+
+ // タイマーの中止
+ function closeTweetFileAlert() {
+    clearTimeout( timerId );
+    $("#tweetAlert").remove();
+}
+
+ // タイマーの中止
+ function closeReplyFileAlert() {
+    clearTimeout( timerId );
+    $("#replyAlert").remove();
+}
+
 
 
 
