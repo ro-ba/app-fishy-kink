@@ -9,7 +9,7 @@
         </button>
         <div class="d-inline-block" style="width:250px;height:50px;background-color: #C0C0C0;">
         <form method='get' action="/search" class="form-inline d-inline">   
-        <input class="form-control" type=text name="searchString" placeholder="ユーザ検索" style="margin-top:5px;border:none;width:145px;height:40px;background-color:#C2EEFF;"><button  style="margin-top:5px;border:none;width:90px;height:40px;background-color:#1E90FF;" class="form-control" type=input>
+        <input class="form-control" type=text name="searchString" placeholder="ユーザ検索" style="margin-top:5px;width:145px;height:40px;"><button  style="margin-top:5px;width:90px;height:40px;" class="form-control" type=input>
         <span class="oi oi-magnifying-glass"></span> 検索 </button>
         </form>
         </div>
