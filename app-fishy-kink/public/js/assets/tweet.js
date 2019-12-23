@@ -213,7 +213,7 @@ function createTweetElement(tweet) {
     <div class="tweetBottom d-inline">`;
 
     //リプライ
-    tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+    tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
     //リツイート
     iconColor = "";
@@ -226,10 +226,10 @@ function createTweetElement(tweet) {
         iconColor = "green";
         reTweetText = "リツイートを取り消す";
     }
-
+   
     tweetDocument += `
     <div class="accordion">
-        <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
         ${tweet["retweetUser"].length}
 
         
@@ -248,7 +248,7 @@ function createTweetElement(tweet) {
         iconColor = "red";
     }
     tweetDocument +=
-        `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+        `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
         ${tweet["favoUser"].length}
         `;
     tweetDocument += '</div>';
