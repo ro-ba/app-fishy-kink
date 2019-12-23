@@ -157,6 +157,19 @@ button {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+
+#newTweet {
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#newTweet:hover {
+  background-color: #eee;
+}
+
+>>>>>>> af972ca469409e79daa8e477e988cc61ae6e5fae
 #replySend {
   margin: 2px 0 0 0;
   padding: 10px 20px;
@@ -265,11 +278,10 @@ button {
       <div id="closeReply" class="closeReply">
         × 
       </div>
-        <div id="replyFileAlert"></div> 
+        <div id="replyFileAlert"></div>
   </div>
   </section>
   
-
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理

@@ -40,7 +40,7 @@
 
 <body>
 @include('NaviMenu')
-<div id="alertContents"></div>
+
 @isset($userData)
     <div class="profile">
       <div id=wrap>
