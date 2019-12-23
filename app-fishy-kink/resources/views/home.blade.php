@@ -144,10 +144,6 @@ textarea {
   opacity : 1;
 }
 
-#tweetFile {
-  display: none;
-}
-
 /* モーダルCSSここまで */
 
 
@@ -224,15 +220,15 @@ button {
                   <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
               </div>
               <div class="content">
-                  <label>
-                      <span class="filelabel">
-                          <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
-                      </span>
-                      <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-                  </label>
-                  <div class="t-submit">
-                      <button type=button id = newTweet class="newTweet" disabled=true> tweet </button>
-                  </div>
+                    <ul class="tw">
+                      <label>
+                          <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
+                          <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                      </label>
+                      <div class="t-submit">
+                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
+                      </div>
+                    </ul>
               </div>
               <div class="tweet-image">
                 <p class="preview-image"></p>
@@ -256,14 +252,20 @@ button {
     <form id="reply-form">
       <div id="parentTweet"></div>
       @csrf
-        <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
-        <label>
-          <span class="filelabel">
-            <img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択">
-          </span>
-          <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
-        </label>
-        <button type=button id="replySend">送信</button>
+        <div class="myTweet">
+          <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" placeholder="りぷらい"></textarea>
+        </div>
+
+        <div class="contentReply">
+          <ul class="tw">
+            <label>
+              <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
+              <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+            </label>
+            <li><button type=button id="replySend">送信</button></li>
+          </ul>
+        </div>
+        
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>
