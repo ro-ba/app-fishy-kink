@@ -230,6 +230,7 @@ function createTweetElement(tweet) {
     tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        ${tweet["retweetUser"].length}
 
         <div class="inner">
         <button class=normalReTweet type=button> ${reTweetText}</button>
@@ -244,7 +245,10 @@ function createTweetElement(tweet) {
     } else {
         iconColor = "red";
     }
-    tweetDocument += `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+    tweetDocument +=
+        `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+        ${tweet["favoUser"].length}
+        `;
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
@@ -310,7 +314,7 @@ $(function () {
 
         }).done(function (results) {
             var selectTweet = results["tweet"]
-            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' + 
+            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
                 '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
@@ -381,8 +385,8 @@ $(function () {
             // });
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-            '<a href="" class="alert-link">新しいツイート</a>' +
-            '</div>';
+                '<a href="" class="alert-link">新しいツイート</a>' +
+                '</div>';
         }).fail(function (err) {
             // 通信失敗時の処理
             alert('ファイルの取得に失敗しました。');
@@ -421,25 +425,23 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj , type){
-    
+function loadImage(obj, type) {
+
     FileCheck(type);
 
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(obj.files[i].name);
-        fileReader.onload = (function (e)
-        {
+        fileReader.onload = (function (e) {
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
-    
+
 }
 
 /******************************************************************* nullでのツイート防止 *******************************************************************/
-function textCheck()
-{
+function textCheck() {
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
     if (textValue == "" || textValue == null) {
@@ -451,8 +453,7 @@ function textCheck()
 
 
 /******************************************************************* nullでのリプライ防止 *******************************************************************/
-function replyCheck()
-{
+function replyCheck() {
     var textValue = document.getElementById('replyText').value;
     var tweetButton = document.getElementById('replySend');
     if (textValue == "" || textValue == null) {
@@ -464,40 +465,40 @@ function replyCheck()
 /*******************************************************************  *******************************************************************/
 var timerId;
 
-function FileCheck(type){
-    if(type == 'tweet'){
+function FileCheck(type) {
+    if (type == 'tweet') {
         var fileList = document.getElementById("tweetFile").files;
-        if(fileList.length > 4){    
+        if (fileList.length > 4) {
             document.getElementById('tweetFileAlert').innerHTML = '<div id="tweetAlert" class="alert alert-danger" role="alert">' +
-            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
+                '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
                 '</div>';
             $("#tweetFile").val("");
-            timerId = setTimeout( closeTweetFileAlert, 2000 );
+            timerId = setTimeout(closeTweetFileAlert, 2000);
         }
 
     }
-    else{
+    else {
         var fileList = document.getElementById("replyFile").files;
-        if(fileList.length > 4){    
+        if (fileList.length > 4) {
             document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
                 '<a href="" class="replyFileAlert">画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</a>' +
                 '</div>';
             $("#replyFile").val("");
-            timerId = setTimeout( closeReplyFileAlert, 2000 );
-            }  
+            timerId = setTimeout(closeReplyFileAlert, 2000);
+        }
     }
-    
+
 }
 
- // タイマーの中止
- function closeTweetFileAlert() {
-    clearTimeout( timerId );
+// タイマーの中止
+function closeTweetFileAlert() {
+    clearTimeout(timerId);
     $("#tweetAlert").remove();
 }
 
- // タイマーの中止
- function closeReplyFileAlert() {
-    clearTimeout( timerId );
+// タイマーの中止
+function closeReplyFileAlert() {
+    clearTimeout(timerId);
     $("#replyAlert").remove();
 }
 
