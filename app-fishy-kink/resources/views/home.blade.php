@@ -225,7 +225,8 @@ button {
                     <ul class="tw">
                       <label>
                           <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
-                          <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                          <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this , 'tweet');" multiple/>
+
                       </label>
                       <div class="t-submit">
                           <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
@@ -246,7 +247,7 @@ button {
   
 </section>
 
-<!-- りぷらい -->
+<div id="replyContents">
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
     <div class="replyWrapper">
@@ -261,7 +262,8 @@ button {
           <ul class="tw">
             <label>
               <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
-              <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+              <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
+
             </label>
             <li><button type=button id="replySend">送信</button></li>
           </ul>
@@ -274,9 +276,9 @@ button {
         × 
       </div>
         <div id="replyFileAlert"></div> 
-    </div>
-    
+    </div
   </section>
+  
 
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
