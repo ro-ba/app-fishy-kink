@@ -231,6 +231,8 @@ function createTweetElement(tweet) {
     <div class="accordion">
         <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
 
+        
+
         <div class="inner">
         <button class=normalReTweet type=button> ${reTweetText}</button>
         <a href=javascript:open2()>🖊コメントつけてリツイート</a>
