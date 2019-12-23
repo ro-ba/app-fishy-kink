@@ -1,0 +1,34 @@
+@isset($followerData)
+            @isset($followerData["follower"][0])
+                @if(count($userProfile["follower"]) == 1)
+                         <ul class ="list_none">
+                            <li>
+                            <a onclick="location.href='/profile?user={{$follower['userID']}}'"><img src='{{$follower["userImg"]}}'/></a>
+                                    {{$follower["userName"]}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{$follower['userID']}}'">
+                                    <span>@</span>{{$follower["userID"]}}
+                                </button>
+                                <div class="profilePro">{{$follower["profile"]}}</div>
+
+                            </li>
+                        </ul>
+    
+                @elseif(count($userProfile["follower"]) > 1)     
+                    @foreach ($followerData["follower"] as $key => $followers)
+                        <ul class ="list_none">
+                            <li>
+                            <a onclick="location.href='/profile?user={{ $followers }}'"><img src='{{ $followerImg[$key] }}'/></a>
+                                    {{$followerName[$key]}}    
+                                <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $followers }}'">
+                                    <span>@</span>{{ $followers }}
+                                </button>
+
+                                <div class="profilePro">
+                                {{$followerPro[$key],$key = $key + 1}}  
+                                </div>
+                            </li>
+                        </ul>
+                    @endforeach
+                @endif
+            @endisset
+        @endisset

@@ -16,44 +16,18 @@ class FollowersController extends Controller
      */
     public function index(Request $request)
     {
-        $id = session("userID");
-        $FishyKink = connect_mongo();
-        $followerData = dbUser($FishyKink,$id);
-        $userId = $request -> input("user");
-        $userProfile = $FishyKink["userDB"] -> findOne(["userID" => $userId]);
-        
-
-       
-        if (is_null($id) or $id == session("userID") ){
-            $id = session("userID");
+        $db = connect_mongo();
+        $id = $request->input("user");
+        $user = $db["userDB"] -> findOne(["userID" => $id]);
+        if (is_null($id) or $id == session("userID") or is_null($user)){
+            $id =  session("userID");
         }
-        // return view("profile",compact("userData","tweetData","isShowSettings"));
-
-
-        if($userProfile!=null){
-            if(count($userProfile["follower"])==1){
-                $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);               
-                return view("followers",compact("followerData","userProfile","follower")); 
-            }else{
-                foreach($userProfile["follower"] as $followerid){
-                    $follower = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
-                    $followerPro[] = $follower["profile"];      
-                    $followerName[] = $follower["userName"]; 
-                    $followerImg[] = $follower["userImg"];  
-                }   
-                return view("followers",compact("followerData","followerPro","followerName","followerImg","userProfile"));
-            }
-        }else{
-            $userProfile = $FishyKink["userDB"] -> findOne(["userID" => session("userID")]);
-            $follower = $FishyKink["userDB"] -> findOne(["userID" => $userProfile["follower"][0]]);
-            foreach($userProfile["follower"] as $followerid){
-                $followers = $FishyKink["userDB"] -> findOne(["userID" => $followerid]);
-                $followerPro[] = $followers["profile"];      
-                $followerName[] = $followers["userName"]; 
-                $followerImg[] = $followers["userImg"];  
-            }   
-            return view("followers",compact("followerData","userProfile","follower","followerPro","followerName","followerImg")); 
+        $userProfile = $db["userDB"] -> findOne(["userID" => $id]);
+        foreach($userProfile["follower"] as $followerid){
+            //すべてのフォロワーを配列usersに挿入
+            $users[] = iterator_to_array($db["userDB"] -> findOne(["userID" => $followerid]));  
         }
+        return view("followers",compact("users"));
 
     }
 
