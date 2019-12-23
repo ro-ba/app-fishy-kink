@@ -15,19 +15,13 @@
 
 <body>
         
-        @isset($_GET['user'])
-        <div class="tabs">
+       
+            <div class="tabs">
             <input id="follow" onclick="location.href='/following?user={{$_GET['user']}}'" type="button" name="tab_item" >
             <label class="tab_item1" for="follow">フォロー中</label>
             <input id="follower" onclick="location.href='/followers?user={{$_GET['user']}}'"  type="button" name="tab_item" class="checked">
             <label class="tab_item2" for="follower">フォロワー</label>
-        @else
-        <div class="tabs">  
-            <input id="follow" onclick="location.href='/following?user={{session('userID')}}'" type="button" name="tab_item" >
-            <label class="tab_item1" for="follow">フォロー中</label>
-            <input id="follower" onclick="location.href='/followers?user={{session('userID')}}'"  type="button" name="tab_item" class="checked">
-            <label class="tab_item2" for="follower">フォロワー</label>
-        @endisset
+       
 
     <div class="tab_content1" id="followerS_content">
        @isset($followerData)

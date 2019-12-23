@@ -24,7 +24,7 @@
         <label class="tab_item" for="@tweet">＠ツイート</label> -->
       
     <!-- すべてタブ表示 -->
-    @include('homeTemplate')
+    @include('NaviMenu')
     @isset($userData)
     <!-- <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button> -->
     <div class = myData>
