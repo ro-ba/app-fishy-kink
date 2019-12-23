@@ -150,10 +150,7 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 @include('NaviMenu')
-=======
-@include('homeTemplate')
 
 <div id="alertContents"></div>
     <div class="main">
@@ -165,7 +162,7 @@
             </form>
         
         </div>
->>>>>>> 28c342d9262f7faf61cc91a69693c8a654572f23
+
         <div class="row tweets">
             <div class="leftContents col-sm-3"></div>
             <div class="centerContents col-sm-6">
