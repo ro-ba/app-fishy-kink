@@ -152,7 +152,7 @@
 <body>
 @include('NaviMenu')
 
-<div id="alertContents"></div>
+<!-- <div id="alertContents"></div> -->
     <div class="main">
         <div class="search">
         <button type="button" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/home'">戻る</button>
