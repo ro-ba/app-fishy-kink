@@ -6,3 +6,4 @@ db.user.find().skip( Math.floor( Math.random() * db.user.count() ) ).limit( 3);
 db.user.aggregate()
 db.user.aggregate([{ $sample: { size: 1 } }])
 
+db.tweet.find({"userID":"tamano"}).count()

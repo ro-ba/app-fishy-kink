@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 require "/vagrant/source/kouki/search.php";
+require "/vagrant/source/kouki/reco.php";
 require "/vagrant/source/func/insertOriginTweet.php";
 require "/vagrant/source/func/FKMongo.php";
 
