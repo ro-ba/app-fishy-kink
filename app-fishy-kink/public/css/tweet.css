@@ -10,6 +10,11 @@ input, button, textarea, select {
     appearance: none;
 }
 
+ul {
+    list-style: none;
+    display: flex;
+}
+
 textarea {
     resize: none;
     border: 2px solid #ccc;
@@ -20,7 +25,7 @@ textarea {
 }
 
 textarea:focus  {
-    border: 2px solid #83ccd2;
+    border: 2px solid rgb(165, 160, 160);
 }
 
 .tweetText {
@@ -29,23 +34,6 @@ textarea:focus  {
 
 input[type="file"] {
     cursor: pointer;
-}
-
-input[type="submit"] {
-    padding: 15px 40px;
-    cursor: pointer;
-    border: 2px solid #8de9f1;
-    color: #83ccd2;
-    font-size: 15px;
-    border-radius: 3px;
-    transition: all .2s;
-    font-size: 15px;
-}
-
-input[type="submit"]:hover {
-    background-color: #83ccd2;
-    color: #fff;
-    opacity: 0.6;
 }
 
 #wrap {
@@ -68,9 +56,25 @@ input[type="submit"]:hover {
     object-fit: cover;
 }
 
-.content {
-    margin-bottom: 20px; 
-}
+label {
+    width: 60px;
+    height: 60px;
+    opacity: 0.8;
+    cursor: pointer;
+    display: block;
+  }
+  
+  label:hover {
+    opacity: 1;
+  }
+  
+  #tweetFile {
+    display: none;
+  }
+  
+  #replyFile {
+    display: none;
+  }
 
 .filelabel {
     margin-left: 250px;
@@ -86,9 +90,30 @@ input[type="submit"]:hover {
     display: none;
 }
 
-.content .t-submit {
-    float: right;
-    margin: 6px 25px 0 0;
+.content {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.contentReply {
+    width: 90%;
+    height: auto;
+    margin: 40px auto 0 auto;
+}
+
+.tw {
+    width: 50%;
+    height: auto;
+    margin-left: auto;
+}
+
+.content #newTweet {
+    margin: 7px 0 0 10px;
+}
+
+.contentReply #replySend {
+    margin: 7px 10px 0 10px;
 }
 
 .tweet-image {

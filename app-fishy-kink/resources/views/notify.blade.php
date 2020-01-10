@@ -24,7 +24,7 @@
         <label class="tab_item" for="@tweet">＠ツイート</label> -->
       
     <!-- すべてタブ表示 -->
-    @include('homeTemplate')
+    @include('NaviMenu')
     @isset($userData)
     <div class="col-xs-10">
         <div class = myData>

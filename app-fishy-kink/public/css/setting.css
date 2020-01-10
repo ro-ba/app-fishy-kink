@@ -96,7 +96,7 @@ textarea {
 }
 
 .userInfo input:focus {
-    border: 2px solid #83ccd2;
+    border: 2px solid rgb(165, 160, 160);
 }
 
 .profile {
@@ -108,7 +108,7 @@ textarea {
 }
 
 .profile textarea:focus {
-    border: 2px solid #83ccd2;
+    border: 2px solid rgb(165, 160, 160);
 }
 
 .profile h6 {

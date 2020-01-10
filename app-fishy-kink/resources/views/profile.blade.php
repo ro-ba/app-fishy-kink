@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>myPage</title>
+<title>profile</title>
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -39,8 +39,8 @@
 </head>
 
 <body>
-@include('homeTemplate')
-<div id="alertContents"></div>
+@include('NaviMenu')
+
 @isset($userData)
     <div class="profile">
       <div id=wrap>
