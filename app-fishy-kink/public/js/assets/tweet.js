@@ -188,7 +188,7 @@ function createTweetElement(tweet) {
     <div class="tweetTop card-header">
         ${tweetType}
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="${userIcon}" width="50px" height="50px" />
+        <img class="userIcon" src="${userIcon}" width="50px" height="50px" />
         </div>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
@@ -229,7 +229,7 @@ function createTweetElement(tweet) {
         iconColor = "green";
         reTweetText = "リツイートを取り消す";
     }
-   
+
     tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>

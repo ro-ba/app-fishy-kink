@@ -24,7 +24,7 @@ class NotifyController extends Controller
         $FishyKink["notifyDB"] -> updateMany(["userID" => $id],['$set' => ["readFlag" => true]]);
 
         $userData = $FishyKink["userDB"] -> findOne(["userID" => $id]);
-
+        
         return view("notify",compact("userData","notifyList","count"));
     }
 

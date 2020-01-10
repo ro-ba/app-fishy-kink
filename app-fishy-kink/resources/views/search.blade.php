@@ -10,6 +10,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
 <link rel="stylesheet" href="css/search.css" >
+<link rel="stylesheet" href="css/user.css" >
 <!-- <link rel="stylesheet" href="css/tweet.css"> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
@@ -282,7 +283,7 @@ let tweet_result = @json($results["tweet_result"]);
 let user_result = @json($results["user_result"]);
 let img_result = @json($results["img_result"]);
 dispTweets(tweet_result,"search-result-tweet");
-dispUsers(tweet_result,"search-result-user");
+dispUsers(user_result,"search-result-user");
 dispTweets(img_result,"search-result-img");
 
 </script>
