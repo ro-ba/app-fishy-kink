@@ -51,7 +51,7 @@
         <ul class="user">
             <li class="user-name">{{ $userData["userName"] }}</li>
             @if(!$isShowSettings)
-              <form method=POST>
+              <!-- <form method=POST> -->
               @csrf
                 @if($nowFollow == False)
                   <!-- <button type="submit" class="nowFollow">フォローする</button> -->
@@ -70,7 +70,7 @@
                   this.innerHTML='フォロー中'">
                   フォロー中</button>
                 @endif
-              </form>
+              <!-- </form> -->
             @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
@@ -138,5 +138,28 @@ $(function () { // 遅延処理
 });
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+
+<script>
+  $(function(){
+    $(".profile").on('click', ".noFollow", function () {
+      $.ajax({
+        type: 'POST',
+        url:  'api/follow',
+        dataType: 'json',
+        headers:  {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          userID: userID
+        },
+        cache:  false
+      }).done(function(results){
+        console.log(results["message"]);
+      }).fail(function(err){
+        console.log(results["message"]);
+      });
+    });
+  });
+</script>
 
 </html>

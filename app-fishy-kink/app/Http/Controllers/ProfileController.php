@@ -65,9 +65,7 @@ class ProfileController extends Controller
         $name = $FishyKink["userDB"] -> findOne(["userID" => $sessionUser])["userName"];
         $nowFollow = (array) $FishyKink["userDB"]->findOne(["userID" =>  $sessionUser])["follow"];
         $nowFollower = (array) $FishyKink["userDB"]->findOne(["userID" =>  $id])["follower"];
-        // if(!isset($nowFollow)){
-        //    $FishyKink["userDB"]->updateOne(["userID"=>$sessionUser, ['$set' => ["follow" => $id]]);
-        //    $FishyKink["userDB"]->updateOne(["userID"=>$id],['$set' => ["follower" => $sessionUser]]);
+
         if(in_array($id, $nowFollow)){    //もし、すでにフォローしていればリストから削除する
             // 削除
             $nowFollow = array_diff($nowFollow, (array) $id);
