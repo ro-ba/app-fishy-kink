@@ -38,32 +38,35 @@ class FollowController extends Controller
     public function store(Request $request)
     {
         $FishyKink = connect_mongo();
-        $userID = $request["userID"];
+        $opponentUserID = $request["userID"];
         $myFollow = (array) $FishyKink["userDB"]->findOne(["userID" =>  session("userID")])["follow"];
-        $opponentFollower = (array) $FishyKink["userDB"] -> findOne(["userID" => $userID])["follower"];
-        if(in_array($userID,$myFollow)){  //もし、すでにフォローしていればリストから削除する
+        $opponentFollower = (array) $FishyKink["userDB"] -> findOne(["userID" => $opponentUserID])["follower"];
+        if(in_array($opponentUserID,$myFollow)){  //もし、すでにフォローしていればリストから削除する
             // 削除
-            $myFollow = array_diff($myFollow, (array) $userID);
+            $myFollow = array_diff($myFollow, (array) $opponentUserID);
             $opponentFollower = array_diff($opponentFollower, (array) session("userID"));
             //indexを詰める
             $myFollow = array_values($myFollow);
             $opponentFollower = array_values($opponentFollower);
-            $return = "follow";
+            $return = "unfollow";
         }else{
             $time = date("Y/m/d H:i:s");
             $name = $FishyKink["userDB"] -> findOne(["userID" => session("userID")])["userName"];
             //追加
-            array_push($myFollow, $userID);
+            array_push($myFollow, $opponentUserID);
             array_push($opponentFollower, session("userID"));
             $FishyKink["notifyDB"] -> insertOne([
-                "userID" => $FishyKink["userDB"] -> findOne(["userID" => $userID])["userID"],
+                "userID" => $FishyKink["userDB"] -> findOne(["userID" => $opponentUserID])["userID"],
                 "tweetID" => "",
                 "text" => $name .= "さんにフォローされました。",
                 "time" => $time,
                 "readFlag" => False
             ]);
-            $return = "unfollow";
+            $return = "follow";
         }
+        $FishyKink["userDB"]->updateOne(["userID" => session("userID")], ['$set' => ["follow" => $myFollow]]);
+        $FishyKink["userDB"]->updateOne(["userID" => $opponentUserID], ['$set' => ["follower" => $opponentFollower]]);
+
         return ["message" => $return];
     }
 

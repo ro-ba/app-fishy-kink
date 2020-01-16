@@ -51,26 +51,26 @@
         <ul class="user">
             <li class="user-name">{{ $userData["userName"] }}</li>
             @if(!$isShowSettings)
-              <!-- <form method=POST> -->
-              @csrf
+                
                 @if($nowFollow == False)
                   <!-- <button type="submit" class="nowFollow">フォローする</button> -->
-                  <button type="submit" class="noFollow" style="color:#696969;" 
+                  <button type="button" class="Follow-button noFollow">これはテストです</button>
+                  <!-- <button type="button" class="Follow-button noFollow" style="color:#696969;" 
                   onmouseover="this.style.color='#696969',
                   this.innerHTML='フォローする'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォローしていません'">
-                  フォローしていません</button>
+                  フォローしていません</button> -->
                 @else
                   <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
-                  <button type="submit" class="nowFollow" style="color:#696969;" 
+                  <button type="submit" class="Follow-button nowFollow" style="color:#696969;" 
                   onmouseover="this.style.color='#696969',
                   this.innerHTML='フォローを外す'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォロー中'">
                   フォロー中</button>
                 @endif
-              <!-- </form> -->
+
             @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
@@ -141,7 +141,7 @@ $(function () { // 遅延処理
 
 <script>
   $(function(){
-    $(".profile").on('click', ".noFollow", function () {
+    $(".profile").on('click', ".Follow-button", function () {
       $.ajax({
         type: 'POST',
         url:  'api/follow',
@@ -160,6 +160,37 @@ $(function () { // 遅延処理
       });
     });
   });
+
+</script>
+<script>
+$(function(){
+  $(".Follow-button").mouseover(function(){
+    if($(this).hasClass("noFollow")){
+      $(this).html("フォローする");
+      if ($(this).hasClass("btn-default")){
+        $(this).removeClass("btn-default");
+      }
+      $(this).addClass("btn-toFollow");
+      // $(this).css({"color":"#ffffff"})
+    }else{
+      console.log("これはフォローしている");
+    }
+    console.log("マウスオーバーしました。");
+  });
+});
+
+$(function(){
+  $(".Follow-button").mouseout(function(){
+    if($(this).hasClass("noFollow")){
+      $(this).html("フォローしていません");
+      if ($(this).hasClass("btn-toFollow")){
+        $(this).removeClass("btn-toFollow");
+      }
+      $(this).addClass("btn-default");
+      // $(this).css({"color":"#808080"})
+    }
+  });
+});
 </script>
 
 </html>
