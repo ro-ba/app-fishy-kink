@@ -156,6 +156,10 @@ function createTweetElement(tweet) {
     let iconColor;
     let reTweetText;
 
+    if (tweet["showFlg"] == false) {
+        return tweetDocument;
+    }
+
     tweetDocument += '<div class="tweet card" id="tweet">';
 
     if (tweet["type"] == "retweet") {
@@ -164,10 +168,10 @@ function createTweetElement(tweet) {
         // retweetUserName = tweet["userID"];
         retweetUserID = tweet["userID"];
         // tweet = getOriginTweet(tweet);
-        
+
         tweet = tweet["originTweet"];
         if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
-            console.log("リツイート者："+retweetUserName);
+            console.log("リツイート者：" + retweetUserName);
             tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
         } else {
             tweetType = '<div class="retweet-user">リツイート済み</div>';
