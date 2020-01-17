@@ -18,7 +18,6 @@ Route::resources([
     "signUp" => "SignUpController",
     "home" => "HomeController",
     "tweet" => "TweetController",
-    "/reply"=> "ReplyController",
     "doubleCheck" => "DoubleCheckController",
     "notify" => "NotifyController",
     "DM" => "DMController",

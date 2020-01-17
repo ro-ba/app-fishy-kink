@@ -2,7 +2,7 @@ var result;
 var tweetCount;
 var count = 1;
 var target;
-var tweetImg;
+var tweetImage;
 
 /******************************************************************************ツイートのデータからオリジナルツイートのデータを取得する************************************************************************/
 //replyのツリー作成で後で使うかも
@@ -146,7 +146,7 @@ function dispTweets(results, searchType = "") {
     init(results);
 }
 
-/******************************************************************* tweet一件分のJSONからエレメントを生成してcenterContentsに追加*******************************************************************/
+/******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
 function createTweetElement(tweet) {
 
     let tweetType;
@@ -155,6 +155,19 @@ function createTweetElement(tweet) {
     let countImg;
     let iconColor;
     let reTweetText;
+
+    <script>
+        $(function(){
+            $('.js-modal-open').on('click', function () {
+                $('.js-modal').fadeIn();
+                return false;
+            });
+        $('.js-modal-close').on('click',function(){
+            $('.js-modal').fadeOut();
+        return false;
+    });
+});
+    </script>
 
     tweetDocument += '<div class="tweet card" id="tweet">';
 
@@ -183,14 +196,23 @@ function createTweetElement(tweet) {
     tweetDocument += `
     <div class="tweetTop card-header">
         ${tweetType}
+        <ul class="menu" style="position:relative; float:right; right:0;  margin: 0 0 0 auto;">
+            <li class="menu__single" style="position: relative;">
+                <a class="oi oi-menu" hreaf="#"></a>
+                <ul class="menu__second-level">
+                    @if( ${userID} == ${tweet["userID"]} )
+                        <li><a class="js-modal-open remove" href="#" >ツイート削除</a></li>
+                    @endif
+                </ul>
+            </li>
+        </ul>
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="${userIcon}" width="50px" height="50px" onclick="location.href='/replyTree?tweetId=${tweet["_id"]["$oid"]}'"/>
+        <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
         <div class="tweet-user">
             <a href=/profile?user=${tweet["userID"]}>
             ${tweet["userName"]}@${tweet["userID"]}
             </a>
-        </div>
         <div class="time">
             ${tweet["time"]}
         </div>
@@ -211,7 +233,7 @@ function createTweetElement(tweet) {
     <div class="tweetBottom d-inline">`;
 
     //リプライ
-    tweetDocument += '<button class="reply" id=reply' + count + ' type=button><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+    tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
     //リツイート
     iconColor = "";
@@ -227,7 +249,10 @@ function createTweetElement(tweet) {
 
     tweetDocument += `
     <div class="accordion">
-        <button class=reTweet type=button><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        ${tweet["retweetUser"].length}
+
+        
 
         <div class="inner">
         <button class=normalReTweet type=button> ${reTweetText}</button>
@@ -242,9 +267,29 @@ function createTweetElement(tweet) {
     } else {
         iconColor = "red";
     }
-    tweetDocument += `<button class=favo type=button><span class="oi oi-heart" style="color:${iconColor};"></span> </button>`;
+    tweetDocument +=
+        `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+        ${tweet["favoUser"].length}
+        `;
     tweetDocument += '</div>';
     tweetDocument += '</div>';
+
+    tweetDocument += `<div class="modal js-modal">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+        <form action='doubleCheck' class='doubleCheck' enctype='multipart/form-data' method='post'>
+            @csrf
+                <div>
+                    <p>本当にいいですか？</p>
+                    <tr></tr>
+                    <input name='check' type='checkbox'/>
+                    <tr></tr>
+                    <input type='submit' value='削除'/>
+                    <a class="js-modal-close" href="">閉じる</a>
+                </div>
+            </form>
+        </div>
+    </div>`;
 
     return tweetDocument;
 
@@ -307,7 +352,8 @@ $(function () {
             cache: false
         }).done(function (results) {
             var selectTweet = results["tweet"]
-            document.getElementById('parentTweet').innerHTML = '<div>' + selectTweet["userID"] + '</div>' +
+            document.getElementById('parentTweet').innerHTML = '<div><input id="target" name="target" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
+                '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>';
         });
@@ -352,26 +398,63 @@ function tweetWindow() {
     }
 }
 
+/**************************** ツイート送信 ********************************* */
+$(function () {
+    $('#newTweet').click(function () {
+        let fd = new FormData($("#tweet-form").get(0));
+        $.ajax({
+            type: 'POST',
+            url: '/api/tweet',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: fd,
+            cache: false
+        }).done(function () {
+
+            //yamasaki追加　送信成功時に内容を削除
+            $("#tweetText").val("");
+            $("#tweetFile").val("");
+
+            // results["message"].forEach(function(request){
+            //     console.log(request);
+            // });
+            // アラートの追加
+            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
+                '<a href="" class="alert-link">新しいツイート</a>' +
+                '</div>';
+        }).fail(function (err) {
+            // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
+        });;
+    });
+});
+
 /******************************************************************* リプライ送信 *******************************************************************/
 
 $(function () {
     $('#replySend').click(function () {                                 // リプライの送信ボタンが押されたら
-        var replyText = document.getElementById('replyText').value;
-        // console.log(replyText);
-        // check();
+        let fd = new FormData($("#reply-form").get(0));
         $.ajax({
             type: 'POST',
             url: '/api/reply',
             dataType: 'json',
+            processData: false,
+            contentType: false,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data: {
-                replyText: replyText,
-                target: target,
-            },
+            data: fd,
             cache: false
         }).done(function (results) {
+
+            //yamasaki追加　送信成功時に内容を削除
+            $("#replyText").val("");
+            $("#replyFile").val("");
+
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                 '<a href="" class="alert-link">新しいツイート</a>' +
@@ -381,18 +464,22 @@ $(function () {
 });
 
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
-function loadImage(obj) {
+function loadImage(obj, type) {
+
+    FileCheck(type);
+
     $(".preview-image").html('<p class="pre">PREVIEW</p>');
     for (i = 0; i < 4; i++) {
         var fileReader = new FileReader();
-        fileReader.readAsDataURL(obj.files[i]);
+        fileReader.readAsDataURL(obj.files[i].name);
         fileReader.onload = (function (e) {
             $(".preview-image").append('<img src="' + e.target.result + '">');
         });
     }
+
 }
 
-/****************************nullでのツイート防止********************************* */
+/******************************************************************* nullでのツイート防止 *******************************************************************/
 function textCheck() {
     var textValue = document.getElementById('tweetText').value;
     var tweetButton = document.getElementById('newTweet');
@@ -403,56 +490,75 @@ function textCheck() {
     }
 }
 
+
+/******************************************************************* nullでのリプライ防止 *******************************************************************/
 function replyCheck() {
-    var replyValue = document.getElementById('replyText').value;
-    var replyButton = document.getElementById('replySend');
-    if (replyValue == "" || replyValue == null) {
-        replyButton.disabled = true;
-        // else -if (replyValue == "" || replyValue == null) {
-        //     tweetButton.disabled = true;
+    var textValue = document.getElementById('replyText').value;
+    var tweetButton = document.getElementById('replySend');
+    if (textValue == "" || textValue == null) {
+        tweetButton.disabled = true;
     } else {
-        replyButton.disabled = false;
+        tweetButton.disabled = false;
     }
 }
+/******************************************************************* 画像の枚数を制限し2秒間アラートを出す（tweet時　＆　reply時） *******************************************************************/
+var timerId;
 
-/**************************** ツイート送信 ********************************* */
-$(function () {
-    $('#newTweet').click(function () {
-        var tweetText = document.getElementById('tweetText').value;
-        $.ajax({
-            type: 'POST',
-            url: '/api/tweet',
-            dataType: 'json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                tweetText: tweetText,
-            },
-            cache: false
-        }).done(function (results) {
-            // アラートの追加
-            document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
+function FileCheck(type) {
+    if (type == 'tweet') {
+        var fileList = document.getElementById("tweetFile").files;
+        if (fileList.length > 4) {
+            document.getElementById('tweetFileAlert').innerHTML = '<div id="tweetAlert" class="alert alert-danger" role="alert">' +
+                '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
                 '</div>';
-        });
-    });
-});
+            $("#tweetFile").val("");
+            timerId = setTimeout(closeTweetFileAlert, 2000);
+        }
 
+    }
+    else {
+        var fileList = document.getElementById("replyFile").files;
+        if (fileList.length > 4) {
+            document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
+                '<a href="" class="replyFileAlert">画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</a>' +
+                '</div>';
+            $("#replyFile").val("");
+            timerId = setTimeout(closeReplyFileAlert, 2000);
+        }
+    }
 
-// function check(){
-//     console.log("aaaa");
-//     var fileList = document.getElementById("file").files;
-//     var list = [];
-//     for(var i=0; i<fileList.length; i++){
-//     list += fileList[i].name + "<br>";
+}
 
-//     }    
-//     console.log(list);
-//     // return list;
-// }
+/******************************************************************* タイマーをリセット（FileCheckを強制的に止めてアラートを消す） *******************************************************************/
+// タイマーの中止
+function closeTweetFileAlert() {
+    clearTimeout(timerId);
+    $("#tweetAlert").remove();
+}
 
+// タイマーの中止
+function closeReplyFileAlert() {
+    clearTimeout(timerId);
+    $("#replyAlert").remove();
+}
 
+/*************************ツイート削除確認用モーダルウィンドウ***********************************/
+function tweetRemoveWindow() {
+    const modalArea = document.getElementById('tweetArea');
+    const openModal = document.getElementById('tweet');
+    const closeModal = document.getElementById('closeTweet');
+    const modalBg = document.getElementById('tweetBg');
+    const sendButton = document.getElementById('newTweet');
+    const toggle = [openModal, closeModal, modalBg, sendButton];
+
+    for (let i = 0, len = toggle.length; i < len; i++) {
+        toggle[i].addEventListener('click', function () {    // イベント処理(クリック時)
+            //tweetのpreview-imageを初期化
+            $(".preview-image").html('<p class="pre">PREVIEW</p>');
+            modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
+        }, false);
+    }
+}
 
 
 

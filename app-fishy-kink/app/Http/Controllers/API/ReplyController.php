@@ -28,35 +28,35 @@ class ReplyController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $text = $request->input('replyText');
-        // return ["message" => $text];
+        // \Log::info($request);
+        $userID = session("userID"); 
         $target = $request->input("target");
-        $tweetImg = [];
-        $userID = session("userID");
         $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
-        if($request->hasfile("ReplyImage")){
-            foreach($request->tweetImage as $image){
+        $replyImg = $request["replyImage"];
+        $replyImage = [];
+        if(isset($replyImg)){            // hasfile : 画像があるかないかを判断
+            foreach($replyImg as $image){
                 //拡張子取得
                 $ext = explode("/",$image->getMimeType())[1];
                 //画像fileを取得してバイナリにエンコード
                 $encode_img = base64_encode(file_get_contents($image));
-                
-                $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
+                $replyImage[] = 'data:image/' . $ext . ';base64,' . $encode_img;
             }
         }
         $time = date("Y/m/d H:i:s");
         $db["tweetDB"] -> insertOne([
             "type"          => "reply",
-            "text"          => $text,
+            "text"          => $request->input('replyText'),
             "userID"        => session('userID'),
             "userName"      => $name,   //yamasakiが追加
             "time"          => $time,
-            "img"           => $tweetImg,
+            "img"           => $replyImage,
             "retweetUser"   => [],
-            "favoUser"       => [],
+            "favoUser"      => [],
             "originTweetID" => $target,
-            "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
+            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
         ]); 
+<<<<<<< HEAD
         $db["notifyDB"] -> insertOne([
             "userID" => $db["tweetDB"] -> findOne(["_id" => $target])["userID"],
             "tweetID" => $tweetID,
@@ -66,6 +66,10 @@ class ReplyController extends Controller
         ]);
         // return ["message" => ];
         return redirect("home");
+=======
+        return [];  //何か返さないと怒られる
+        
+>>>>>>> 3c82f15f00ab8ca3e72b61fb78843fb82d502d75
     }
 
     /**

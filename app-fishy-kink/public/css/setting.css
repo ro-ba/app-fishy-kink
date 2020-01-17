@@ -73,9 +73,10 @@ textarea {
     display: none;
 }
 
-.filelabel .myIcon {
+.filelabel img {
     border-radius: 50%;
     border: 1px solid #eee;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -95,7 +96,7 @@ textarea {
 }
 
 .userInfo input:focus {
-    border: 2px solid #83ccd2;
+    border: 2px solid rgb(165, 160, 160);
 }
 
 .profile {
@@ -107,7 +108,7 @@ textarea {
 }
 
 .profile textarea:focus {
-    border: 2px solid #83ccd2;
+    border: 2px solid rgb(165, 160, 160);
 }
 
 .profile h6 {
@@ -129,7 +130,7 @@ textarea {
 }
 
 .content input[type="submit"]:hover {
-    opacity: 0.9;
+    background-color: #48c9d4;
 }
 
 .content input[type="button"] {
@@ -139,11 +140,7 @@ textarea {
 }
 
 .content input[type="button"]:hover {
-    opacity: 0.6;
-}
-
-.content input[type="button"]:active {
-    opacity: 1;
+    background-color: #eee;
 }
 
 .remove {
