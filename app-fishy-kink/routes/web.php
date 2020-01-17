@@ -38,7 +38,7 @@ Route::resources([
     "/api/notifyCount" => "API\NotifyCountController",
     "/api/reply" => "API\ReplyController",
     "/api/tweet" => "API\TweetController",
-    "/api/follow" => "API\FollowController"
+    "/api/quoteReTweet" => "API\QuoteReTweetController"
     ]);
 
 // Route::resource("/","TopController");
