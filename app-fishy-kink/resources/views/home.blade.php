@@ -241,6 +241,7 @@ button {
         <div class="centerContents col-sm-6"></div>
         <div class="rightContents col-sm-3"></div>
     </div>
+    
 </body>
 </html>
 

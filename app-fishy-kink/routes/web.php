@@ -39,7 +39,6 @@ Route::resources([
     "/api/reply" => "API\ReplyController",
     "/api/tweet" => "API\TweetController",
     "/api/quoteReTweet" => "API\QuoteReTweetController"
-
     ]);
 
 // Route::resource("/","TopController");

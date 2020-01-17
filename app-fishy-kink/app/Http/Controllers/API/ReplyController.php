@@ -54,7 +54,8 @@ class ReplyController extends Controller
             "retweetUser"   => [],
             "favoUser"      => [],
             "originTweetID" => $target,
-            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
+            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"],
+            "showFlg"       => True
         ]); 
         return [];   //何か返さないと怒られる
         
