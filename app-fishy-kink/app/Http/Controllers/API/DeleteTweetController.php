@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+require "/vagrant/source/func/FKMongo.php";
+
 class DeleteTweetController extends Controller
 {
     /**
@@ -35,7 +37,16 @@ class DeleteTweetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $db = connect_mongo();
+        $tweetID = $requerst["tweetID"];
+        if (empty($db["tweetDB"] -> findOne(["_id" => $tweetID]))){
+            $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set' => ["showFlg" => False]]);
+            $return = "success";
+        }else{
+            $return = "failure";
+        }
+        
+        return ["message" => $return];
     }
 
     /**
