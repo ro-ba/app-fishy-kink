@@ -26,11 +26,12 @@ var tweetImage;
 // };
 
 /******************************************************************* 変数の初期化等 *******************************************************************/
-function init(result) {
+function init() {
     replyWindow();
     commentRetweetWindow();
     tweetWindow();
-    tweetCount = result.length;
+
+    // tweetCount = result.length;
     count = 1;
 };
 
@@ -50,7 +51,15 @@ function startTweetAlert() { // 遅延処理
             cache: false
 
         }).done(function (results) {
-            if (tweetCount != results.length) {
+            var trueTweetCount;
+            results.forEach(function (tweet) {
+                if(results["showFlg"]){
+                    trueTweetCount++;
+                }
+                count++;
+            });
+            
+            if (tweetCount != trueTweetCount) {
 
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
@@ -130,6 +139,7 @@ $(function () {
 
 /******************************************************************* ツイート表示 *******************************************************************/
 function dispTweets(results, searchType = "") {
+
     if (searchType) {
         doc = $(`.centerContents .${searchType}`);
     } else {
@@ -140,11 +150,14 @@ function dispTweets(results, searchType = "") {
     console.log(results);
     results.forEach(function (tweet) {
         $(doc).append(createTweetElement(tweet));
+        if(results["showFlg"]){
+            tweetCount++;
+        }
         count++;
     });
     $('.loader').fadeOut();
     startTweetAlert();
-    init(results);
+    init();
 }
 
 /******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/

@@ -87,6 +87,7 @@ class QuoteReTweetController extends Controller
                     "favoUser"      => [],
                     "originTweetID" => "",
                     "parentTweetID" => $target
+                    "showFlg"       => True
                     ]); 
                 // $db["notifyDB"] -> insertOne([
                 //     "userID" => $targetUser,
