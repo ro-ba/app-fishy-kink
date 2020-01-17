@@ -51,26 +51,31 @@
         <ul class="user">
             <li class="user-name">{{ $userData["userName"] }}</li>
             @if(!$isShowSettings)
-              <form method=POST>
-              @csrf
+                
                 @if($nowFollow == False)
                   <!-- <button type="submit" class="nowFollow">フォローする</button> -->
-                  <button type="submit" class="noFollow" style="color:#696969;" 
+                  <button type="button" class="Follow-button noFollow">これはテストです</button>
+                  <!-- <button type="button" class="Follow-button noFollow" style="color:#696969;" 
                   onmouseover="this.style.color='#696969',
                   this.innerHTML='フォローする'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォローしていません'">
-                  フォローしていません</button>
+                  フォローしていません</button> -->
                 @else
                   <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
+<<<<<<< HEAD
                   <button type="submit" class="nowFollow" style="color:#696969;" 
                   onmouseover="this.style.color='red',
+=======
+                  <button type="submit" class="Follow-button nowFollow" style="color:#696969;" 
+                  onmouseover="this.style.color='#696969',
+>>>>>>> 486325e523b4a25222814f7c9791a2244ac0c922
                   this.innerHTML='フォローを外す'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォロー中'">
                   フォロー中</button>
                 @endif
-              </form>
+
             @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
@@ -138,5 +143,59 @@ $(function () { // 遅延処理
 });
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+
+<script>
+  $(function(){
+    $(".profile").on('click', ".Follow-button", function () {
+      $.ajax({
+        type: 'POST',
+        url:  'api/follow',
+        dataType: 'json',
+        headers:  {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+          userID: userID
+        },
+        cache:  false
+      }).done(function(results){
+        console.log(results["message"]);
+      }).fail(function(err){
+        console.log(results["message"]);
+      });
+    });
+  });
+
+</script>
+<script>
+$(function(){
+  $(".Follow-button").mouseover(function(){
+    if($(this).hasClass("noFollow")){
+      $(this).html("フォローする");
+      if ($(this).hasClass("btn-default")){
+        $(this).removeClass("btn-default");
+      }
+      $(this).addClass("btn-toFollow");
+      // $(this).css({"color":"#ffffff"})
+    }else{
+      console.log("これはフォローしている");
+    }
+    console.log("マウスオーバーしました。");
+  });
+});
+
+$(function(){
+  $(".Follow-button").mouseout(function(){
+    if($(this).hasClass("noFollow")){
+      $(this).html("フォローしていません");
+      if ($(this).hasClass("btn-toFollow")){
+        $(this).removeClass("btn-toFollow");
+      }
+      $(this).addClass("btn-default");
+      // $(this).css({"color":"#808080"})
+    }
+  });
+});
+</script>
 
 </html>

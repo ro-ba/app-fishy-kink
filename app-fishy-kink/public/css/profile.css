@@ -174,3 +174,8 @@ hr {
     border-radius: 5px;
     font-size: 13px;
 }
+
+.btn-toFollow{
+    background: paleturquoise;
+    color:  snow;
+}

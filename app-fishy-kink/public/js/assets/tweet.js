@@ -156,18 +156,81 @@ function createTweetElement(tweet) {
     let iconColor;
     let reTweetText;
 
-    <script>
-        $(function(){
-            $('.js-modal-open').on('click', function () {
-                $('.js-modal').fadeIn();
+    tweetDocument += `<script>
+    $(function(){
+        $('.js-modal-open').on('click', function () {
+            $('.js-modal').fadeIn();
                 return false;
             });
-        $('.js-modal-close').on('click',function(){
-            $('.js-modal').fadeOut();
-        return false;
+            $('.js-modal-close').on('click',function(){
+                $('.js-modal').fadeOut();
+            return false;
+        });
     });
-});
-    </script>
+    </script>`;
+
+    tweetDocument += `<style>
+    .gnav {
+        display: flex;
+        height: 2rem;
+        margin: 0 auto;
+        width: 1000px;
+    }
+    .gnav > li {/*親階層のみ幅を25%にする*/
+        width: 25%;
+    }
+    /*全てのリスト・リンク共通*/
+    .gnav li {
+        list-style: none;
+        position: relative;
+    }
+    .gnav li a {
+        background: #001b34;
+        border-right: 1px solid #eee;
+        color: #fff;
+        display: block;
+        height: 2rem;
+        line-height: 2rem;
+        text-align: center;
+        text-decoration: none;
+        width: 100%;
+    }
+    .gnav li li {
+        height: 0;
+        overflow: hidden;
+        transition: .5s;
+    }
+    .gnav li li a {
+        border-top: 1px solid #eee;
+    }
+    .gnav li:hover > ul > li {
+        height: 2rem;
+        overflow: visible;
+    }
+
+    .modal{
+        display: none;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+    .modal__bg{
+        background: rgba(0,0,0,0.1);
+        height: 100vh;
+        position: absolute;
+        width: 100%;
+    }
+    .modal__content{
+        background: #fff;
+        left: 50%;
+        padding: 40px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 60%;
+    }
+    </style>`;
 
     tweetDocument += '<div class="tweet card" id="tweet">';
 
@@ -193,19 +256,22 @@ function createTweetElement(tweet) {
     } else {
         userIcon = defaultIcon;
     }
-    tweetDocument += `
-    <div class="tweetTop card-header">
-        ${tweetType}
-        <ul class="menu" style="position:relative; float:right; right:0;  margin: 0 0 0 auto;">
-            <li class="menu__single" style="position: relative;">
+
+    tweetDocument += `<div class="tweetTop card-header">`;
+
+    if (session["userID"] == tweet["userID"]) {
+        tweetDocument += `
+        <ul class="gnav" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
+            <li>
                 <a class="oi oi-menu" hreaf="#"></a>
-                <ul class="menu__second-level">
-                    @if( ${userID} == ${tweet["userID"]} )
-                        <li><a class="js-modal-open remove" href="#" >ツイート削除</a></li>
-                    @endif
+                <ul>
+                    <li><a class="js-modal-open remove" href="#">ツイート削除</a></li>
                 </ul>
             </li>
-        </ul>
+        </ul>`;
+    }
+
+    tweetDocument += `
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
         <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
@@ -278,22 +344,46 @@ function createTweetElement(tweet) {
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
         <form action='doubleCheck' class='doubleCheck' enctype='multipart/form-data' method='post'>
-            @csrf
                 <div>
                     <p>本当にいいですか？</p>
                     <tr></tr>
                     <input name='check' type='checkbox'/>
                     <tr></tr>
-                    <input type='submit' value='削除'/>
+                    <input class='tweetDelete' type='submit' value='削除'/>
                     <a class="js-modal-close" href="">閉じる</a>
                 </div>
             </form>
         </div>
     </div>`;
 
+    tweetDocument += `
+    <script>
+        $(function () {
+            $('.tweetDelete').click(function () {
+                let tweetID = ${tweet["oid"]}
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/tweet',
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: fd,
+                    cache: false
+                }).done(function () {
+    
+                }).fail(function (err) {
+                    // 通信失敗時の処理
+                    alert('ファイルの取得に失敗しました。');
+                });;
+            });
+        });
+    </script>
+    `;
+
     return tweetDocument;
-
-
 }
 
 /******************************************************************* 新しいツイートの表示 *******************************************************************/
@@ -541,25 +631,4 @@ function closeReplyFileAlert() {
     clearTimeout(timerId);
     $("#replyAlert").remove();
 }
-
-/*************************ツイート削除確認用モーダルウィンドウ***********************************/
-function tweetRemoveWindow() {
-    const modalArea = document.getElementById('tweetArea');
-    const openModal = document.getElementById('tweet');
-    const closeModal = document.getElementById('closeTweet');
-    const modalBg = document.getElementById('tweetBg');
-    const sendButton = document.getElementById('newTweet');
-    const toggle = [openModal, closeModal, modalBg, sendButton];
-
-    for (let i = 0, len = toggle.length; i < len; i++) {
-        toggle[i].addEventListener('click', function () {    // イベント処理(クリック時)
-            //tweetのpreview-imageを初期化
-            $(".preview-image").html('<p class="pre">PREVIEW</p>');
-            modalArea.classList.toggle('tweet-show');            // modalAreaのクラスの値を切り替える 
-        }, false);
-    }
-}
-
-
-
 

@@ -157,8 +157,6 @@ button {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-=======
 
 #newTweet {
   padding: 10px 20px;
@@ -169,7 +167,6 @@ button {
   background-color: #eee;
 }
 
->>>>>>> af972ca469409e79daa8e477e988cc61ae6e5fae
 #replySend {
   margin: 2px 0 0 0;
   padding: 10px 20px;
