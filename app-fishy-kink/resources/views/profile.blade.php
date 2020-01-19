@@ -30,12 +30,6 @@
   }
 </style>
 
-<style>
-.mini-loader {
-  stroke: red;
-  fill: black;
-}
-</style>
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
 
 <script type="text/javascript">
