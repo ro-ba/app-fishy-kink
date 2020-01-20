@@ -76,6 +76,10 @@ label {
     display: none;
   }
 
+  #quoteReTweetFile {
+      display: none;
+  }
+
 .filelabel {
     margin-left: 250px;
     opacity: 0.7;
@@ -118,6 +122,10 @@ label {
 }
 
 .contentReply #replySend {
+    margin: 7px 10px 0 10px;
+}
+
+#quoteReTweetSend {
     margin: 7px 10px 0 10px;
 }
 

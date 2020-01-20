@@ -61,9 +61,11 @@ class ReTweetController extends Controller
                 $db["tweetDB"] -> insertOne([
                     "type"          => "retweet",
                     "userID"        => session('userID'),
+                    "userName"      => $name,
                     "time"          => date("Y/m/d H:i:s"),
                     "originTweetID" => $originalTweetID,
-                    "parentTweetID" => ""
+                    "parentTweetID" => "",
+                    "showFlg"       => True
                     ]); 
                 $db["notifyDB"] -> insertOne([
                     "userID" => $targetUser,

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-require "/vagrant/source/func/FKSession.php";
 require "/vagrant/source/func/FKMongo.php";
 
-class NotifyController extends Controller
+class DeleteTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,7 @@ class NotifyController extends Controller
      */
     public function index()
     {
-        $id = session("userID");
-        $FishyKink = connect_mongo();
-
-        $notifyList = $FishyKink["notifyDB"] -> find(["userID" => $id]);
-        $count = $FishyKink["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
-        $FishyKink["notifyDB"] -> updateMany(["userID" => $id],['$set' => ["readFlag" => true]]);
-
-        $userData = $FishyKink["userDB"] -> findOne(["userID" => $id]);
-        
-        return view("notify",compact("userData","notifyList","count"));
+        //
     }
 
     /**
@@ -46,7 +37,16 @@ class NotifyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $db = connect_mongo();
+        $tweetID = $requerst["tweetID"];
+        if (empty($db["tweetDB"] -> findOne(["_id" => $tweetID]))){
+            $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set' => ["showFlg" => False]]);
+            $return = "success";
+        }else{
+            $return = "failure";
+        }
+        
+        return ["message" => $return];
     }
 
     /**

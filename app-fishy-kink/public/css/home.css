@@ -1,6 +1,6 @@
 
 .readCount{
-    position:relative;
+        position:relative;
 }
 
 .readCount[data-badge]:after{

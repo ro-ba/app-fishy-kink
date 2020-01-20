@@ -35,9 +35,15 @@ function set_userName ($db) {
         $db["tweetDB"] -> updateOne(["_id" => $tweet["_id"]],['$set'=>["userName" => $user["userName"]]]);
     }
 }
+
+function set_showFlg($db){
+    $db["tweetDB"]->updateMany([],['$set' => ["showFlg" => True]]);
+}
+
 $db = connect_mongo();
 set_originTweetId($db);
 rename_field($db);
 set_userName($db);
+set_showFlg($db);
 
 ?>

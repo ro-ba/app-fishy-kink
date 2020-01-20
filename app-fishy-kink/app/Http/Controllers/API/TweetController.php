@@ -58,7 +58,8 @@ class TweetController extends Controller
             "favoUser"       => [],
             "originTweetID" => "",
             "parentTweetID" => "",
-            "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
+            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"],
+            "showFlg"       => True
             ]); 
             $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
             $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);

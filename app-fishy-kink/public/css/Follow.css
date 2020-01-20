@@ -46,27 +46,7 @@
     display: none;
   }
 
-  /*タブ切り替えの中身のスタイル*/
-
-.tab_content {
-    /* display: none; */
-    padding-top: 10px;
-    clear: both;
-    overflow: hidden;
-  }
-
-  .tab_content {
-    /* display: none; */
-    padding-top: 10px;
-    clear: both;
-    overflow: hidden;
-  }
-
-  /* プロフィール */
-  .profilePro {
-    padding-left:45px;
-    
-  }
+  
 
 /*選択されているタブのコンテンツのみを表示*/
 #follow.checked ~ #follow_content,
