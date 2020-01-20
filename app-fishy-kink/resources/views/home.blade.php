@@ -79,7 +79,7 @@
           <div id="wrap">
               <div class="myTweet">
                   <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
-                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="tweetCheck();" placeholder="いまどうしてる？"></textarea>
+                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
               </div>
               <div class="content">
                     <ul class="tw">
@@ -102,9 +102,9 @@
     </div>
     <div id="tweetFileAlert"><div> 
   </div>
+  
 </section>
 
-<!-- リプライ -->
 <div id="replyContents">
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
@@ -135,15 +135,16 @@
   </div>
   </section>
 
-<!-- 引用リツイート -->
-<div id="quoteReTweetContents">
-  <section id="quoteReTweetArea" class="quoteReTweetArea">
-    <div id="quoteReTweetBg" class="quoteReTweetBg"></div>
-    <div class="quoteReTweetWrapper">
-    <form id="quoteReTweet-form">
-      @csrf
-        <div class="myTweet">
-          <textarea id="quoteReTweetText" class="quoteReTweetText" cols="50" rows="7" maxlength="200" name="quoteReTweetText" onkeyup="quoteReTweetCheck();" placeholder="🖊コメントつけてリツイート"></textarea>
+  <div class="modal js-modal">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+        <div>
+            <p>本当にいいですか？</p>
+            <tr></tr>
+            <input name='check' type='checkbox'/>
+            <tr></tr>
+            <button type="button" class='tweetDelete' >削除</button>
+            <a class="js-modal-close" href="">閉じる</a>
         </div>
         <div class="contentReply">
           <!-- <ul class="tw"> -->
@@ -182,8 +183,7 @@ $(function () { // 遅延処理
         cache: false
     }).done(function (results) {
         // 通信成功時の処理
-        result = results;
-        dispTweets(result);
+        dispTweets(results);
     }).fail(function (err) {
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
