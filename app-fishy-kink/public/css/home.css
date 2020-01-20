@@ -17,3 +17,188 @@
    border-radius:50%;
    box-shadow:0 0 1px #333;
 }
+
+
+.accordion .inner {
+        display: none;
+      }
+  
+      .accordion p {
+        cursor: pointer;
+      }
+  
+      .accordion {
+        display: inline;
+      }
+  
+      .readCount{
+        z-index: 3;
+        position: absolute;
+        color: red;/*文字は白に*/
+        font-weight: bold; /*太字に*/
+        font-size: 0.7em;/*サイズ2倍*/
+        font-family :Quicksand, sans-serif;/*Google Font*/
+        top: 60%;
+        left: 80%;
+      }
+  
+  
+  /** 駒月が追加 **/
+      /* モーダルCSS */
+  body {
+    font-family:'Avenir','Helvetica, Neue','Helvetica','Arial';
+  }
+  
+  
+  /* tweetモーダル */
+  
+  textarea {
+    width: 90%;
+    resize: none;
+  }
+  
+  .tweetArea {
+    visibility: hidden; /* displayではなくvisibility */
+    opacity : 0;
+    position: fixed;
+    z-index: 10; /* サイトによってここの数値は調整 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .tweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .tweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .tweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  /* replyモーダル */
+  .replyArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .replyBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .replyWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeReply {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .reply-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  
+  /* 引用リツイート */
+  .quoteReTweetArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .quoteReTweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .quoteReTweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeQuoteReTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .quoteReTweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  /* 以下ボタンスタイル */
+  button {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #282828;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #replySend {
+    margin: 2px 0 0 0;
+    padding: 10px 20px;
+    transition: .1s;
+  }
+  
+  #replySend:hover {
+    background-color: #eee;
+  }
+
