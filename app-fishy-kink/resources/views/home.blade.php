@@ -18,203 +18,6 @@
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
 
-
-  <style>
-    .accordion .inner {
-      display: none;
-    }
-
-    .accordion p {
-      cursor: pointer;
-    }
-
-    .accordion {
-      display: inline;
-    }
-
-    .readCount{
-      z-index: 3;
-      position: absolute;
-      color: red;/*文字は白に*/
-      font-weight: bold; /*太字に*/
-      font-size: 0.7em;/*サイズ2倍*/
-      font-family :Quicksand, sans-serif;/*Google Font*/
-      top: 60%;
-      left: 80%;
-    }
-
-
-/** 駒月が追加 **/
-    /* モーダルCSS */
-{
-  box-sizing: border-box;
-}
-body {
-  font-family:'Avenir','Helvetica, Neue','Helvetica','Arial';
-}
-
-
-/* モーダルCSSここから */
-
-textarea {
-  width: 90%;
-  resize: none;
-}
-
-.tweetArea {
-  visibility: hidden; /* displayではなくvisibility */
-  opacity : 0;
-  position: fixed;
-  z-index: 10; /* サイトによってここの数値は調整 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .4s;
-}
-
-.tweetBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.tweetWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  max-width: 500px;
-  padding: 10px 30px;
-  background-color: #fff;
-}
-
-.closeTweet {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.tweet-show { /* モーダル表示用クラス */
-  visibility: visible;
-  opacity : 1;
-}
-/* モーダルCSSここまで */
-
-/* モーダルCSSここから */
-.replyArea {
-  visibility: hidden; /* displayではなくvisibility */
-  opacity : 0;
-  position: fixed;
-  z-index: 10; /* サイトによってここの数値は調整 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .4s;
-}
-
-.replyBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.replyWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  max-width: 500px;
-  padding: 10px 30px;
-  background-color: #fff;
-}
-
-.closeReply {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.reply-show { /* モーダル表示用クラス */
-  visibility: visible;
-  opacity : 1;
-}
-
-
-/* モーダルCSSここから */
-.quoteReTweetArea {
-  visibility: hidden; /* displayではなくvisibility */
-  opacity : 0;
-  position: fixed;
-  z-index: 10; /* サイトによってここの数値は調整 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .4s;
-}
-
-.quoteReTweetBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.quoteReTweetWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  max-width: 500px;
-  padding: 10px 30px;
-  background-color: #fff;
-}
-
-.closeQuoteReTweet {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.quoteReTweet-show { /* モーダル表示用クラス */
-  visibility: visible;
-  opacity : 1;
-}
-
-
-/* モーダルCSSここまで */
-
-
-
-
-/* 以下ボタンスタイル */
-button {
-  padding: 10px;
-  background-color: #fff;
-  border: 1px solid #282828;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-#replySend {
-  margin: 2px 0 0 0;
-  padding: 10px 20px;
-  transition: .1s;
-}
-
-#replySend:hover {
-  background-color: #eee;
-}
-
-  </style>
-
 <script type="text/javascript">
   let userID = "";
   let session = { "userID" :"{{ session('userID') }}"};
@@ -223,12 +26,6 @@ button {
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    /******************************************************************* 別タブで表示２（仮） *******************************************************************/
-    function open2() {
-      window.open("/tweet", "hoge", "width=600, height=600 , location=no");
-    }
-  </script>
 </head>
 <body>
 
@@ -272,9 +69,7 @@ button {
                       </div>
                     </ul>
               </div>
-              <div class="tweet-image">
-                <p class="preview-image"></p>
-              </div>
+              <div id="tweet-image"></div>
           </div>
           </form>
         </div>
@@ -291,7 +86,7 @@ button {
     <div id="replyBg" class="replyBg"></div>
     <div class="replyWrapper">
     <form id="reply-form">
-      <div id="parentTweet1"></div>
+      <div id="reply-parent"></div>
       @csrf
         <div class="myTweet">
           <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
@@ -307,9 +102,7 @@ button {
             <li><button type=button id="replySend" disabled=true>送信</button></li>
           </ul>
         </div>
-        <div class="tweet-image">
-          <p class="preview-image"></p>
-        </div>
+        <div id="reply-image"></div>
     </form>
       <div id="closeReply" class="closeReply">
         × 
@@ -339,9 +132,7 @@ button {
             <li><button type=button id="quoteReTweetSend" disabled=true>送信</button></li>
           <!-- </ul> -->
         </div>
-        <div class="tweet-image">
-          <p class="preview-image"></p>
-        </div>
+        <div id="quoteReTweet-image"></div>
     </form>
       <div id="closeQuoteReTweet" class="closeQuoteReTweet">
         × 
@@ -352,7 +143,7 @@ button {
   </section>
 
 <script>
-// /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+/******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
     $.ajax({
         type: 'POST',
