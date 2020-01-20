@@ -109,7 +109,12 @@ label {
 }
 
 .content #newTweet {
+    padding: 10px 20px;
     margin: 7px 0 0 10px;
+}
+
+.content #newTweet:hover {
+    background-color: #eee;
 }
 
 .contentReply #replySend {
