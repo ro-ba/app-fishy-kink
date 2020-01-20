@@ -363,7 +363,7 @@ function commentRetweetWindow() {
 
 /******************************************************************* リプライボタン押したら・・・ *******************************************************************/
 $(function () {
-    $(".centerContents").on("click", ".reply", function () {            
+    $(".centerContents").on("click", ".reply", function () {
         $("#replyText").val("");
         $("#replyFile").val("");
         var tweetid = $(this).parents().siblings("#tweetID").val();
@@ -525,9 +525,9 @@ $(function () {
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
                 '<a href="" class="alert-link">新しいツイート</a>' +
                 '</div>';
-            }).fail(function (err) {
-                // 通信失敗時の処理
-                alert('ファイルの取得に失敗しました。');
+        }).fail(function (err) {
+            // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
         });;
     });
 });
@@ -596,7 +596,7 @@ function FileCheck(type) {
         }
 
     }
-    else if(type == 'reply') {
+    else if (type == 'reply') {
         var fileList = document.getElementById("replyFile").files;
         if (fileList.length > 4) {
             document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
@@ -606,7 +606,7 @@ function FileCheck(type) {
             timerId = setTimeout(closeReplyFileAlert, 2000);
         }
     }
-    else{
+    else {
 
     }
 }

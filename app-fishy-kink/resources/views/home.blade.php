@@ -232,6 +232,8 @@ button {
 </head>
 <body>
 
+ <button type="button" style="width:150px;height:50px;" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+
     @include('NaviMenu')
 
     <div id="alertContents"></div>
@@ -266,7 +268,7 @@ button {
 
                       </label>
                       <div class="t-submit">
-                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
+                          <li><button type=button id ="newTweet" class="newTweet" disabled=true> tweet </button></li>
                       </div>
                     </ul>
               </div>
