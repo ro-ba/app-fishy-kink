@@ -373,7 +373,9 @@ function commentRetweetWindow() {
 }
 
 /******************************************************************* ツイートボタン押したら・・・ *******************************************************************/
+
 function resetTweet() {
+
     $("#tweetText").val("");
     $("#tweetFile").val("");
     $("#tweet-image").html("");
@@ -557,10 +559,12 @@ $(function () {
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj, type) {
 
-    if (FileCheck(type)) {
-        if (type == 'tweet') {
+
+    if(FileCheck(type)){
+        if(type == 'tweet'){
             document.getElementById('tweet-image').innerHTML = '<p>PREVIEW</p>';
-            for (i = 0; i < obj.files.length; i++) {
+	        for (i = 0; i < obj.files.length; i++) {
+
                 var fileReader = new FileReader();
                 fileReader.onload = (function (e) {
                     document.getElementById('tweet-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
@@ -568,9 +572,10 @@ function loadImage(obj, type) {
                 fileReader.readAsDataURL(obj.files[i]);
             }
         }
-        else if (type == 'reply') {
+
+        else if(type == 'reply'){
             document.getElementById('reply-image').innerHTML = '<p>PREVIEW</p>';
-            for (i = 0; i < obj.files.length; i++) {
+	        for (i = 0; i < obj.files.length; i++) {
                 var fileReader = new FileReader();
                 fileReader.onload = (function (e) {
                     document.getElementById('reply-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
@@ -578,20 +583,20 @@ function loadImage(obj, type) {
                 fileReader.readAsDataURL(obj.files[i]);
             }
         }
-        else {
+
+        else{
             document.getElementById('quoteReTweet-image').innerHTML = '<p>PREVIEW</p>';
-            for (i = 0; i < obj.files.length; i++) {
+	        for (i = 0; i < obj.files.length; i++) {
+
                 var fileReader = new FileReader();
                 fileReader.onload = (function (e) {
                     document.getElementById('quoteReTweet-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
                 });
                 fileReader.readAsDataURL(obj.files[i]);
             }
-        }
-
-    }
-
-
+        }        
+    }    
+}
 }
 
 
@@ -615,18 +620,19 @@ function FileCheck(type) {
         var fileList = document.getElementById("replyFile").files;
         if (fileList.length > 4) {
             document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
-                '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
+
+            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
                 '</div>';
             $("#replyFile").val("");
             timerId = setTimeout(closeReplyFileAlert, 2000);
             return false;
         }
     }
-    else {
+    else{
         var fileList = document.getElementById("quoteReTweetFile").files;
         if (fileList.length > 4) {
             document.getElementById('quoteReTweetFileAlert').innerHTML = '<div id="quoteReTweetAlert" class="alert alert-danger" role="alert">' +
-                '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
+            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
                 '</div>';
             $("#quoteReTweetFile").val("");
             timerId = setTimeout(closeQuoteReTweetFileAlert, 2000);
@@ -654,7 +660,6 @@ function closeQuoteReTweetFileAlert() {
     clearTimeout(timerId);
     $("#quoteReTweetFileAlert").remove();
 }
-
 
 
 

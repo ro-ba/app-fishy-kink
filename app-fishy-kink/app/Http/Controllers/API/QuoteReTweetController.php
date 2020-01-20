@@ -86,7 +86,8 @@ class QuoteReTweetController extends Controller
                     "retweetUser"   => [],
                     "favoUser"      => [],
                     "originTweetID" => "",
-                    "parentTweetID" => $target
+                    "parentTweetID" => $target,
+                    "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"],
                     "showFlg"       => True
                     ]); 
                 // $db["notifyDB"] -> insertOne([
