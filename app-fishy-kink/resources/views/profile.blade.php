@@ -39,7 +39,7 @@
 </head>
 
 <body>
-@include('homeTemplate')
+@include('NaviMenu')
 <div id="alertContents"></div>
 @isset($userData)
     <div class="profile">

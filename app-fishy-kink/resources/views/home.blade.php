@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
   <link rel="stylesheet" href="css/loader.css">
-  <link rel="stylesheet" href="css/home.css">
+
 
   <style>
     .accordion .inner {
@@ -55,6 +55,7 @@ body {
 
 
 /* モーダルCSSここから */
+
 textarea {
   width: 90%;
   resize: none;
@@ -152,7 +153,7 @@ button {
   padding: 10px;
   background-color: #fff;
   border: 1px solid #282828;
-  color: #000;
+  border-radius: 2px;
   cursor: pointer;
 }
 
@@ -185,7 +186,7 @@ button {
 </head>
 <body>
 
-    @include('homeTemplate')
+    @include('NaviMenu')
 
     <div id="alertContents"></div>
     <div class="loader">Loading...</div>
@@ -214,7 +215,8 @@ button {
                     <ul class="tw">
                       <label>
                           <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
-                          <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+                          <input type="file" id="tweetFile" name="tweetImage[]" accept="image/*" onchange="loadImage(this , 'tweet');" multiple/>
+
                       </label>
                       <div class="t-submit">
                           <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
@@ -230,12 +232,11 @@ button {
     <div id="closeTweet" class="closeTweet">
       ×
     </div>
+    <div id="tweetFileAlert"><div> 
   </div>
-
-
+  
 </section>
 
-<!-- りぷらい -->
 <div id="replyContents">
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
@@ -251,12 +252,12 @@ button {
           <ul class="tw">
             <label>
               <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
-              <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this);" multiple/>
+              <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
+
             </label>
             <li><button type=button id="replySend">送信</button></li>
           </ul>
         </div>
-        
         <div class="tweet-image">
           <p class="preview-image"></p>
         </div>
@@ -264,9 +265,10 @@ button {
       <div id="closeReply" class="closeReply">
         × 
       </div>
-    </div>
+        <div id="replyFileAlert"></div> 
+  </div>
   </section>
-</div>
+  
 
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
