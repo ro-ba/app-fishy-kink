@@ -64,7 +64,8 @@ class ReTweetController extends Controller
                     "userName"      => $name,
                     "time"          => date("Y/m/d H:i:s"),
                     "originTweetID" => $originalTweetID,
-                    "parentTweetID" => ""
+                    "parentTweetID" => "",
+                    "showFlg"       => True
                     ]); 
                 $db["notifyDB"] -> insertOne([
                     "userID" => $targetUser,

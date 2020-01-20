@@ -63,13 +63,8 @@
                   フォローしていません</button> -->
                 @else
                   <!-- <button type="submit" class="nowFollow">フォロー中</button> -->
-<<<<<<< HEAD
-                  <button type="submit" class="nowFollow" style="color:#696969;" 
-                  onmouseover="this.style.color='red',
-=======
                   <button type="submit" class="Follow-button nowFollow" style="color:#696969;" 
                   onmouseover="this.style.color='#696969',
->>>>>>> 486325e523b4a25222814f7c9791a2244ac0c922
                   this.innerHTML='フォローを外す'" 
                   onmouseout="this.style.color='#696969',
                   this.innerHTML='フォロー中'">

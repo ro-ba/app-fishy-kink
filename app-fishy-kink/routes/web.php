@@ -30,6 +30,7 @@ Route::resources([
     "following" => "FollowingController",
     "replyTree" => "ReplyTreeController",
     "/api/reloadTweets" => "API\ReloadTweetsController",
+    "/api/deleteTweet" => "API\DeleteTweetController",
     "/api/favorite" => "API\FavoriteController",
     "/api/reTweet"=> "API\ReTweetController",
     "/api/getTweet" =>  "API\GetTweetController",
@@ -39,7 +40,8 @@ Route::resources([
     "/api/notifyCount" => "API\NotifyCountController",
     "/api/reply" => "API\ReplyController",
     "/api/tweet" => "API\TweetController",
-    "/api/follow" => "API\FollowController"
+    "/api/quoteReTweet" => "API\QuoteReTweetController",
+    "/api/follow"   =>  "API\FollowController"
     ]);
 
 // Route::resource("/","TopController");
