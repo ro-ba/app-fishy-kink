@@ -148,7 +148,7 @@ function dispTweets(results, searchType = "") {
     console.log(results);
     results.forEach(function (tweet) {
         $(doc).append(createTweetElement(tweet));
-        if (results["showFlg"]) {
+        if(results["showFlg"]){
             tweetCount++;
         }
         count++;
@@ -158,124 +158,138 @@ function dispTweets(results, searchType = "") {
     init();
 }
 
-// /******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
-// function createTweetElement(tweet) {
 
-//     let tweetType;
-//     let userIcon;
-//     let tweetDocument = "";
-//     let countImg;
-//     let iconColor;
-//     let reTweetText;
+/******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
+function createTweetElement(tweet) {
 
-//     if (tweet["showFlg"] == false) {
-//         return tweetDocument;
-//     }
+    let tweetType;
+    let userIcon;
+    let tweetDocument = "";
+    let countImg;
+    let iconColor;
+    let reTweetText;
 
-//     tweetDocument += '<div class="tweet card" id="tweet">';
-
-//     if (tweet["type"] == "retweet") {
-//         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
-//         retweetUserName = tweet["userName"];
-//         // retweetUserName = tweet["userID"];
-//         retweetUserID = tweet["userID"];
-//         // tweet = getOriginTweet(tweet);
-
-//         tweet = tweet["originTweet"];
-//         if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
-//             console.log("リツイート者：" + retweetUserName);
-//             tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
-//         } else {
-//             tweetType = '<div class="retweet-user">リツイート済み</div>';
-//         }
-//         tweet["type"] = "retweet";
-//     } else {
-//         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
-//         tweetType = "";
-//     }
-
-//     if (typeof tweet["userImg"] !== "undefined") {
-//         userIcon = tweet["userImg"];
-//     } else {
-//         userIcon = defaultIcon;
-//     }
-
-//     tweetDocument += `
-//     <div class="tweetTop card-header">
-//         ${tweetType}
-//         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-//         <img class="userIcon" src="${userIcon}" width="50px" height="50px" />
-//         </div>
-//         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
-//         <div class="tweet-user">
-//             <a href=/profile?user=${tweet["userID"]}>
-//                 ${tweet["userName"]}@${tweet["userID"]}
-//             </a>
-//         </div>
-//         <div class="time">
-//             ${tweet["time"]}
-//         </div>
-//         </div>
-//     </div>
-//     <div class="tweetMain card-body">${tweet["text"]}</div>
-//     <div class="imagePlaces" style=float:left>
-//     `;
-
-//     //画像表示
-//     countImg = tweet["img"].length;
-//     for (var i = 0; i < countImg; i++) {
-//         tweetDocument += `<img src=" ${tweet["img"][i]}"id="image" width="200" height="150" />`;
-//     }
-
-//     tweetDocument += `
-//     </div>
-//     <div class="tweetBottom d-inline">`;
-
-//     //リプライ
-//     tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
-
-//     //リツイート
-//     iconColor = "";
-//     reTweetText = "";
-
-//     if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
-//         iconColor = "gray";
-//         reTweetText = "リツイート";
-//     } else {
-//         iconColor = "green";
-//         reTweetText = "リツイートを取り消す";
-//     }
-
-//     tweetDocument += `
-//     <div class="accordion">
-//         <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
-//         ${tweet["retweetUser"].length}
+    if (tweet["showFlg"] == false) {
+        return tweetDocument;
+    }
 
 
+    tweetDocument += '<div class="tweet card" id="tweet">';
 
-//         <div class="inner">
-//         <button class=normalReTweet type=button> ${reTweetText}</button>
-//         <button class=quoteReTweet id=quoteReTweet` + count + `>🖊コメントつけてリツイート</button>
-//         </div>
-//     </div>
-//     `;
+    if (tweet["type"] == "retweet") {
+        tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
+        retweetUserName = tweet["userName"];
+        // retweetUserName = tweet["userID"];
+        retweetUserID = tweet["userID"];
+        // tweet = getOriginTweet(tweet);
 
-//     //ファボ
-//     if (tweet["favoUser"].indexOf(session["userID"]) == -1) {
-//         iconColor = "gray";
-//     } else {
-//         iconColor = "red";
-//     }
-//     tweetDocument +=
-//         `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
-//         ${tweet["favoUser"].length}
-//         `;
-//     tweetDocument += '</div>';
-//     tweetDocument += '</div>';
+        tweet = tweet["originTweet"];
+        if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+            console.log("リツイート者：" + retweetUserName);
+            tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
+        } else {
+            tweetType = '<div class="retweet-user">リツイート済み</div>';
+        }
+        tweet["type"] = "retweet";
+    } else {
+        tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
+        tweetType = "";
+    }
 
-//     return tweetDocument;
+    if (typeof tweet["userImg"] !== "undefined") {
+        userIcon = tweet["userImg"];
+    } else {
+        userIcon = defaultIcon;
+    }
 
-// }
+    if (session["userID"] == tweet["userID"]) {
+        tweetDocument += `
+        <ul class="menu" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
+            <li>
+                <a class="oi oi-menu" hreaf="#"></a>
+                <ul>
+                    <button class="tweDel" id="tweDel"` + count + `" href="#">ツイート削除</button>
+                </ul>
+            </li>
+        </ul>`;
+    }
+
+    tweetDocument += `
+    <div class="tweetTop card-header">
+        ${tweetType}
+        <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
+        <img class="userIcon" src="${userIcon}" width="50px" height="50px" />
+        </div>
+        <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
+        <div class="tweet-user">
+            <a href=/profile?user=${tweet["userID"]}>
+                ${tweet["userName"]}@${tweet["userID"]}
+            </a>
+        </div>
+        <div class="time">
+            ${tweet["time"]}
+        </div>
+        </div>
+    </div>
+    <div class="tweetMain card-body">${tweet["text"]}</div>
+    <div class="imagePlaces" style=float:left>
+    `;
+
+    //画像表示
+    countImg = tweet["img"].length;
+    for (var i = 0; i < countImg; i++) {
+        tweetDocument += `<img src=" ${tweet["img"][i]}"id="image" width="200" height="150" />`;
+    }
+
+    tweetDocument += `
+    </div>
+    <div class="tweetBottom d-inline">`;
+
+    //リプライ
+    tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+
+    //リツイート
+    iconColor = "";
+    reTweetText = "";
+
+    if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+        iconColor = "gray";
+        reTweetText = "リツイート";
+    } else {
+        iconColor = "green";
+        reTweetText = "リツイートを取り消す";
+    }
+
+    tweetDocument += `
+    <div class="accordion">
+        <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+        ${tweet["retweetUser"].length}
+
+
+
+        <div class="inner">
+        <button class=normalReTweet type=button> ${reTweetText}</button>
+        <button class=quoteReTweet id=quoteReTweet` + count + `>🖊コメントつけてリツイート</button>
+        </div>
+    </div>
+    `;
+
+    //ファボ
+    if (tweet["favoUser"].indexOf(session["userID"]) == -1) {
+        iconColor = "gray";
+    } else {
+        iconColor = "red";
+    }
+    tweetDocument +=
+        `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+        ${tweet["favoUser"].length}
+        `;
+    tweetDocument += '</div>';
+    tweetDocument += '</div>';
+
+    return tweetDocument;
+
+}
 
 /******************************************************************* 新しいツイートの表示 *******************************************************************/
 
@@ -295,6 +309,7 @@ $(function () { // 遅延処理
         }).done(function (results) {
             dispTweets(results);
             replyWindow();
+            deleteWindow();
             count = 1;
 
             $("#alert").remove();
@@ -665,179 +680,138 @@ function closeQuoteReTweetFileAlert() {
 
 
 /******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
-function createTweetElement(tweet) {
+// function createTweetElement(tweet) {
 
-    let tweetType;
-    let userIcon;
-    let tweetDocument = "";
-    let countImg;
-    let iconColor;
-    let reTweetText;
+//     let tweetType;
+//     let userIcon;
+//     let tweetDocument = "";
+//     let countImg;
+//     let iconColor;
+//     let reTweetText;
 
-    if (tweet["showFlg"] == false) {
-        return tweetDocument;
-    }
+//     if (tweet["showFlg"] == false) {
+//         return tweetDocument;
+//     }
 
-    tweetDocument += `<script>
-    $(function(){
-        $('.js-modal-open').on('click', function () {
-            $('.js-modal').fadeIn();
-                return false;
-            });
-            $('.js-modal-close').on('click',function(){
-                $('.js-modal').fadeOut();
-            return false;
-        });
-    });
-    </script>`;
+//     tweetDocument += '<div class="tweet card" id="tweet">';
 
-    tweetDocument += `<style>
-    
-    .modal{
-        display: none;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-    .modal__bg{
-        background: rgba(0,0,0,0.1);
-        height: 100vh;
-        position: absolute;
-        width: 100%;
-    }
-    .modal__content{
-        background: #fff;
-        left: 50%;
-        padding: 40px;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        width: 60%;
-    }
-    </style>`;
+//     if (tweet["type"] == "retweet") {
+//         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
+//         retweetUserName = tweet["userName"];
+//         retweetUserID = tweet["userID"];
+//         // tweet = getOriginTweet(tweet);
 
-    tweetDocument += '<div class="tweet card" id="tweet">';
+//         tweet = tweet["originTweet"];
+//         if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+//             console.log("リツイート者：" + retweetUserName);
+//             tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
+//         } else {
+//             tweetType = '<div class="retweet-user">リツイート済み</div>';
+//         }
+//         tweet["type"] = "retweet";
+//     } else {
+//         tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
+//         tweetType = "";
+//     }
 
-    if (tweet["type"] == "retweet") {
-        tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["originTweetID"]["$oid"] + ' />';
-        retweetUserName = tweet["userName"];
-        retweetUserID = tweet["userID"];
-        // tweet = getOriginTweet(tweet);
+//     if (typeof tweet["userImg"] !== "undefined") {
+//         userIcon = tweet["userImg"];
+//     } else {
+//         userIcon = defaultIcon;
+//     }
 
-        tweet = tweet["originTweet"];
-        if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
-            console.log("リツイート者：" + retweetUserName);
-            tweetType = `<div class="retweet-user"><a href="/profile?user=${retweetUserID}">${retweetUserName}</a>さんがリツイートしました</div>`;
-        } else {
-            tweetType = '<div class="retweet-user">リツイート済み</div>';
-        }
-        tweet["type"] = "retweet";
-    } else {
-        tweetDocument += '<input id="tweetID" type="hidden" value=' + tweet["_id"]["$oid"] + ' />';
-        tweetType = "";
-    }
+//     tweetDocument += `<div class="tweetTop card-header">`;
 
-    if (typeof tweet["userImg"] !== "undefined") {
-        userIcon = tweet["userImg"];
-    } else {
-        userIcon = defaultIcon;
-    }
+//     if (session["userID"] == tweet["userID"]) {
+//         tweetDocument += `
+//         <ul class="gnav" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
+//             <li>
+//                 <a class="oi oi-menu" hreaf="#"></a>
+//                 <ul>
+//                     <li><a class="js-modal-open remove" id="tweDel"` + count + `" href="#">ツイート削除</a></li>
+//                 </ul>
+//             </li>
+//         </ul>`;
+//     }
 
-    tweetDocument += `<div class="tweetTop card-header">`;
+//     tweetDocument += `
+//         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
+//         <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
+//         <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
+//         <div class="tweet-user">
+//             <a href=/profile?user=${tweet["userID"]}>
+//             ${tweet["userName"]}@${tweet["userID"]}
+//             </a>
+//         <div class="time">
+//             ${tweet["time"]}
+//         </div>
+//         </div>
+//     </div>
+//     <div class="tweetMain card-body">${tweet["text"]}</div>
+//     <div class="imagePlaces" style=float:left>
+//     `;
 
-    if (session["userID"] == tweet["userID"]) {
-        tweetDocument += `
-        <ul class="gnav" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
-            <li>
-                <a class="oi oi-menu" hreaf="#"></a>
-                <ul>
-                    <li><a class="js-modal-open remove" id="tweDel"` + count + `" href="#">ツイート削除</a></li>
-                </ul>
-            </li>
-        </ul>`;
-    }
+//     //画像表示
+//     countImg = tweet["img"].length;
+//     for (var i = 0; i < countImg; i++) {
+//         tweetDocument += `<img src=" ${tweet["img"][i]}"id="image" width="200" height="150" />`;
+//     }
 
-    tweetDocument += `
-        <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
-        <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
-        <div class="tweet-user">
-            <a href=/profile?user=${tweet["userID"]}>
-            ${tweet["userName"]}@${tweet["userID"]}
-            </a>
-        <div class="time">
-            ${tweet["time"]}
-        </div>
-        </div>
-    </div>
-    <div class="tweetMain card-body">${tweet["text"]}</div>
-    <div class="imagePlaces" style=float:left>
-    `;
+//     tweetDocument += `
+//     </div>
+//     <div class="tweetBottom d-inline">`;
 
-    //画像表示
-    countImg = tweet["img"].length;
-    for (var i = 0; i < countImg; i++) {
-        tweetDocument += `<img src=" ${tweet["img"][i]}"id="image" width="200" height="150" />`;
-    }
+//     //リプライ
+//     tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
-    tweetDocument += `
-    </div>
-    <div class="tweetBottom d-inline">`;
+//     //リツイート
+//     iconColor = "";
+//     reTweetText = "";
 
-    //リプライ
-    tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+//     if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
+//         iconColor = "gray";
+//         reTweetText = "リツイート";
+//     } else {
+//         iconColor = "green";
+//         reTweetText = "リツイートを取り消す";
+//     }
 
-    //リツイート
-    iconColor = "";
-    reTweetText = "";
-
-    if (tweet["retweetUser"].indexOf(session["userID"]) == -1) {
-        iconColor = "gray";
-        reTweetText = "リツイート";
-    } else {
-        iconColor = "green";
-        reTweetText = "リツイートを取り消す";
-    }
-
-    tweetDocument += `
-    <div class="accordion">
-        <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
-        ${tweet["retweetUser"].length}
+//     tweetDocument += `
+//     <div class="accordion">
+//         <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
+//         ${tweet["retweetUser"].length}
 
         
 
-        <div class="inner">
-        <button class=normalReTweet type=button> ${reTweetText}</button>
-        <button class=quoteReTweet id=quoteReTweet` + count + `>🖊コメントつけてリツイート</button>
-        </div>
-    </div>
-    `;
+//         <div class="inner">
+//         <button class=normalReTweet type=button> ${reTweetText}</button>
+//         <button class=quoteReTweet id=quoteReTweet` + count + `>🖊コメントつけてリツイート</button>
+//         </div>
+//     </div>
+//     `;
 
-    //ファボ
-    if (tweet["favoUser"].indexOf(session["userID"]) == -1) {
-        iconColor = "gray";
-    } else {
-        iconColor = "red";
-    }
-    tweetDocument +=
-        `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
-        ${tweet["favoUser"].length}
-        `;
-    tweetDocument += '</div>';
-    tweetDocument += '</div>';
+//     //ファボ
+//     if (tweet["favoUser"].indexOf(session["userID"]) == -1) {
+//         iconColor = "gray";
+//     } else {
+//         iconColor = "red";
+//     }
+//     tweetDocument +=
+//         `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
+//         ${tweet["favoUser"].length}
+//         `;
+//     tweetDocument += '</div>';
+//     tweetDocument += '</div>';
 
-    return tweetDocument;
-}
+//     return tweetDocument;
+// }
 
 
 /********************************ツイート削除用***********************************/
 
-
 $(function () {
-    $('.tweetDelete').click(function () {
-        let tweetID = $(this).parents().siblings("#tweetID").val();
-        console.log("testaaaa");
+    $('#tweetDelete').click(function () {  
+        console.log("test");
         $.ajax({
             type: 'POST',
             url: '/api/deleteTweet',
@@ -859,6 +833,20 @@ $(function () {
             alert('ファイルの取得に失敗しました。');
         });;
     });
+});
+
+/*******************モーダルオープン*********************/
+$(function(){
+    $('.centerContents').on("click", ".tweDel", function () {
+        var tweetID = $(this).parents().siblings("#tweetID").val();
+        console.log(tweetID);
+        $('.js-modal').fadeIn();
+            return false;
+        });
+        $('.js-modal-close').on('click',function(){
+            $('.js-modal').fadeOut();
+        return false;
+        });     
 });
 
 
@@ -893,5 +881,26 @@ function quoteReTweetCheck() {
         tweetButton.disabled = true;
     } else {
         tweetButton.disabled = false;
+    }
+}
+
+/*******************削除用モーダル******************** */
+
+function deleteWindow() {
+    const modalArea = document.getElementById('modal js-modal');
+    const closeModal = document.getElementById('js-modal-close');
+    const modalBg = document.getElementById('modal__bg js-modal-close');
+    const sendButton = document.getElementById('tweetDelete');
+    var toggle = [];
+    toggle.push(closeModal);
+    toggle.push(modalBg);
+    toggle.push(sendButton);
+    for (let i = 1; i < count; i++) {
+        toggle.push(document.getElementById('tweDel' + i));
+    }
+    for (let i = 0, len = toggle.length; i < len; i++) {
+        toggle[i].addEventListener('click', function () {
+            modalArea.classList.toggle('tweDel-show');
+        }, false);
     }
 }

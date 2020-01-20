@@ -29,8 +29,6 @@
 </head>
 <body>
 
- <button type="button" style="width:150px;height:50px;" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-
     @include('NaviMenu')
 
     <div id="alertContents"></div>
@@ -91,7 +89,7 @@
 
                       </label>
                       <div class="t-submit">
-                          <li><button type=button id ="newTweet" class="newTweet" disabled=true> tweet </button></li>
+                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
                       </div>
                     </ul>
               </div>
@@ -145,7 +143,7 @@
             <tr></tr>
             <input name='check' type='checkbox'/>
             <tr></tr>
-            <button type="button" class='tweetDelete' >削除</button>
+            <button type="button" id="tweetDelete" class='tweetDelete' >削除</button>
             <a class="js-modal-close" href="">閉じる</a>
         </div>
         <div class="contentReply">
