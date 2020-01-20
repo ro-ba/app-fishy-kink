@@ -747,7 +747,7 @@ function createTweetElement(tweet) {
             <li>
                 <a class="oi oi-menu" hreaf="#"></a>
                 <ul>
-                    <li><a class="js-modal-open remove" href="#">ツイート削除</a></li>
+                    <li><a class="js-modal-open remove" id="tweDel"` + count + `" href="#">ツイート削除</a></li>
                 </ul>
             </li>
         </ul>`;
@@ -822,20 +822,6 @@ function createTweetElement(tweet) {
     tweetDocument += '</div>';
     tweetDocument += '</div>';
 
-    tweetDocument += `<div class="modal js-modal">
-    <div class="modal__bg js-modal-close"></div>
-        <div class="modal__content">
-            <div>
-                <p>本当にいいですか？</p>
-                <tr></tr>
-                <input name='check' type='checkbox'/>
-                <tr></tr>
-                <button type="button" class='tweetDelete' >削除</button>
-                <a class="js-modal-close" href="">閉じる</a>
-            </div>
-        </div>
-    </div>`;
-
     return tweetDocument;
 }
 
@@ -844,21 +830,24 @@ function createTweetElement(tweet) {
 
 
 $(function () {
-    $('tweetDelete').click(function () {
+    $('.tweetDelete').click(function () {
         let tweetID = $(this).parents().siblings("#tweetID").val();
+        console.log("testaaaa");
         $.ajax({
             type: 'POST',
-            url: '/api/DeleteTweet',
-            dataType: text,
-
-            data: tweetID,
+            url: '/api/deleteTweet',
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: {
+                tweetID: tweetID
+            },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data: fd,
             cache: false
-        }).done(function () {
-            console.log(1);
+        }).done(function (result) {
+            console.log(result["message"]);
 
         }).fail(function (err) {
             // 通信失敗時の処理

@@ -145,53 +145,7 @@ textarea {
   opacity : 1;
 }
 
-
-/* モーダルCSSここから */
-.quoteReTweetArea {
-  visibility: hidden; /* displayではなくvisibility */
-  opacity : 0;
-  position: fixed;
-  z-index: 10; /* サイトによってここの数値は調整 */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: .4s;
-}
-
-.quoteReTweetBg {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(30,30,30,0.9);
-}
-
-.quoteReTweetWrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform:translate(-50%,-50%);
-  width: 70%;
-  max-width: 500px;
-  padding: 10px 30px;
-  background-color: #fff;
-}
-
-.closeQuoteReTweet {
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
-.quoteReTweet-show { /* モーダル表示用クラス */
-  visibility: visible;
-  opacity : 1;
-}
-
-
 /* モーダルCSSここまで */
-
-
 
 
 /* 以下ボタンスタイル */
@@ -201,6 +155,16 @@ button {
   border: 1px solid #282828;
   border-radius: 2px;
   cursor: pointer;
+}
+
+
+#newTweet {
+  padding: 10px 20px;
+  transition: .1s;
+}
+
+#newTweet:hover {
+  background-color: #eee;
 }
 
 #replySend {
@@ -282,7 +246,7 @@ button {
           <div id="wrap">
               <div class="myTweet">
                   <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
-                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="tweetCheck();" placeholder="いまどうしてる？"></textarea>
+                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
               </div>
               <div class="content">
                     <ul class="tw">
@@ -307,15 +271,15 @@ button {
     </div>
     <div id="tweetFileAlert"><div> 
   </div>
+  
 </section>
 
-<!-- リプライ -->
 <div id="replyContents">
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
     <div class="replyWrapper">
     <form id="reply-form">
-      <div id="parentTweet1"></div>
+      <div id="parentTweet"></div>
       @csrf
         <div class="myTweet">
           <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
@@ -342,39 +306,20 @@ button {
   </div>
   </section>
 
-<!-- 引用リツイート -->
-<div id="quoteReTweetContents">
-  <section id="quoteReTweetArea" class="quoteReTweetArea">
-    <div id="quoteReTweetBg" class="quoteReTweetBg"></div>
-    <div class="quoteReTweetWrapper">
-    <form id="quoteReTweet-form">
-      @csrf
-        <div class="myTweet">
-          <textarea id="quoteReTweetText" class="quoteReTweetText" cols="50" rows="7" maxlength="200" name="quoteReTweetText" onkeyup="quoteReTweetCheck();" placeholder="🖊コメントつけてリツイート"></textarea>
+  <div class="modal js-modal">
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+        <div>
+            <p>本当にいいですか？</p>
+            <tr></tr>
+            <input name='check' type='checkbox'/>
+            <tr></tr>
+            <button type="button" class='tweetDelete' >削除</button>
+            <a class="js-modal-close" href="">閉じる</a>
         </div>
-        <div class="contentReply">
-          <!-- <ul class="tw"> -->
-            <label>
-              <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
-              <input type="file" id="quoteReTweetFile" name="quoteReTweetImage[]" accept="image/*" onchange="loadImage(this , 'quoteReTweet');" multiple/>
-
-            </label>
-            <div id="parentTweet2"></div>
-            <li><button type=button id="quoteReTweetSend" disabled=true>送信</button></li>
-          <!-- </ul> -->
-        </div>
-        <div class="tweet-image">
-          <p class="preview-image"></p>
-        </div>
-    </form>
-      <div id="closeQuoteReTweet" class="closeQuoteReTweet">
-        × 
-      </div>
-        <div id="quoteReTweetFileAlert"></div>
-
-  </div>
-  </section>
-
+    </div>
+</div>
+  
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
@@ -391,8 +336,7 @@ $(function () { // 遅延処理
         cache: false
     }).done(function (results) {
         // 通信成功時の処理
-        result = results;
-        dispTweets(result);
+        dispTweets(results);
     }).fail(function (err) {
         // 通信失敗時の処理
         alert('ファイルの取得に失敗しました。');
