@@ -29,11 +29,13 @@
     display: inline;
   }
 </style>
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script> 
 
 <script type="text/javascript">
   let userID = "{{ $userData['userID'] }}";
   let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 </head>
@@ -51,13 +53,14 @@
         <ul class="user">
             <li class="user-name">{{ $userData["userName"] }}</li>
             @if(!$isShowSettings)
-                
+                <div class="for-follow" style="display:inline;">
                 @if($nowFollow == False)
                   <button type="button" class="Follow-button noFollow">フォローしていません</button>
                 @else
                   <button type="button" class="Follow-button nowFollow">フォロー中</button>
                 @endif
-
+                  <img class="mini-loader" src="{{ asset('images/tail-spin.svg')}}" width="32" height="32"/>
+                </div>
             @endif
             @if($isShowSettings)
               <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
@@ -98,7 +101,6 @@
     <button onclick="location.href='/'">戻る</button>
   @endisset
   </div>       
-
 </body>
 <script>
 // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
@@ -130,33 +132,37 @@ $(function () { // 遅延処理
 //ボタンを押したらフォローする　または　フォローを外す
 $(function(){
   $(".Follow-button").click(function () {
-    $.ajax({
-      type: 'POST',
-      url:  'api/follow',
-      dataType: 'json',
-      headers:  {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      data: {
-        userID: userID
-      },
-      cache:  false
-    }).done(function(results){
-      button = $(".Follow-button")
-      if(results["message"] == "follow"){
-        button.removeClass("noFollow");
-        button.addClass("nowFollow");
-        button.html("フォローを外す");
-      }else{
-        button.removeClass("nowFollow");
-        button.addClass("noFollow");
-        button.html("フォローする");
-      }
-    }).fail(function(err){
-      alert("失敗しました");
-    });
+    follow(userID);
   });
 });
+function follow(userID){
+  $.ajax({
+    type: 'POST',
+    url:  'api/follow',
+    dataType: 'json',
+    headers:  {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: {
+      userID: userID
+    },
+    cache:  false
+  }).done(function(results){
+    button = $(".Follow-button")
+    if(results["message"] == "follow"){
+      button.removeClass("noFollow");
+      button.addClass("nowFollow");
+      button.html("フォローを外す");
+    }else{
+      button.removeClass("nowFollow");
+      button.addClass("noFollow");
+      button.html("フォローする");
+    }
+  }).fail(function(err){
+    alert("失敗しました");
+  });
+}
+
 // マウスを重ねた時にclassとtextを変更する
 $(function(){
   $(".Follow-button").mouseover(function(){
