@@ -38,8 +38,10 @@ class DeleteTweetController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $tweetID = $requerst["tweetID"];
-        if (empty($db["tweetDB"] -> findOne(["_id" => $tweetID]))){
+        $tweetID = new \MongoDB\BSON\ObjectId($request["tweetID"]);
+        \Log::info($request);
+        \Log::info($db["tweetDB"] -> findOne(["_id" => $tweetID]));
+        if (!empty($db["tweetDB"] -> findOne(["_id" => $tweetID]))){
             $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set' => ["showFlg" => False]]);
             $return = "success";
         }else{
