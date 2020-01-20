@@ -20,11 +20,9 @@
   .accordion .inner {
     display: none;
   }
-
   .accordion p {
     cursor: pointer;
   }
-
   .accordion {
     display: inline;
   }
@@ -162,7 +160,6 @@ function follow(userID){
     alert("失敗しました");
   });
 }
-
 // マウスを重ねた時にclassとtextを変更する
 $(function(){
   $(".Follow-button").mouseover(function(){
@@ -173,7 +170,6 @@ $(function(){
     }
   });
 });
-
 // マウスを外した時にclassとtextを変更する
 $(function(){
   $(".Follow-button").mouseout(function(){
