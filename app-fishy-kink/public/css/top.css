@@ -25,13 +25,12 @@ button {
 }
 
 body {
-
     background-image: url("/images/top.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
     background-size: cover;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.3);
 }
 
 #wrap {
@@ -68,10 +67,11 @@ body {
     margin-right: 200px;
 }
 
+/* プライベートイニエスタ */
 .image-ini:hover {
-    opacity: 0.5;
+    /* opacity: 0.5;
     border-radius: 100%;
-    background-image: url("/images/ini.jpg"); 
+    background-image: url("/images/ini.jpg");  */
 }
 
 .image-peni {
