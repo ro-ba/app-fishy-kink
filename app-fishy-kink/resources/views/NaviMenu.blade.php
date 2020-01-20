@@ -11,6 +11,6 @@
         <span class="oi oi-magnifying-glass"></span> 検索 </button>
         </form>
         </div>
-        <button type="button" style="width:150px;height:50px;" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
+        <button type="button" style="width:150px;height:50px;" id="tweet" class="link_button btn page-link text-dark d-inline-block"onclick="resetTweet()">ツイート</button>
             <button type=" button" style="width:150px;height:50px;" class="link_button btn page-link text-dark d-inline-block" onclick="location.href='/logout'">ログアウト</button>
     </div>
