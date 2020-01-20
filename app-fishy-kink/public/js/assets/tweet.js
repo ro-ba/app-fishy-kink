@@ -30,8 +30,6 @@ function init() {
     replyWindow();
     commentRetweetWindow();
     tweetWindow();
-
-    // tweetCount = result.length;
     count = 1;
 };
 
@@ -63,7 +61,7 @@ function startTweetAlert() { // 遅延処理
 
                 // アラートの追加
                 document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                    '<a href="" class="alert-link">新しいツイート</a>' +
+                    '<a href="" class="alert-link">新しいツイートがあります　ここをクリックしてください</a>' +
                     '</div>';
             }
         }).fail(function (err) {
@@ -374,11 +372,20 @@ function commentRetweetWindow() {
     }
 }
 
+/******************************************************************* ツイートボタン押したら・・・ *******************************************************************/
+function resetTweet(){
+    $("#tweetText").val("");
+    $("#tweetFile").val("");
+    $("#tweet-image").html("");
+}
+
+
 /******************************************************************* リプライボタン押したら・・・ *******************************************************************/
 $(function () {
     $(".centerContents").on("click", ".reply", function () {            
         $("#replyText").val("");
         $("#replyFile").val("");
+        $("#reply-image").html("");
         var tweetid = $(this).parents().siblings("#tweetID").val();
         target = tweetid;
         replyButton = this;
@@ -403,7 +410,7 @@ $(function () {
                 img += `<img src=" ${selectTweet["img"][i]}"id="image" width="50" height="50" />`;
             }
 
-            document.getElementById('parentTweet1').innerHTML = '<div><input id="target1" name="target1" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
+            document.getElementById('reply-parent').innerHTML = '<div><input id="target1" name="target1" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
                 '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
                 '<div>' + selectTweet["text"] + '</div>' +
@@ -415,6 +422,9 @@ $(function () {
 /******************************************************************* 引用リツイートボタン押したら・・・ *******************************************************************/
 $(function () {
     $(".centerContents").on("click", ".quoteReTweet", function () {
+        $("#quoteReTweetText").val("");
+        $("#quoteReTweetFile").val("");
+        $("#quoteReTweet-image").html("");
         var tweetid = $(this).parents().siblings("#tweetID").val();
         target = tweetid;
         replyButton = this;
@@ -437,7 +447,6 @@ $(function () {
             for (var i = 0; i < parentImgCnt; i++) {
                 img += `<img src=" ${selectTweet["img"][i]}"id="image" width="50" height="50" />`;
             }
-            console.log(selectTweet);
             document.getElementById('parentTweet2').innerHTML = '<div><input id="target2" name="target2" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
                 '<div>' + selectTweet["userID"] + '</div>' +
                 '<div>' + selectTweet["time"] + '</div>' +
@@ -472,7 +481,7 @@ $(function () {
 
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
+                '<a href="" class="alert-link">新しいツイートがあります　ここをクリックしてください</a>' +
                 '</div>';
             return ["message"];
         }).fail(function (err) {
@@ -506,7 +515,7 @@ $(function () {
 
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
+                '<a href="" class="alert-link">新しいツイートがあります　ここをクリックしてください</a>' +
                 '</div>';
         });
     });
@@ -536,7 +545,7 @@ $(function () {
 
             // アラートの追加
             document.getElementById('alertContents').innerHTML = '<div id="alert" class="alert alert-info" role="alert">' +
-                '<a href="" class="alert-link">新しいツイート</a>' +
+                '<a href="" class="alert-link">新しいツイートがあります　ここをクリックしてください</a>' +
                 '</div>';
             }).fail(function (err) {
                 // 通信失敗時の処理
@@ -548,17 +557,41 @@ $(function () {
 /******************************************************************* ツイート時の画像表示 *******************************************************************/
 function loadImage(obj, type) {
 
-    FileCheck(type);
-
-    $(".preview-image").html('<p class="pre">PREVIEW</p>');
-    for (i = 0; i < 4; i++) {
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(obj.files[i].name);
-        fileReader.onload = (function (e) {
-            $(".preview-image").append('<img src="' + e.target.result + '">');
-        });
+    if(FileCheck(type)){
+        if(type == 'tweet'){
+            document.getElementById('tweet-image').innerHTML = '<p>PREVIEW</p>';
+	        for (i = 0; i < obj.files.length; i++) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function (e) {
+                    document.getElementById('tweet-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
+                });
+                fileReader.readAsDataURL(obj.files[i]);
+            }
+        }
+        else if(type == 'reply'){
+            document.getElementById('reply-image').innerHTML = '<p>PREVIEW</p>';
+	        for (i = 0; i < obj.files.length; i++) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function (e) {
+                    document.getElementById('reply-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
+                });
+                fileReader.readAsDataURL(obj.files[i]);
+            }
+        }
+        else{
+            document.getElementById('quoteReTweet-image').innerHTML = '<p>PREVIEW</p>';
+	        for (i = 0; i < obj.files.length; i++) {
+                var fileReader = new FileReader();
+                fileReader.onload = (function (e) {
+                    document.getElementById('quoteReTweet-image').innerHTML += '<img src="' + e.target.result + '" width="100" height="100 ">';
+                });
+                fileReader.readAsDataURL(obj.files[i]);
+            }
+        }
+        
     }
 
+    
 }
 
 /******************************************************************* nullでのツイート防止 *******************************************************************/
@@ -606,6 +639,7 @@ function FileCheck(type) {
                 '</div>';
             $("#tweetFile").val("");
             timerId = setTimeout(closeTweetFileAlert, 2000);
+            return false;
         }
 
     }
@@ -613,28 +647,44 @@ function FileCheck(type) {
         var fileList = document.getElementById("replyFile").files;
         if (fileList.length > 4) {
             document.getElementById('replyFileAlert').innerHTML = '<div id="replyAlert" class="alert alert-danger" role="alert">' +
-                '<a href="" class="replyFileAlert">画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</a>' +
+            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
                 '</div>';
             $("#replyFile").val("");
             timerId = setTimeout(closeReplyFileAlert, 2000);
+            return false;
         }
     }
     else{
-
+        var fileList = document.getElementById("quoteReTweetFile").files;
+        if (fileList.length > 4) {
+            document.getElementById('quoteReTweetFileAlert').innerHTML = '<div id="quoteReTweetAlert" class="alert alert-danger" role="alert">' +
+            '<p>画像ファイルは4枚まででお願いします。\n どうかご了承を・・・</p>' +
+                '</div>';
+            $("#quoteReTweetFile").val("");
+            timerId = setTimeout(closeQuoteReTweetFileAlert, 2000);
+            return false;
+        }
     }
+    return true;
 }
 
 /******************************************************************* タイマーをリセット（FileCheckを強制的に止めてアラートを消す） *******************************************************************/
-// タイマーの中止
+// タイマーの中止(ツイート)
 function closeTweetFileAlert() {
     clearTimeout(timerId);
     $("#tweetAlert").remove();
 }
 
-// タイマーの中止
+// タイマーの中止(リプ)
 function closeReplyFileAlert() {
     clearTimeout(timerId);
     $("#replyAlert").remove();
+}
+
+// タイマーの中止(引用リツイート)
+function closeQuoteReTweetFileAlert() {
+    clearTimeout(timerId);
+    $("#quoteReTweetFileAlert").remove();
 }
 
 
