@@ -57,6 +57,16 @@ Vagrant.configure("2") do |config|
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
   # end
+
+  config.vm.provider "virtualbox" do |vb|
+    # 割り当てるメモリー(MB)
+    vb.memory = 2048
+    # CPUの数
+    vb.cpus = 4
+    # I/O APICの有効化
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.

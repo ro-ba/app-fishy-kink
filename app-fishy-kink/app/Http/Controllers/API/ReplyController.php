@@ -30,15 +30,15 @@ class ReplyController extends Controller
         $db = connect_mongo();
         // \Log::info($request);
         $userID = session("userID"); 
-        $target = $request->input("target");
+        $target = $request->input("target1");
         $name = $db["userDB"] -> findOne(["userID" => $userID])["userName"];
         $replyImg = $request["replyImage"];
         $replyImage = [];
         if(isset($replyImg)){            // hasfile : 画像があるかないかを判断
             foreach($replyImg as $image){
-                //拡張子取得
+                 //拡張子取得
                 $ext = explode("/",$image->getMimeType())[1];
-                //画像fileを取得してバイナリにエンコード
+               //画像fileを取得してバイナリにエンコード
                 $encode_img = base64_encode(file_get_contents($image));
                 $replyImage[] = 'data:image/' . $ext . ';base64,' . $encode_img;
             }
@@ -54,9 +54,10 @@ class ReplyController extends Controller
             "retweetUser"   => [],
             "favoUser"      => [],
             "originTweetID" => $target,
-            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
+            "userImg"       => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"],
+            "showFlg"       => True
         ]); 
-        return [];  //何か返さないと怒られる
+        return [];   //何か返さないと怒られる
         
     }
 

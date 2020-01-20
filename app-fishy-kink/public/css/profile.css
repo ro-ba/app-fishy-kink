@@ -146,31 +146,42 @@ hr {
     transition: border 0.5s;
     border-radius: 5px;
     font-size: 13px;
+    color: dimgray;
 }
 .nowFollow{
     resize: none;
     width: 160px;
-    border: 2px solid #3cb371;
+    /* border: 2px solid #3cb371; */
     padding: 10px;
     transition: border 0.5s;
     border-radius: 5px;
     font-size: 13px;
+    background: mediumseagreen;
+    color:  snow;
 }
 .noFollow:hover{
     resize: none;
     width: 150px;
-    border: 2px solid #87cefa;
+    /* border: 2px solid #87cefa; */
+    border: none;
     padding: 10px;
     transition: border 0.5s;
     border-radius: 5px;
     font-size: 13px;
+    background: lightskyblue;
+    color:  snow;
 }
 .nowFollow:hover{
     resize: none;
     width: 150px;
-    border: 2px solid #ff7f50;
+    /* border: 2px solid #ff7f50; */
     padding: 10px;
     transition: border 0.5s;
     border-radius: 5px;
     font-size: 13px;
+    background: #cccccc;
+    color:  black;
+
 }
+
+
