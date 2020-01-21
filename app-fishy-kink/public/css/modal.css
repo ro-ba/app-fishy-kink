@@ -131,7 +131,7 @@ resize: none;
 
 /* 以下ボタンスタイル */
 button {
-    padding: 10px;
+    /* padding: 10px; */
     background-color: #fff;
     border: 1px solid #282828;
     border-radius: 2px;
@@ -146,4 +146,13 @@ button {
 
 #replySend:hover {
     background-color: #eee;
+}
+
+#quoteReTweetSend {
+    padding: 10px;
+    margin: 10px;
+}
+
+.contentReply li {
+    list-style: none;
 }

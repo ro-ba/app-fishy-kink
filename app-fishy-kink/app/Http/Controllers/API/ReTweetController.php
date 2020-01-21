@@ -40,7 +40,7 @@ class ReTweetController extends Controller
             $return = "error";
         }else{
             $reTweetlist = (array)$db["tweetDB"] ->findOne(["_id" => $originalTweetID])["retweetUser"];
-            $return = "";
+            \Log::info($reTweetlist);
             if (in_array($userID,$reTweetlist)){    //もし、すでにリツイートしていればリストから削除する
                 //削除
                 $reTweetlist = array_diff($reTweetlist,(array)$userID);
@@ -57,7 +57,6 @@ class ReTweetController extends Controller
             } else {
                 //追加
                 array_push($reTweetlist,$userID);
-
                 $db["tweetDB"] -> insertOne([
                     "type"          => "retweet",
                     "userID"        => session('userID'),

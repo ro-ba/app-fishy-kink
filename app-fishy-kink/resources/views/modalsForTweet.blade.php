@@ -1,4 +1,4 @@
-<!-- ツイート -->
+<!-- ツイート --> 
 <section id="tweetArea" class="tweetArea">
   <div id="tweetBg" class="tweetBg"></div>
   <div class="tweetWrapper">
@@ -99,15 +99,15 @@
 
 <!-- ツイート削除用モーダル -->
 <div class="modal js-modal">
-  <div class="modal__bg js-modal-close"></div>
-  <div class="modal__content">
-    <div>
-      <p>本当にいいですか？</p>
-      <tr></tr>
-      <input name='check' type='checkbox'/>
-      <tr></tr>
-      <button type="button" class='tweetDelete' >削除</button>
-      <a class="js-modal-close" href="">閉じる</a>
+    <div class="modal__bg js-modal-close"></div>
+    <div class="modal__content">
+      <div>
+        <p>本当にいいですか？</p>
+        <tr></tr>
+        <input name='check' type='checkbox'/>
+        <tr></tr>
+        <button type="button" class='tweetDelete' >削除</button>
+        <a class="js-modal-close" href="">閉じる</a>
+      </div>
     </div>
-  </div>
 </div>

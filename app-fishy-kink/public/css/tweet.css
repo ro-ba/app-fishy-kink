@@ -76,6 +76,10 @@ label {
     display: none;
   }
 
+  #quoteReTweetFile {
+      display: none;
+  }
+
 .filelabel {
     margin-left: 250px;
     opacity: 0.7;
@@ -155,4 +159,20 @@ li.menu__single:hover ul.menu__second-level {
     top: 50px;
     visibility: visible;
     opacity: 1;
+}
+
+.accordion .inner {
+  display: none;
+}
+
+.accordion p {
+  cursor: pointer;
+}
+
+.accordion {
+  display: inline;
+}
+
+.inner button {
+    padding: 10px;
 }
