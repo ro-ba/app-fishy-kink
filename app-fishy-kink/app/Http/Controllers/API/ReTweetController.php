@@ -79,7 +79,7 @@ class ReTweetController extends Controller
             //更新
             $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set'=>["retweetUser" => $reTweetlist]]);
         }
-        return ["message" => $return];
+        return ["message" => $return, "count" => count($reTweetlist)];
     }
 
     /**

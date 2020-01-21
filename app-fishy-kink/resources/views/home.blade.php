@@ -29,8 +29,6 @@
 </head>
 <body>
 
- <button type="button" style="width:150px;height:50px;" id="tweet" class="link_button btn page-link text-dark d-inline-block">ツイート</button>
-
     @include('NaviMenu')
 
     <div id="alertContents"></div>
@@ -81,7 +79,7 @@
           <div id="wrap">
               <div class="myTweet">
                   <img class="myIcon" src="{{ Session::get('userIcon') }}" alt="myIcon" />
-                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="textCheck();" placeholder="いまどうしてる？"></textarea>
+                  <textarea id="tweetText" class="tweetText" cols="50" rows="7" maxlength="200" name="tweetText" onkeyup="tweetCheck();" placeholder="いまどうしてる？"></textarea>
               </div>
               <div class="content">
                     <ul class="tw">
@@ -91,7 +89,7 @@
 
                       </label>
                       <div class="t-submit">
-                          <li><button type=button id ="newTweet" class="newTweet" disabled=true> tweet </button></li>
+                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
                       </div>
                     </ul>
               </div>
@@ -104,9 +102,9 @@
     </div>
     <div id="tweetFileAlert"><div> 
   </div>
-  
 </section>
 
+<!-- リプライ -->
 <div id="replyContents">
   <section id="replyArea" class="replyArea">
     <div id="replyBg" class="replyBg"></div>
@@ -136,17 +134,17 @@
         <div id="replyFileAlert"></div>
   </div>
   </section>
+</div>
 
-  <div class="modal js-modal">
-    <div class="modal__bg js-modal-close"></div>
-    <div class="modal__content">
-        <div>
-            <p>本当にいいですか？</p>
-            <tr></tr>
-            <input name='check' type='checkbox'/>
-            <tr></tr>
-            <button type="button" class='tweetDelete' >削除</button>
-            <a class="js-modal-close" href="">閉じる</a>
+<!-- 引用リツイート -->
+<div id="quoteReTweetContents">
+  <section id="quoteReTweetArea" class="quoteReTweetArea">
+    <div id="quoteReTweetBg" class="quoteReTweetBg"></div>
+    <div class="quoteReTweetWrapper">
+    <form id="quoteReTweet-form">
+      @csrf
+        <div class="myTweet">
+          <textarea id="quoteReTweetText" class="quoteReTweetText" cols="50" rows="7" maxlength="200" name="quoteReTweetText" onkeyup="quoteReTweetCheck();" placeholder="🖊コメントつけてリツイート"></textarea>
         </div>
         <div class="contentReply">
           <!-- <ul class="tw"> -->
@@ -165,9 +163,24 @@
         × 
       </div>
         <div id="quoteReTweetFileAlert"></div>
-
   </div>
   </section>
+</div>
+
+<!-- ツイート削除用モーダル -->
+<div class="modal js-modal">
+    <div class="modal__bg js-modal-close"></div>
+        <div class="modal__content">
+            <div>
+                <p>本当にいいですか？</p>
+                <tr></tr>
+                <input name='check' type='checkbox'/>
+                <tr></tr>
+                <button type="button" class='tweetDelete' >削除</button>
+                <a class="js-modal-close" href="">閉じる</a>
+            </div>
+        </div>
+    </div>
 
 <script>
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/

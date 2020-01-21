@@ -125,59 +125,13 @@ $(function () { // 遅延処理
 });
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/follow.js') }}"></script>
 
 <script>
 //ボタンを押したらフォローする　または　フォローを外す
 $(function(){
   $(".Follow-button").click(function () {
-    follow(userID);
-  });
-});
-function follow(userID){
-  $.ajax({
-    type: 'POST',
-    url:  'api/follow',
-    dataType: 'json',
-    headers:  {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    data: {
-      userID: userID
-    },
-    cache:  false
-  }).done(function(results){
-    button = $(".Follow-button")
-    if(results["message"] == "follow"){
-      button.removeClass("noFollow");
-      button.addClass("nowFollow");
-      button.html("フォローを外す");
-    }else{
-      button.removeClass("nowFollow");
-      button.addClass("noFollow");
-      button.html("フォローする");
-    }
-  }).fail(function(err){
-    alert("失敗しました");
-  });
-}
-// マウスを重ねた時にclassとtextを変更する
-$(function(){
-  $(".Follow-button").mouseover(function(){
-    if($(this).hasClass("noFollow")){
-      $(this).html("フォローする");
-    }else{
-      $(this).html("フォローを外す");
-    }
-  });
-});
-// マウスを外した時にclassとtextを変更する
-$(function(){
-  $(".Follow-button").mouseout(function(){
-    if($(this).hasClass("noFollow")){
-      $(this).html("フォローしていません");
-    }else{
-      $(this).html("フォロー中");
-    }
+    follow(userID,$(this));
   });
 });
 </script>

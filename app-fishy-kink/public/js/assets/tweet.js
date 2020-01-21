@@ -98,6 +98,14 @@ $(function () {
             } else {
                 alert("お気に入りに追加できませんでした");
             }
+            //数字のカウントアップ/ダウン
+            $({count: Number($(push_button).siblings(".favorite-count").text())}).animate({count: Number(results["count"])}, {
+                duration: 1000,
+                easing: 'linear',
+                progress: function() { 
+                    $(push_button).siblings(".favorite-count").text(Math.ceil(this.count)); 
+                }
+            });
         });
     });
 });
@@ -131,6 +139,14 @@ $(function () {
             } else {
                 alert("リツイートできませんでした。");
             }
+            //数字のカウントアップ/ダウン
+            $({count: Number($(push_button).parent().siblings(".retweet-count").text())}).animate({count: Number(results["count"])}, {
+                duration: 1000,
+                easing: 'linear',
+                progress: function() { 
+                    $(push_button).parent().siblings(".retweet-count").text(Math.ceil(this.count)); 
+                }
+            });
         });
     });
 });
@@ -310,7 +326,7 @@ $(function () { // 遅延処理
 $(function () {
     $(".centerContents").on("click", ".reTweet", function () {
         //クリックされた.accordion2の中のp要素に隣接する.accordion2の中の.innerを開いたり閉じたりする。
-        $(this).next('.inner').slideToggle();
+        $(this).nextAll('.inner').slideToggle();
     });
 });
 
@@ -362,10 +378,12 @@ function commentRetweetWindow() {
     toggle.push(closeModal);
     toggle.push(modalBg);
     toggle.push(sendButton);
+    console.log(modalBg);
     for (let i = 1; i < count; i++) {
         toggle.push(document.getElementById('quoteReTweet' + i));
     }
     for (let i = 0, len = toggle.length; i < len; i++) {
+        console.log(toggle[i]);
         toggle[i].addEventListener('click', function () {
             modalArea.classList.toggle('quoteReTweet-show');
         }, false);
@@ -760,15 +778,17 @@ function createTweetElement(tweet) {
 
     tweetDocument += `
         <div class="tweetTop-left" style="display:inline-block; vertical-align:middle;">
-        <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
-        <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
-        <div class="tweet-user">
-            <a href=/profile?user=${tweet["userID"]}>
-            ${tweet["userName"]}@${tweet["userID"]}
-            </a>
-        <div class="time">
-            ${tweet["time"]}
+            <img src="${userIcon}" onclick="location.href='/profile?user=${tweet["userID"]}'"  width="50px" height="50px"/>
         </div>
+        <div class="tweetTop-right" style="display:inline-block; vertical-align:middle; position:relative; left:10%;">
+            <div class="tweet-user">
+                <a href=/profile?user=${tweet["userID"]}>
+                ${tweet["userName"]}@${tweet["userID"]}
+                </a>
+                <div class="time">
+                    ${tweet["time"]}
+                </div>
+            </div>
         </div>
     </div>
     <div class="tweetMain card-body">${tweet["text"]}</div>
@@ -803,7 +823,7 @@ function createTweetElement(tweet) {
     tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
-        ${tweet["retweetUser"].length}
+        <div class="retweet-count" style="display:inline;">${tweet["retweetUser"].length}</div>
 
         
 
@@ -822,7 +842,7 @@ function createTweetElement(tweet) {
     }
     tweetDocument +=
         `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
-        ${tweet["favoUser"].length}
+        <div class="favorite-count" style="display:inline;">${tweet["favoUser"].length}</div>
         `;
     tweetDocument += '</div>';
     tweetDocument += '</div>';
