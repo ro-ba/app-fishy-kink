@@ -49,7 +49,7 @@ function createUserElement(user)
                 console.log(user["userID"]);
 
                 for(let i=0;i<follow.length;i++){
-                    if(follow[i] == user["userID"]){ 
+                    if(follow[i] == user["userID"]){  //この条件式がおかしい　user["follow"]に自分自身がいるかどうか
                         console.log("55555555555555555555555555");   
                         userDocument += `<button type="button" class="Follow-button noFollow">フォローしていません</button>`;
                     }

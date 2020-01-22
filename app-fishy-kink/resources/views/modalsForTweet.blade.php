@@ -40,11 +40,12 @@
     <div id="replyBg" class="replyBg"></div>
     <div class="replyWrapper">
     <form id="reply-form">
-      <div id="reply-parent"></div>
       @csrf
         <div class="myTweet">
           <textarea id="replyText" class="replyText" cols="50" rows="7" maxlength="200" name="replyText" onkeyup="replyCheck();" placeholder="りぷらい"></textarea>
         </div>
+
+        <div id="reply-parent"></div>
 
         <div class="contentReply">
           <ul class="tw">
@@ -76,8 +77,11 @@
         <div class="myTweet">
           <textarea id="quoteReTweetText" class="quoteReTweetText" cols="50" rows="7" maxlength="200" name="quoteReTweetText" onkeyup="quoteReTweetCheck();" placeholder="🖊コメントつけてリツイート"></textarea>
         </div>
+
+        <div id="parentTweet2"></div>
+
         <div class="contentReply">
-          <!-- <ul class="tw"> -->
+          <ul class="tw">
             <label>
               <li><img src="/images/imgicon.jpg" width="60" height="60" alt="ファイル選択"></li>
               <input type="file" id="quoteReTweetFile" name="quoteReTweetImage[]" accept="image/*" onchange="loadImage(this , 'quoteReTweet');" multiple/>

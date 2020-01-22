@@ -28,6 +28,8 @@ textarea:focus  {
     border: 2px solid rgb(165, 160, 160);
 }
 
+
+
 .tweetText {
     width: 90%;
 }
@@ -44,7 +46,7 @@ input[type="file"] {
 }
 
 .myTweet {
-    margin: 0 0 30px 0;
+    margin: 0 0 10px 0;
 }
 
 .myIcon {
@@ -103,7 +105,7 @@ label {
 .contentReply {
     width: 90%;
     height: auto;
-    margin: 40px auto 0 auto;
+    margin: 20px auto 0 auto;
 }
 
 .tw {
@@ -122,6 +124,10 @@ label {
 }
 
 .contentReply #replySend {
+    margin: 7px 10px 0 10px;
+}
+
+#quoteReTweetSend {
     margin: 7px 10px 0 10px;
 }
 

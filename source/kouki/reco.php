@@ -1,10 +1,9 @@
 <?php
-function reco(){
+function reco($db){
     $userID = [];
     $user_data = [];
     $user_list = [];
     $data = [];
-    $db = connect_mongo();
     $userid = $db ["userDB"] -> distinct("userID");
     $user = $db ["userDB"] -> find();
 
