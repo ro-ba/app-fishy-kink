@@ -388,18 +388,28 @@ function tweetWindow()
 /******************************************************************* リプライ用のウインドウ *******************************************************************/
 function replyWindow()
 {
+
     const modalArea = document.getElementById('replyArea');
     const closeModal = document.getElementById('closeReply');
     const modalBg = document.getElementById('replyBg');
     const sendButton = document.getElementById('replySend');
     var toggle = [];
-    console.log(closeModal);
-    console.log(modalBg);
-    console.log(sendButton);
+    toggle.push(closeModal);
+    toggle.push(modalBg);
+    toggle.push(sendButton);
+    // console.log(modalBg);
+    // console.log(closeModal);
+    // console.log(modalBg);
+    // console.log(sendButton);
     for (let i = 1; i < count; i++)
     {
-        toggle.push(document.getElementById('reply' + i));
+        if(document.getElementById('reply' + i) != null){
+            toggle.push(document.getElementById('reply' + i));
+        }
     }
+
+console.log(toggle);
+
     for (let i = 0, len = toggle.length; i < len; i++)
     {
         toggle[i].addEventListener('click', function ()
@@ -423,11 +433,12 @@ function commentRetweetWindow()
     console.log(modalBg);
     for (let i = 1; i < count; i++)
     {
-        toggle.push(document.getElementById('quoteReTweet' + i));
+        if(document.getElementById('quoteReTweet' + i) != null){
+            toggle.push(document.getElementById('quoteReTweet' + i));
+        }
     }
     for (let i = 0, len = toggle.length; i < len; i++)
     {
-        console.log(toggle[i]);
         toggle[i].addEventListener('click', function ()
         {
             modalArea.classList.toggle('quoteReTweet-show');
@@ -869,8 +880,11 @@ function createTweetElement(tweet) {
     </div>
     <div class="tweetBottom d-inline">`;
 
+    if (!tweet["showFlg"] == false) {
+        tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+    }
     //リプライ
-    tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
+    // tweetDocument += '<button class="reply" id=reply' + count + ' type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-action-undo" style="color:blue;"></span> </button>';
 
     //リツイート
     iconColor = "";
