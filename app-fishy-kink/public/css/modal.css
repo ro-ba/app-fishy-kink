@@ -3,6 +3,17 @@ width: 90%;
 resize: none;
 }
 
+ul li {
+    margin: 0;
+    padding: 0;
+} 
+
+#image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
 .tweetArea {
     visibility: hidden; /* displayではなくvisibility */
     opacity : 0;
@@ -86,6 +97,52 @@ resize: none;
     opacity : 1;
 }
 
+.reply {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.reply .reply-content {
+    padding: 4px;
+}
+
+.reply-info {
+    padding-left: 4px;
+    border-bottom: 1px solid #ccc;
+}
+
+.reply-usericon {
+    margin: 0 10px 2px 0;
+}
+
+.reply-userid {
+    margin: 0 20px 0 0;
+    font-size: 30px;
+}
+
+.reply-time {
+    margin: 12px 0 0 0;
+}
+
+.reply-text {
+    font-size: 20px;
+    padding: 0 0 4px 10px;
+    margin: 0 0 10px 0;
+}
+
+#tweetImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+#userImg {
+    object-fit: cover;
+}
 
 /* 引用リツイート */
 .quoteReTweetArea {
@@ -127,6 +184,41 @@ resize: none;
 .quoteReTweet-show { /* モーダル表示用クラス */
     visibility: visible;
     opacity : 1;
+}
+
+.retweet {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.retweet .retweet-content {
+    padding: 4px;
+}
+
+.retweet-info {
+    padding-left: 4px;
+    border-bottom: 1px solid #ccc;
+}
+
+.retweet-usericon {
+    margin: 0 10px 2px 0;
+}
+
+.retweet-userid {
+    margin: 0 20px 0 0;
+    font-size: 30px;
+}
+
+.retweet-time {
+    margin: 12px 0 0 0;
+}
+
+.retweet-text {
+    font-size: 20px;
+    padding: 0 0 4px 10px;
 }
 
 /* 以下ボタンスタイル */

@@ -472,18 +472,28 @@ $(function ()
         {
 
             var selectTweet = results["tweet"]
+            console.log(selectTweet);
             parentImgCnt = selectTweet["img"].length;
             img = "";
             for (var i = 0; i < parentImgCnt; i++)
             {
-                img += `<img src=" ${selectTweet["img"][i]}"id="image" width="50" height="50" />`;
+                img += `<img src=" ${selectTweet["img"][i]}"id="tweetImage" width="50" height="50" />`;
             }
-
+            userImg = `<img src=" ${selectTweet["userImg"]}" class="userImg" width="50" height="50" />`;
             document.getElementById('reply-parent').innerHTML = '<div><input id="target1" name="target1" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
-                '<div>' + selectTweet["userID"] + '</div>' +
-                '<div>' + selectTweet["time"] + '</div>' +
-                '<div>' + selectTweet["text"] + '</div>' +
-                img;
+                '<div class="reply">' +
+                  '<div class="reply-content">' +
+                    
+                    '<ul class="reply-info">' +
+                        '<li><div class="reply-usericon">' + userImg + '</div></li>' +
+                        '<li><div class="reply-userid">' + selectTweet["userID"] + '</div></li>' +
+                        '<li><div class="reply-time">'   + selectTweet["time"]   + '</div></li>' +
+                    '</ul>' +
+                    
+                    '<div class="reply-text">'   + selectTweet["text"]   + '</div>' +
+                    img;
+                  '</div>'
+                '</div>'
         });
     });
 });
@@ -518,13 +528,23 @@ $(function ()
             img = "";
             for (var i = 0; i < parentImgCnt; i++)
             {
-                img += `<img src=" ${selectTweet["img"][i]}"id="image" width="50" height="50" />`;
+                img += `<img src=" ${selectTweet["img"][i]}"id="tweetImage" width="50" height="50" />`;
             }
+            userImg = `<img src=" ${selectTweet["userImg"]}" class="userImg" width="50" height="50" />`;
             document.getElementById('parentTweet2').innerHTML = '<div><input id="target2" name="target2" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
-                '<div>' + selectTweet["userID"] + '</div>' +
-                '<div>' + selectTweet["time"] + '</div>' +
-                '<div>' + selectTweet["text"] + '</div>' +
-                img;
+                '<div class="retweet">' +
+                  '<div class="retweet-content">' +
+                    
+                    '<ul class="retweet-info">' +
+                      '<li><div class="retweet-usericon">' + userImg + '</div></li>' +
+                      '<li><div class="retweet-userid">' + selectTweet["userID"] + '</div></li>' +
+                      '<li><div class="retweet-time">' + selectTweet["time"] + '</div></li>' +
+                    '</ul>' +
+                    
+                    '<div class="retweet-text">' + selectTweet["text"] + '</div>' +
+                    img;
+                  '</div>'
+                '</div>'
         });
     });
 });
