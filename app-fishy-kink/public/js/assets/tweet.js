@@ -482,7 +482,7 @@ $(function ()
             }
             userImg = `<img src=" ${selectTweet["userImg"]}" class="userImg" width="50" height="50" />`;
             document.getElementById('reply-parent').innerHTML = '<div><input id="target1" name="target1" type="hidden" value=' + selectTweet["_id"]["$oid"] + ' /><div>' +
-                '<div class="reply">' +
+                '<div class="reply-main">' +
                   '<div class="reply-content">' +
                     
                     '<ul class="reply-info">' +
