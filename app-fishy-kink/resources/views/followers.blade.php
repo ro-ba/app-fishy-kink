@@ -30,6 +30,7 @@
         <label class="tab_item2" for="follower">フォロワー</label>
 
         <div class="tab_content" id="followerS_content">
+        @isset($users)
             @foreach( $users as $user)
                 <ul class ="list_none">
                     <li>
@@ -49,6 +50,7 @@
                     </li>
                 </ul>
             @endforeach
+        @endisset    
         </div>
     <div>
     @isset($_GET['user'])
