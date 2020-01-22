@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +67,5 @@ $(function () { // 遅延処理
 });
 </script>
 <script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
-
-
 
 
