@@ -15,10 +15,9 @@ function dispUsers(results, searchType = "")
     results.forEach(function (user)
     {
         $(doc).append(createUserElement(user));    
-        if(user["userID"] == 'hera3'){
-            follow.push(user["follow"]);
-        }
-    });
+
+    });        
+    
     $('.loader').fadeOut();
 }
 
@@ -28,12 +27,12 @@ function createUserElement(user)
 
     let userDocument = "";
     let userID = user["userID"];
+    
+    if(user["userID"] == 'hera3'){
+            follow.push(user["follow"]);
+        }
 
-    console.log(user);
-
-
-    console.log("フォロー" +user["follow"]);
-
+        
     userDocument += `
         <ul class ="list_none">
             <li>
@@ -46,10 +45,21 @@ function createUserElement(user)
                 <button class="word_btn" type="button" onclick="location.href='/profile?user=${user['userID']}'">
                     <span>@</span>${user['userID']}
                 </button>`;
-                
+                console.log(follow);
+                console.log(user["userID"]);
 
+                for(let i=0;i<follow.length;i++){
+                    if(follow[i] == user["userID"]){ 
+                        console.log("55555555555555555555555555");   
+                        userDocument += `<button type="button" class="Follow-button noFollow">フォローしていません</button>`;
+                    }
+                    else{
+                        console.log("00000000000000000000000");   
+                        userDocument += `<button type="button" class="Follow-button nowFollow">フォロー中</button>`;
+                    }
+                }
 
-                `<button type="button" class="Follow-button noFollow">フォローしていません</button>
+                userDocument += `
 
                 <div class="profilePro">
                     ${user['profile']}

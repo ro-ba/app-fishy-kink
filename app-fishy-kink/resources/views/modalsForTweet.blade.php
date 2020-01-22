@@ -19,7 +19,7 @@
 
                       </label>
                       <div class="t-submit">
-                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
+                          <li><button type=button id = newTweet class="newTweet link_button btn page-link text-dark d-inline-block" disabled=true> tweet </button></li>
                       </div>
                     </ul>
               </div>
@@ -53,7 +53,7 @@
               <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
 
             </label>
-            <li><button type=button id="replySend" disabled=true>送信</button></li>
+            <li><button type=button id="replySend" class="link_button btn page-link text-dark d-inline-block" disabled=true>送信</button></li>
           </ul>
         </div>
         <div id="reply-image"></div>
@@ -84,7 +84,7 @@
 
             </label>
             <div id="parentTweet2"></div>
-            <li><button type=button id="quoteReTweetSend" disabled=true>送信</button></li>
+            <li><button type=button id="quoteReTweetSend" class="link_button btn page-link text-dark d-inline-block" disabled=true>送信</button></li>
           <!-- </ul> -->
         </div>
         <div id="quoteReTweet-image"></div>
