@@ -1,3 +1,5 @@
+var follow = [];
+
 function dispUsers(results, searchType = "")
 {
     if (searchType)
@@ -9,10 +11,13 @@ function dispUsers(results, searchType = "")
     }
     $(doc).empty();
     $('.loader').fadeIn();
-    console.log(results);
+    // console.log(results);
     results.forEach(function (user)
     {
-        $(doc).append(createUserElement(user));
+        $(doc).append(createUserElement(user));    
+        if(user["userID"] == 'hera3'){
+            follow.push(user["follow"]);
+        }
     });
     $('.loader').fadeOut();
 }
@@ -26,21 +31,29 @@ function createUserElement(user)
 
     console.log(user);
 
+
+    console.log("フォロー" +user["follow"]);
+
     userDocument += `
         <ul class ="list_none">
             <li>
-                <a onclick="location.href='/profile?user=${user['userID']}'">
+                <input id="userID" type="hidden" value="${user['userID']}" />
+                <a class='userID' onclick="location.href='/profile?user=${user['userID']}'">
                     <img src='${user["userImg"]}'/>
                 </a>
+
                 ${user["userName"]}    
                 <button class="word_btn" type="button" onclick="location.href='/profile?user=${user['userID']}'">
                     <span>@</span>${user['userID']}
-                </button>
+                </button>`;
+                
+
+
+                `<button type="button" class="Follow-button noFollow">フォローしていません</button>
 
                 <div class="profilePro">
                     ${user['profile']}
                 </div>
-                
                 
             </li>
         </ul>
@@ -49,11 +62,18 @@ function createUserElement(user)
     // userDocument = `
     // `;
 
-
     return userDocument;
 
 
 }
+//ボタンを押したらフォローする　または　フォローを外す
+$(function(){
+  $(".Follow-button").click(function () {
+      var userID = $(this).siblings("#userID").val();
+      console.log(userID);
+      follow(userID,$(this));
+  });
+});
 
 
 /******************************************************************* フォローしているかどうか *******************************************************************/

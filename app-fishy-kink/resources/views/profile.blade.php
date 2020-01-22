@@ -79,13 +79,6 @@
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
     </div>
-    <!-- <hr /> -->
-    <!-- <div class="loader"></div>
-    <div class="row tweets">
-      <div id="leftContents" class="col-sm-3"></div>
-      <div id="centerContents" class="col-sm-6"></div>
-      <div id="rightContents" class="col-sm-3"></div>
-    </div>        -->
   
     <div class="loader">Loading...</div>
     <div class="row tweets">
@@ -98,6 +91,8 @@
     <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
+
+  @include('modalsForTweet')
   </div>       
 </body>
 <script>

@@ -8,6 +8,7 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/Follow.css">
+
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
    
