@@ -45,10 +45,10 @@ function search($db,$search){
         $find_user = [];
 
     }
-    $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1]);//ツイート検索
+    $tweet_result = $db ["tweetDB"] -> find(['$or' => $find_tweet1],['sort' => ['time' => -1]]);//ツイート検索
     $user_result = $db ["userDB"] -> find(['$or' => $find_user1], ["projection" => ["_id" => 0, "password" => 0 , "salt" => 0]]);
-    $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1]);
-    
+    $img_result = $db ["tweetDB"] -> find(['$or' =>$find_img1],['sort' => ['time' => -1]]);
+
     $result = [
         "tweet_result"=> $tweet_result->toArray(),
         "user_result" => $user_result->toArray(),

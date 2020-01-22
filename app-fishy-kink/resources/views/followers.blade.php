@@ -7,11 +7,20 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/Follow.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="css/user.css">
+<link rel="stylesheet" href="css/follow-button.css">
+<link rel="stylesheet" href="css/following-follower.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="shortcut icon" href="images/FKicon.png">
-
-<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+  let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
+  let mini_loader = "{{ asset('images/tail-spin.svg')}}"
+</script>
 </head>
 
 <body>
@@ -29,39 +38,21 @@
         <input id="follower" onclick="location.href='/followers?user={{$target}}'"  type="button" name="tab_item" class="checked">
         <label class="tab_item2" for="follower">フォロワー</label>
 
-        <div class="tab_content" id="followerS_content">
-        @isset($users)
-            @foreach( $users as $user)
-                <ul class ="list_none">
-                    <li>
-                        <a onclick="location.href='/profile?user={{ $user['userID'] }}'">
-                            <img src='{{ $user["userImg"] }}'/>
-                        </a>
-                        {{$user["userName"]}}    
-                        <button class="word_btn" type="button" onclick="location.href='/profile?user={{ $user['userID'] }}'">
-                            <span>@</span>{{ $user['userID'] }}
-                        </button>
-
-                        <div class="profilePro">
-                            {{ $user['profile'] }}
-                        </div>
-                        
-                        
-                    </li>
-                </ul>
-            @endforeach
-        @endisset    
+        <div class="tab_content centerContents" id="followerS_content">
+            <div class="follower-list"></div>
         </div>
     <div>
     @isset($_GET['user'])
-        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
+        <button  class="return-button border btn" type="button" onclick="location.href='/profile?user={{$_GET['user']}}'">戻る</button>
     @else
-        <button  class="btn-square" type="button" onclick="location.href='/profile?user={{session('userID')}}'">戻る</button>
+        <button  class="return-button border btn" type="button" onclick="location.href='/profile?user={{session('userID')}}'">戻る</button>
     @endisset
     </div>
     
 </body>
+<script type="text/javascript" src="{{ asset('js/assets/user.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/follow.js') }}"></script>
 <script>
-
+    dispUsers( @json($users) ,"follower-list");
 </script>
 </html>

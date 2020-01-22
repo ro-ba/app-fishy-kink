@@ -23,6 +23,7 @@ class SearchController extends Controller
         }else{
             $db = connect_mongo();
             $results = search($db,$search);
+            \Log::info($results["tweet_result"]);
             foreach($results as $key => $value){
                 if ($key != "user_result" ){
                     insert_origin_tweet($db,$value);

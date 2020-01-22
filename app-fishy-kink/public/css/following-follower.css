@@ -68,75 +68,7 @@
   color: #fff;
 }
 
-/* リストのアイコン削除 */
-.list_none{
-    list-style:  none; 
-    /* display: inline-block; */
-    /* border-bottom: 1px solid black; */  
-    /* display: inline-block;  */
-    /* border-bottom: 1px solid black;*/
-}
-
-/* ユーザID */
-.word_btn {
-	/* display: block; */
-	position: relative;
-	text-align: center;
-	text-decoration: none;
-  color: #347ff0;
-  background: none;
-  border: 0;
-}
-
-/* ユーザID */
-.btn {
-	/* display: block; */
-  position: relative; 
-  left : 80px;
-  bottom  : 45px;
-	text-align: center;
-	text-decoration: none;
-  color: #347ff0;
-  background: none;
-  border: 0;
-}
-
-/* ユーザ画像円形 */
-img {
-  border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
-  width:  30px;       /* ※縦横を同値に */
-  height: 30px;       /* ※縦横を同値に */
-  margin-right: 5px;
-}
-
-
-.btn-square {
-  display: inline-block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  background: #3cb98f;/*ボタン色*/
-  color: #FFF;
-  border-bottom: solid 4px #627295;
-  border-radius: 3px;
-}
-.btn-square:active {
-  /*ボタンを押したとき*/
-  -webkit-transform: translateY(4px);
-  transform: translateY(4px);/*下に動く*/
-  border-bottom: none;/*線を消す*/
-}
-
-
-
-.uName{
-  position: relative ; 
-  left : 40px;
-  bottom  : 22px;
-}
-
-.profile{
-  position: relative ; 
-  left : 43px;
-  bottom  : 42px;
+.return-button {
+  margin:10px;
 }
 

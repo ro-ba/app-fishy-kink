@@ -1,32 +1,27 @@
 /*タブ切り替えの中身のスタイル*/
 
 .tab_content {
-    /* display: none; */
-    padding-top: 10px;
-    clear: both;
-    overflow: hidden;
-  }
+  /* display: none; */
+  padding-top: 10px;
+  clear: both;
+  overflow: hidden;
+}
 
-  .tab_content {
-    /* display: none; */
-    padding-top: 10px;
-    clear: both;
-    overflow: hidden;
-  }
+.tab_content {
+  /* display: none; */
+  padding-top: 10px;
+  clear: both;
+  overflow: hidden;
+}
 
-  /* プロフィール */
-  .profilePro {
-    padding-left:45px;
-    
-  }
+/* プロフィール */
+.profilePro {
+  padding-left:45px;
+}
 
   /* リストのアイコン削除 */
 .list_none{
-    list-style:  none; 
-    /* display: inline-block; */
-    /* border-bottom: 1px solid black; */  
-    /* display: inline-block;  */
-    /* border-bottom: 1px solid black;*/
+  list-style:  none; 
 }
 
 /* ユーザID */
@@ -43,29 +38,11 @@
 /* ユーザ画像円形 */
 img.userIcon {
   border-radius: 50%;  /* 角丸半径を50%にする(=円形にする) */
-  width:  30px;       /* ※縦横を同値に */
-  height: 30px;       /* ※縦横を同値に */
+  width:  80px;       /* ※縦横を同値に */
+  height: 80px;       /* ※縦横を同値に */
   margin-right: 5px;
+  margin-bottom: 5px;
 }
-
-
-.btn-square {
-  display: inline-block;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  background: #3cb98f;/*ボタン色*/
-  color: #FFF;
-  border-bottom: solid 4px #627295;
-  border-radius: 3px;
-}
-.btn-square:active {
-  /*ボタンを押したとき*/
-  -webkit-transform: translateY(4px);
-  transform: translateY(4px);/*下に動く*/
-  border-bottom: none;/*線を消す*/
-}
-
-
 
 .uName{
   position: relative ; 
@@ -73,8 +50,7 @@ img.userIcon {
   bottom  : 22px;
 }
 
-.profile{
-  position: relative ; 
-  left : 43px;
-  bottom  : 42px;
+.follow-btn-group{
+  padding-top: 6%;
+  padding-right: 3%;
 }

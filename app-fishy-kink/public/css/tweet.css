@@ -10,7 +10,7 @@ input, button, textarea, select {
     appearance: none;
 }
 
-ul {
+ul.tw {
     list-style: none;
     display: flex;
 }
@@ -27,7 +27,6 @@ textarea {
 textarea:focus  {
     border: 2px solid rgb(165, 160, 160);
 }
-
 
 
 .tweetText {
@@ -64,23 +63,23 @@ label {
     opacity: 0.8;
     cursor: pointer;
     display: block;
-  }
-  
-  label:hover {
-    opacity: 1;
-  }
-  
-  #tweetFile {
-    display: none;
-  }
-  
-  #replyFile {
-    display: none;
-  }
+}
 
-  #quoteReTweetFile {
-      display: none;
-  }
+label:hover {
+    opacity: 1;
+}
+
+#tweetFile {
+    display: none;
+}
+
+#replyFile {
+    display: none;
+}
+
+#quoteReTweetFile {
+    display: none;
+}
 
 .filelabel {
     margin-left: 250px;

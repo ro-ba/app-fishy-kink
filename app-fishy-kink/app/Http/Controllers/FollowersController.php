@@ -18,6 +18,7 @@ class FollowersController extends Controller
     {
         $db = connect_mongo();
         $id = $request->input("user");
+        $users = [];
         $user = $db["userDB"] -> findOne(["userID" => $id]);
         if (is_null($id) or $id == session("userID") or is_null($user)){
             $id =  session("userID");

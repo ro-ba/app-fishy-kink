@@ -1,0 +1,55 @@
+.noFollow{
+    resize: none;
+    width: 160px;
+    border: 2px solid #ccc;
+    padding: 10px;
+    transition: border 0.5s;
+    border-radius: 5px;
+    font-size: 13px;
+    background: snow;
+    color: dimgray;
+}
+.nowFollow{
+    resize: none;
+    width: 160px;
+    border: 2px solid #3cb371;
+    padding: 10px;
+    transition: border 0.5s;
+    border-radius: 5px;
+    font-size: 13px;
+    background: mediumseagreen;
+    color:  snow;
+}
+.noFollow:focus,.nowFollow:focus{
+    outline:0;
+}
+.noFollow:hover{
+    resize: none;
+    width: 150px;
+    border: 2px solid #87cefa;
+    border: none;
+    padding: 10px;
+    transition: border 0.5s;
+    border-radius: 5px;
+    font-size: 13px;
+    background: lightskyblue;
+    color:  snow;
+}
+.nowFollow:hover{
+    resize: none;
+    width: 150px;
+    border: 2px solid #cccccc;
+    padding: 10px;
+    transition: border 0.5s;
+    border-radius: 5px;
+    font-size: 13px;
+    background: #cccccc;
+    color:  black;
+
+}
+
+.mini-loader{
+    display: none;
+    position: relative;
+    left: 10px;
+}

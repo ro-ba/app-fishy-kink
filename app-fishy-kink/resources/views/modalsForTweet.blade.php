@@ -105,14 +105,10 @@
 <div class="modal js-modal">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
-    <a class="js-modal-close" href="" style="position:relative; float:right; right:0; margin: 0 0 0 auto; color:gray;"><span class="oi oi-x"></span></a>
+    <div class="js-modal-close text-right" href="">×</div>
       <div>
-        <p>本当にいいですか？</p>
-        <tr></tr>
-        <input name='check' type='checkbox'/>
-        <tr></tr>
-        <button type="button" class='tweetDelete link_button btn page-link text-dark d-inline-block' >削除</button>
-        
+        <p class="alert-warning text-center">本当にいいですか？</p>
+        <button type="button" class='tweetDelete link_button btn page-link text-dark mx-auto'>削除</button>
       </div>
-    </div>
+    </div> 
 </div>
