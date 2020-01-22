@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="shortcut icon" href="">
+<link rel="shortcut icon" href="images/FKicon.png">
 <link rel="stylesheet" href="css/search.css" >
 <link rel="stylesheet" href="css/user.css" >
 <link rel="stylesheet" href="css/tweet.css">
