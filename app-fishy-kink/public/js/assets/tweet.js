@@ -766,10 +766,6 @@ function closeQuoteReTweetFileAlert()
 }
 
 
-var deleteTweetID;
-
-
-
 /******************************************************************* tweet一件分のJSONからエレメントを生成*******************************************************************/
 function createTweetElement(tweet) {
 
