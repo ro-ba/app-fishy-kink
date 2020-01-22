@@ -814,13 +814,8 @@ function createTweetElement(tweet) {
 
         if (session["userID"] == tweet["userID"]) {
             tweetDocument += `
-            <ul class="menu" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
-                <li>
-                    <a class="oi oi-menu" hreaf="#"></a>
-                    <ul>
-                        <a class="tweDel" id="tweDel"` + count + `" href="#">ツイート削除</a>
-                    </ul>
-                </li>
+            <ul class="tweDel" id="tweDel"` + count + `" style="position:relative; float:right; right:0; margin: 0 0 0 auto;">
+                <a class="oi oi-x"></a>
             </ul>`;
         }
 
@@ -923,6 +918,7 @@ $(function () {
         }).done(function (result)
         {
             console.log(result["message"]);
+            $('.js-modal').fadeOut();
             window.location.reload();
 
         }).fail(function (err)
