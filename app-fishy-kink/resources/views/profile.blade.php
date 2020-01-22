@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/profile.css">
+<link rel="stylesheet" type="text/css" href="css/modal.css">
 <link rel="shortcut icon" href="images/FKicon.png">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
@@ -79,13 +80,6 @@
     <div class="my-profile"> 
       <p class="pro-content">{{ $userData["profile"] }}</p>    
     </div>
-    <!-- <hr /> -->
-    <!-- <div class="loader"></div>
-    <div class="row tweets">
-      <div id="leftContents" class="col-sm-3"></div>
-      <div id="centerContents" class="col-sm-6"></div>
-      <div id="rightContents" class="col-sm-3"></div>
-    </div>        -->
   
     <div class="loader">Loading...</div>
     <div class="row tweets">
@@ -98,6 +92,8 @@
     <a>ユーザーが存在しません。</a>
     <button onclick="location.href='/'">戻る</button>
   @endisset
+
+  @include('modalsForTweet')
   </div>       
 </body>
 <script>

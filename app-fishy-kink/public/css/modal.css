@@ -222,13 +222,12 @@ ul li {
 }
 
 /* 以下ボタンスタイル */
-button {
-    /* padding: 10px; */
+/* button {
     background-color: #fff;
     border: 1px solid #282828;
     border-radius: 2px;
     cursor: pointer;
-}
+} */
 
 #replySend {
     margin: 2px 0 0 0;

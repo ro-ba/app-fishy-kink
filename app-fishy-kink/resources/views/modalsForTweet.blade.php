@@ -19,7 +19,7 @@
 
                       </label>
                       <div class="t-submit">
-                          <li><button type=button id = newTweet class="newTweet" disabled=true> tweet </button></li>
+                          <li><button type=button id = newTweet class="newTweet link_button btn page-link text-dark d-inline-block" disabled=true> tweet </button></li>
                       </div>
                     </ul>
               </div>
@@ -54,7 +54,7 @@
               <input type="file" id="replyFile" name="replyImage[]" accept="image/*" onchange="loadImage(this , 'reply');" multiple/>
 
             </label>
-            <li><button type=button id="replySend" disabled=true>送信</button></li>
+            <li><button type=button id="replySend" class="link_button btn page-link text-dark d-inline-block" disabled=true>送信</button></li>
           </ul>
         </div>
         <div id="reply-image"></div>
@@ -87,8 +87,9 @@
               <input type="file" id="quoteReTweetFile" name="quoteReTweetImage[]" accept="image/*" onchange="loadImage(this , 'quoteReTweet');" multiple/>
 
             </label>
-            <li><button type=button id="quoteReTweetSend" disabled=true>送信</button></li>
-          </ul>
+            <div id="parentTweet2"></div>
+            <li><button type=button id="quoteReTweetSend" class="link_button btn page-link text-dark d-inline-block" disabled=true>送信</button></li>
+          <!-- </ul> -->
         </div>
         <div id="quoteReTweet-image"></div>
     </form>
@@ -104,13 +105,14 @@
 <div class="modal js-modal">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
+    <a class="js-modal-close" href="" style="position:relative; float:right; right:0; margin: 0 0 0 auto; color:gray;"><span class="oi oi-x"></span></a>
       <div>
         <p>本当にいいですか？</p>
         <tr></tr>
         <input name='check' type='checkbox'/>
         <tr></tr>
-        <button type="button" class='tweetDelete' >削除</button>
-        <a class="js-modal-close" href="">閉じる</a>
+        <button type="button" class='tweetDelete link_button btn page-link text-dark d-inline-block' >削除</button>
+        
       </div>
     </div>
 </div>
