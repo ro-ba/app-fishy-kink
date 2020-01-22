@@ -34,3 +34,184 @@
   body {
     font-family:'Avenir','Helvetica, Neue','Helvetica','Arial';
   }
+<<<<<<< HEAD
+=======
+  
+  
+  /* tweetモーダル */
+  
+  textarea {
+    width: 90%;
+    resize: none;
+  }
+  
+  .tweetArea {
+    visibility: hidden; /* displayではなくvisibility */
+    opacity : 0;
+    position: fixed;
+    z-index: 10; /* サイトによってここの数値は調整 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .tweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .tweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .tweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  /* replyモーダル */
+  .replyArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .replyBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .replyWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeReply {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .reply-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  
+  /* 引用リツイート */
+  .quoteReTweetArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+  }
+  
+  .quoteReTweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+  }
+  
+  .quoteReTweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+  }
+  
+  .closeQuoteReTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .quoteReTweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+  }
+  
+  /* 以下ボタンスタイル */
+  button {
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #282828;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  
+  #replySend {
+    margin: 2px 0 0 0;
+    padding: 10px 20px;
+    transition: .1s;
+  }
+  
+  #replySend:hover {
+    background-color: #eee;
+  }
+
+
+
+  .modal{
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.modal__bg{
+    background: rgba(0,0,0,0.1);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+.modal__content{
+    background: #fff;
+    left: 50%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+}
+>>>>>>> e8cf193f5065be96e7777599b294ca4416faa68a
