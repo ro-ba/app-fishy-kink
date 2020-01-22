@@ -393,9 +393,9 @@ function replyWindow()
     const modalBg = document.getElementById('replyBg');
     const sendButton = document.getElementById('replySend');
     var toggle = [];
-    toggle.push(closeModal);
-    toggle.push(modalBg);
-    toggle.push(sendButton);
+    console.log(closeModal);
+    console.log(modalBg);
+    console.log(sendButton);
     for (let i = 1; i < count; i++)
     {
         toggle.push(document.getElementById('reply' + i));
