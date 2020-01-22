@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 require "/vagrant/source/func/FKMongo.php";
 
-class DeleteTweetController extends Controller
+class GetOriginTweetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,6 @@ class DeleteTweetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -38,17 +28,9 @@ class DeleteTweetController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $tweetID = new \MongoDB\BSON\ObjectId($request["tweetID"]);
-        \Log::info($request);
-        \Log::info($db["tweetDB"] -> findOne(["_id" => $tweetID]));
-        if (!empty($db["tweetDB"] -> findOne(["_id" => $tweetID]))){
-            $db["tweetDB"]->updateOne(["_id" => $tweetID],['$set' => ["showFlg" => False]]);
-            $return = "success";
-        }else{
-            $return = "failure";
-        }
-        
-        return ["message" => $return];
+        $tweetID = new \MongoDB\BSON\ObjectId($request->input("tweetID")['$oid']);
+        $tweet = $db["tweetDB"] -> findOne(["_id" => $tweetID]);
+        return ["tweet"=> $tweet];
     }
 
     /**
@@ -58,17 +40,6 @@ class DeleteTweetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

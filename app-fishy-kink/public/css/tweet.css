@@ -145,3 +145,38 @@ label {
     margin: 0 5px;
     object-fit: cover;
 }
+
+.menu > li.menu__single {
+    position: relative;
+}
+
+li.menu__single ul.menu__second-level {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    background: #072A24;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+li.menu__single:hover ul.menu__second-level {
+    top: 50px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.accordion .inner {
+  display: none;
+}
+
+.accordion p {
+  cursor: pointer;
+}
+
+.accordion {
+  display: inline;
+}
+
+.inner button {
+    padding: 10px;
+}

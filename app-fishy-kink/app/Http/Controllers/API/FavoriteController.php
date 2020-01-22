@@ -59,7 +59,8 @@ class FavoriteController extends Controller
             //更新
             $db["tweetDB"]->updateOne(["_id" => $tweetID], ['$set' => ["favoUser" => $fablist]]);
         }
-        return ["message" => $return];
+
+        return ["message" => $return, "count" => count($fablist)];
     }
 
     /**
