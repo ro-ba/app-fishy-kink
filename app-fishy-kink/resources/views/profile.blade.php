@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/profile.css">
+<link rel="shortcut icon" href="images/FKicon.png">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 <link rel="stylesheet" href="css/loader.css">
@@ -68,9 +69,8 @@
         <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
              
         <ul class="follows">
-                <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
-                <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
-
+              <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
+              <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
             <li><button class="btn-real-dent" onclick="location.href='/'">戻る</button></li>
         <ul>
 

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>ログイン</title>
 <link rel="stylesheet" href="css/login.css">
+<link rel="shortcut icon" href="images/FKicon.png">
 <link href="https://fonts.googleapis.com/css?family=Caveat|Josefin+Sans|Vibes&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Dosis|Inconsolata|Josefin+Sans|Turret+Road&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>

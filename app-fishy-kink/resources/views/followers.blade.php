@@ -8,6 +8,7 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/Follow.css">
+<link rel="shortcut icon" href="images/FKicon.png">
 
 <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
@@ -29,6 +30,7 @@
         <label class="tab_item2" for="follower">フォロワー</label>
 
         <div class="tab_content" id="followerS_content">
+        @isset($users)
             @foreach( $users as $user)
                 <ul class ="list_none">
                     <li>
@@ -48,6 +50,7 @@
                     </li>
                 </ul>
             @endforeach
+        @endisset    
         </div>
     <div>
     @isset($_GET['user'])
