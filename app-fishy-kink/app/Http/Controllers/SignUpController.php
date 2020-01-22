@@ -75,7 +75,8 @@ class SignUpController extends Controller
             "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
             "follow" => [],
             "follower" => [],
-            "profile" => "よろしくおねがいします。！。！"
+            "profile" => "よろしくおねがいします。！。！",
+            "firstLogin" => true
         ]);
         //loginに画面遷移した際に必要な情報を渡す
         $message = ["success","ユーザー登録に成功しました。"];

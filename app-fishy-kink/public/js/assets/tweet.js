@@ -906,9 +906,7 @@ function createTweetElement(tweet)
     tweetDocument += `
     <div class="accordion">
         <button class=reTweet type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-loop" style="color: ${iconColor} ;"></span> </button>
-        ${tweet["retweetUser"].length}
-
-
+        <div class="retweet-count d-inline">${tweet["retweetUser"].length}</div>
 
         <div class="inner">
         <button class=normalReTweet type=button> ${reTweetText}</button>
@@ -927,7 +925,7 @@ function createTweetElement(tweet)
     }
     tweetDocument +=
         `<button class=favo type=button style="margin:3% 2% 1% 20%;border:none;"><span class="oi oi-heart" style="color:${iconColor};"></span> </button>
-        ${tweet["favoUser"].length}
+        <div class="favorite-count d-inline">${tweet["favoUser"].length}</div>
         `;
     tweetDocument += '</div>';
     tweetDocument += '</div>';

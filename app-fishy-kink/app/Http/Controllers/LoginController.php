@@ -41,13 +41,23 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
-        $return = login($request, $db);
+        // dd($db["userDB"]->findOne(["userID" =>"takuwa"]));
         if(session('userID')){
             return redirect("home");
         }else{
-            $oldID = $return["userID"];
-            $message = $return["message"];
-            return view("login",compact("oldID","message"));
+            $return = login($request, $db);
+            if ($return != null){
+                $oldID = $return["userID"];
+                $message = $return["message"];
+                return view("login",compact("oldID","message"));
+            }else{
+                $db = connect_mongo();
+                if ($db["userDB"]->findOne(["userID"=>$request["userID"]])["firstLogin"] == true){
+                    return redirect("welcome");
+                }else{
+                    return view("home");
+                }
+            }
         }
         // return redirect("home");
         

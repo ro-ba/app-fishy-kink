@@ -19,7 +19,7 @@
   let userID = "";
   let session = { "userID" :"{{ session('userID') }}"};
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
-  let mini_loader = "{{ asset('images/tail-spin.svg')}}"
+  let mini_loader = "{{ asset('images/tail-spin.svg')}}";
 </script>
 </head>
 

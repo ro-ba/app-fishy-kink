@@ -17,9 +17,14 @@ class WelcomeController extends Controller
     public function index()
     {
         $db = connect_mongo();
-        $recommend_users = reco($db)["reco"];
+        if( session('userID') && !$db["userDB"] -> findOne( ["userID"=>session("userID")] )["firstLogin"] ) {
+            return redirect("home");
+        }else{
+            $recommend_users = reco($db)["reco"];
+            $db["userDB"] -> updateOne( ["userID"=>session("userID")],['$set' => ["firstLogin" => false]]);
+            return view("welcome",compact("recommend_users"));
+        }
         
-        return view("welcome",compact("recommend_users"));
     }
 
     /**

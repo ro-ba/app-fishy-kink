@@ -21,19 +21,6 @@
   <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
   <link rel="stylesheet" href="css/loader.css">
 
-  <style>
-    .accordion .inner {
-      display: none;
-    }
-
-    .accordion p {
-      cursor: pointer;
-    }
-
-    .accordion {
-      display: inline;
-    }
-  </style>
 
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 
@@ -50,11 +37,23 @@
 <body>
   @include('NaviMenu')
 
-@isset($userData)
-    <div class="profile">
-      <div class=wrap>
-        <div class="image">
-          <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+  @isset($userData)
+  <div class="profile">
+    <div class=wrap>
+      <div class="image">
+        <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+      </div>
+
+      <ul class="user">
+        <li class="user-name">{{ $userData["userName"] }}</li>
+        @if(!$isShowSettings)
+        <div class="for-follow" style="display:inline;">
+          @if($nowFollow == False)
+          <button type="button" class="Follow-button noFollow">フォローしていません</button>
+          @else
+          <button type="button" class="Follow-button nowFollow">フォロー中</button>
+          @endif
+          <img class="mini-loader" src="{{ asset('images/tail-spin.svg')}}" width="32" height="32" />
         </div>
         @endif
         @if($isShowSettings)

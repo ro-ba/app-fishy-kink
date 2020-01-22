@@ -39,11 +39,15 @@ function set_userName ($db) {
 function set_showFlg($db){
     $db["tweetDB"]->updateMany([],['$set' => ["showFlg" => True]]);
 }
+function set_firstLogin($db){
+    $db["userDB"]->updateMany([],['$set' => ["firstLogin" => false]]);
+}
 
 $db = connect_mongo();
 set_originTweetId($db);
 rename_field($db);
 set_userName($db);
 set_showFlg($db);
+set_firstLogin($db);
 
 ?>
