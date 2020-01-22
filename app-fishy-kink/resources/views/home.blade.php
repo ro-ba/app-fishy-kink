@@ -25,7 +25,6 @@
   let session = { "userID" :"{{ session('userID') }}"};
   let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
 </script>
-<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <!-- ↓body閉じタグ直前でjQueryを読み込む -->
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -43,6 +42,7 @@
     @include('modalsForTweet')
 </body>
 </html>
+<script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 <script>
 /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
 $(function () { // 遅延処理
