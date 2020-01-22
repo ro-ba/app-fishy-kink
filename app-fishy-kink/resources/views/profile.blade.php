@@ -46,7 +46,7 @@
 
 @isset($userData)
     <div class="profile">
-      <div id=wrap>
+      <div class=wrap>
         <div class="image">
           <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
         </div>

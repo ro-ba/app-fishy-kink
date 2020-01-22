@@ -37,12 +37,12 @@ input[type="file"] {
     cursor: pointer;
 }
 
-#wrap {
+/* #wrap {
     width: 100%;
     height: auto;
     text-align: center;
     margin: 40px auto;
-}
+} */
 
 .myTweet {
     margin: 0 0 10px 0;
