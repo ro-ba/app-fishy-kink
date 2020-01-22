@@ -26,6 +26,7 @@ class FollowersController extends Controller
         foreach($userProfile["follower"] as $followerid){
             //すべてのフォロワーを配列usersに挿入
             $users[] = iterator_to_array($db["userDB"] -> findOne(["userID" => $followerid]));  
+            
         }
         return view("followers",compact("users"));
 
