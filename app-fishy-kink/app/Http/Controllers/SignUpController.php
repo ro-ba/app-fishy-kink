@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Rules\UserExists;
 use App\Rules\ValidateUserID;
 use App\Rules\ValidatePassword;
-use App\Rules\ISEqualToString;
+use App\Rules\IsEqualToString;
 require "/vagrant/source/kouki/signup.php";
 require "/vagrant/source/func/FKMongo.php";
 require "/vagrant/source/func/FKHash.php";
