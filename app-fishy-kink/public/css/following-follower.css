@@ -1,0 +1,74 @@
+/*タブ切り替え全体のスタイル*/
+.tabs {
+    margin-top: 40px; 
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 600px;
+    margin: 0 auto;
+  }
+
+/*タブのスタイル*/
+.tab_item1 {
+  width: calc(100%/2);
+  height: 50px;
+  border-bottom: 3px solid #5ab4bd;
+  background-color: #d9d9d9;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #565656;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+/*タブのスタイル*/
+.tab_item2 {
+  width: calc(100%/2);
+  height: 50px;
+  border-bottom: 3px solid #5ab4bd;
+  background-color: #d9d9d9;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #565656;
+  display: block;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+/* ラジオボタン削除 */
+  input[name="tab_item"] {
+    display: none;
+  }
+
+  
+
+/*選択されているタブのコンテンツのみを表示*/
+#follow.checked ~ #follow_content,
+#follow.checked ~ #follow_content,
+#follower.checked ~ #followerS_content {
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+
+.tabs input.checked + .tab_item1 {
+    background-color: #5ab4bd;
+    color: #fff;
+}
+
+.tabs input.checked + .tab_item2 {
+
+  background-color: #5ab4bd;
+  color: #fff;
+}
+
+.return-button {
+  margin:10px;
+}
+

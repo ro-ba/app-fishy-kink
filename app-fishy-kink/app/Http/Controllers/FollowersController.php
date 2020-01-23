@@ -14,14 +14,23 @@ class FollowersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $id = session("userID");
-        $FishyKink = connect_mongo();
-        $followData = dbUser($FishyKink,$id);
+        $db = connect_mongo();
+        $id = $request->input("user");
+        $users = [];
+        $user = $db["userDB"] -> findOne(["userID" => $id]);
+        if (is_null($id) or $id == session("userID") or is_null($user)){
+            $id =  session("userID");
+        }
+        $userProfile = $db["userDB"] -> findOne(["userID" => $id]);
+        foreach($userProfile["follower"] as $followerid){
+            //すべてのフォロワーを配列usersに挿入
+            $users[] = iterator_to_array($db["userDB"] -> findOne(["userID" => $followerid]));  
+            
+        }
+        return view("followers",compact("users"));
 
-        return view("followers",compact("followData"));
-        
     }
 
     /**

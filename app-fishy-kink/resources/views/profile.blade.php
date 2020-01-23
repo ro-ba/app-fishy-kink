@@ -1,88 +1,129 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>myPage</title>
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
-<link rel="stylesheet" type="text/css" href="css/myPage.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>profile</title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
+  <link rel="stylesheet" type="text/css" href="css/follow-button.css">
+  <link rel="stylesheet" type="text/css" href="css/profile.css">
+  <link rel="stylesheet" type="text/css" href="css/tweet.css">
+  <link rel="shortcut icon" href="images/FKicon.png">
+  <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/loader.css">
+
+
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+
+  <script type="text/javascript">
+    let userID = "{{ $userData['userID'] }}";
+    let session = {
+      "userID": "{{ session('userID') }}"
+    };
+    let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
+  </script>
+  <script type="text/javascript" src="{{ asset('js/assets/tweet.js') }}"></script>
 </head>
+
 <body>
-@isset($userData)
-    <div>
-        <div class="userData">
-            <img id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
-            <p id="usenName">ユーザー {{ $userData["userName"] }}</p>
-            <p id="userId"><span>@</span>{{ $userData["userID"] }}</p>
+  @include('NaviMenu')
+
+  @isset($userData)
+  <div class="profile">
+    <div class=wrap>
+      <div class="image">
+        <img class="myicon" id="myIcon" src='{{ $userData["userImg"] }}' alt="myIcon" />
+      </div>
+
+      <ul class="user">
+        <li class="user-name">{{ $userData["userName"] }}</li>
+        @if(!$isShowSettings)
+        <div class="for-follow" style="display:inline;">
+          @if($nowFollow == False)
+          <button type="button" class="Follow-button noFollow">フォローしていません</button>
+          @else
+          <button type="button" class="Follow-button nowFollow">フォロー中</button>
+          @endif
+          <img class="mini-loader" src="{{ asset('images/tail-spin.svg')}}" width="32" height="32" />
         </div>
-        @if ( isset ($userData["follow"]) )
-
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>{{ count($userData["follow"]) }}人</p>
-        @else
-            <button type="button" onclick="location.href='/followers'">フォロー<span class="follow"></span>0人</p>
         @endif
-        
-        @if ( isset ($userData["follower"]) )
-            <p class="follower">フォロワー<span></span>{{ count($userData["follower"]) }} 人</p>
-        @else
-            <button type="button" onclick="location.href='/following'">フォロー<span class="follower"></span>0人</p>
-            <p class="follower">フォロワー<span></span>0人</p>
+        @if($isShowSettings)
+        <li class="user-edit"><input class="setButton" type="button" onclick="location.href='/settings'" value="プロフィール変更" /></li>
         @endif
+      </ul>
 
-        <input class="setButton" type="button" onclick="location.href='/setting'" value="プロフィール変更" />
-    </div>
-    <div class="profile">
-        <p>プロフィール</p>
-           <p>{{ $userData["profile"] }}</p>
-    </div>
-    <div class="tweet">
-        <p >ツイート</p>
-        <div style="height:400px; width:900px; overflow-y:scroll;">
-            <table height="100" width="600">
-                @isset($tweetData)
+      <div class="user-id"><span>@</span>{{ $userData["userID"] }}</div>
 
-                @foreach ( $tweetData as $tweet)
-                <div class="tweetTop card-header">
-                    @if ($tweet["type"] == "retweet")
-                        <div class="retweet-user">{{ $tweet["userID"] }}さんがリツイートしました</div>
+      <ul class="follows">
+        <li class="follow"><button type="button" onclick="location.href='/following?user={{$userData['userID'] }} '">フォロー中 <span></span>{{ count($userData["follow"]) }} 人</button></li>
+        <li class="follower"><button type="button" onclick="location.href='/followers?user={{$userData['userID'] }} '">フォロワー <span></span>{{ count($userData["follower"]) }} 人</button></li>
+        <li><button class="btn-real-dent" onclick="location.href='/'">戻る</button></li>
+        <ul>
 
-                    @endif
-                    <div class="tweet-user"> {{ $tweet["userID"] }} </div>
-                        <div class="time"> {{ $tweet["time"] }}</div>
-                                <!-- <div class="date">{{ explode(" ",$tweet["time"])[0] }}</div> 　
-                                <div class="time">{{ explode(" ",$tweet["time"])[1] }}</div> -->
-                        </div>
-                        <div class="tweetMain card-body">
-                            {{ $tweet["text"] }}
-                        </div>
-                        <div class="tweetBottom d-inline">
-                            <div class="reply d-inline-block">
-                                <image src="images/reply.jpg"/>
-                            </div>
-                            <div class="retweet d-inline-block">
-                                <image src="images/retweet.png"/>
-                            </div>
-                            <div class="fab d-inline-block">
-                                <image src="images/fabo.jpg"/>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach           
-                @else
-                    <p id=error_tweet >ツイートがありません</p>
-                @endisset
-            </table>
-        </div>
     </div>
-    <input class="btn btn-success" type="button" onclick="location.href='/home'" value="戻る">
+
+    <div class="my-profile">
+      <p class="pro-content">{{ $userData["profile"] }}</p>
+    </div>
+
+    <div class="loader">Loading...</div>
+    <div class="row tweets">
+      <div class="leftContents col-sm-3"></div>
+      <div class="centerContents col-sm-6"></div>
+      <div class="rightContents col-sm-3"></div>
+    </div>
+
     @else
-    <p id="error">エラー</p>
+    <a>ユーザーが存在しません。</a>
+    <button onclick="location.href='/'">戻る</button>
     @endisset
+
+    @include('modalsForTweet')
+  </div>
 </body>
+<script>
+  // /******************************************************************* ページ読み込んだ瞬間に実行される *******************************************************************/
+  $(function() { // 遅延処理
+    $.ajax({
+      type: 'POST',
+      url: '/api/reloadTweets', // url: は読み込むURLを表す
+      dataType: 'json', // 読み込むデータの種類を記入
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      data: {
+        userID: userID
+      },
+      cache: false
+    }).done(function(results) {
+      // 通信成功時の処理
+      result = results;
+      dispTweets(result);
+    }).fail(function(err) {
+      // 通信失敗時の処理
+      alert('ファイルの取得に失敗しました。');
+    });
+  });
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/navMenu.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/follow.js') }}"></script>
+
+<script>
+  //ボタンを押したらフォローする　または　フォローを外す
+  $(function() {
+    $(".Follow-button").click(function() {
+      follow(userID, $(this));
+    });
+  });
+</script>
 
 </html>

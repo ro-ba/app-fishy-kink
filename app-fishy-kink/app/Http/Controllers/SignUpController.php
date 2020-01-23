@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Rules\UserExists;
 use App\Rules\ValidateUserID;
 use App\Rules\ValidatePassword;
+use App\Rules\ISEqualToString;
 require "/vagrant/source/kouki/signup.php";
 require "/vagrant/source/func/FKMongo.php";
 require "/vagrant/source/func/FKHash.php";
@@ -47,11 +48,17 @@ class SignUpController extends Controller
     public function store(Request $request)
     {
         $db = connect_mongo();
+        
+        $password = $request->input("password");
+        if (is_null($password)){    //パスワードが入力されてなければnullから文字列""に変換する
+            $password = "";
+        }
         //validation
         $validator = $request->validate([
             "username" => ["min:1"],
             "userID" => [new UserExists($db), new ValidateUserID(), "required"],
             "password" => ["required", new ValidatePassword(), "between:4,20"],
+            "password-again" => [new IsEqualToString($password)],
         ]);
         //saltを生成して、パスワードをハッシュ化
         $salt = generate_salt();
@@ -68,7 +75,8 @@ class SignUpController extends Controller
             "userImg" => 'data:image/' . $ext . ';base64,' . $encode_img,
             "follow" => [],
             "follower" => [],
-            "profile" => "よろしくおねがいします。！。！"
+            "profile" => "よろしくおねがいします。！。！",
+            "firstLogin" => true
         ]);
         //loginに画面遷移した際に必要な情報を渡す
         $message = ["success","ユーザー登録に成功しました。"];

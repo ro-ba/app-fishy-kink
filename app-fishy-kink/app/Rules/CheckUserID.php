@@ -42,6 +42,6 @@ class CheckUserID implements Rule
      */
     public function message()
     {
-        return 'ユーザIDが間違っているか登録されていません';
+        return 'ユーザIDが間違っているか登録されていません。';
     }
 }

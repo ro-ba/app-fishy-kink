@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+require "/vagrant/source/pigHuman/myPage.php";
+
+require "/vagrant/source/func/FKMongo.php";
 
 class FollowingController extends Controller
 {
@@ -11,9 +14,23 @@ class FollowingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $db = connect_mongo();
+        $id = $request->input("user");
+        $users = [];
+        $user = $db["userDB"] -> findOne(["userID" => $id]);
+        if (is_null($id) or $id == session("userID") or is_null($user)){
+            $id =  session("userID");
+        }
+        $userProfile = $db["userDB"] -> findOne(["userID" => $id]);
+        foreach($userProfile["follow"] as $followerid){
+            //すべてのフォロワーを配列usersに挿入
+            $users[] = iterator_to_array($db["userDB"] -> findOne(["userID" => $followerid]));  
+        }
+        return view("following",compact("users"));
+
     }
 
     /**

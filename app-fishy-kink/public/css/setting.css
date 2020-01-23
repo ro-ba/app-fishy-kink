@@ -1,0 +1,149 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+input, button, textarea, select {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border:2px solid #ccc;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 2px;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    padding: 5px;
+    resize: none;
+}
+
+.content{
+    margin: 0 auto;
+    padding: 40px;
+}
+.modal{
+    display: none;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.modal__bg{
+    background: rgba(0,0,0,0.8);
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+.modal__content{
+    background: #fff;
+    left: 50%;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+}
+
+.userEdit {
+    width: 90%;
+    height: auto;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.userData {
+    width: 600px;
+    height: auto;
+    margin: 10px auto 0 auto;
+}
+
+#file {
+    display: none;
+}
+
+.filelabel img {
+    border-radius: 50%;
+    border: 1px solid #eee;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.userInfo {
+    width: 300px;
+    height: auto;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.userInfo .userId {
+    margin: 0 0 12px 0;
+}
+
+.userInfo input {
+    transition: border .2s;
+}
+
+.userInfo input:focus {
+    border: 2px solid rgb(165, 160, 160);
+}
+
+.profile {
+    margin: 0 0 0 0;
+}
+
+.profile textarea {
+    transition: border .2s;
+}
+
+.profile textarea:focus {
+    border: 2px solid rgb(165, 160, 160);
+}
+
+.profile h6 {
+    margin: 0 0 5px 10px;
+    text-align: left;
+}
+
+.content {
+    width: 100%;
+    height: auto;
+    text-align: right;
+}
+
+.content input[type="submit"] {
+    padding: 10px 20px;
+    color: #fff;
+    border: 1px solid #83ccd2;
+    background-color: #83ccd2;
+}
+
+.content input[type="submit"]:hover {
+    background-color: #48c9d4;
+}
+
+.content input[type="button"] {
+    margin: 0 0 0 10px;
+    padding: 10px 20px;
+    border: 1px solid #000;
+}
+
+.content input[type="button"]:hover {
+    background-color: #eee;
+}
+
+.remove {
+    margin: 10px 0 0 470px;
+}
+ 

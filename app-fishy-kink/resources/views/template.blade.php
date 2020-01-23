@@ -9,7 +9,7 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="">
-<link rel="shortcut icon" href="">
+<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}">
 </head>
 <body>
 </body>

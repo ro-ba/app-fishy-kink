@@ -1,0 +1,173 @@
+body {
+  background-color: #fafafa;
+}
+
+input, button, textarea, select {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-weight:lighter;
+}
+
+input[type="text"], input[type="password"] {
+  font-size: 15px;
+}
+
+.main {
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 35px 0 40px 0;
+  font-size: 60px;
+  font-family: 'Vibes', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Caveat', cursive;
+}
+
+.content {
+  width: 580px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 35px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  /* box-shadow: 5px 10px 3px -3px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 7px 10px 3px -2px rgba(0,0,0,0.1);
+  -moz-box-shadow: 5px 10px 3px -2px rgba(0, 0, 0, 0.1); */
+}
+
+.title {
+  color: #000;
+  margin: 3px 0 20px 0;
+  padding: 10px;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+  font-family: 'Dosis', sans-serif;
+  font-family: 'Inconsolata', monospace;
+  font-family: 'Turret Road', cursive;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.err-message {
+  color: red;
+  font-size: 14px;
+  margin: 15px auto;
+  background-color: #f3f3f3;
+  border-radius: 3px; 
+  width: 60%;
+  height: auto;
+}
+
+.login-form .login .login-id input {
+  width: 60%;
+  height: auto;
+  margin: 0 auto 20px auto;
+  padding: 0 40px;
+}
+
+.login-form .login .login-password input {
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.login-form .login .login-id input,
+.login-form .login .login-password input{
+  border: 1.5px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 5px;
+  text-align: left;
+  transition: all 1s;
+}
+
+.login-form .login .login-id input:focus,
+.login-form .login .login-password input:focus {
+  border: 1.5px solid #83ccd2;
+}
+
+.login-submit input {
+  width: 40%;
+  color: rgb(90, 86, 86);
+  padding: 10px;
+  margin: 20px 0 20px 0;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login-submit input:hover {
+  color: #83ccd2;
+  /* background-color: #83ccd2; */
+  border: 1px solid #83ccd2;
+  border-radius: 5px;
+}
+
+.forgot {
+  margin-top: 10px;
+}
+
+.or {
+  position: relative;
+  display: inline-block;
+  width: 65%;
+  padding: 0 17%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.or::before, .or::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  display: inline-block;
+  width: 40%;
+  height: 3px;
+  border-top: 1px solid #ddd;
+}
+
+.or::before {
+  left: 0;
+}
+
+.or::after {
+  right: 0;
+}
+
+.signup input {
+  width: 40%;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  color: rgb(90, 86, 86);
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.signup input:hover {
+  color: #f8b862;
+  /* background-color: #f8b862; */
+  border: 1px solid #f8b862;
+  border-radius: 5px;
+}

@@ -1,0 +1,275 @@
+@import url("tweet.css");
+
+textarea {
+width: 90%;
+resize: none;
+}
+
+ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+} 
+
+#image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.tweetArea {
+    visibility: hidden; /* displayではなくvisibility */
+    opacity : 0;
+    position: fixed;
+    z-index: 10; /* サイトによってここの数値は調整 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+}
+
+.tweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+}
+
+.tweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+}
+
+.closeTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.tweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+}
+
+/* replyモーダル */
+.replyArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+}
+
+.replyBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+}
+
+.replyWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+}
+
+.closeReply {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.reply-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+}
+
+.reply-main {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.reply .reply-content {
+    padding: 4px;
+}
+
+.reply-info {
+    padding-left: 4px;
+    border-bottom: 1px solid #ccc;
+}
+
+.reply-usericon {
+    margin: 0 10px 2px 0;
+}
+
+.reply-userid {
+    margin: 0 20px 0 0;
+    font-size: 30px;
+}
+
+.reply-time {
+    margin: 12px 0 0 0;
+}
+
+.reply-text {
+    font-size: 20px;
+    padding: 0 0 4px 10px;
+    margin: 0 0 10px 0;
+}
+
+#tweetImage {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #eee;
+}
+
+#userImg {
+    object-fit: cover;
+}
+
+/* 引用リツイート */
+.quoteReTweetArea {
+    visibility: hidden; 
+    opacity : 0;
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+}
+
+.quoteReTweetBg {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+}
+
+.quoteReTweetWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+}
+
+.closeQuoteReTweet {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.quoteReTweet-show { /* モーダル表示用クラス */
+    visibility: visible;
+    opacity : 1;
+}
+
+.retweet {
+    width: 90%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.retweet .retweet-content {
+    padding: 4px;
+}
+
+.retweet-info {
+    padding-left: 4px;
+    border-bottom: 1px solid #ccc;
+}
+
+.retweet-usericon {
+    margin: 0 10px 2px 0;
+}
+
+.retweet-userid {
+    margin: 0 20px 0 0;
+    font-size: 30px;
+}
+
+.retweet-time {
+    margin: 12px 0 0 0;
+}
+
+.retweet-text {
+    font-size: 20px;
+    padding: 0 0 4px 10px;
+}
+
+/* 以下ボタンスタイル */
+
+#replySend {
+    margin: 2px 0 0 0;
+    padding: 10px 20px;
+    transition: .1s;
+}
+
+#replySend:hover {
+    background-color: #eee;
+}
+
+#quoteReTweetSend {
+    padding: 10px;
+    margin: 10px;
+}
+
+.contentReply li {
+    list-style: none;
+}
+
+
+/* tweet delete */
+
+.modal{
+    position: fixed;
+    z-index: 10; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.modal__bg{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.9);
+}
+
+.modal__content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    width: 70%;
+    max-width: 500px;
+    padding: 10px 30px;
+    background-color: #fff;
+}

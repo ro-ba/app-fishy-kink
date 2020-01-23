@@ -1,99 +1,62 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>welcome</title>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+   <link rel="shortcut icon" href="images/FKicon.png">
+  <link rel="stylesheet" href="">
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="font/css/open-iconic-bootstrap.css">
+    <link rel="stylesheet" href="css/welcome.css">
+    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" type="text/css" href="css/follow-button.css">
+  <script type="text/javascript">
+  let userID = "";
+  let session = { "userID" :"{{ session('userID') }}"};
+  let defaultIcon = "{{ asset('images/default-icon.jpg') }}";
+  let mini_loader = "{{ asset('images/tail-spin.svg')}}";
+</script>
+<!-- ↓body閉じタグ直前でjQueryを読み込む -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="welcome-message col-md-12">
+            <div class="display-2 text-center">さぁ　はじめよう</div>
         </div>
-    </body>
+        <div class="leftContents col-sm-3"></div>
+        <div class="centerContents col-sm-6">
+            <div class="alert-info text-center">おすすめのユーザーをフォローしてみよう</div>
+            <div class="recommend-user-list"></div>
+        </div>
+        <div class="rightContents col-sm-3"></div>
+
+        <button onclick="location.href='/home'" class="next-page-button border btn btn-default mx-auto" type="button">
+            FishyKinkを始める
+            <span class="oi oi-chevron-right"></span>
+            <span class="oi oi-chevron-right"></span>
+        </button>
+    </div>  
+</body>
+<script>
+    $(function(){
+        $(".welcome-message").fadeIn(3000);
+        $(".centerContents").fadeIn(5000);
+        $(".all-follow-button").fadeIn(5000);
+        $(".next-page-button").fadeIn(5000);
+    });
+</script>
+<script type="text/javascript" src="{{ asset('js/assets/user.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/assets/follow.js') }}"></script>
+<script>
+    dispUsers( @json($recommend_users) ,"recommend-user-list");
+</script>
+
 </html>

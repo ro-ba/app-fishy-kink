@@ -15,7 +15,6 @@ class TweetController extends Controller
      */
     public function index()
     {
-        return view("tweet");
         //
     }
 
@@ -37,7 +36,6 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        
         if(session('userID')){ 
             $db = connect_mongo();
             $tweetImg = [];
@@ -51,19 +49,27 @@ class TweetController extends Controller
                     $tweetImg[] = 'data:image/' . $ext . ';base64,' . $encode_img;
                 }
             }
-            // var_dump($tweetImg);
+            $name = $db["userDB"] -> findOne(["userID" => session("userID")])["userName"];
+            $time = date("Y/m/d H:i:s");
             $db["tweetDB"] -> insertOne([
             "type"          => "tweet",
             "text"          => $request->input("tweetText"),
             "userID"        => session('userID'),
-            "time"          => date("Y/m/d H:i:s"),
+            "userName"      => $name
+            "time"          => $time,
             "img"           => $tweetImg,
             "retweetUser"   => [],
-            "fabUser"       => [],
+            "favoUser"       => [],
             "originTweetID" => "",
-            "parentTweetID" => ""
+            "parentTweetID" => "",
+            "userImg"      => $db["userDB"] -> findOne(["userID" => session("userID")])["userImg"]
             ]); 
+            $tweetID = $db["tweetDB"]->findOne(["type" => "tweet","time" =>$time])["_id"];
+            $db["tweetDB"] -> updateOne(["_id" => $tweetID],['$set'=>["originTweetID" => $tweetID]]);
         }
+
+        return redirect("home");
+
     }
 
     /**

@@ -44,6 +44,6 @@ class UserExists implements Rule
      */
     public function message()
     {
-        return 'このIDは使われています';
+        return 'このIDは使われています。';
     }
 }

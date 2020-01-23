@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+require "/vagrant/source/func/FKSession.php";
+require "/vagrant/source/func/FKMongo.php";
+
 class NotifyController extends Controller
 {
     /**
@@ -13,7 +16,16 @@ class NotifyController extends Controller
      */
     public function index()
     {
-        //
+        $id = session("userID");
+        $FishyKink = connect_mongo();
+
+        $notifyList = $FishyKink["notifyDB"] -> find(["userID" => $id]);
+        $count = $FishyKink["notifyDB"] -> count(["userID" => $id , "readFlag" => false]);
+        $FishyKink["notifyDB"] -> updateMany(["userID" => $id],['$set' => ["readFlag" => true]]);
+
+        $userData = $FishyKink["userDB"] -> findOne(["userID" => $id]);
+        
+        return view("notify",compact("userData","notifyList","count"));
     }
 
     /**

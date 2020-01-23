@@ -16,17 +16,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(session('userID')){
-            $data = connect_mongo();
-            $tweets   = $data["tweetDB"]->find([],['sort' => ['time' => -1]]);
-            $userIcon = $data["userDB"] ->findOne(["userID"=>session("userID")])["userImg"];
-            return view("home",compact("tweets","userIcon"));
-            // return view("home",compact("tweets","userIcon"));
+            return view("home");
         }else{
             return redirect("login");
-        }
+        };
     }
 
     /**

@@ -57,6 +57,16 @@ Vagrant.configure("2") do |config|
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
   # end
+
+  config.vm.provider "virtualbox" do |vb|
+    # 割り当てるメモリー(MB)
+    vb.memory = 2048
+    # CPUの数
+    vb.cpus = 4
+    # I/O APICの有効化
+    vb.customize ["modifyvm", :id, "--ioapic", "on"]
+  end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -70,6 +80,11 @@ Vagrant.configure("2") do |config|
   # SHELL
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "./playbook/lamp.yml" 
+  end
+  if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http = "http://172.20.0.2:8080/"
+    config.proxy.https = "http://172.20.0.2:8080/"
+    config.proxy.no_proxy = "localhost,127.0.0.1"
   end
 
 
