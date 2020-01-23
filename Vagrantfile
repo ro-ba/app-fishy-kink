@@ -28,8 +28,8 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
-  config.vm.network "forwarded_port", guest: 80, host: 5000
-  config.vm.network "forwarded_port", guest: 8000, host: 8000 
+  config.vm.network "forwarded_port", guest: 80, host: 80
+  # config.vm.network "forwarded_port", guest: 8000, host: 8000 
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -60,7 +60,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     # 割り当てるメモリー(MB)
-    vb.memory = 2048
+    vb.memory = 4096
     # CPUの数
     vb.cpus = 4
     # I/O APICの有効化

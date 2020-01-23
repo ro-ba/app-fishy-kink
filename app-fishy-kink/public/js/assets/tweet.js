@@ -1,5 +1,5 @@
 var result;
-var tweetCount;
+var tweetCount = 0;
 var count = 1;
 var target;
 var tweetImage;
@@ -54,10 +54,10 @@ function startTweetAlert()
 
         }).done(function (results)
         {
-            var trueTweetCount;
+            var trueTweetCount = 0;
             results.forEach(function (tweet)
             {
-                if (results["showFlg"])
+                if (tweet["showFlg"])
                 {
                     trueTweetCount++;
                 }
@@ -190,7 +190,7 @@ function dispTweets(results, searchType = "")
     results.forEach(function (tweet)
     {
         $(doc).append(createTweetElement(tweet));
-        if (results["showFlg"])
+        if (tweet["showFlg"])
         {
             tweetCount++;
         }

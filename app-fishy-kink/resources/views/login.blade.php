@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="login-submit"><input type="submit" value="ログイン" /></div>
-                    <div class="forgot"><a href="/login">ID・パスワードを忘れた場合はこちら</a></div>
+                    <!--<div class="forgot"><a href="/login">ID・パスワードを忘れた場合はこちら</a></div> -->
 
                     <h4 class="or">または</h4>
 

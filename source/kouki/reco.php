@@ -20,7 +20,9 @@ function reco($db){
     $result = array_keys($result);
 
     foreach($result as $val){
-        array_push($data,["userID" => $val]);
+        if ($val != session("userID")){
+            array_push($data,["userID" => $val]);
+        }
     }
     $reco = $db ["userDB"] -> find(['$or' => $data],["projection" => ["_id" => 0, "password" => 0 , "salt" => 0]]);
     $result = [ "reco" => $reco -> toArray()];
